@@ -50,7 +50,6 @@ export class FieldUser extends Field<Props, State> {
         // Update the label properties
         let lblProps:ILabelProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
-        lblProps.value = lblProps.value || this.state.label;
 
         // Update the picker properties
         let pickerProps:IPeoplePickerProps = this.props.pickerProps || {} as IPeoplePickerProps;
@@ -68,7 +67,7 @@ export class FieldUser extends Field<Props, State> {
         // Render the component
         return (
             <div>
-                <Label {...lblProps as any} />
+                <Label {...lblProps as any}>{lblProps.value || this.state.label}</Label>
                 <NormalPeoplePicker {...pickerProps} />
             </div>
         );

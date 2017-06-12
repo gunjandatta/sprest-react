@@ -19644,7 +19644,6 @@ var FieldUser = (function (_super) {
         // Update the label properties
         var lblProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
-        lblProps.value = lblProps.value || this.state.label;
         // Update the picker properties
         var pickerProps = this.props.pickerProps || {};
         pickerProps.defaultSelectedItems = this.getDefaultPersonas();
@@ -19659,7 +19658,7 @@ var FieldUser = (function (_super) {
         };
         // Render the component
         return (React.createElement("div", null,
-            React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps)),
+            React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.value || this.state.label),
             React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, pickerProps))));
     };
     return FieldUser;

@@ -53,13 +53,13 @@ export class FieldLookup extends Field<Props, State> {
         let props:IDropdownProps = this.props.props || {};
 
         // Update the properties
+        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
         props.ref = "lookup";
-        props.selectedKey = this.getFieldValue();
 
         // See if this is a multi-lookup field
         if (this.state.fieldInfo.allowMultipleValues) {

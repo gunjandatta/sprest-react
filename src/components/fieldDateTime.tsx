@@ -60,7 +60,7 @@ export class FieldDateTime extends Field<Props, State> {
         return (
             <div>
                 <DatePicker {...props} />
-                {this.renderTime()}
+                {this.renderTime(props.value)}
             </div>
         );
     }
@@ -146,10 +146,12 @@ export class FieldDateTime extends Field<Props, State> {
     }
 
     // Method to render the time component
-    private renderTime = () => {
+    private renderTime = (date:Date) => {
         // See if we are showing the time component
         if (this.state.fieldInfo.showTime) {
             let props: IDropdownProps = this.props.timeProps || {};
+            let selectedHour = date ? date.getHours() : null;
+            let selectedMin = date ? date.getMinutes() : null;
 
             // Clear the options
             props.options = [];
@@ -165,6 +167,7 @@ export class FieldDateTime extends Field<Props, State> {
                     // Create the option
                     props.options.push({
                         key: i + "|" + j * 15,
+                        selected: i == selectedHour && j == selectedMin,
                         text: hour + ":" + ("00" + (j * 15)).slice(-2) + " " + (i < 12 ? "AM" : "PM")
                     });
                 }
@@ -174,6 +177,7 @@ export class FieldDateTime extends Field<Props, State> {
             props.onChanged = this.onTimeChanged;
             props.placeHolder = props.placeHolder || "Time";
             props.ref = "time";
+            props.selectedKey = selectedHour + "|" + selectedMin;
 
             // Return the time
             return (

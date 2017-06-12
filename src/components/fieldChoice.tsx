@@ -45,14 +45,23 @@ export class FieldChoice extends Field<Props, State> {
     renderField() {
         // Update the properties
         let props:IDropdownProps = this.props.props || {};
-        props.label = props.label || this.state.label;
-        props.defaultSelectedKey = props.selectedKey || this.getFieldValue();
+        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
+        props.label = props.label || this.state.label;
         props.onChanged = this.onChange;
-        props.options = props.options || this.state.choices;
+        props.options = this.state.choices;
         props.ref = "choice";
         props.required = props.required || this.state.fieldInfo.required;
+
+        // Parse the choices to set the default value
+        let defaultValue = this.props.defaultValue || props.defaultSelectedKey;
+        for(let i=0; i<props.options.length; i++) {
+            let option = props.options[i];
+
+            // Update the choice
+            option.selected = option.key == defaultValue;
+        }
 
         // Return the dropdown
         return (

@@ -57,7 +57,7 @@ export const Configuration = new Helper.SPConfig({
                 },
                 {
                     Name: "TestMultiUser",
-                    SchemaXml: '<Field ID="{35C91E16-6C53-4202-B4AA-60172082983A}" Name="TestMultiUser" StaticName="TestMultiUser" DisplayName="Multi-User" Type="Text" />'
+                    SchemaXml: '<Field ID="{35C91E16-6C53-4202-B4AA-60172082983A}" Name="TestMultiUser" StaticName="TestMultiUser" DisplayName="Multi-User" Type="User" Mult="TRUE" UserSelectionMode="0" UserSelectionScope="0" />'
                 },
                 {
                     Name: "TestNote",

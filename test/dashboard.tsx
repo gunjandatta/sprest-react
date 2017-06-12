@@ -2,17 +2,42 @@ import * as React from "react";
 import { Panel } from "../src";
 import { DataSource, ITestItem } from "./data";
 import { ItemForm } from "./itemForm";
+import { TestList } from "./list";
 import { PrimaryButton } from "office-ui-fabric-react";
+
+/**
+ * State
+ */
+interface State {
+    item:ITestItem;
+}
 
 /**
  * Dashboard
  */
-export class Dashboard extends React.Component<null, null> {
+export class Dashboard extends React.Component<null, State> {
+    /**
+     * Constructor
+     */
+    constructor() {
+        super();
+
+        // Set the state
+        this.state = {
+            item: {} as ITestItem
+        };
+    }
+
+    /**
+     * Public Interface
+     */
+
     // Render the component
     render() {
         return (
             <div>
-                <PrimaryButton onClick={this.onClick} text="Show" />
+                <PrimaryButton onClick={this.onClick} text="New Item" />
+                <TestList viewItem={this.viewItem} ref="list" />
                 <Panel
                     isLightDismiss={true}
                     headerText="Test Item Form"
@@ -25,7 +50,7 @@ export class Dashboard extends React.Component<null, null> {
                             </div>
                         </div>
                     </div>
-                    <ItemForm ref="item" />
+                    <ItemForm item={this.state.item} ref="item" />
                 </Panel>
             </div>
         );
@@ -40,8 +65,11 @@ export class Dashboard extends React.Component<null, null> {
         // Prevent postback
         ev.preventDefault();
 
-        // Show the item form
-        (this.refs["panel"] as Panel).show();
+        // Update the state
+        this.setState({ item: {} as ITestItem }, () => {
+            // Show the item form
+            (this.refs["panel"] as Panel).show();
+        });
     }
 
     /**
@@ -71,6 +99,15 @@ export class Dashboard extends React.Component<null, null> {
             // Update the message
             (this.refs["message"] as HTMLSpanElement).innerHTML =
                 item.existsFl ? "The item was saved successfully." : "Error: " + item.response;
+        });
+    }
+
+    // Method to view an item
+    private viewItem = (item:ITestItem) => {
+        // Update the state
+        this.setState({ item }, () => {
+            // Show the item form
+            (this.refs["panel"] as Panel).show();
         });
     }
 }

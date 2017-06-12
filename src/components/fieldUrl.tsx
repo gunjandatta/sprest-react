@@ -45,15 +45,6 @@ export class FieldUrl extends Field<Props, State> {
     renderField() {
         let defaultValue = this.getValue();
 
-        // Update the description properties
-        let descProps:ITextFieldProps = this.props.descProps || {};
-        descProps.defaultValue = defaultValue.Description;
-        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
-        descProps.errorMessage = this.state.showErrorMessage ? descProps.errorMessage : "";
-        descProps.onChanged = this.onDescChanged;
-        descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
-        descProps.ref = "description";
-
         // Update the url properties
         let urlProps:ITextFieldProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue.Url;
@@ -62,6 +53,15 @@ export class FieldUrl extends Field<Props, State> {
         urlProps.onChanged = this.onUrlChanged;
         urlProps.ref = "url";
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
+
+        // Update the description properties
+        let descProps:ITextFieldProps = this.props.descProps || {};
+        descProps.defaultValue = defaultValue.Description;
+        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
+        descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
+        descProps.onChanged = this.onDescChanged;
+        descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
+        descProps.ref = "description";
 
         // Return the component
         return (

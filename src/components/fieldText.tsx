@@ -42,9 +42,9 @@ export class FieldText extends Field<Props, State> {
         let props:ITextFieldProps = this.props.props || {};
 
         // Update the properties
-        props.defaultValue = this.getFieldValue();
+        props.defaultValue = this.props.defaultValue || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
+        props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
         props.onChanged = this.onChange;

@@ -113,7 +113,7 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
         // Default the state
         let state: State = {
             fieldInfo: {
-                defaultValue: this.props.defaultValue,
+                defaultValue: "",
                 errorMessage: this.props.errorMessage || "This field requires a value.",
                 listName: this.props.listName,
                 name: this.props.name,
@@ -123,7 +123,7 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
             },
             initFl: false,
             showErrorMessage: false,
-            value: null
+            value: this.props.defaultValue
         } as State;
 
         // See if the session data exists
@@ -138,11 +138,11 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
                 // See if fields exist
                 if (field) {
                     // Update the field information
-                    state.fieldInfo.defaultValue = state.fieldInfo.defaultValue || field.defaultValue;
+                    state.fieldInfo.defaultValue = field.defaultValue;
                     state.fieldInfo.required = field.required;
-                    state.fieldInfo.title = state.fieldInfo.title || field.title;
+                    state.fieldInfo.title = field.title;
                     state.initFl = true;
-                    state.label = state.fieldInfo.title + ":";
+                    state.label = field.title + ":";
                     state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
 
 

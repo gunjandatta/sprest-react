@@ -37,9 +37,9 @@ export class FieldNumber extends Field<Props, IFieldState> {
         let props:ITextFieldProps = this.props.props || {};
 
         // Update the properties
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
         props.defaultValue = this.getValue();
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChange;
         props.ref = "number";

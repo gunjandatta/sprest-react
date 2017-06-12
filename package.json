@@ -1,8 +1,8 @@
 {
   "name": "sprest-react",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "SharePoint react components.",
-  "main": "dist/gd-sprest-components.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "webpack",
     "test": "webpack --config ./webpack.test.js"

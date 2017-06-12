@@ -242,7 +242,7 @@ export class FieldLookup extends Field<Props, State> {
     private renderTitle = () => {
         // Return the title
         return (
-            <span>{this.getSelectedOptions(this.state.options, "text")}</span>
+            <span>{this.getSelectedOptions(this.state.options, "text").join(", ")}</span>
         );
     }
 }

@@ -58798,7 +58798,7 @@ var FieldLookup = (function (_super) {
         // Method to render the multi-lookup display value
         _this.renderTitle = function () {
             // Return the title
-            return (React.createElement("span", null, _this.getSelectedOptions(_this.state.options, "text")));
+            return (React.createElement("span", null, _this.getSelectedOptions(_this.state.options, "text").join(", ")));
         };
         return _this;
     }
@@ -59377,6 +59377,8 @@ var ItemForm = (function (_super) {
                 React.createElement(src_1.FieldDateTime, { defaultValue: item.TestDate, listName: data_1.DataSource.ListName, name: "TestDate", ref: "TestDate" }),
                 React.createElement(src_1.FieldDateTime, { defaultValue: item.TestDateTime, listName: data_1.DataSource.ListName, name: "TestDateTime", ref: "TestDateTime" }),
                 React.createElement(src_1.FieldLookup, { defaultValue: item.TestLookup, listName: data_1.DataSource.ListName, name: "TestLookup", ref: "TestLookupId" }),
+                React.createElement(src_1.FieldLookup, { defaultValue: item.TestMultiLookup, listName: data_1.DataSource.ListName, name: "TestMultiLookup", ref: "TestMultiLookupId" }),
+                React.createElement(src_1.FieldUser, { defaultValue: item.TestMultiUser, listName: data_1.DataSource.ListName, name: "TestMultiUser", ref: "TestMultiUserId" }),
                 React.createElement(src_1.FieldText, { defaultValue: item.TestNote, listName: data_1.DataSource.ListName, name: "TestNote", ref: "TestNote" }),
                 React.createElement(src_1.FieldNumber, { defaultValue: item.TestNumberDecimal, listName: data_1.DataSource.ListName, name: "TestNumberDecimal", ref: "TestNumberDecimal" }),
                 React.createElement(src_1.FieldNumber, { defaultValue: item.TestNumberInteger, listName: data_1.DataSource.ListName, name: "TestNumberInteger", ref: "TestNumberInteger" }),

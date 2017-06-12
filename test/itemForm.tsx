@@ -104,6 +104,7 @@ export class ItemForm extends React.Component<Props, null> {
                     name="TestMultiChoice"
                     ref="TestMultiChoice"
                 />
+                */}
                 <FieldLookup
                     defaultValue={item.TestMultiLookup}
                     listName={DataSource.ListName}
@@ -116,7 +117,6 @@ export class ItemForm extends React.Component<Props, null> {
                     name="TestMultiUser"
                     ref="TestMultiUserId"
                 />
-                */}
                 <FieldText
                     defaultValue={item.TestNote}
                     listName={DataSource.ListName}

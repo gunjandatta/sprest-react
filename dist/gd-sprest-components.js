@@ -88,7 +88,7 @@ __export(__webpack_require__(52));
 "use strict";
 
 
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(42);
 
 
 /***/ }),
@@ -1057,7 +1057,7 @@ __export(__webpack_require__(443));
 
 var _prodInvariant = __webpack_require__(8);
 
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 var ReactDOMComponentFlags = __webpack_require__(182);
 
 var invariant = __webpack_require__(6);
@@ -1419,7 +1419,7 @@ var DirectionalHint;
 
 var _prodInvariant = __webpack_require__(32);
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(7);
@@ -1818,6 +1818,68 @@ module.exports = { debugTool: debugTool };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/**
+ * WARNING: This entry should NOT be imported for production purposes. This entry forces every control to be
+ * parsed and available at load time, which is not necessary for most cases.
+ */
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(344));
+__export(__webpack_require__(16));
+__export(__webpack_require__(125));
+__export(__webpack_require__(28));
+__export(__webpack_require__(345));
+__export(__webpack_require__(346));
+__export(__webpack_require__(347));
+__export(__webpack_require__(348));
+__export(__webpack_require__(53));
+__export(__webpack_require__(349));
+__export(__webpack_require__(350));
+__export(__webpack_require__(351));
+__export(__webpack_require__(352));
+__export(__webpack_require__(353));
+__export(__webpack_require__(127));
+__export(__webpack_require__(354));
+__export(__webpack_require__(355));
+__export(__webpack_require__(15));
+__export(__webpack_require__(128));
+__export(__webpack_require__(11));
+__export(__webpack_require__(45));
+__export(__webpack_require__(36));
+__export(__webpack_require__(54));
+__export(__webpack_require__(70));
+__export(__webpack_require__(55));
+__export(__webpack_require__(357));
+__export(__webpack_require__(356));
+__export(__webpack_require__(359));
+__export(__webpack_require__(71));
+__export(__webpack_require__(129));
+__export(__webpack_require__(360));
+__export(__webpack_require__(46));
+__export(__webpack_require__(361));
+__export(__webpack_require__(362));
+__export(__webpack_require__(363));
+__export(__webpack_require__(364));
+__export(__webpack_require__(365));
+__export(__webpack_require__(72));
+__export(__webpack_require__(10));
+__export(__webpack_require__(366));
+__export(__webpack_require__(73));
+__export(__webpack_require__(367));
+__export(__webpack_require__(131));
+__export(__webpack_require__(0));
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -1836,7 +1898,7 @@ var _prodInvariant = __webpack_require__(8),
 var CallbackQueue = __webpack_require__(180);
 var PooledClass = __webpack_require__(30);
 var ReactFeatureFlags = __webpack_require__(185);
-var ReactReconciler = __webpack_require__(40);
+var ReactReconciler = __webpack_require__(41);
 var Transaction = __webpack_require__(63);
 
 var invariant = __webpack_require__(6);
@@ -2071,7 +2133,7 @@ module.exports = ReactUpdates;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2107,69 +2169,20 @@ var ReactCurrentOwner = {
 module.exports = ReactCurrentOwner;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/**
- * WARNING: This entry should NOT be imported for production purposes. This entry forces every control to be
- * parsed and available at load time, which is not necessary for most cases.
- */
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(344));
-__export(__webpack_require__(16));
-__export(__webpack_require__(125));
-__export(__webpack_require__(28));
-__export(__webpack_require__(345));
-__export(__webpack_require__(346));
-__export(__webpack_require__(347));
-__export(__webpack_require__(348));
-__export(__webpack_require__(53));
-__export(__webpack_require__(349));
-__export(__webpack_require__(350));
-__export(__webpack_require__(351));
-__export(__webpack_require__(352));
-__export(__webpack_require__(353));
-__export(__webpack_require__(127));
-__export(__webpack_require__(354));
-__export(__webpack_require__(355));
-__export(__webpack_require__(15));
-__export(__webpack_require__(128));
-__export(__webpack_require__(11));
-__export(__webpack_require__(45));
-__export(__webpack_require__(35));
-__export(__webpack_require__(54));
-__export(__webpack_require__(70));
-__export(__webpack_require__(55));
-__export(__webpack_require__(357));
-__export(__webpack_require__(356));
-__export(__webpack_require__(359));
-__export(__webpack_require__(71));
-__export(__webpack_require__(129));
-__export(__webpack_require__(360));
-__export(__webpack_require__(46));
-__export(__webpack_require__(361));
-__export(__webpack_require__(362));
-__export(__webpack_require__(363));
-__export(__webpack_require__(364));
-__export(__webpack_require__(365));
-__export(__webpack_require__(72));
-__export(__webpack_require__(10));
-__export(__webpack_require__(366));
-__export(__webpack_require__(73));
-__export(__webpack_require__(367));
-__export(__webpack_require__(131));
-__export(__webpack_require__(0));
-
-//# sourceMappingURL=index.js.map
+var dtStrings_1 = __webpack_require__(609);
+exports.DatePickerStrings = dtStrings_1.DatePickerStrings;
+var field_1 = __webpack_require__(610);
+exports.Field = field_1.Field;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2443,7 +2456,7 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2659,19 +2672,6 @@ module.exports = DOMProperty;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var dtStrings_1 = __webpack_require__(609);
-exports.DatePickerStrings = dtStrings_1.DatePickerStrings;
-var field_1 = __webpack_require__(610);
-exports.Field = field_1.Field;
-
-
-/***/ }),
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2721,7 +2721,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(38));
+__export(__webpack_require__(39));
 __export(__webpack_require__(518));
 __export(__webpack_require__(175));
 __export(__webpack_require__(519));
@@ -2866,7 +2866,7 @@ module.exports = PooledClass;
 
 var _assign = __webpack_require__(9);
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 
 var warning = __webpack_require__(7);
 var canDefineProperty = __webpack_require__(66);
@@ -3416,6 +3416,87 @@ function isVirtualElement(element) {
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+// Type definitions for gd-sprest
+// Project: https://gunjandatta.github.io/sprest
+// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
+/***************************************************************************************************
+MIT License
+
+Copyright (c) 2016 Dattabase, LLC.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+***************************************************************************************************/
+var Types = __webpack_require__(262);
+exports.Types = Types;
+var types_1 = __webpack_require__(4);
+exports.RequestType = types_1.RequestType;
+exports.SPTypes = types_1.SPTypes;
+var lib_1 = __webpack_require__(27);
+exports.ContextInfo = lib_1.ContextInfo;
+exports.Email = lib_1.Email;
+exports.Helper = lib_1.Helper;
+exports.JSLink = lib_1.JSLink;
+exports.List = lib_1.List;
+exports.PeopleManager = lib_1.PeopleManager;
+exports.PeoplePicker = lib_1.PeoplePicker;
+exports.ProfileLoader = lib_1.ProfileLoader;
+exports.Search = lib_1.Search;
+exports.Site = lib_1.Site;
+exports.SocialFeed = lib_1.SocialFeed;
+exports.UserProfile = lib_1.UserProfile;
+exports.Web = lib_1.Web;
+/**
+ * SharePoint REST Library
+ */
+var gd_sprest = {
+    __ver: 1.53,
+    ContextInfo: lib_1.ContextInfo,
+    DefaultRequestToHostFl: false,
+    Email: lib_1.Email,
+    Helper: lib_1.Helper,
+    JSLink: lib_1.JSLink,
+    List: lib_1.List,
+    PeopleManager: lib_1.PeopleManager,
+    PeoplePicker: lib_1.PeoplePicker,
+    ProfileLoader: lib_1.ProfileLoader,
+    Search: lib_1.Search,
+    Site: lib_1.Site,
+    SocialFeed: lib_1.SocialFeed,
+    UserProfile: lib_1.UserProfile,
+    Web: lib_1.Web
+};
+// Export the $REST library
+exports.$REST = gd_sprest;
+// See if the library doesn't exist, or is an older version
+if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
+    // Set the global variable
+    window["$REST"] = gd_sprest;
+}
+//# sourceMappingURL=gd-sprest.js.map
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
@@ -3426,7 +3507,7 @@ __export(__webpack_require__(448));
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3638,7 +3719,7 @@ exports.BaseButton = BaseButton;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3676,7 +3757,7 @@ module.exports = styles;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3699,7 +3780,7 @@ var SelectionDirection;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3822,7 +3903,7 @@ DOMLazyTree.queueText = queueText;
 module.exports = DOMLazyTree;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3996,7 +4077,7 @@ module.exports = ReactReconciler;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4106,7 +4187,7 @@ module.exports = React;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4129,7 +4210,7 @@ exports.getFocusStyle = getFocusStyle_1.getFocusStyle;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4153,87 +4234,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-// Type definitions for gd-sprest
-// Project: https://gunjandatta.github.io/sprest
-// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
-/***************************************************************************************************
-MIT License
-
-Copyright (c) 2016 Dattabase, LLC.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-***************************************************************************************************/
-var Types = __webpack_require__(262);
-exports.Types = Types;
-var types_1 = __webpack_require__(4);
-exports.RequestType = types_1.RequestType;
-exports.SPTypes = types_1.SPTypes;
-var lib_1 = __webpack_require__(27);
-exports.ContextInfo = lib_1.ContextInfo;
-exports.Email = lib_1.Email;
-exports.Helper = lib_1.Helper;
-exports.JSLink = lib_1.JSLink;
-exports.List = lib_1.List;
-exports.PeopleManager = lib_1.PeopleManager;
-exports.PeoplePicker = lib_1.PeoplePicker;
-exports.ProfileLoader = lib_1.ProfileLoader;
-exports.Search = lib_1.Search;
-exports.Site = lib_1.Site;
-exports.SocialFeed = lib_1.SocialFeed;
-exports.UserProfile = lib_1.UserProfile;
-exports.Web = lib_1.Web;
-/**
- * SharePoint REST Library
- */
-var gd_sprest = {
-    __ver: 1.53,
-    ContextInfo: lib_1.ContextInfo,
-    DefaultRequestToHostFl: false,
-    Email: lib_1.Email,
-    Helper: lib_1.Helper,
-    JSLink: lib_1.JSLink,
-    List: lib_1.List,
-    PeopleManager: lib_1.PeopleManager,
-    PeoplePicker: lib_1.PeoplePicker,
-    ProfileLoader: lib_1.ProfileLoader,
-    Search: lib_1.Search,
-    Site: lib_1.Site,
-    SocialFeed: lib_1.SocialFeed,
-    UserProfile: lib_1.UserProfile,
-    Web: lib_1.Web
-};
-// Export the $REST library
-exports.$REST = gd_sprest;
-// See if the library doesn't exist, or is an older version
-if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
-    // Set the global variable
-    window["$REST"] = gd_sprest;
-}
-//# sourceMappingURL=gd-sprest.js.map
 
 /***/ }),
 /* 45 */
@@ -4759,7 +4759,7 @@ module.exports = ReactInstanceMap;
 
 
 
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 var getEventTarget = __webpack_require__(101);
 
@@ -8011,7 +8011,7 @@ module.exports = __webpack_require__(535);
 
 
 
-var DOMLazyTree = __webpack_require__(39);
+var DOMLazyTree = __webpack_require__(40);
 var Danger = __webpack_require__(527);
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactInstrumentation = __webpack_require__(20);
@@ -8568,7 +8568,7 @@ var _prodInvariant = __webpack_require__(8);
 var ReactPropTypesSecret = __webpack_require__(190);
 var propTypesFactory = __webpack_require__(176);
 
-var React = __webpack_require__(41);
+var React = __webpack_require__(42);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(6);
@@ -8843,10 +8843,10 @@ module.exports = ReactErrorUtils;
 
 var _prodInvariant = __webpack_require__(8);
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var ReactInstanceMap = __webpack_require__(49);
 var ReactInstrumentation = __webpack_require__(20);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(7);
@@ -9763,7 +9763,7 @@ var _prodInvariant = __webpack_require__(32);
 var ReactNoopUpdateQueue = __webpack_require__(106);
 
 var canDefineProperty = __webpack_require__(66);
-var emptyObject = __webpack_require__(43);
+var emptyObject = __webpack_require__(44);
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(7);
 
@@ -12729,7 +12729,7 @@ var ButtonType;
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
-var BaseButton_1 = __webpack_require__(36);
+var BaseButton_1 = __webpack_require__(37);
 var Utilities_1 = __webpack_require__(0);
 var CommandButton_styles_1 = __webpack_require__(372);
 var CommandButton = (function (_super) {
@@ -12765,7 +12765,7 @@ exports.CommandButton = CommandButton;
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
-var BaseButton_1 = __webpack_require__(36);
+var BaseButton_1 = __webpack_require__(37);
 var Utilities_1 = __webpack_require__(0);
 var CompoundButton_styles_1 = __webpack_require__(373);
 var CompoundButton = (function (_super) {
@@ -12801,7 +12801,7 @@ exports.CompoundButton = CompoundButton;
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
-var BaseButton_1 = __webpack_require__(36);
+var BaseButton_1 = __webpack_require__(37);
 var Utilities_1 = __webpack_require__(0);
 var DefaultButton_styles_1 = __webpack_require__(75);
 var DefaultButton = (function (_super) {
@@ -12837,7 +12837,7 @@ exports.DefaultButton = DefaultButton;
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
-var BaseButton_1 = __webpack_require__(36);
+var BaseButton_1 = __webpack_require__(37);
 var Utilities_1 = __webpack_require__(0);
 var IconButton_styles_1 = __webpack_require__(374);
 var IconButton = (function (_super) {
@@ -12874,7 +12874,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
-var BaseButton_1 = __webpack_require__(36);
+var BaseButton_1 = __webpack_require__(37);
 var PrimaryButton_styles_1 = __webpack_require__(375);
 var PrimaryButton = (function (_super) {
     tslib_1.__extends(PrimaryButton, _super);
@@ -12948,7 +12948,7 @@ var DetailsRowCheck_1 = __webpack_require__(78);
 var GroupSpacer_1 = __webpack_require__(57);
 var DetailsRowFields_1 = __webpack_require__(411);
 var FocusZone_1 = __webpack_require__(15);
-var interfaces_1 = __webpack_require__(38);
+var interfaces_1 = __webpack_require__(39);
 var stylesImport = __webpack_require__(141);
 var styles = stylesImport;
 var Styling_1 = __webpack_require__(10);
@@ -14999,7 +14999,7 @@ exports.BaseDecorator = BaseDecorator;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var interfaces_1 = __webpack_require__(38);
+var interfaces_1 = __webpack_require__(39);
 var SelectionLayout = (function () {
     function SelectionLayout(direction) {
         this._direction = direction;
@@ -15903,7 +15903,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 
 
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactInstrumentation = __webpack_require__(20);
 
@@ -16173,7 +16173,7 @@ var _assign = __webpack_require__(9);
 
 var LinkedValueUtils = __webpack_require__(94);
 var ReactDOMComponentTree = __webpack_require__(12);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
 var warning = __webpack_require__(7);
 
@@ -16642,11 +16642,11 @@ module.exports = ReactInputSelection;
 
 var _prodInvariant = __webpack_require__(8);
 
-var DOMLazyTree = __webpack_require__(39);
-var DOMProperty = __webpack_require__(25);
-var React = __webpack_require__(41);
+var DOMLazyTree = __webpack_require__(40);
+var DOMProperty = __webpack_require__(26);
+var React = __webpack_require__(42);
 var ReactBrowserEventEmitter = __webpack_require__(61);
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactDOMContainerInfo = __webpack_require__(537);
 var ReactDOMFeatureFlags = __webpack_require__(539);
@@ -16654,11 +16654,11 @@ var ReactFeatureFlags = __webpack_require__(185);
 var ReactInstanceMap = __webpack_require__(49);
 var ReactInstrumentation = __webpack_require__(20);
 var ReactMarkupChecksum = __webpack_require__(559);
-var ReactReconciler = __webpack_require__(40);
+var ReactReconciler = __webpack_require__(41);
 var ReactUpdateQueue = __webpack_require__(97);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
-var emptyObject = __webpack_require__(43);
+var emptyObject = __webpack_require__(44);
 var instantiateReactComponent = __webpack_require__(196);
 var invariant = __webpack_require__(6);
 var setInnerHTML = __webpack_require__(65);
@@ -17187,7 +17187,7 @@ module.exports = ReactMount;
 
 var _prodInvariant = __webpack_require__(8);
 
-var React = __webpack_require__(41);
+var React = __webpack_require__(42);
 
 var invariant = __webpack_require__(6);
 
@@ -17707,7 +17707,7 @@ module.exports = setTextContent;
 
 var _prodInvariant = __webpack_require__(8);
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var REACT_ELEMENT_TYPE = __webpack_require__(553);
 
 var getIteratorFn = __webpack_require__(587);
@@ -17919,7 +17919,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var ReactComponentTreeHook = __webpack_require__(18);
 var ReactElement = __webpack_require__(31);
 
@@ -18643,7 +18643,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Base Panel
  */
@@ -18708,8 +18708,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Boolean field
  */
@@ -18726,8 +18726,11 @@ var FieldBoolean = (function (_super) {
         };
         // The on change event
         _this.onChange = function () {
+            var value = _this.refs["checkbox"].checked;
             // Update the value
-            _this.updateValue(_this.refs["checkbox"].checked);
+            _this.updateValue(value);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(value) : null;
         };
         return _this;
     }
@@ -18774,9 +18777,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var gd_sprest_1 = __webpack_require__(44);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var gd_sprest_1 = __webpack_require__(35);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Boolean field
  */
@@ -18834,13 +18837,15 @@ var FieldChoice = (function (_super) {
         // Update the properties
         var props = this.props.props || {};
         props.label = props.label || this.state.label;
+        props.defaultSelectedKey = props.selectedKey || this.getFieldValue();
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
         props.onChanged = this.onChange;
         props.options = props.options || this.state.choices;
         props.ref = "choice";
         props.required = props.required || this.state.fieldInfo.required;
-        props.selectedKey = props.selectedKey || this.getFieldValue();
         // Return the dropdown
-        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, this.props.props)));
+        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
     };
     return FieldChoice;
 }(common_1.Field));
@@ -18873,15 +18878,52 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var gd_sprest_1 = __webpack_require__(35);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Date Time field
  */
 var FieldDateTime = (function (_super) {
     __extends(FieldDateTime, _super);
     function FieldDateTime() {
+        /**
+         * Public Interface
+         */
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * Events
+         */
+        // The field initialized event
+        _this.onFieldInit = function (field, state) {
+            // Update the state
+            state.fieldInfo.showTime = field.DisplayFormat == gd_sprest_1.SPTypes.DateFormat.DateTime;
+        };
+        // The date changed event
+        _this.onDateChanged = function (date) {
+            // Get the time
+            var time = _this.getTime();
+            // Update the date
+            date.setHours(time.Hours);
+            date.setMinutes(time.Minutes);
+            // Update the value
+            _this.updateValue(date);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(date) : null;
+        };
+        // The time changed event
+        _this.onTimeChanged = function (option) {
+            // Get the time
+            var time = _this.getTime(option);
+            // Update the selected date
+            var date = _this.refs["date"].state.selectedDate;
+            date.setHours(time.Hours);
+            date.setMinutes(time.Minutes);
+            // Update the value
+            _this.updateValue(date);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(date) : null;
+        };
         /**
          * Methods
          */
@@ -18889,12 +18931,12 @@ var FieldDateTime = (function (_super) {
         _this.getValue = function () {
             // Get the value
             var value = _this.getFieldValue();
-            if (typeof (value) === "string") {
+            if (value && typeof (value) === "string") {
                 // Convert the value
                 return new Date(value);
             }
             // Return the value
-            return value;
+            return null;
         };
         // Method to get the time
         _this.getTime = function (option) {
@@ -18912,31 +18954,10 @@ var FieldDateTime = (function (_super) {
                 Minutes: parseInt(time[1])
             };
         };
-        // The date changed event
-        _this.onDateChanged = function (date) {
-            // Get the time
-            var time = _this.getTime();
-            // Update the date
-            date.setHours(time.Hours);
-            date.setMinutes(time.Minutes);
-            // Update the value
-            _this.updateValue(date);
-        };
-        // The time changed event
-        _this.onTimeChanged = function (option) {
-            // Get the time
-            var time = _this.getTime(option);
-            // Update the selected date
-            var date = _this.refs["date"].state.selectedDate;
-            date.setHours(time.Hours);
-            date.setMinutes(time.Minutes);
-            // Update the value
-            _this.updateValue(date);
-        };
         // Method to render the time component
         _this.renderTime = function () {
             // See if we are showing the time component
-            if (_this.props.showTime) {
+            if (_this.state.fieldInfo.showTime) {
                 var props = _this.props.timeProps || {};
                 // Clear the options
                 props.options = [];
@@ -18956,6 +18977,7 @@ var FieldDateTime = (function (_super) {
                 }
                 // Update the properties
                 props.onChanged = _this.onTimeChanged;
+                props.placeHolder = props.placeHolder || "Time";
                 props.ref = "time";
                 // Return the time
                 return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
@@ -18972,7 +18994,8 @@ var FieldDateTime = (function (_super) {
         props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;
         props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : this.state.fieldInfo.required;
         props.label = this.state.label;
-        props.onSelectDate = this.props.showTime ? this.onDateChanged : this.updateValue;
+        props.onSelectDate = this.state.fieldInfo.showTime ? this.onDateChanged : this.updateValue;
+        props.placeholder = props.placeholder || "Date";
         props.ref = "date";
         props.strings = props.strings || common_1.DatePickerStrings;
         props.value = this.getValue();
@@ -19012,9 +19035,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var gd_sprest_1 = __webpack_require__(44);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var gd_sprest_1 = __webpack_require__(35);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 __webpack_require__(606);
 /**
  * Lookup Field
@@ -19047,50 +19070,50 @@ var FieldLookup = (function (_super) {
         };
         // The field loaded event
         _this.onFieldLoaded = function () {
-            // Get the target web
-            var web = 
             // Get the current site collection
             (new gd_sprest_1.Site())
                 .openWebById(_this.state.fieldInfo.lookupWebId)
-                .execute();
-            // Get the list
-            web.Lists(_this.state.fieldInfo.lookupListName)
-                .Items()
-                .query({
-                GetAllItems: _this.props.getAllItemsFl ? true : false,
-                Select: ["ID", _this.state.fieldInfo.lookupFieldName],
-                Top: 500
-            })
-                .execute(function (items) {
-                var options = [];
-                // Parse the items
-                for (var i = 0; i < items.results.length; i++) {
-                    var item = items.results[i];
-                    var option = {
-                        key: item.Id,
-                        selected: item.Id == _this.props.defaultValue,
-                        text: item[_this.state.fieldInfo.lookupFieldName]
-                    };
-                    // See if this is a multi-lookup, and there is a default value
-                    if (_this.state.fieldInfo.allowMultipleValues && _this.props.defaultValue) {
-                        var results = _this.props.defaultValue.results || [];
-                        // Parse the default values
-                        for (var j = 0; j < results.length; j++) {
-                            var result = results[j];
-                            // See if this is the current option
-                            if (option.key == result) {
-                                // Select this option
-                                option.selected = true;
-                                break;
+                .execute(function (web) {
+                // Get the list
+                web.Lists()
+                    .getById(_this.state.fieldInfo.lookupListName)
+                    .Items()
+                    .query({
+                    GetAllItems: _this.props.getAllItemsFl ? true : false,
+                    Select: ["ID", _this.state.fieldInfo.lookupFieldName],
+                    Top: 500
+                })
+                    .execute(function (items) {
+                    var options = [];
+                    // Parse the items
+                    for (var i = 0; i < items.results.length; i++) {
+                        var item = items.results[i];
+                        var option = {
+                            key: item.Id,
+                            selected: item.Id == _this.props.defaultValue,
+                            text: item[_this.state.fieldInfo.lookupFieldName]
+                        };
+                        // See if this is a multi-lookup, and there is a default value
+                        if (_this.state.fieldInfo.allowMultipleValues && _this.props.defaultValue) {
+                            var results = _this.props.defaultValue.results || [];
+                            // Parse the default values
+                            for (var j = 0; j < results.length; j++) {
+                                var result = results[j];
+                                // See if this is the current option
+                                if (option.key == result) {
+                                    // Select this option
+                                    option.selected = true;
+                                    break;
+                                }
                             }
                         }
+                        // Add the option
+                        options.push(option);
                     }
-                    // Add the option
-                    options.push(option);
-                }
-                // Update the state
-                _this.setState({ options: options });
-            }, true);
+                    // Update the state
+                    _this.setState({ options: options });
+                });
+            });
         };
         // The change event for selecting a multi-lookup item
         _this.onChecked = function (key) {
@@ -19107,11 +19130,14 @@ var FieldLookup = (function (_super) {
             }
             // Update the state
             _this.setState({ options: options }, function () {
+                var selectedOptions = _this.getSelectedOptions(options, "key");
                 // Update the field value
                 _this.updateValue({
                     __metadata: { type: "Collection(Edm.Int32)" },
-                    results: _this.getSelectedOptions(options, "key")
+                    results: selectedOptions
                 });
+                // Call the change event
+                _this.props.onChange ? _this.props.onChange(selectedOptions) : null;
             });
         };
         // The change event for the dropdown list
@@ -19120,6 +19146,8 @@ var FieldLookup = (function (_super) {
             _this.props.onChange ? _this.props.onChange(option) : null;
             // Update the field value
             _this.updateValue(option.key);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(option) : null;
         };
         /**
          * Methods
@@ -19147,7 +19175,7 @@ var FieldLookup = (function (_super) {
         // Method to render the multi-lookup display value
         _this.renderTitle = function () {
             // Return the title
-            return (React.createElement("span", null, _this.getSelectedOptions(_this.state.options, "text")));
+            return (React.createElement("span", null, _this.getSelectedOptions(_this.state.options, "text").join(", ")));
         };
         return _this;
     }
@@ -19156,6 +19184,7 @@ var FieldLookup = (function (_super) {
         var props = this.props.props || {};
         // Update the properties
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
@@ -19201,8 +19230,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Number Types
  */
@@ -19238,6 +19267,13 @@ var FieldNumber = (function (_super) {
             // Return the value
             return value;
         };
+        // The change event
+        _this.onChange = function (value) {
+            // Update the value
+            _this.updateValue(value);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(parseInt(value)) : null;
+        };
         return _this;
     }
     // Method to render the component
@@ -19245,9 +19281,10 @@ var FieldNumber = (function (_super) {
         var props = this.props.props || {};
         // Update the properties
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
         props.defaultValue = this.getValue();
         props.label = props.label ? props.label : this.state.label;
-        props.onChanged = this.updateValue;
+        props.onChanged = this.onChange;
         props.ref = "number";
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         // Return the component
@@ -19284,9 +19321,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var gd_sprest_1 = __webpack_require__(44);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var gd_sprest_1 = __webpack_require__(35);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Text Field
  */
@@ -19312,17 +19349,25 @@ var FieldText = (function (_super) {
             state.fieldInfo.multiline = field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.Note;
             state.fieldInfo.rows = field.NumberOfLines;
         };
+        // The change event
+        _this.onChange = function (value) {
+            // Update the field value
+            _this.updateValue(value);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(value) : null;
+        };
         return _this;
     }
     // Method to render the component
     FieldText.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.defaultValue = this.getFieldValue();
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
-        props.onChanged = this.updateValue;
+        props.onChanged = this.onChange;
         props.ref = "text";
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
@@ -19360,8 +19405,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * URL Field
  */
@@ -19382,7 +19427,9 @@ var FieldUrl = (function (_super) {
             // Set the description
             fieldValue.Description = value;
             // Update the value
-            _this.updateValue(value);
+            _this.updateValue(_this.getValue(fieldValue));
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
         };
         // The change event for the url field
         _this.onUrlChanged = function (value) {
@@ -19391,14 +19438,16 @@ var FieldUrl = (function (_super) {
             // Set the url
             fieldValue.Url = value;
             // Update the value
-            _this.updateValue(value);
+            _this.updateValue(_this.getValue(fieldValue));
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
         };
         /**
          * Methods
          */
         // Method to get the field value
-        _this.getValue = function () {
-            var value = _this.getFieldValue() || {};
+        _this.getValue = function (value) {
+            value = value ? value : _this.getFieldValue() || {};
             return {
                 __metadata: value.__metadata ? value.__metadata : { type: "SP.FieldUrlValue" },
                 Description: value.Description ? value.Description : "",
@@ -19409,18 +19458,21 @@ var FieldUrl = (function (_super) {
     }
     // Method to render the component
     FieldUrl.prototype.renderField = function () {
+        var defaultValue = this.getValue();
         // Update the description properties
         var descProps = this.props.descProps || {};
-        descProps.defaultValue = this.getValue().Description;
+        descProps.defaultValue = defaultValue.Description;
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
+        descProps.errorMessage = this.state.showErrorMessage ? descProps.errorMessage : "";
+        descProps.onChanged = this.onDescChanged;
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
         descProps.ref = "description";
         // Update the url properties
         var urlProps = this.props.urlProps || {};
-        urlProps.defaultValue = this.getValue().Url;
+        urlProps.defaultValue = defaultValue.Url;
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
-        urlProps.onChanged = this.updateValue;
+        urlProps.onChanged = this.onUrlChanged;
         urlProps.ref = "url";
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
         // Return the component
@@ -19459,10 +19511,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var gd_sprest_1 = __webpack_require__(44);
+var gd_sprest_1 = __webpack_require__(35);
 var es6_promise_1 = __webpack_require__(249);
-var common_1 = __webpack_require__(26);
-var office_ui_fabric_react_1 = __webpack_require__(23);
+var common_1 = __webpack_require__(24);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 __webpack_require__(607);
 /**
  * User Field
@@ -19482,6 +19534,13 @@ var FieldUser = (function (_super) {
         /**
          * Events
          */
+        // The change event
+        _this.onChange = function (value) {
+            // Update the field value
+            _this.updateValue(_this.getValue(value));
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(value) : null;
+        };
         // The field initialized event
         _this.onFieldInit = function (field, state) {
             // Ensure this is a lookup field
@@ -19518,16 +19577,16 @@ var FieldUser = (function (_super) {
         _this.getValue = function (personas) {
             // See if we are allowing multiple
             if (_this.state.fieldInfo.allowMultiple) {
-                // Update the field value
-                _this.updateValue(personas);
+                // Return the personas
+                return personas.length > 0 ? personas : null;
             }
             else {
                 // Get the last persona
                 var persona = personas.length > 0 ? personas[personas.length - 1] : null;
                 // Update the personas
                 personas = persona ? [persona] : [];
-                // Update the field value
-                _this.updateValue(persona ? persona.itemID : null);
+                // Return the item id
+                return persona ? persona.itemID : null;
             }
         };
         // Method to search for the user
@@ -19590,7 +19649,7 @@ var FieldUser = (function (_super) {
         var pickerProps = this.props.pickerProps || {};
         pickerProps.defaultSelectedItems = this.getDefaultPersonas();
         pickerProps.getTextFromItem = function (persona) { return persona.primaryText; };
-        pickerProps.onChange = this.updateValue;
+        pickerProps.onChange = this.onChange;
         pickerProps.onResolveSuggestions = this.search;
         pickerProps.pickerSuggestionsProps = pickerProps.pickerSuggestionsProps ? pickerProps.pickerSuggestionsProps : {
             className: "ms-PeoplePicker",
@@ -19616,7 +19675,7 @@ exports.FieldUser = FieldUser;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = __webpack_require__(33);
-var index_2 = __webpack_require__(42);
+var index_2 = __webpack_require__(43);
 exports.AnimationClassNames = index_1.buildClassMap(index_2.AnimationStyles);
 
 //# sourceMappingURL=AnimationClassNames.js.map
@@ -19674,7 +19733,7 @@ function _defineGetter(obj, colorName, suffix, isHover, cssProperty) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = __webpack_require__(33);
-var index_2 = __webpack_require__(42);
+var index_2 = __webpack_require__(43);
 exports.FontClassNames = index_1.buildClassMap(index_2.DefaultFontStyles);
 
 //# sourceMappingURL=FontClassNames.js.map
@@ -19687,7 +19746,7 @@ exports.FontClassNames = index_1.buildClassMap(index_2.DefaultFontStyles);
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = __webpack_require__(42);
+var index_1 = __webpack_require__(43);
 var index_2 = __webpack_require__(33);
 /**
  * All class names for all Fabric icons.
@@ -19746,7 +19805,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(51));
 __export(__webpack_require__(219));
-__export(__webpack_require__(42));
+__export(__webpack_require__(43));
 __export(__webpack_require__(33));
 
 //# sourceMappingURL=index.js.map
@@ -23049,7 +23108,7 @@ exports.mergeStyleSets = mergeStyleSets;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
-var index_1 = __webpack_require__(42);
+var index_1 = __webpack_require__(43);
 var index_2 = __webpack_require__(52);
 var load_themed_styles_1 = __webpack_require__(5);
 var _theme = {
@@ -34691,7 +34750,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(36));
+__export(__webpack_require__(37));
 __export(__webpack_require__(132));
 __export(__webpack_require__(371));
 __export(__webpack_require__(133));
@@ -35690,7 +35749,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Image_1 = __webpack_require__(45);
-var Label_1 = __webpack_require__(35);
+var Label_1 = __webpack_require__(36);
 var Icon_1 = __webpack_require__(11);
 var Utilities_1 = __webpack_require__(0);
 var stylesImport = __webpack_require__(392);
@@ -37341,7 +37400,7 @@ var GroupSpacer_1 = __webpack_require__(57);
 var DetailsRowCheck_1 = __webpack_require__(78);
 var Tooltip_1 = __webpack_require__(131);
 var checkStyles = __webpack_require__(79);
-var interfaces_1 = __webpack_require__(38);
+var interfaces_1 = __webpack_require__(39);
 var stylesImport = __webpack_require__(408);
 var styles = stylesImport;
 var MOUSEDOWN_PRIMARY_BUTTON = 0; // for mouse down event we are using ev.button property, 0 means left button
@@ -38346,7 +38405,7 @@ var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var DocumentCard_Props_1 = __webpack_require__(146);
 var Utilities_1 = __webpack_require__(0);
-var stylesImport = __webpack_require__(37);
+var stylesImport = __webpack_require__(38);
 var styles = stylesImport;
 var DocumentCard = (function (_super) {
     tslib_1.__extends(DocumentCard, _super);
@@ -38423,7 +38482,7 @@ var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
 var Icon_1 = __webpack_require__(11);
 var Button_1 = __webpack_require__(16);
-var stylesImport = __webpack_require__(37);
+var stylesImport = __webpack_require__(38);
 var styles = stylesImport;
 var DocumentCardActions = (function (_super) {
     tslib_1.__extends(DocumentCardActions, _super);
@@ -38459,7 +38518,7 @@ var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
 var Persona_1 = __webpack_require__(46);
-var stylesImport = __webpack_require__(37);
+var stylesImport = __webpack_require__(38);
 var styles = stylesImport;
 var DocumentCardActivity = (function (_super) {
     tslib_1.__extends(DocumentCardActivity, _super);
@@ -38511,7 +38570,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
-var stylesImport = __webpack_require__(37);
+var stylesImport = __webpack_require__(38);
 var styles = stylesImport;
 var DocumentCardLocation = (function (_super) {
     tslib_1.__extends(DocumentCardLocation, _super);
@@ -38540,7 +38599,7 @@ var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Image_1 = __webpack_require__(45);
 var Utilities_1 = __webpack_require__(0);
-var stylesImport = __webpack_require__(37);
+var stylesImport = __webpack_require__(38);
 var styles = stylesImport;
 var LIST_ITEM_COUNT = 3;
 var DocumentCardPreview = (function (_super) {
@@ -38620,7 +38679,7 @@ var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 /* tslint:enable:no-unused-variable */
 var Utilities_1 = __webpack_require__(0);
-var stylesImport = __webpack_require__(37);
+var stylesImport = __webpack_require__(38);
 var styles = stylesImport;
 var TRUNCATION_SEPARATOR = '&hellip;';
 var TRUNCATION_MINIMUM_LENGTH = 40; // This is the length we know can fit into the min width of DocumentCard.
@@ -38768,7 +38827,7 @@ var React = __webpack_require__(1);
 var Dropdown_Props_1 = __webpack_require__(147);
 var DirectionalHint_1 = __webpack_require__(17);
 var Callout_1 = __webpack_require__(28);
-var Label_1 = __webpack_require__(35);
+var Label_1 = __webpack_require__(36);
 var Button_1 = __webpack_require__(16);
 var Panel_1 = __webpack_require__(129);
 var Icon_1 = __webpack_require__(11);
@@ -43759,7 +43818,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
-var Label_1 = __webpack_require__(35);
+var Label_1 = __webpack_require__(36);
 var stylesImport = __webpack_require__(489);
 var styles = stylesImport;
 var ValuePosition;
@@ -44162,7 +44221,7 @@ __export(__webpack_require__(164));
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
-var Label_1 = __webpack_require__(35);
+var Label_1 = __webpack_require__(36);
 var Icon_1 = __webpack_require__(11);
 var Utilities_1 = __webpack_require__(0);
 var stylesImport = __webpack_require__(497);
@@ -44509,7 +44568,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
-var Label_1 = __webpack_require__(35);
+var Label_1 = __webpack_require__(36);
 var Utilities_2 = __webpack_require__(0);
 var Styling_1 = __webpack_require__(10);
 var Toggle_styles_1 = __webpack_require__(500);
@@ -46294,7 +46353,7 @@ var _a, _b, _c, _d;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var interfaces_1 = __webpack_require__(38);
+var interfaces_1 = __webpack_require__(39);
 var Utilities_1 = __webpack_require__(0);
 var Selection = (function () {
     function Selection(options) {
@@ -46533,7 +46592,7 @@ var tslib_1 = __webpack_require__(2);
 var React = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(0);
 var SelectionLayout_1 = __webpack_require__(175);
-var interfaces_1 = __webpack_require__(38);
+var interfaces_1 = __webpack_require__(39);
 // Selection definitions:
 //
 // Anchor index: the point from which a range selection starts.
@@ -47812,8 +47871,8 @@ var EventPluginHub = __webpack_require__(47);
 var EventPropagators = __webpack_require__(48);
 var ExecutionEnvironment = __webpack_require__(13);
 var ReactDOMComponentTree = __webpack_require__(12);
-var ReactUpdates = __webpack_require__(21);
-var SyntheticEvent = __webpack_require__(24);
+var ReactUpdates = __webpack_require__(22);
+var SyntheticEvent = __webpack_require__(25);
 
 var getEventTarget = __webpack_require__(101);
 var isEventSupported = __webpack_require__(102);
@@ -48161,7 +48220,7 @@ module.exports = ChangeEventPlugin;
 
 var _prodInvariant = __webpack_require__(8);
 
-var DOMLazyTree = __webpack_require__(39);
+var DOMLazyTree = __webpack_require__(40);
 var ExecutionEnvironment = __webpack_require__(13);
 
 var createNodesFromMarkup = __webpack_require__(253);
@@ -48449,7 +48508,7 @@ module.exports = FallbackCompositionState;
 
 
 
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -48690,7 +48749,7 @@ module.exports = HTMLDOMPropertyConfig;
 
 
 
-var ReactReconciler = __webpack_require__(40);
+var ReactReconciler = __webpack_require__(41);
 
 var instantiateReactComponent = __webpack_require__(196);
 var KeyEscapeUtils = __webpack_require__(93);
@@ -48888,20 +48947,20 @@ module.exports = ReactComponentBrowserEnvironment;
 var _prodInvariant = __webpack_require__(8),
     _assign = __webpack_require__(9);
 
-var React = __webpack_require__(41);
+var React = __webpack_require__(42);
 var ReactComponentEnvironment = __webpack_require__(95);
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var ReactErrorUtils = __webpack_require__(96);
 var ReactInstanceMap = __webpack_require__(49);
 var ReactInstrumentation = __webpack_require__(20);
 var ReactNodeTypes = __webpack_require__(189);
-var ReactReconciler = __webpack_require__(40);
+var ReactReconciler = __webpack_require__(41);
 
 if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(582);
 }
 
-var emptyObject = __webpack_require__(43);
+var emptyObject = __webpack_require__(44);
 var invariant = __webpack_require__(6);
 var shallowEqual = __webpack_require__(69);
 var shouldUpdateReactComponent = __webpack_require__(103);
@@ -49798,8 +49857,8 @@ module.exports = ReactCompositeComponent;
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactDefaultInjection = __webpack_require__(552);
 var ReactMount = __webpack_require__(188);
-var ReactReconciler = __webpack_require__(40);
-var ReactUpdates = __webpack_require__(21);
+var ReactReconciler = __webpack_require__(41);
+var ReactUpdates = __webpack_require__(22);
 var ReactVersion = __webpack_require__(567);
 
 var findDOMNode = __webpack_require__(584);
@@ -49917,9 +49976,9 @@ var _prodInvariant = __webpack_require__(8),
 
 var AutoFocusUtils = __webpack_require__(523);
 var CSSPropertyOperations = __webpack_require__(525);
-var DOMLazyTree = __webpack_require__(39);
+var DOMLazyTree = __webpack_require__(40);
 var DOMNamespaces = __webpack_require__(91);
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 var DOMPropertyOperations = __webpack_require__(181);
 var EventPluginHub = __webpack_require__(47);
 var EventPluginRegistry = __webpack_require__(60);
@@ -50958,7 +51017,7 @@ module.exports = ReactDOMContainerInfo;
 
 var _assign = __webpack_require__(9);
 
-var DOMLazyTree = __webpack_require__(39);
+var DOMLazyTree = __webpack_require__(40);
 var ReactDOMComponentTree = __webpack_require__(12);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -51090,7 +51149,7 @@ var _prodInvariant = __webpack_require__(8),
 var DOMPropertyOperations = __webpack_require__(181);
 var LinkedValueUtils = __webpack_require__(94);
 var ReactDOMComponentTree = __webpack_require__(12);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(7);
@@ -51375,7 +51434,7 @@ module.exports = ReactDOMInput;
 
 
 
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 var ReactComponentTreeHook = __webpack_require__(18);
 
 var warning = __webpack_require__(7);
@@ -51525,7 +51584,7 @@ module.exports = ReactDOMNullInputValuePropHook;
 
 var _assign = __webpack_require__(9);
 
-var React = __webpack_require__(41);
+var React = __webpack_require__(42);
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactDOMSelect = __webpack_require__(183);
 
@@ -51873,7 +51932,7 @@ var _prodInvariant = __webpack_require__(8),
     _assign = __webpack_require__(9);
 
 var DOMChildrenOperations = __webpack_require__(90);
-var DOMLazyTree = __webpack_require__(39);
+var DOMLazyTree = __webpack_require__(40);
 var ReactDOMComponentTree = __webpack_require__(12);
 
 var escapeTextContentForBrowser = __webpack_require__(64);
@@ -52044,7 +52103,7 @@ var _prodInvariant = __webpack_require__(8),
 
 var LinkedValueUtils = __webpack_require__(94);
 var ReactDOMComponentTree = __webpack_require__(12);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(7);
@@ -52347,7 +52406,7 @@ module.exports = {
 
 
 
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 var EventPluginRegistry = __webpack_require__(60);
 var ReactComponentTreeHook = __webpack_require__(18);
 
@@ -52832,7 +52891,7 @@ module.exports = ReactDebugTool;
 
 var _assign = __webpack_require__(9);
 
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 var Transaction = __webpack_require__(63);
 
 var emptyFunction = __webpack_require__(19);
@@ -53063,7 +53122,7 @@ var EventListener = __webpack_require__(116);
 var ExecutionEnvironment = __webpack_require__(13);
 var PooledClass = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(12);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
 var getEventTarget = __webpack_require__(101);
 var getUnboundedScrollPosition = __webpack_require__(255);
@@ -53256,14 +53315,14 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 
-var DOMProperty = __webpack_require__(25);
+var DOMProperty = __webpack_require__(26);
 var EventPluginHub = __webpack_require__(47);
 var EventPluginUtils = __webpack_require__(92);
 var ReactComponentEnvironment = __webpack_require__(95);
 var ReactEmptyComponent = __webpack_require__(184);
 var ReactBrowserEventEmitter = __webpack_require__(61);
 var ReactHostComponent = __webpack_require__(186);
-var ReactUpdates = __webpack_require__(21);
+var ReactUpdates = __webpack_require__(22);
 
 var ReactInjection = {
   Component: ReactComponentEnvironment.injection,
@@ -53399,8 +53458,8 @@ var ReactComponentEnvironment = __webpack_require__(95);
 var ReactInstanceMap = __webpack_require__(49);
 var ReactInstrumentation = __webpack_require__(20);
 
-var ReactCurrentOwner = __webpack_require__(22);
-var ReactReconciler = __webpack_require__(40);
+var ReactCurrentOwner = __webpack_require__(23);
+var ReactReconciler = __webpack_require__(41);
 var ReactChildReconciler = __webpack_require__(532);
 
 var emptyFunction = __webpack_require__(19);
@@ -54829,7 +54888,7 @@ var EventPropagators = __webpack_require__(48);
 var ExecutionEnvironment = __webpack_require__(13);
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactInputSelection = __webpack_require__(187);
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 var getActiveElement = __webpack_require__(119);
 var isTextInputElement = __webpack_require__(197);
@@ -55029,7 +55088,7 @@ var EventPropagators = __webpack_require__(48);
 var ReactDOMComponentTree = __webpack_require__(12);
 var SyntheticAnimationEvent = __webpack_require__(571);
 var SyntheticClipboardEvent = __webpack_require__(572);
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 var SyntheticFocusEvent = __webpack_require__(575);
 var SyntheticKeyboardEvent = __webpack_require__(577);
 var SyntheticMouseEvent = __webpack_require__(62);
@@ -55255,7 +55314,7 @@ module.exports = SimpleEventPlugin;
 
 
 
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 /**
  * @interface Event
@@ -55299,7 +55358,7 @@ module.exports = SyntheticAnimationEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 /**
  * @interface Event
@@ -55342,7 +55401,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 /**
  * @interface Event
@@ -55465,7 +55524,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 /**
  * @interface Event
@@ -55646,7 +55705,7 @@ module.exports = SyntheticTouchEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(24);
+var SyntheticEvent = __webpack_require__(25);
 
 /**
  * @interface Event
@@ -55978,7 +56037,7 @@ module.exports = dangerousStyleValue;
 
 var _prodInvariant = __webpack_require__(8);
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(12);
 var ReactInstanceMap = __webpack_require__(49);
 
@@ -56900,7 +56959,7 @@ var ReactElement = __webpack_require__(31);
 var ReactPropTypeLocationNames = __webpack_require__(202);
 var ReactNoopUpdateQueue = __webpack_require__(106);
 
-var emptyObject = __webpack_require__(43);
+var emptyObject = __webpack_require__(44);
 var invariant = __webpack_require__(6);
 var warning = __webpack_require__(7);
 
@@ -57848,7 +57907,7 @@ var _assign = __webpack_require__(9);
 var ReactComponent = __webpack_require__(105);
 var ReactNoopUpdateQueue = __webpack_require__(106);
 
-var emptyObject = __webpack_require__(43);
+var emptyObject = __webpack_require__(44);
 
 /**
  * Base class helpers for the updating state of a component.
@@ -58074,7 +58133,7 @@ module.exports = onlyChild;
 
 var _prodInvariant = __webpack_require__(32);
 
-var ReactCurrentOwner = __webpack_require__(22);
+var ReactCurrentOwner = __webpack_require__(23);
 var REACT_ELEMENT_TYPE = __webpack_require__(200);
 
 var getIteratorFn = __webpack_require__(203);
@@ -58774,7 +58833,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var gd_sprest_1 = __webpack_require__(44);
+var gd_sprest_1 = __webpack_require__(35);
+var office_ui_fabric_react_1 = __webpack_require__(21);
 /**
  * Base Field
  */
@@ -58800,7 +58860,7 @@ var Field = (function (_super) {
         _this.updateValue = function (value) {
             // Update the state
             _this.setState({
-                showErrorMessage: _this.state.fieldInfo.required ? (value != null ? false : true) : false,
+                showErrorMessage: _this.state.fieldInfo.required ? (value ? false : true) : false,
                 value: value
             });
         };
@@ -58820,6 +58880,7 @@ var Field = (function (_super) {
                     title: _this.props.title,
                     webUrl: _this.props.webUrl
                 },
+                initFl: false,
                 showErrorMessage: false,
                 value: null
             };
@@ -58835,10 +58896,11 @@ var Field = (function (_super) {
                     if (field) {
                         // Update the field information
                         state.fieldInfo.defaultValue = state.fieldInfo.defaultValue || field.defaultValue;
-                        state.fieldInfo.required = typeof (state.fieldInfo.required) === "boolean" ? state.fieldInfo.required : field.required;
+                        state.fieldInfo.required = field.required;
                         state.fieldInfo.title = state.fieldInfo.title || field.title;
+                        state.initFl = true;
                         state.label = state.fieldInfo.title + ":";
-                        state.showErrorMessage = state.fieldInfo.required;
+                        state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
                         // Call the on loaded event
                         _this.onFieldLoaded ? _this.onFieldLoaded() : null;
                         // Return the field information
@@ -58855,17 +58917,19 @@ var Field = (function (_super) {
                 .getByInternalNameOrTitle(state.fieldInfo.name)
                 .execute(function (field) {
                 // Update the field information
-                state.fieldInfo.defaultValue = state.fieldInfo.defaultValue || field.DefaultValue;
-                state.fieldInfo.required = typeof (state.fieldInfo.required) === "boolean" ? state.fieldInfo.required : field.Required;
-                state.fieldInfo.title = state.fieldInfo.title || field.Title;
+                state.fieldInfo.defaultValue = field.DefaultValue;
+                state.fieldInfo.required = field.Required;
+                state.fieldInfo.title = field.Title;
+                state.initFl = true;
                 state.label = state.fieldInfo.title + ":";
-                state.showErrorMessage = state.fieldInfo.required;
+                state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
                 // Call the on initialized event
                 _this.onFieldInit ? _this.onFieldInit(field, state) : null;
                 // Update the state
-                _this.setState(state);
-                // Call the on loaded event
-                _this.onFieldLoaded ? _this.onFieldLoaded() : null;
+                _this.setState(state, function () {
+                    // Call the on loaded event
+                    _this.onFieldLoaded ? _this.onFieldLoaded() : null;
+                });
             });
             // Return the state
             return state;
@@ -58876,8 +58940,19 @@ var Field = (function (_super) {
     }
     // Method to render the component
     Field.prototype.render = function () {
-        // Render the field
-        return this.renderField();
+        // See if the field is initialized
+        if (this.state.initFl) {
+            // Render the field
+            return this.renderField();
+        }
+        // Determine if we are showing a spinner
+        var showFl = typeof (this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;
+        if (showFl) {
+            // Return a loading spinner
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the '" + this.props.name + "' field.", size: office_ui_fabric_react_1.SpinnerSize.small }));
+        }
+        // Show nothing by default
+        return null;
     };
     return Field;
 }(React.Component));
@@ -58891,8 +58966,19 @@ exports.Field = Field;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Common
+ */
+var common_1 = __webpack_require__(24);
+exports.Field = common_1.Field;
+/**
+ * Components
+ */
 var basePanel_1 = __webpack_require__(206);
-exports.BasePanel = basePanel_1.BasePanel;
+exports.Panel = basePanel_1.BasePanel;
+/**
+ * Fields
+ */
 var fieldBoolean_1 = __webpack_require__(207);
 exports.FieldBoolean = fieldBoolean_1.FieldBoolean;
 var fieldChoice_1 = __webpack_require__(208);

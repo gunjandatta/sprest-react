@@ -18836,14 +18836,21 @@ var FieldChoice = (function (_super) {
     FieldChoice.prototype.renderField = function () {
         // Update the properties
         var props = this.props.props || {};
-        props.label = props.label || this.state.label;
-        props.defaultSelectedKey = props.selectedKey || this.getFieldValue();
+        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
+        props.label = props.label || this.state.label;
         props.onChanged = this.onChange;
-        props.options = props.options || this.state.choices;
+        props.options = this.state.choices;
         props.ref = "choice";
         props.required = props.required || this.state.fieldInfo.required;
+        // Parse the choices to set the default value
+        var defaultValue = this.props.defaultValue || props.defaultSelectedKey;
+        for (var i = 0; i < props.options.length; i++) {
+            var option = props.options[i];
+            // Update the choice
+            option.selected = option.key == defaultValue;
+        }
         // Return the dropdown
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
     };
@@ -18955,10 +18962,12 @@ var FieldDateTime = (function (_super) {
             };
         };
         // Method to render the time component
-        _this.renderTime = function () {
+        _this.renderTime = function (date) {
             // See if we are showing the time component
             if (_this.state.fieldInfo.showTime) {
                 var props = _this.props.timeProps || {};
+                var selectedHour = date ? date.getHours() : null;
+                var selectedMin = date ? date.getMinutes() : null;
                 // Clear the options
                 props.options = [];
                 // Loop until the max
@@ -18971,6 +18980,7 @@ var FieldDateTime = (function (_super) {
                         // Create the option
                         props.options.push({
                             key: i + "|" + j * 15,
+                            selected: i == selectedHour && j == selectedMin,
                             text: hour + ":" + ("00" + (j * 15)).slice(-2) + " " + (i < 12 ? "AM" : "PM")
                         });
                     }
@@ -18979,6 +18989,7 @@ var FieldDateTime = (function (_super) {
                 props.onChanged = _this.onTimeChanged;
                 props.placeHolder = props.placeHolder || "Time";
                 props.ref = "time";
+                props.selectedKey = selectedHour + "|" + selectedMin;
                 // Return the time
                 return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
             }
@@ -19002,7 +19013,7 @@ var FieldDateTime = (function (_super) {
         // Render the component
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props)),
-            this.renderTime()));
+            this.renderTime(props.value)));
     };
     return FieldDateTime;
 }(common_1.Field));
@@ -19084,23 +19095,24 @@ var FieldLookup = (function (_super) {
                     Top: 500
                 })
                     .execute(function (items) {
+                    var defaultValue = _this.props.defaultValue ? _this.props.defaultValue : null;
                     var options = [];
                     // Parse the items
                     for (var i = 0; i < items.results.length; i++) {
                         var item = items.results[i];
                         var option = {
                             key: item.Id,
-                            selected: item.Id == _this.props.defaultValue,
+                            selected: item.Id == defaultValue ? defaultValue.ID : 0,
                             text: item[_this.state.fieldInfo.lookupFieldName]
                         };
                         // See if this is a multi-lookup, and there is a default value
-                        if (_this.state.fieldInfo.allowMultipleValues && _this.props.defaultValue) {
-                            var results = _this.props.defaultValue.results || [];
+                        if (_this.state.fieldInfo.allowMultipleValues && defaultValue) {
+                            var results = defaultValue ? defaultValue.results : [];
                             // Parse the default values
                             for (var j = 0; j < results.length; j++) {
                                 var result = results[j];
                                 // See if this is the current option
-                                if (option.key == result) {
+                                if (option.key == result.ID) {
                                     // Select this option
                                     option.selected = true;
                                     break;
@@ -19183,18 +19195,19 @@ var FieldLookup = (function (_super) {
     FieldLookup.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
+        props.selectedKey = (props.defaultSelectedKey || this.getFieldValue() || {}).ID;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
         props.ref = "lookup";
-        props.selectedKey = this.getFieldValue();
         // See if this is a multi-lookup field
         if (this.state.fieldInfo.allowMultipleValues) {
             // Update the dropdown properties
             props.onRenderItem = this.renderOption;
             props.onRenderTitle = this.renderTitle;
+            props.selectedKey = null;
         }
         // Return the component
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
@@ -19257,7 +19270,7 @@ var FieldNumber = (function (_super) {
         _this.getValue = function () {
             var value = _this.getFieldValue();
             // Default the field type
-            var fieldType = _this.props.type ? _this.props.type : FieldNumberTypes.Integer;
+            var fieldType = typeof (_this.props.type) === "number" ? _this.props.type : FieldNumberTypes.Integer;
             // Ensure a value exists and need to convert it
             if (value && fieldType == FieldNumberTypes.Integer) {
                 // Convert the value to an integer
@@ -19280,9 +19293,9 @@ var FieldNumber = (function (_super) {
     FieldNumber.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
         props.defaultValue = this.getValue();
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChange;
         props.ref = "number";
@@ -19362,9 +19375,9 @@ var FieldText = (function (_super) {
     FieldText.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.defaultValue = this.getFieldValue();
+        props.defaultValue = this.props.defaultValue || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? props.errorMessage : "";
+        props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
         props.onChanged = this.onChange;
@@ -19459,14 +19472,6 @@ var FieldUrl = (function (_super) {
     // Method to render the component
     FieldUrl.prototype.renderField = function () {
         var defaultValue = this.getValue();
-        // Update the description properties
-        var descProps = this.props.descProps || {};
-        descProps.defaultValue = defaultValue.Description;
-        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
-        descProps.errorMessage = this.state.showErrorMessage ? descProps.errorMessage : "";
-        descProps.onChanged = this.onDescChanged;
-        descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
-        descProps.ref = "description";
         // Update the url properties
         var urlProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue.Url;
@@ -19475,6 +19480,14 @@ var FieldUrl = (function (_super) {
         urlProps.onChanged = this.onUrlChanged;
         urlProps.ref = "url";
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
+        // Update the description properties
+        var descProps = this.props.descProps || {};
+        descProps.defaultValue = defaultValue.Description;
+        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
+        descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
+        descProps.onChanged = this.onDescChanged;
+        descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
+        descProps.ref = "description";
         // Return the component
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps)),
@@ -19551,6 +19564,8 @@ var FieldUser = (function (_super) {
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
+            // Note - Needs to be updated for multi-user
+            state.value = _this.props.defaultValue ? _this.props.defaultValue.ID : null;
         };
         /**
          * Methods
@@ -19577,8 +19592,17 @@ var FieldUser = (function (_super) {
         _this.getValue = function (personas) {
             // See if we are allowing multiple
             if (_this.state.fieldInfo.allowMultiple) {
-                // Return the personas
-                return personas.length > 0 ? personas : null;
+                var results = [];
+                // Parse the personas
+                for (var i = 0; i < personas.length; i++) {
+                    // Add the user id
+                    results.push(personas[i].itemID);
+                }
+                // Return the results
+                return results.length == 0 ? null : {
+                    __metadata: { type: "Collection(Edm.Int32)" },
+                    results: results
+                };
             }
             else {
                 // Get the last persona
@@ -58871,7 +58895,7 @@ var Field = (function (_super) {
             // Default the state
             var state = {
                 fieldInfo: {
-                    defaultValue: _this.props.defaultValue,
+                    defaultValue: "",
                     errorMessage: _this.props.errorMessage || "This field requires a value.",
                     listName: _this.props.listName,
                     name: _this.props.name,
@@ -58881,7 +58905,7 @@ var Field = (function (_super) {
                 },
                 initFl: false,
                 showErrorMessage: false,
-                value: null
+                value: _this.props.defaultValue
             };
             // See if the session data exists
             var sessionData = sessionStorage.getItem(_this._sessionKey);
@@ -58894,11 +58918,11 @@ var Field = (function (_super) {
                     // See if fields exist
                     if (field) {
                         // Update the field information
-                        state.fieldInfo.defaultValue = state.fieldInfo.defaultValue || field.defaultValue;
+                        state.fieldInfo.defaultValue = field.defaultValue;
                         state.fieldInfo.required = field.required;
-                        state.fieldInfo.title = state.fieldInfo.title || field.title;
+                        state.fieldInfo.title = field.title;
                         state.initFl = true;
-                        state.label = state.fieldInfo.title + ":";
+                        state.label = field.title + ":";
                         state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
                         // Call the on loaded event
                         _this.onFieldLoaded ? _this.onFieldLoaded() : null;

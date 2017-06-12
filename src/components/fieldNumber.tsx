@@ -60,7 +60,7 @@ export class FieldNumber extends Field<Props, IFieldState> {
         let value = this.getFieldValue();
 
         // Default the field type
-        let fieldType = this.props.type ? this.props.type : FieldNumberTypes.Integer;
+        let fieldType = typeof(this.props.type) === "number" ? this.props.type : FieldNumberTypes.Integer;
 
         // Ensure a value exists and need to convert it
         if(value && fieldType == FieldNumberTypes.Integer) {

@@ -10034,9 +10034,9 @@ DataSource.save = function (item) {
                 TestDate: item.TestDate,
                 TestDateTime: item.TestDateTime,
                 TestLookupId: item.TestLookupId,
-                TestMultiChoice: item.TestMultiChoice,
+                //TestMultiChoice: item.TestMultiChoice,
                 TestMultiLookupId: item.TestMultiLookupId,
-                TestMultiUserId: item.TestMultiUserId,
+                //TestMultiUserId: item.TestMultiUserId,
                 TestNote: item.TestNote,
                 TestNumberDecimal: item.TestNumberDecimal,
                 TestNumberInteger: item.TestNumberInteger,
@@ -58741,23 +58741,24 @@ var FieldLookup = (function (_super) {
                     Top: 500
                 })
                     .execute(function (items) {
+                    var defaultValue = _this.props.defaultValue ? _this.props.defaultValue : null;
                     var options = [];
                     // Parse the items
                     for (var i = 0; i < items.results.length; i++) {
                         var item = items.results[i];
                         var option = {
                             key: item.Id,
-                            selected: item.Id == _this.props.defaultValue,
+                            selected: item.Id == defaultValue ? defaultValue.ID : 0,
                             text: item[_this.state.fieldInfo.lookupFieldName]
                         };
                         // See if this is a multi-lookup, and there is a default value
-                        if (_this.state.fieldInfo.allowMultipleValues && _this.props.defaultValue) {
-                            var results = _this.props.defaultValue.results || [];
+                        if (_this.state.fieldInfo.allowMultipleValues && defaultValue) {
+                            var results = defaultValue ? defaultValue.results : [];
                             // Parse the default values
                             for (var j = 0; j < results.length; j++) {
                                 var result = results[j];
                                 // See if this is the current option
-                                if (option.key == result) {
+                                if (option.key == result.ID) {
                                     // Select this option
                                     option.selected = true;
                                     break;
@@ -58840,7 +58841,7 @@ var FieldLookup = (function (_super) {
     FieldLookup.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
+        props.selectedKey = (props.defaultSelectedKey || this.getFieldValue() || {}).ID;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -58852,6 +58853,7 @@ var FieldLookup = (function (_super) {
             // Update the dropdown properties
             props.onRenderItem = this.renderOption;
             props.onRenderTitle = this.renderTitle;
+            props.selectedKey = null;
         }
         // Return the component
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
@@ -58914,7 +58916,7 @@ var FieldNumber = (function (_super) {
         _this.getValue = function () {
             var value = _this.getFieldValue();
             // Default the field type
-            var fieldType = _this.props.type ? _this.props.type : FieldNumberTypes.Integer;
+            var fieldType = typeof (_this.props.type) === "number" ? _this.props.type : FieldNumberTypes.Integer;
             // Ensure a value exists and need to convert it
             if (value && fieldType == FieldNumberTypes.Integer) {
                 // Convert the value to an integer
@@ -59208,6 +59210,8 @@ var FieldUser = (function (_super) {
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
+            // Note - Needs to be updated for multi-user
+            state.value = _this.props.defaultValue ? _this.props.defaultValue.ID : null;
         };
         /**
          * Methods
@@ -59234,8 +59238,17 @@ var FieldUser = (function (_super) {
         _this.getValue = function (personas) {
             // See if we are allowing multiple
             if (_this.state.fieldInfo.allowMultiple) {
-                // Return the personas
-                return personas.length > 0 ? personas : null;
+                var results = [];
+                // Parse the personas
+                for (var i = 0; i < personas.length; i++) {
+                    // Add the user id
+                    results.push(personas[i].itemID);
+                }
+                // Return the results
+                return results.length == 0 ? null : {
+                    __metadata: { type: "Collection(Edm.Int32)" },
+                    results: results
+                };
             }
             else {
                 // Get the last persona
@@ -59411,9 +59424,8 @@ var ItemForm = (function (_super) {
                 React.createElement(src_1.FieldDateTime, { defaultValue: item.TestDateTime, listName: data_1.DataSource.ListName, name: "TestDateTime", ref: "TestDateTime" }),
                 React.createElement(src_1.FieldLookup, { defaultValue: item.TestLookup, listName: data_1.DataSource.ListName, name: "TestLookup", ref: "TestLookupId" }),
                 React.createElement(src_1.FieldLookup, { defaultValue: item.TestMultiLookup, listName: data_1.DataSource.ListName, name: "TestMultiLookup", ref: "TestMultiLookupId" }),
-                React.createElement(src_1.FieldUser, { defaultValue: item.TestMultiUser, listName: data_1.DataSource.ListName, name: "TestMultiUser", ref: "TestMultiUserId" }),
                 React.createElement(src_1.FieldText, { defaultValue: item.TestNote, listName: data_1.DataSource.ListName, name: "TestNote", ref: "TestNote" }),
-                React.createElement(src_1.FieldNumber, { defaultValue: item.TestNumberDecimal, listName: data_1.DataSource.ListName, name: "TestNumberDecimal", ref: "TestNumberDecimal" }),
+                React.createElement(src_1.FieldNumber, { defaultValue: item.TestNumberDecimal, listName: data_1.DataSource.ListName, name: "TestNumberDecimal", ref: "TestNumberDecimal", type: src_1.FieldNumberTypes.Decimal }),
                 React.createElement(src_1.FieldNumber, { defaultValue: item.TestNumberInteger, listName: data_1.DataSource.ListName, name: "TestNumberInteger", ref: "TestNumberInteger" }),
                 React.createElement(src_1.FieldUrl, { defaultValue: item.TestUrl, listName: data_1.DataSource.ListName, name: "TestUrl", ref: "TestUrl" }),
                 React.createElement(src_1.FieldUser, { defaultValue: item.TestUser, listName: data_1.DataSource.ListName, name: "TestUser", ref: "TestUserId" })));

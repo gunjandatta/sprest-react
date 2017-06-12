@@ -107,6 +107,8 @@ export class FieldUser extends Field<Props, State> {
 
         // Update the state
         state.fieldInfo.allowMultiple = field.AllowMultipleValues;
+        // Note - Needs to be updated for multi-user
+        state.value = this.props.defaultValue ? this.props.defaultValue.ID : null;
     }
 
     /**
@@ -138,8 +140,19 @@ export class FieldUser extends Field<Props, State> {
     private getValue = (personas: Array<IPersonaProps>) => {
         // See if we are allowing multiple
         if (this.state.fieldInfo.allowMultiple) {
-            // Return the personas
-            return personas.length > 0 ? personas : null;
+            let results = [];
+
+            // Parse the personas
+            for(let i=0; i<personas.length; i++) {
+                // Add the user id
+                results.push(personas[i].itemID);
+            }
+
+            // Return the results
+            return results.length == 0 ? null : {
+                __metadata: { type: "Collection(Edm.Int32)" },
+                results
+            };
         } else {
             // Get the last persona
             let persona = personas.length > 0 ? personas[personas.length - 1] : null;

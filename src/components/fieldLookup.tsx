@@ -53,7 +53,7 @@ export class FieldLookup extends Field<Props, State> {
         let props:IDropdownProps = this.props.props || {};
 
         // Update the properties
-        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
+        props.selectedKey = (props.defaultSelectedKey || this.getFieldValue() || {}).ID;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -66,6 +66,7 @@ export class FieldLookup extends Field<Props, State> {
             // Update the dropdown properties
             props.onRenderItem = this.renderOption;
             props.onRenderTitle = this.renderTitle;
+            props.selectedKey = null;
         }
 
         // Return the component
@@ -119,6 +120,7 @@ export class FieldLookup extends Field<Props, State> {
                     })
                     // Execute the request
                     .execute((items: Types.IListItems) => {
+                        let defaultValue = this.props.defaultValue ? this.props.defaultValue : null;
                         let options: Array<IDropdownOption> = [];
 
                         // Parse the items
@@ -126,20 +128,20 @@ export class FieldLookup extends Field<Props, State> {
                             let item = items.results[i];
                             let option = {
                                 key: item.Id,
-                                selected: item.Id == this.props.defaultValue,
+                                selected: item.Id == defaultValue ? defaultValue.ID : 0,
                                 text: item[this.state.fieldInfo.lookupFieldName]
                             };
 
                             // See if this is a multi-lookup, and there is a default value
-                            if (this.state.fieldInfo.allowMultipleValues && this.props.defaultValue) {
-                                let results = this.props.defaultValue.results || [];
+                            if (this.state.fieldInfo.allowMultipleValues && defaultValue) {
+                                let results = defaultValue ? defaultValue.results : [];
 
                                 // Parse the default values
                                 for (let j = 0; j < results.length; j++) {
                                     let result = results[j];
 
                                     // See if this is the current option
-                                    if (option.key == result) {
+                                    if (option.key == result.ID) {
                                         // Select this option
                                         option.selected = true;
                                         break;

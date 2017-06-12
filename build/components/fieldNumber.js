@@ -19,16 +19,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var fieldNumber_d_1 = require("./fieldNumber.d");
+exports.FieldNumberTypes = fieldNumber_d_1.FieldNumberTypes;
 var common_1 = require("../common");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-/**
- * Number Types
- */
-var FieldNumberTypes;
-(function (FieldNumberTypes) {
-    FieldNumberTypes[FieldNumberTypes["Decimal"] = 0] = "Decimal";
-    FieldNumberTypes[FieldNumberTypes["Integer"] = 1] = "Integer";
-})(FieldNumberTypes = exports.FieldNumberTypes || (exports.FieldNumberTypes = {}));
 /**
  * Number Field
  */
@@ -46,9 +40,9 @@ var FieldNumber = (function (_super) {
         _this.getValue = function () {
             var value = _this.getFieldValue();
             // Default the field type
-            var fieldType = typeof (_this.props.type) === "number" ? _this.props.type : FieldNumberTypes.Integer;
+            var fieldType = typeof (_this.props.type) === "number" ? _this.props.type : fieldNumber_d_1.FieldNumberTypes.Integer;
             // Ensure a value exists and need to convert it
-            if (value && fieldType == FieldNumberTypes.Integer) {
+            if (value && fieldType == fieldNumber_d_1.FieldNumberTypes.Integer) {
                 // Convert the value to an integer
                 var intValue = parseInt(value);
                 value = intValue ? intValue.toString() : value;

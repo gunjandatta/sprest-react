@@ -1,44 +1,12 @@
 import * as React from "react";
 import { SPTypes, Types, Site } from "gd-sprest";
-import { Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { ILookupFieldInfo, Props, State } from "./fieldLookup.d";
+import { Field } from "../common";
 import {
     Checkbox,
     Dropdown, IDropdownOption, IDropdownProps
 } from "office-ui-fabric-react";
 import "../../sass/fieldLookup.scss";
-
-/**
- * Lookup Field Information
- */
-interface ILookupFieldInfo extends IFieldInfo {
-    allowMultipleValues: boolean;
-    lookupFieldName: string;
-    lookupListName: string;
-    lookupWebId: string;
-    showField: string;
-}
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** Flag to determine if we should get all items. */
-    getAllItemsFl?: boolean;
-
-    /** Event triggered when the field value changes. */
-    onChange?: (value:IDropdownOption | Array<string | number>) => void;
-
-    /** The dropdown list properties. */
-    props?: IDropdownProps;
-}
-
-/**
- * State
- */
-interface State extends IFieldState {
-    options?: Array<IDropdownOption>;
-    fieldInfo: ILookupFieldInfo;
-}
 
 /**
  * Lookup Field
@@ -50,7 +18,7 @@ export class FieldLookup extends Field<Props, State> {
 
     // Render the field
     renderField() {
-        let props:IDropdownProps = this.props.props || {};
+        let props: IDropdownProps = this.props.props || {};
 
         // Update the properties
         props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
@@ -122,7 +90,7 @@ export class FieldLookup extends Field<Props, State> {
     }
 
     // The field initialized event
-    onFieldInit = (field: Types.IFieldLookup, state: State) => {
+    onFieldInit = (field: any, state: State) => {
         // Clear the options
         state.options = [];
 
@@ -140,12 +108,12 @@ export class FieldLookup extends Field<Props, State> {
         state.fieldInfo.lookupWebId = field.LookupWebId;
 
         // Update the value
-        if(state.fieldInfo.allowMultipleValues) {
+        if (state.fieldInfo.allowMultipleValues) {
             let defaultValue = this.props.defaultValue ? this.props.defaultValue.results : [];
             let results = [];
 
             // Parse the default values
-            for(let i=0; i<defaultValue.length; i++) {
+            for (let i = 0; i < defaultValue.length; i++) {
                 // Add the item id
                 results.push(defaultValue[i].ID);
             }
@@ -168,7 +136,7 @@ export class FieldLookup extends Field<Props, State> {
             // Get the web containing the lookup list
             .openWebById(this.state.fieldInfo.lookupWebId)
             // Execute the request
-            .execute((web:Types.IWeb) => {
+            .execute((web: Types.IWeb) => {
                 // Get the list
                 web.Lists()
                     // Get the list by id
@@ -187,7 +155,7 @@ export class FieldLookup extends Field<Props, State> {
                         let options: Array<IDropdownOption> = [];
 
                         // Add an empty option for single lookup fields
-                        if(!this.state.fieldInfo.allowMultipleValues) {
+                        if (!this.state.fieldInfo.allowMultipleValues) {
                             options.push({
                                 key: null,
                                 text: ""

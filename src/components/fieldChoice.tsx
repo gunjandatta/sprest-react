@@ -1,42 +1,14 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { IFieldChoice, IChoiceFieldInfo, Props, State } from "./fieldChoice.d";
+import { Field } from "../common";
 import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 
-/**
- * Choice Field Information
- */
-interface IChoiceFieldInfo extends IFieldInfo {
-    /** The dropdown choices. */
-    choices: Array<IDropdownOption>;
-}
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** Event triggered when the field value changes. */
-    onChange?: (value:IDropdownOption) => void;
-
-    /** The dropdown properties. */
-    props?: IDropdownProps;
-}
-
-/**
- * State
- */
-interface State extends IFieldState {
-    /** The dropdown choices. */
-    choices?: Array<IDropdownOption>;
-
-    /** The field information */
-    fieldInfo: IChoiceFieldInfo;
-}
 
 /**
  * Boolean field
  */
-export class FieldChoice extends Field<Props, State> {
+export class FieldChoice extends Field<Props, State> implements IFieldChoice {
     /**
      * Public Interface
      */
@@ -44,7 +16,7 @@ export class FieldChoice extends Field<Props, State> {
     // Render the field
     renderField() {
         // Update the properties
-        let props:IDropdownProps = this.props.props || {};
+        let props: IDropdownProps = this.props.props || {};
         props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
@@ -55,7 +27,7 @@ export class FieldChoice extends Field<Props, State> {
 
         // Parse the choices to set the default value
         let defaultValue = this.props.defaultValue || props.defaultSelectedKey;
-        for(let i=0; i<props.options.length; i++) {
+        for (let i = 0; i < props.options.length; i++) {
             let option = props.options[i];
 
             // Update the choice
@@ -82,7 +54,7 @@ export class FieldChoice extends Field<Props, State> {
     }
 
     // The field initialized event
-    onFieldInit = (field: Types.IFieldChoice, state: State) => {
+    onFieldInit = (field: any, state: State) => {
         // Clear the choices
         state.fieldInfo.choices = [];
 

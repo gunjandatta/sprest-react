@@ -1,18 +1,6 @@
 import * as React from "react";
-import { Panel, PanelType, IPanelProps } from "office-ui-fabric-react";
-
-/**
- * Properties
- */
-interface Props extends IPanelProps {
-}
-
-/**
- * State
- */
-interface State {
-    visible?: boolean;
-}
+import { Panel, PanelType } from "office-ui-fabric-react";
+import { Props, State } from "./basePanel.d";
 
 /**
  * Base Panel
@@ -21,12 +9,12 @@ export class BasePanel extends React.Component<Props, State> {
     /**
      * Constructor
      */
-    constructor(props:Props) {
+    constructor(props: Props) {
         super(props);
 
         // Set the state
         this.state = {
-            visible: typeof(props.isOpen) === "boolean" ? props.isOpen : false
+            visible: typeof (props.isOpen) === "boolean" ? props.isOpen : false
         };
     }
 

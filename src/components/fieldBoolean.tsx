@@ -1,30 +1,17 @@
 import * as React from "react";
-import { Field, IFieldProps, IFieldState } from "../common";
-import {
-    Checkbox, ICheckboxProps,
-    Label, ILabelProps
-} from "office-ui-fabric-react";
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** Event triggered when the field value changes. */
-    onChange?: (value:boolean) => void;
-
-    /** The checkbox properties. */
-    props?: ICheckboxProps;
-}
+import { IFieldBoolean, Props, State } from "./fieldBoolean.d";
+import { Field } from "../common";
+import { Checkbox, ICheckboxProps, Label } from "office-ui-fabric-react";
 
 /**
  * Boolean field
  */
-export class FieldBoolean extends Field<Props, IFieldState> {
+export class FieldBoolean extends Field<Props, State> implements IFieldBoolean {
     // Render the field
     renderField() {
         // Update the checkbox properties
-        let props:ICheckboxProps = this.props.props || {};
-        props.checked = typeof(props.checked) === "boolean" ? props.checked : this.getValue();
+        let props: ICheckboxProps = this.props.props || {};
+        props.checked = typeof (props.checked) === "boolean" ? props.checked : this.getValue();
         props.onChange = this.onChange;
 
         // Render the component
@@ -32,7 +19,7 @@ export class FieldBoolean extends Field<Props, IFieldState> {
             <div>
                 <Label
                     ref="label"
-                    required={typeof(props.required) === "boolean" ? props.required : this.state.fieldInfo.required}>
+                    required={typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required}>
                     {props.label || this.state.label}
                 </Label>
                 <Checkbox {...props as any} ref="checkbox" />

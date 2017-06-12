@@ -1,33 +1,8 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { ITextFieldInformation, Props, State } from "./fieldText.d";
+import { Field } from "../common";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
-
-/**
- * Text Field Information
- */
-interface ITextFieldInformation extends IFieldInfo {
-    multiline?: boolean;
-    rows?: number;
-}
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** Event triggered when the field value changes. */
-    onChange?: (value:string) => void;
-
-    /** The textfield properties. */
-    props?: ITextFieldProps;
-}
-
-/**
- * State
- */
-interface State extends IFieldState {
-    fieldInfo: ITextFieldInformation;
-}
 
 /**
  * Text Field
@@ -39,7 +14,7 @@ export class FieldText extends Field<Props, State> {
 
     // Method to render the component
     renderField() {
-        let props:ITextFieldProps = this.props.props || {};
+        let props: ITextFieldProps = this.props.props || {};
 
         // Update the properties
         props.defaultValue = this.props.defaultValue || this.getFieldValue();
@@ -62,7 +37,7 @@ export class FieldText extends Field<Props, State> {
      */
 
     // The field initialized event
-    onFieldInit = (field: Types.IFieldNote, state: State) => {
+    onFieldInit = (field: any, state: State) => {
         // Ensure this is a lookup field
         if (field.FieldTypeKind != SPTypes.FieldType.Note && field.FieldTypeKind != SPTypes.FieldType.Text) {
             // Log
@@ -76,7 +51,7 @@ export class FieldText extends Field<Props, State> {
     }
 
     // The change event
-    private onChange = (value:string) => {
+    private onChange = (value: string) => {
         // Update the field value
         this.updateValue(value);
 

@@ -1,5 +1,6 @@
 import * as React from "react";
-import {SPTypes, Types} from "gd-sprest";
+import { SPTypes, Types } from "gd-sprest";
+import { IFieldDateTime, IDateTimeFieldInfo, Props, State } from "./fieldDateTime.d";
 import { DatePickerStrings, Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
 import {
     DatePicker, DayOfWeek, IDatePickerProps,
@@ -8,37 +9,9 @@ import {
 } from "office-ui-fabric-react";
 
 /**
- * Date/Time Field Information
- */
-interface IDateTimeFieldInfo extends IFieldInfo {
-    showTime?: boolean;
-}
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** Date picker properties. */
-    dtProps?: IDatePickerProps;
-
-    /** Event triggered when the field value changes. */
-    onChange?: (value:Date) => void;
-
-    /** Time dropdown list properties. */
-    timeProps?: IDropdownProps;
-}
-
-/**
- * State
- */
-interface State extends IFieldState {
-    fieldInfo: IDateTimeFieldInfo;
-}
-
-/**
  * Date Time field
  */
-export class FieldDateTime extends Field<Props, State> {
+export class FieldDateTime extends Field<Props, State> implements IFieldDateTime {
     /**
      * Public Interface
      */
@@ -46,7 +19,7 @@ export class FieldDateTime extends Field<Props, State> {
     // Render the field
     renderField() {
         // Update the date picker properties
-        let props:IDatePickerProps = this.props.dtProps || {};
+        let props: IDatePickerProps = this.props.dtProps || {};
         props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : DayOfWeek.Sunday;
         props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : this.state.fieldInfo.required;
         props.label = this.state.label;
@@ -69,7 +42,7 @@ export class FieldDateTime extends Field<Props, State> {
      */
 
     // The field initialized event
-    onFieldInit = (field:Types.IFieldDateTime, state:State) => {
+    onFieldInit = (field: any, state: State) => {
         // Update the state
         state.fieldInfo.showTime = field.DisplayFormat == SPTypes.DateFormat.DateTime;
     }
@@ -145,7 +118,7 @@ export class FieldDateTime extends Field<Props, State> {
     }
 
     // Method to render the time component
-    private renderTime = (date:Date) => {
+    private renderTime = (date: Date) => {
         // See if we are showing the time component
         if (this.state.fieldInfo.showTime) {
             let props: IDropdownProps = this.props.timeProps || {};

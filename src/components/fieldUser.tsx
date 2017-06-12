@@ -1,7 +1,8 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types } from "gd-sprest";
 import { Promise } from "es6-promise";
-import { Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { IUserFieldInfo, Props, State } from "./fieldUser.d";
+import { Field } from "../common";
 import {
     IPersonaProps,
     Label, ILabelProps,
@@ -9,33 +10,6 @@ import {
 } from "office-ui-fabric-react";
 import "../../sass/fieldUser.scss";
 
-/**
- * User Field Information
- */
-interface IUserFieldInfo extends IFieldInfo {
-    allowMultiple?: boolean;
-}
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** The properties for the user field label. */
-    lblProps?: ILabelProps;
-
-    /** Event triggered when the field value changes. */
-    onChange?: (value:Array<number>) => void;
-
-    /** The properties of the people picker. */
-    pickerProps?: IPeoplePickerProps;
-}
-
-/**
- * State
- */
-interface State extends IFieldState {
-    fieldInfo: IUserFieldInfo;
-}
 
 /**
  * User Field
@@ -48,11 +22,11 @@ export class FieldUser extends Field<Props, State> {
     // Method to render the field
     renderField() {
         // Update the label properties
-        let lblProps:ILabelProps = this.props.lblProps || {};
+        let lblProps: ILabelProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
 
         // Update the picker properties
-        let pickerProps:IPeoplePickerProps = this.props.pickerProps || {} as IPeoplePickerProps;
+        let pickerProps: IPeoplePickerProps = this.props.pickerProps || {} as IPeoplePickerProps;
         pickerProps.defaultSelectedItems = this.getDefaultPersonas();
         pickerProps.getTextFromItem = (persona: IPersonaProps) => { return persona.primaryText; };
         pickerProps.onChange = this.onChange;
@@ -97,7 +71,7 @@ export class FieldUser extends Field<Props, State> {
     }
 
     // The field initialized event
-    onFieldInit = (field: Types.IFieldUser, state: State) => {
+    onFieldInit = (field: any, state: State) => {
         // Ensure this is a lookup field
         if (field.FieldTypeKind != SPTypes.FieldType.User) {
             // Log
@@ -143,7 +117,7 @@ export class FieldUser extends Field<Props, State> {
             let results = [];
 
             // Parse the personas
-            for(let i=0; i<personas.length; i++) {
+            for (let i = 0; i < personas.length; i++) {
                 // Add the user id
                 results.push(personas[i].itemID);
             }

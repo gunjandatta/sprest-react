@@ -1,43 +1,13 @@
 import * as React from "react";
 import { Types, Web } from "gd-sprest";
-import { IFieldInfo } from "./fieldInfo";
-import {Spinner, SpinnerSize} from "office-ui-fabric-react";
-
-/**
- * Properties
- */
-export interface IFieldProps extends IFieldInfo {
-    /** Flag to show a loading indicator. The default value is true. */
-    showLoadingFl?: boolean;
-}
-
-/**
- * State
- */
-export interface IFieldState {
-    /** The field information. */
-    fieldInfo: IFieldInfo;
-
-    /** Flag to determine if the field is initialized. */
-    initFl?: boolean;
-
-    /** The field label. */
-    label?: string;
-
-    /** The change event */
-    onChange?: (value:any) => void;
-
-    /** The current field value. */
-    value?: any;
-
-    /** Flag to show the error message. */
-    showErrorMessage?: boolean;
-}
+import { Spinner, SpinnerSize } from "office-ui-fabric-react";
+import { IField, IFieldInfo, IFieldProps, IFieldState } from "./field.d";
+export { IField, IFieldInfo, IFieldProps, IFieldState }
 
 /**
  * Base Field
  */
-export abstract class Field<Props extends IFieldProps, State extends IFieldState> extends React.Component<Props, State> {
+export abstract class Field<Props extends IFieldProps, State extends IFieldState> extends React.Component<Props, State> implements IField<Props, State> {
     /**
      * Constructor
      */
@@ -66,7 +36,7 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
     getFieldValue = () => { return this.state.value || this.state.fieldInfo.defaultValue || ""; }
 
     // Event triggered after the field information is retrieved from SharePoint.
-    onFieldInit = (field: Types.IField, state: State) => { };
+    onFieldInit = (field: any, state: State) => { };
 
     // Event triggered after loading the field information.
     onFieldLoaded = () => { };
@@ -83,14 +53,14 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
     // Method to render the component
     render() {
         // See if the field is initialized
-        if(this.state.initFl) {
+        if (this.state.initFl) {
             // Render the field
             return this.renderField();
         }
 
         // Determine if we are showing a spinner
-        let showFl = typeof(this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;
-        if(showFl) {
+        let showFl = typeof (this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;
+        if (showFl) {
             // Return a loading spinner
             return (
                 <Spinner

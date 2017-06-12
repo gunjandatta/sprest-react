@@ -1,37 +1,8 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
+import { ITextFieldInformation, Props, State } from "./fieldUrl.d";
+import { Types } from "gd-sprest";
 import { Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
-
-/**
- * URL Field Information
- */
-interface ITextFieldInformation extends IFieldInfo {
-    multiline?: boolean;
-    rows?: number;
-}
-
-/**
- * Properties
- */
-interface Props extends IFieldProps {
-    /** The description textfield properties. */
-    descProps?: ITextFieldProps;
-
-    /** Event triggered when the field value changes. */
-    onChange?: (value:Types.ComplexTypes.FieldUrlValue) => void;
-
-    /** The url textfield properties. */
-    urlProps?: ITextFieldProps;
-}
-
-/**
- * State
- */
-interface State extends IFieldState {
-    fieldInfo: ITextFieldInformation;
-    value: Types.ComplexTypes.FieldUrlValue;
-}
 
 /**
  * URL Field
@@ -46,7 +17,7 @@ export class FieldUrl extends Field<Props, State> {
         let defaultValue = this.getValue();
 
         // Update the url properties
-        let urlProps:ITextFieldProps = this.props.urlProps || {};
+        let urlProps: ITextFieldProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue.Url;
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
@@ -54,7 +25,7 @@ export class FieldUrl extends Field<Props, State> {
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
 
         // Update the description properties
-        let descProps:ITextFieldProps = this.props.descProps || {};
+        let descProps: ITextFieldProps = this.props.descProps || {};
         descProps.defaultValue = defaultValue.Description;
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
@@ -109,7 +80,7 @@ export class FieldUrl extends Field<Props, State> {
      */
 
     // Method to get the field value
-    private getValue = (value?:Types.ComplexTypes.FieldUrlValue): Types.ComplexTypes.FieldUrlValue => {
+    private getValue = (value?: Types.ComplexTypes.FieldUrlValue): Types.ComplexTypes.FieldUrlValue => {
         value = value ? value : this.getFieldValue() || {};
         return {
             __metadata: value.__metadata ? value.__metadata : { type: "SP.FieldUrlValue" },

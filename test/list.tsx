@@ -103,9 +103,8 @@ export class TestList extends React.Component<Props, State> {
 
             // Lookup Field
             case "TestLookup":
-            let lookupValue:Types.ComplexTypes.FieldLookupValue = value;
                 return (
-                    <span>{lookupValue ? lookupValue.LookupValue : ""}</span>
+                    <span>{value ? value.Title : ""}</span>
                 );
 
             // URL Field

@@ -58709,6 +58709,40 @@ var FieldLookup = (function (_super) {
         /**
          * Events
          */
+        // The change event for the dropdown list
+        _this.onChanged = function (option) {
+            // Execute the change event
+            _this.props.onChange ? _this.props.onChange(option) : null;
+            // Update the field value
+            _this.updateValue(option.key);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(option) : null;
+        };
+        // The change event for selecting a multi-lookup item
+        _this.onChecked = function (key) {
+            var options = _this.state.options;
+            // Parse the options
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                // See if this is the target option
+                if (option.key == key) {
+                    // Update the selection
+                    option.selected = option.selected ? false : true;
+                    break;
+                }
+            }
+            // Update the state
+            _this.setState({ options: options }, function () {
+                var selectedOptions = _this.getSelectedOptions(options, "key");
+                // Update the field value
+                _this.updateValue({
+                    __metadata: { type: "Collection(Edm.Int32)" },
+                    results: selectedOptions
+                });
+                // Call the change event
+                _this.props.onChange ? _this.props.onChange(selectedOptions) : null;
+            });
+        };
         // The field initialized event
         _this.onFieldInit = function (field, state) {
             // Clear the options
@@ -58724,6 +58758,25 @@ var FieldLookup = (function (_super) {
             state.fieldInfo.lookupFieldName = field.LookupField;
             state.fieldInfo.lookupListName = field.LookupList;
             state.fieldInfo.lookupWebId = field.LookupWebId;
+            // Update the value
+            if (state.fieldInfo.allowMultipleValues) {
+                var defaultValue = _this.props.defaultValue ? _this.props.defaultValue.results : [];
+                var results = [];
+                // Parse the default values
+                for (var i = 0; i < defaultValue.length; i++) {
+                    // Add the item id
+                    results.push(defaultValue[i].ID);
+                }
+                // Set the value
+                state.value = {
+                    __metadata: { type: "Collection(Edm.Int32)" },
+                    results: results
+                };
+            }
+            else {
+                // Set the value
+                state.value = _this.props.defaultValue ? _this.props.defaultValue.ID : null;
+            }
         };
         // The field loaded event
         _this.onFieldLoaded = function () {
@@ -58743,6 +58796,13 @@ var FieldLookup = (function (_super) {
                     .execute(function (items) {
                     var defaultValue = _this.props.defaultValue ? _this.props.defaultValue : null;
                     var options = [];
+                    // Add an empty option for single lookup fields
+                    if (!_this.state.fieldInfo.allowMultipleValues) {
+                        options.push({
+                            key: null,
+                            text: ""
+                        });
+                    }
                     // Parse the items
                     for (var i = 0; i < items.results.length; i++) {
                         var item = items.results[i];
@@ -58772,40 +58832,6 @@ var FieldLookup = (function (_super) {
                     _this.setState({ options: options });
                 });
             });
-        };
-        // The change event for selecting a multi-lookup item
-        _this.onChecked = function (key) {
-            var options = _this.state.options;
-            // Parse the options
-            for (var i = 0; i < options.length; i++) {
-                var option = options[i];
-                // See if this is the target option
-                if (option.key == key) {
-                    // Update the selection
-                    option.selected = option.selected ? false : true;
-                    break;
-                }
-            }
-            // Update the state
-            _this.setState({ options: options }, function () {
-                var selectedOptions = _this.getSelectedOptions(options, "key");
-                // Update the field value
-                _this.updateValue({
-                    __metadata: { type: "Collection(Edm.Int32)" },
-                    results: selectedOptions
-                });
-                // Call the change event
-                _this.props.onChange ? _this.props.onChange(selectedOptions) : null;
-            });
-        };
-        // The change event for the dropdown list
-        _this.onChanged = function (option) {
-            // Execute the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
-            // Update the field value
-            _this.updateValue(option.key);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
         };
         /**
          * Methods
@@ -58841,7 +58867,7 @@ var FieldLookup = (function (_super) {
     FieldLookup.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.selectedKey = (props.defaultSelectedKey || this.getFieldValue() || {}).ID;
+        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -59502,8 +59528,7 @@ var TestList = (function (_super) {
                     return (React.createElement("span", null, value ? "Yes" : "No"));
                 // Lookup Field
                 case "TestLookup":
-                    var lookupValue = value;
-                    return (React.createElement("span", null, lookupValue ? lookupValue.LookupValue : ""));
+                    return (React.createElement("span", null, value ? value.Title : ""));
                 // URL Field
                 case "TestUrl":
                     var urlValue = value;

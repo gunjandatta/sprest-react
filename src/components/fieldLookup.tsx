@@ -53,7 +53,7 @@ export class FieldLookup extends Field<Props, State> {
         let props:IDropdownProps = this.props.props || {};
 
         // Update the properties
-        props.selectedKey = (props.defaultSelectedKey || this.getFieldValue() || {}).ID;
+        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -79,6 +79,49 @@ export class FieldLookup extends Field<Props, State> {
      * Events
      */
 
+    // The change event for the dropdown list
+    private onChanged = (option: IDropdownOption) => {
+        // Execute the change event
+        this.props.onChange ? this.props.onChange(option) : null;
+
+        // Update the field value
+        this.updateValue(option.key);
+
+        // Call the change event
+        this.props.onChange ? this.props.onChange(option) : null;
+    }
+
+    // The change event for selecting a multi-lookup item
+    private onChecked = (key: string | number) => {
+        let options = this.state.options;
+
+        // Parse the options
+        for (let i = 0; i < options.length; i++) {
+            let option = options[i];
+
+            // See if this is the target option
+            if (option.key == key) {
+                // Update the selection
+                option.selected = option.selected ? false : true;
+                break;
+            }
+        }
+
+        // Update the state
+        this.setState({ options }, () => {
+            let selectedOptions = this.getSelectedOptions(options, "key");
+
+            // Update the field value
+            this.updateValue({
+                __metadata: { type: "Collection(Edm.Int32)" },
+                results: selectedOptions
+            });
+
+            // Call the change event
+            this.props.onChange ? this.props.onChange(selectedOptions) : null;
+        });
+    }
+
     // The field initialized event
     onFieldInit = (field: Types.IFieldLookup, state: State) => {
         // Clear the options
@@ -96,6 +139,27 @@ export class FieldLookup extends Field<Props, State> {
         state.fieldInfo.lookupFieldName = field.LookupField;
         state.fieldInfo.lookupListName = field.LookupList;
         state.fieldInfo.lookupWebId = field.LookupWebId;
+
+        // Update the value
+        if(state.fieldInfo.allowMultipleValues) {
+            let defaultValue = this.props.defaultValue ? this.props.defaultValue.results : [];
+            let results = [];
+
+            // Parse the default values
+            for(let i=0; i<defaultValue.length; i++) {
+                // Add the item id
+                results.push(defaultValue[i].ID);
+            }
+
+            // Set the value
+            state.value = {
+                __metadata: { type: "Collection(Edm.Int32)" },
+                results
+            };
+        } else {
+            // Set the value
+            state.value = this.props.defaultValue ? this.props.defaultValue.ID : null;
+        }
     }
 
     // The field loaded event
@@ -122,6 +186,14 @@ export class FieldLookup extends Field<Props, State> {
                     .execute((items: Types.IListItems) => {
                         let defaultValue = this.props.defaultValue ? this.props.defaultValue : null;
                         let options: Array<IDropdownOption> = [];
+
+                        // Add an empty option for single lookup fields
+                        if(!this.state.fieldInfo.allowMultipleValues) {
+                            options.push({
+                                key: null,
+                                text: ""
+                            });
+                        }
 
                         // Parse the items
                         for (let i = 0; i < items.results.length; i++) {
@@ -158,49 +230,6 @@ export class FieldLookup extends Field<Props, State> {
                     });
             });
 
-    }
-
-    // The change event for selecting a multi-lookup item
-    private onChecked = (key: string | number) => {
-        let options = this.state.options;
-
-        // Parse the options
-        for (let i = 0; i < options.length; i++) {
-            let option = options[i];
-
-            // See if this is the target option
-            if (option.key == key) {
-                // Update the selection
-                option.selected = option.selected ? false : true;
-                break;
-            }
-        }
-
-        // Update the state
-        this.setState({ options }, () => {
-            let selectedOptions = this.getSelectedOptions(options, "key");
-
-            // Update the field value
-            this.updateValue({
-                __metadata: { type: "Collection(Edm.Int32)" },
-                results: selectedOptions
-            });
-
-            // Call the change event
-            this.props.onChange ? this.props.onChange(selectedOptions) : null;
-        });
-    }
-
-    // The change event for the dropdown list
-    private onChanged = (option: IDropdownOption) => {
-        // Execute the change event
-        this.props.onChange ? this.props.onChange(option) : null;
-
-        // Update the field value
-        this.updateValue(option.key);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(option) : null;
     }
 
     /**

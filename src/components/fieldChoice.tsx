@@ -51,7 +51,6 @@ export class FieldChoice extends Field<Props, State> {
         props.label = props.label || this.state.label;
         props.onChanged = this.onChange;
         props.options = this.state.choices;
-        props.ref = "choice";
         props.required = props.required || this.state.fieldInfo.required;
 
         // Parse the choices to set the default value
@@ -65,7 +64,7 @@ export class FieldChoice extends Field<Props, State> {
 
         // Return the dropdown
         return (
-            <Dropdown {...props} />
+            <Dropdown {...props} ref="choice" />
         );
     }
 

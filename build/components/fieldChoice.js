@@ -84,7 +84,6 @@ var FieldChoice = (function (_super) {
         props.label = props.label || this.state.label;
         props.onChanged = this.onChange;
         props.options = this.state.choices;
-        props.ref = "choice";
         props.required = props.required || this.state.fieldInfo.required;
         // Parse the choices to set the default value
         var defaultValue = this.props.defaultValue || props.defaultSelectedKey;
@@ -94,7 +93,7 @@ var FieldChoice = (function (_super) {
             option.selected = option.key == defaultValue;
         }
         // Return the dropdown
-        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "choice" })));
     };
     return FieldChoice;
 }(common_1.Field));

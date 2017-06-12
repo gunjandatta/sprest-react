@@ -52,14 +52,13 @@ export class FieldDateTime extends Field<Props, State> {
         props.label = this.state.label;
         props.onSelectDate = this.state.fieldInfo.showTime ? this.onDateChanged : this.updateValue;
         props.placeholder = props.placeholder || "Date";
-        props.ref = "date";
         props.strings = props.strings || DatePickerStrings;
         props.value = this.getValue();
 
         // Render the component
         return (
             <div>
-                <DatePicker {...props} />
+                <DatePicker {...props} ref="date" />
                 {this.renderTime(props.value)}
             </div>
         );
@@ -176,12 +175,11 @@ export class FieldDateTime extends Field<Props, State> {
             // Update the properties
             props.onChanged = this.onTimeChanged;
             props.placeHolder = props.placeHolder || "Time";
-            props.ref = "time";
             props.selectedKey = selectedHour + "|" + selectedMin;
 
             // Return the time
             return (
-                <Dropdown {...props} />
+                <Dropdown {...props} ref="time" />
             );
         }
 

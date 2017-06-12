@@ -66,11 +66,10 @@ var FieldText = (function (_super) {
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
         props.onChanged = this.onChange;
-        props.ref = "text";
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
         // Return the component
-        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
+        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "text" })));
     };
     return FieldText;
 }(common_1.Field));

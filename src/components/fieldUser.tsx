@@ -68,7 +68,7 @@ export class FieldUser extends Field<Props, State> {
         return (
             <div>
                 <Label {...lblProps as any}>{lblProps.value || this.state.label}</Label>
-                <NormalPeoplePicker {...pickerProps} />
+                <NormalPeoplePicker {...pickerProps} ref="user" />
             </div>
         );
     }
@@ -124,11 +124,11 @@ export class FieldUser extends Field<Props, State> {
         if (user && user.ID > 0) {
             // Add the persona
             personas.push({
+                id: user.UserName,
                 itemID: user.ID.toString(),
-                key: user.UserName,
                 primaryText: user.Title,
                 secondaryText: user.Email,
-                tertiaryText: user.JobTitle
+                tertiaryText: user.JobTitle,
             });
         }
 
@@ -200,8 +200,8 @@ export class FieldUser extends Field<Props, State> {
 
                                 // Add the user
                                 users.push({
+                                    id: user.Key,
                                     itemID: user.EntityData.SPUserID,
-                                    key: user.Key,
                                     primaryText: user.DisplayText,
                                     secondaryText: user.EntityData.Email,
                                     tertiaryText: user.Description

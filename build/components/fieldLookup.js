@@ -200,7 +200,6 @@ var FieldLookup = (function (_super) {
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
-        props.ref = "lookup";
         // See if this is a multi-lookup field
         if (this.state.fieldInfo.allowMultipleValues) {
             // Update the dropdown properties
@@ -209,7 +208,7 @@ var FieldLookup = (function (_super) {
             props.selectedKey = null;
         }
         // Return the component
-        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "lookup" })));
     };
     return FieldLookup;
 }(common_1.Field));

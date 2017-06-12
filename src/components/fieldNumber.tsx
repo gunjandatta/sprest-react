@@ -42,12 +42,11 @@ export class FieldNumber extends Field<Props, IFieldState> {
         props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChange;
-        props.ref = "number";
         props.required = typeof(props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
 
         // Return the component
         return (
-            <TextField {...props as any} />
+            <TextField {...props as any} ref="number" />
         );
     }
 

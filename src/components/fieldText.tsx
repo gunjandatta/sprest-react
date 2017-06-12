@@ -48,13 +48,12 @@ export class FieldText extends Field<Props, State> {
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
         props.onChanged = this.onChange;
-        props.ref = "text";
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
 
         // Return the component
         return (
-            <TextField {...props as any} />
+            <TextField {...props as any} ref="text" />
         );
     }
 

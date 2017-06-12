@@ -5,7 +5,7 @@ import {
     Checkbox,
     Dropdown, IDropdownOption, IDropdownProps
 } from "office-ui-fabric-react";
-import "../sass/fieldLookup.scss";
+import "../../sass/fieldLookup.scss";
 
 /**
  * Lookup Field Information

@@ -7,7 +7,7 @@ import {
     Label, ILabelProps,
     NormalPeoplePicker, IPeoplePickerProps
 } from "office-ui-fabric-react";
-import "../sass/fieldUser.scss";
+import "../../sass/fieldUser.scss";
 
 /**
  * User Field Information

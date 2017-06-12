@@ -59,7 +59,6 @@ export class FieldLookup extends Field<Props, State> {
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
-        props.ref = "lookup";
 
         // See if this is a multi-lookup field
         if (this.state.fieldInfo.allowMultipleValues) {
@@ -71,7 +70,7 @@ export class FieldLookup extends Field<Props, State> {
 
         // Return the component
         return (
-            <Dropdown {...props} />
+            <Dropdown {...props} ref="lookup" />
         );
     }
 

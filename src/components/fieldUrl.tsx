@@ -51,7 +51,6 @@ export class FieldUrl extends Field<Props, State> {
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
         urlProps.onChanged = this.onUrlChanged;
-        urlProps.ref = "url";
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
 
         // Update the description properties
@@ -61,13 +60,12 @@ export class FieldUrl extends Field<Props, State> {
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
-        descProps.ref = "description";
 
         // Return the component
         return (
             <div>
-                <TextField {...urlProps as any} />
-                <TextField {...descProps as any} />
+                <TextField {...urlProps as any} ref="url" />
+                <TextField {...descProps as any} ref="description" />
             </div>
         );
     }

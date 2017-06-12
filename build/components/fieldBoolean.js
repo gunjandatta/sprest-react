@@ -51,11 +51,10 @@ var FieldBoolean = (function (_super) {
         var props = this.props.props || {};
         props.checked = typeof (props.checked) === "boolean" ? props.checked : this.getValue();
         props.onChange = this.onChange;
-        props.ref = "checkbox";
         // Render the component
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.Label, { ref: "label", required: typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required }, props.label || this.state.label),
-            React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props))));
+            React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props, { ref: "checkbox" }))));
     };
     return FieldBoolean;
 }(common_1.Field));

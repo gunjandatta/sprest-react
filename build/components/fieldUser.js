@@ -73,11 +73,11 @@ var FieldUser = (function (_super) {
             if (user && user.ID > 0) {
                 // Add the persona
                 personas.push({
+                    id: user.UserName,
                     itemID: user.ID.toString(),
-                    key: user.UserName,
                     primaryText: user.Title,
                     secondaryText: user.Email,
-                    tertiaryText: user.JobTitle
+                    tertiaryText: user.JobTitle,
                 });
             }
             // Return the default personas
@@ -140,8 +140,8 @@ var FieldUser = (function (_super) {
                                 var user = results.ClientPeoplePickerSearchUser[i];
                                 // Add the user
                                 users.push({
+                                    id: user.Key,
                                     itemID: user.EntityData.SPUserID,
-                                    key: user.Key,
                                     primaryText: user.DisplayText,
                                     secondaryText: user.EntityData.Email,
                                     tertiaryText: user.Description
@@ -178,7 +178,7 @@ var FieldUser = (function (_super) {
         // Render the component
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.value || this.state.label),
-            React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, pickerProps))));
+            React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, pickerProps, { ref: "user" }))));
     };
     return FieldUser;
 }(common_1.Field));

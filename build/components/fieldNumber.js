@@ -74,10 +74,9 @@ var FieldNumber = (function (_super) {
         props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChange;
-        props.ref = "number";
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         // Return the component
-        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
+        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "number" })));
     };
     return FieldNumber;
 }(common_1.Field));

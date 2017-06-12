@@ -122,10 +122,9 @@ var FieldDateTime = (function (_super) {
                 // Update the properties
                 props.onChanged = _this.onTimeChanged;
                 props.placeHolder = props.placeHolder || "Time";
-                props.ref = "time";
                 props.selectedKey = selectedHour + "|" + selectedMin;
                 // Return the time
-                return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+                return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "time" })));
             }
             // Render nothing
             return null;
@@ -141,12 +140,11 @@ var FieldDateTime = (function (_super) {
         props.label = this.state.label;
         props.onSelectDate = this.state.fieldInfo.showTime ? this.onDateChanged : this.updateValue;
         props.placeholder = props.placeholder || "Date";
-        props.ref = "date";
         props.strings = props.strings || common_1.DatePickerStrings;
         props.value = this.getValue();
         // Render the component
         return (React.createElement("div", null,
-            React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props)),
+            React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { ref: "date" })),
             this.renderTime(props.value)));
     };
     return FieldDateTime;

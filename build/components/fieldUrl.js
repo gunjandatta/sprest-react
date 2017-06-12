@@ -79,7 +79,6 @@ var FieldUrl = (function (_super) {
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
         urlProps.onChanged = this.onUrlChanged;
-        urlProps.ref = "url";
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
         // Update the description properties
         var descProps = this.props.descProps || {};
@@ -88,11 +87,10 @@ var FieldUrl = (function (_super) {
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
-        descProps.ref = "description";
         // Return the component
         return (React.createElement("div", null,
-            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps)),
-            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps))));
+            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps, { ref: "url" })),
+            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps, { ref: "description" }))));
     };
     return FieldUrl;
 }(common_1.Field));

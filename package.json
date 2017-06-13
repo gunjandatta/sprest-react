@@ -6,7 +6,7 @@
   "typings": "build/index.d.ts",
   "scripts": {
     "build": "tsc --declaration",
-    "test": "webpack --config ./webpack.test.js"
+    "test": "tsc --declaration && webpack"
   },
   "repository": {
     "type": "git",

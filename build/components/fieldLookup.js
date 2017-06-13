@@ -205,7 +205,6 @@ var FieldLookup = (function (_super) {
             // Update the dropdown properties
             props.onRenderItem = this.renderOption;
             props.onRenderTitle = this.renderTitle;
-            props.selectedKey = null;
         }
         // Return the component
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "lookup" })));

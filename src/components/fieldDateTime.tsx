@@ -119,6 +119,9 @@ export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeStat
 
     // Method to render the time component
     private renderTime = (date: Date) => {
+        // Update the date value
+        date = date ? date : this.state.value;
+
         // See if we are showing the time component
         if (this.state.fieldInfo.showTime) {
             let props: IDropdownProps = this.props.timeProps || {};

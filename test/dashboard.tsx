@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Panel } from "../src";
+import { PrimaryButton } from "office-ui-fabric-react";
+import { Panel } from "../build";
 import { DataSource, ITestItem } from "./data";
 import { ItemForm } from "./itemForm";
 import { TestList } from "./list";
-import { PrimaryButton } from "office-ui-fabric-react";
 
 /**
  * State

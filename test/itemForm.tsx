@@ -1,11 +1,11 @@
 import * as React from "react";
+import { Label, PrimaryButton } from "office-ui-fabric-react";
 import { DataSource, ITestItem } from "./data";
 import {
     Field, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
     FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser,
     IFieldProps, IFieldState
-} from "../src";
-import { Label, PrimaryButton } from "office-ui-fabric-react";
+} from "../build";
 
 /**
  * Properties

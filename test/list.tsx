@@ -1,10 +1,10 @@
 import * as React from "react";
 import {Types} from "gd-sprest";
-import { DataSource, ITestItem } from "./data";
 import {
     DetailsList, IColumn,
     PrimaryButton
 } from "office-ui-fabric-react";
+import { DataSource, ITestItem } from "./data";
 
 /**
  * Properties

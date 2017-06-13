@@ -4,7 +4,7 @@
   "description": "SharePoint react components.",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "test": "webpack --config ./webpack.test.js"
   },
   "repository": {

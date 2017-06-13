@@ -10,7 +10,7 @@ import {FieldBoolean} from "./fieldBoolean";
 import {FieldChoice} from "./fieldChoice";
 import {FieldDateTime} from "./fieldDateTime";
 import {FieldLookup} from "./fieldLookup"
-import {FieldNumber, FieldNumberTypes} from "./fieldNumber"
+import {FieldNumber} from "./fieldNumber"
 import {FieldText} from "./fieldText";
 import {FieldUrl} from "./fieldUrl";
 import {FieldUser} from "./fieldUser";
@@ -21,7 +21,6 @@ export {
     FieldDateTime,
     FieldLookup,
     FieldNumber,
-    FieldNumberTypes,
     FieldText,
     FieldUrl,
     FieldUser,

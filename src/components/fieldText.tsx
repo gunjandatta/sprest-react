@@ -1,13 +1,13 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { ITextFieldInformation, Props, State } from "./fieldText.d";
-import { Field } from "../common";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
+import { Field } from "../common";
+import { IFieldTextProps, IFieldTextState } from "../definitions";
 
 /**
  * Text Field
  */
-export class FieldText extends Field<Props, State> {
+export class FieldText extends Field<IFieldTextProps, IFieldTextState> {
     /**
      * Public Interface
      */
@@ -37,7 +37,7 @@ export class FieldText extends Field<Props, State> {
      */
 
     // The field initialized event
-    onFieldInit = (field: any, state: State) => {
+    onFieldInit = (field: any, state: IFieldTextState) => {
         // Ensure this is a lookup field
         if (field.FieldTypeKind != SPTypes.FieldType.Note && field.FieldTypeKind != SPTypes.FieldType.Text) {
             // Log

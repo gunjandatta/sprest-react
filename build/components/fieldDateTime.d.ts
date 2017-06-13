@@ -1,10 +1,10 @@
 /// <reference types="react" />
-import { IFieldDateTime, Props, State } from "./fieldDateTime.d";
 import { Field } from "../common";
+import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "../definitions";
 /**
  * Date Time field
  */
-export declare class FieldDateTime extends Field<Props, State> implements IFieldDateTime {
+export declare class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
     /**
      * Public Interface
      */
@@ -12,7 +12,7 @@ export declare class FieldDateTime extends Field<Props, State> implements IField
     /**
      * Events
      */
-    onFieldInit: (field: any, state: State) => void;
+    onFieldInit: (field: any, state: IFieldDateTimeState) => void;
     private onDateChanged;
     private onTimeChanged;
     /**

@@ -19,8 +19,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var common_1 = require("../common");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var common_1 = require("../common");
 /**
  * URL Field
  */

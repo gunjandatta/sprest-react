@@ -1,11 +1,11 @@
 /// <reference types="react" />
-import { IFieldChoice, Props, State } from "./fieldChoice.d";
-import { Field } from "../common";
 import { IDropdownOption } from "office-ui-fabric-react";
+import { Field } from "../common";
+import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../definitions";
 /**
  * Boolean field
  */
-export declare class FieldChoice extends Field<Props, State> implements IFieldChoice {
+export declare class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
     /**
      * Public Interface
      */
@@ -14,6 +14,6 @@ export declare class FieldChoice extends Field<Props, State> implements IFieldCh
      * Events
      */
     protected onChange: (option: IDropdownOption) => void;
-    onFieldInit: (field: any, state: State) => void;
+    onFieldInit: (field: any, state: IFieldChoiceState) => void;
     onFieldLoaded: () => void;
 }

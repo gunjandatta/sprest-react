@@ -1,11 +1,10 @@
 /// <reference types="react" />
-import { FieldNumberTypes, Props, State } from "./fieldNumber.d";
+import { IFieldNumberProps, IFieldNumberState } from "../definitions";
 import { Field } from "../common";
-export { FieldNumberTypes };
 /**
  * Number Field
  */
-export declare class FieldNumber extends Field<Props, State> {
+export declare class FieldNumber extends Field<IFieldNumberProps, IFieldNumberState> {
     /**
      * Public Interface
      */

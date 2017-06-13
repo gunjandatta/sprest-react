@@ -1,20 +1,20 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types } from "gd-sprest";
 import { Promise } from "es6-promise";
-import { IUserFieldInfo, Props, State } from "./fieldUser.d";
-import { Field } from "../common";
 import {
     IPersonaProps,
     Label, ILabelProps,
     NormalPeoplePicker, IPeoplePickerProps
 } from "office-ui-fabric-react";
+import { Field } from "../common";
+import { IUserFieldInfo, IFieldUserProps, IFieldUserState } from "../definitions";
 import "../../sass/fieldUser.scss";
 
 
 /**
  * User Field
  */
-export class FieldUser extends Field<Props, State> {
+export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
     /**
      * Public Interface
      */
@@ -71,7 +71,7 @@ export class FieldUser extends Field<Props, State> {
     }
 
     // The field initialized event
-    onFieldInit = (field: any, state: State) => {
+    onFieldInit = (field: any, state: IFieldUserState) => {
         // Ensure this is a lookup field
         if (field.FieldTypeKind != SPTypes.FieldType.User) {
             // Log

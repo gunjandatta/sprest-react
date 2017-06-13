@@ -1,17 +1,17 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { IFieldDateTime, IDateTimeFieldInfo, Props, State } from "./fieldDateTime.d";
-import { DatePickerStrings, Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
 import {
     DatePicker, DayOfWeek, IDatePickerProps,
     Dropdown, IDropdownOption, IDropdownProps,
     Label
 } from "office-ui-fabric-react";
+import { DatePickerStrings, Field } from "../common";
+import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "../definitions";
 
 /**
  * Date Time field
  */
-export class FieldDateTime extends Field<Props, State> implements IFieldDateTime {
+export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
     /**
      * Public Interface
      */
@@ -42,7 +42,7 @@ export class FieldDateTime extends Field<Props, State> implements IFieldDateTime
      */
 
     // The field initialized event
-    onFieldInit = (field: any, state: State) => {
+    onFieldInit = (field: any, state: IFieldDateTimeState) => {
         // Update the state
         state.fieldInfo.showTime = field.DisplayFormat == SPTypes.DateFormat.DateTime;
     }

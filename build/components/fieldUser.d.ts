@@ -1,11 +1,11 @@
 /// <reference types="react" />
-import { Props, State } from "./fieldUser.d";
 import { Field } from "../common";
+import { IFieldUserProps, IFieldUserState } from "../definitions";
 import "../../sass/fieldUser.scss";
 /**
  * User Field
  */
-export declare class FieldUser extends Field<Props, State> {
+export declare class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
     /**
      * Public Interface
      */
@@ -19,7 +19,7 @@ export declare class FieldUser extends Field<Props, State> {
      * Events
      */
     onChange: (value: any) => void;
-    onFieldInit: (field: any, state: State) => void;
+    onFieldInit: (field: any, state: IFieldUserState) => void;
     /**
      * Methods
      */

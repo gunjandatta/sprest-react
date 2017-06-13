@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Panel, PanelType } from "office-ui-fabric-react";
-import { Props, State } from "./basePanel.d";
+import { IBasePanelProps, IBasePanelState } from "../definitions";
 
 /**
  * Base Panel
  */
-export class BasePanel extends React.Component<Props, State> {
+export class BasePanel extends React.Component<IBasePanelProps, IBasePanelState> {
     /**
      * Constructor
      */
-    constructor(props: Props) {
+    constructor(props: IBasePanelProps) {
         super(props);
 
         // Set the state

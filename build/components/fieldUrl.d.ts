@@ -1,10 +1,10 @@
 /// <reference types="react" />
-import { Props, State } from "./fieldUrl.d";
 import { Field } from "../common";
+import { IFieldUrlProps, IFieldUrlState } from "../definitions";
 /**
  * URL Field
  */
-export declare class FieldUrl extends Field<Props, State> {
+export declare class FieldUrl extends Field<IFieldUrlProps, IFieldUrlState> {
     /**
      * Public Interface
      */

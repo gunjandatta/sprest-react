@@ -21,8 +21,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var es6_promise_1 = require("es6-promise");
-var common_1 = require("../common");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var common_1 = require("../common");
 require("../../sass/fieldUser.scss");
 /**
  * User Field

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types, Site } from "gd-sprest";
-import { ILookupFieldInfo, Props, State } from "./fieldLookup.d";
+import { IFieldLookupProps, IFieldLookupState } from "../definitions";
 import { Field } from "../common";
 import {
     Checkbox,
@@ -11,7 +11,7 @@ import "../../sass/fieldLookup.scss";
 /**
  * Lookup Field
  */
-export class FieldLookup extends Field<Props, State> {
+export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
     /**
      * Public Interface
      */
@@ -90,7 +90,7 @@ export class FieldLookup extends Field<Props, State> {
     }
 
     // The field initialized event
-    onFieldInit = (field: any, state: State) => {
+    onFieldInit = (field: any, state: IFieldLookupState) => {
         // Clear the options
         state.options = [];
 

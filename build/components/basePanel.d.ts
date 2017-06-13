@@ -1,14 +1,14 @@
 /// <reference types="react" />
 import * as React from "react";
-import { Props, State } from "./basePanel.d";
+import { IBasePanelProps, IBasePanelState } from "../definitions";
 /**
  * Base Panel
  */
-export declare class BasePanel extends React.Component<Props, State> {
+export declare class BasePanel extends React.Component<IBasePanelProps, IBasePanelState> {
     /**
      * Constructor
      */
-    constructor(props: Props);
+    constructor(props: IBasePanelProps);
     /**
      * Public Interface
      */

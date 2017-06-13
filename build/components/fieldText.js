@@ -20,8 +20,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var common_1 = require("../common");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var common_1 = require("../common");
 /**
  * Text Field
  */

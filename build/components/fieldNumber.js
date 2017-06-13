@@ -19,10 +19,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var fieldNumber_d_1 = require("./fieldNumber.d");
-exports.FieldNumberTypes = fieldNumber_d_1.FieldNumberTypes;
-var common_1 = require("../common");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var definitions_1 = require("../definitions");
+var common_1 = require("../common");
 /**
  * Number Field
  */
@@ -40,9 +39,9 @@ var FieldNumber = (function (_super) {
         _this.getValue = function () {
             var value = _this.getFieldValue();
             // Default the field type
-            var fieldType = typeof (_this.props.type) === "number" ? _this.props.type : fieldNumber_d_1.FieldNumberTypes.Integer;
+            var fieldType = typeof (_this.props.type) === "number" ? _this.props.type : definitions_1.FieldNumberTypes.Integer;
             // Ensure a value exists and need to convert it
-            if (value && fieldType == fieldNumber_d_1.FieldNumberTypes.Integer) {
+            if (value && fieldType == definitions_1.FieldNumberTypes.Integer) {
                 // Convert the value to an integer
                 var intValue = parseInt(value);
                 value = intValue ? intValue.toString() : value;

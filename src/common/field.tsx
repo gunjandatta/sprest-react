@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Types, Web } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
-import { IField, IFieldInfo, IFieldProps, IFieldState } from "./field.d";
-export { IField, IFieldInfo, IFieldProps, IFieldState }
+import { IField, IFieldInfo, IFieldProps, IFieldState } from "../definitions";
 
 /**
  * Base Field

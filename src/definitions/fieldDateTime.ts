@@ -1,18 +1,18 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { IDatePickerProps, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 
 /**
  * Date/Time Field Information
  */
-interface IDateTimeFieldInfo extends IFieldInfo {
+export interface IDateTimeFieldInfo extends IFieldInfo {
     showTime?: boolean;
 }
 
 /**
- * Properties
+ * Date/Time Field Properties
  */
-interface Props extends IFieldProps {
+export interface IFieldDateTimeProps extends IFieldProps {
     /** Date picker properties. */
     dtProps?: IDatePickerProps;
 
@@ -24,16 +24,16 @@ interface Props extends IFieldProps {
 }
 
 /**
- * State
+ * Date/Time Field State
  */
-interface State extends IFieldState {
+export interface IFieldDateTimeState extends IFieldState {
     fieldInfo: IDateTimeFieldInfo;
 }
 
 /**
  * Date/Time Field
  */
-interface IFieldDateTime extends IField<Props, State> {
+export interface IFieldDateTime extends IField<IFieldDateTimeProps, IFieldDateTimeState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */

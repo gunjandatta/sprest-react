@@ -1,18 +1,18 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import {IPersonaProps,ILabelProps,IPeoplePickerProps} from "office-ui-fabric-react";
 
 /**
  * User Field Information
  */
-interface IUserFieldInfo extends IFieldInfo {
+export interface IUserFieldInfo extends IFieldInfo {
     allowMultiple?: boolean;
 }
 
 /**
- * Properties
+ * User Field Properties
  */
-interface Props extends IFieldProps {
+export interface IFieldUserProps extends IFieldProps {
     /** The properties for the user field label. */
     lblProps?: ILabelProps;
 
@@ -24,16 +24,16 @@ interface Props extends IFieldProps {
 }
 
 /**
- * State
+ * User Field State
  */
-interface State extends IFieldState {
+export interface IFieldUserState extends IFieldState {
     fieldInfo: IUserFieldInfo;
 }
 
 /**
  * User Field
  */
-interface IFieldUser extends IField<Props, State> {
+export interface IFieldUser extends IField<IFieldUserProps, IFieldUserState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */

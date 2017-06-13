@@ -1,13 +1,13 @@
 import * as React from "react";
-import { ITextFieldInformation, Props, State } from "./fieldUrl.d";
 import { Types } from "gd-sprest";
-import { Field, IFieldProps, IFieldState, IFieldInfo } from "../common";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
+import { Field } from "../common";
+import { IFieldUrlProps, IFieldUrlState } from "../definitions";
 
 /**
  * URL Field
  */
-export class FieldUrl extends Field<Props, State> {
+export class FieldUrl extends Field<IFieldUrlProps, IFieldUrlState> {
     /**
      * Public Interface
      */

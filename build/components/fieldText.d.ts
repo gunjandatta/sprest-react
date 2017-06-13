@@ -1,10 +1,10 @@
 /// <reference types="react" />
-import { Props, State } from "./fieldText.d";
 import { Field } from "../common";
+import { IFieldTextProps, IFieldTextState } from "../definitions";
 /**
  * Text Field
  */
-export declare class FieldText extends Field<Props, State> {
+export declare class FieldText extends Field<IFieldTextProps, IFieldTextState> {
     /**
      * Public Interface
      */
@@ -12,6 +12,6 @@ export declare class FieldText extends Field<Props, State> {
     /**
      * Events
      */
-    onFieldInit: (field: any, state: State) => void;
+    onFieldInit: (field: any, state: IFieldTextState) => void;
     private onChange;
 }

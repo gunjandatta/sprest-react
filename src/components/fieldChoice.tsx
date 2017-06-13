@@ -1,14 +1,14 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { IFieldChoice, IChoiceFieldInfo, Props, State } from "./fieldChoice.d";
-import { Field } from "../common";
 import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
+import { Field } from "../common";
+import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../definitions";
 
 
 /**
  * Boolean field
  */
-export class FieldChoice extends Field<Props, State> implements IFieldChoice {
+export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
     /**
      * Public Interface
      */
@@ -54,7 +54,7 @@ export class FieldChoice extends Field<Props, State> implements IFieldChoice {
     }
 
     // The field initialized event
-    onFieldInit = (field: any, state: State) => {
+    onFieldInit = (field: any, state: IFieldChoiceState) => {
         // Clear the choices
         state.fieldInfo.choices = [];
 

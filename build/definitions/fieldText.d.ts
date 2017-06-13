@@ -1,37 +1,32 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { ITextFieldProps } from "office-ui-fabric-react";
-
 /**
  * Text Field Information
  */
-interface ITextFieldInformation extends IFieldInfo {
+export interface ITextFieldInformation extends IFieldInfo {
     multiline?: boolean;
     rows?: number;
 }
-
 /**
- * Properties
+ * Text Field Properties
  */
-interface Props extends IFieldProps {
+export interface IFieldTextProps extends IFieldProps {
     /** Event triggered when the field value changes. */
     onChange?: (value: string) => void;
-
     /** The textfield properties. */
     props?: ITextFieldProps;
 }
-
 /**
- * State
+ * Text Field State
  */
-interface State extends IFieldState {
+export interface IFieldTextState extends IFieldState {
     fieldInfo: ITextFieldInformation;
 }
-
 /**
  * Text Field
  */
-interface IFieldText extends IField<Props, State> {
+export interface IFieldText extends IField<IFieldTextProps, IFieldTextState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */

@@ -23,10 +23,14 @@ var fieldLookup_1 = require("./components/fieldLookup");
 exports.FieldLookup = fieldLookup_1.FieldLookup;
 var fieldNumber_1 = require("./components/fieldNumber");
 exports.FieldNumber = fieldNumber_1.FieldNumber;
-exports.FieldNumberTypes = fieldNumber_1.FieldNumberTypes;
 var fieldText_1 = require("./components/fieldText");
 exports.FieldText = fieldText_1.FieldText;
 var fieldUrl_1 = require("./components/fieldUrl");
 exports.FieldUrl = fieldUrl_1.FieldUrl;
 var fieldUser_1 = require("./components/fieldUser");
 exports.FieldUser = fieldUser_1.FieldUser;
+/**
+ * Definitions
+ */
+var definitions_1 = require("./definitions");
+exports.FieldNumberTypes = definitions_1.FieldNumberTypes;

@@ -1,13 +1,12 @@
 import * as React from "react";
-import { FieldNumberTypes, Props, State } from "./fieldNumber.d";
-import { Field } from "../common";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
-export { FieldNumberTypes };
+import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../definitions";
+import { Field } from "../common";
 
 /**
  * Number Field
  */
-export class FieldNumber extends Field<Props, State> {
+export class FieldNumber extends Field<IFieldNumberProps, IFieldNumberState> {
     /**
      * Public Interface
      */

@@ -1,19 +1,19 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from "../common";
+import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 
 /**
  * Choice Field Information
  */
-interface IChoiceFieldInfo extends IFieldInfo {
+export interface IChoiceFieldInfo extends IFieldInfo {
     /** The dropdown choices. */
     choices: Array<IDropdownOption>;
 }
 
 /**
- * Properties
+ * Choice Field Properties
  */
-interface Props extends IFieldProps {
+export interface IFieldChoiceProps extends IFieldProps {
     /** Event triggered when the field value changes. */
     onChange?: (value: IDropdownOption) => void;
 
@@ -22,9 +22,9 @@ interface Props extends IFieldProps {
 }
 
 /**
- * State
+ * Choice Field State
  */
-interface State extends IFieldState {
+export interface IFieldChoiceState extends IFieldState {
     /** The dropdown choices. */
     choices?: Array<IDropdownOption>;
 
@@ -35,7 +35,7 @@ interface State extends IFieldState {
 /**
  * Choice Field
  */
-interface IFieldChoice extends IField<Props, State> {
+export interface IFieldChoice extends IField<IFieldChoiceProps, IFieldChoiceState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */

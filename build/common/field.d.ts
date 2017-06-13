@@ -1,7 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IField, IFieldInfo, IFieldProps, IFieldState } from "./field.d";
-export { IField, IFieldInfo, IFieldProps, IFieldState };
+import { IField, IFieldProps, IFieldState } from "../definitions";
 /**
  * Base Field
  */

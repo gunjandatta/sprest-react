@@ -18,7 +18,6 @@ var fieldLookup_1 = require("./fieldLookup");
 exports.FieldLookup = fieldLookup_1.FieldLookup;
 var fieldNumber_1 = require("./fieldNumber");
 exports.FieldNumber = fieldNumber_1.FieldNumber;
-exports.FieldNumberTypes = fieldNumber_1.FieldNumberTypes;
 var fieldText_1 = require("./fieldText");
 exports.FieldText = fieldText_1.FieldText;
 var fieldUrl_1 = require("./fieldUrl");

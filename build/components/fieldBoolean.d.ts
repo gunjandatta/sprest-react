@@ -1,10 +1,10 @@
 /// <reference types="react" />
-import { IFieldBoolean, Props, State } from "./fieldBoolean.d";
 import { Field } from "../common";
+import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../definitions";
 /**
  * Boolean field
  */
-export declare class FieldBoolean extends Field<Props, State> implements IFieldBoolean {
+export declare class FieldBoolean extends Field<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean {
     renderField(): JSX.Element;
     private getValue;
     private onChange;

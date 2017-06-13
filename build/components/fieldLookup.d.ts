@@ -1,11 +1,11 @@
 /// <reference types="react" />
-import { Props, State } from "./fieldLookup.d";
+import { IFieldLookupProps, IFieldLookupState } from "../definitions";
 import { Field } from "../common";
 import "../../sass/fieldLookup.scss";
 /**
  * Lookup Field
  */
-export declare class FieldLookup extends Field<Props, State> {
+export declare class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
     /**
      * Public Interface
      */
@@ -15,7 +15,7 @@ export declare class FieldLookup extends Field<Props, State> {
      */
     private onChanged;
     private onChecked;
-    onFieldInit: (field: any, state: State) => void;
+    onFieldInit: (field: any, state: IFieldLookupState) => void;
     onFieldLoaded: () => void;
     /**
      * Methods

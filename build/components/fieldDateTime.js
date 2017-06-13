@@ -97,6 +97,8 @@ var FieldDateTime = (function (_super) {
         };
         // Method to render the time component
         _this.renderTime = function (date) {
+            // Update the date value
+            date = date ? date : _this.state.value;
             // See if we are showing the time component
             if (_this.state.fieldInfo.showTime) {
                 var props = _this.props.timeProps || {};

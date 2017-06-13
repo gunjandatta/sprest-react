@@ -3,8 +3,7 @@ import { Label, PrimaryButton } from "office-ui-fabric-react";
 import { DataSource, ITestItem } from "./data";
 import {
     Field, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
-    FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser,
-    IFieldProps, IFieldState
+    FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser
 } from "../build";
 
 /**
@@ -33,7 +32,7 @@ export class ItemForm extends React.Component<Props, null> {
             // See if this is a field
             if (ref instanceof Field) {
                 // Update the item value
-                item[fieldName] = (ref as Field<IFieldProps, IFieldState>).state.value;
+                item[fieldName] = (ref as Field<any, any>).state.value;
             }
         }
 

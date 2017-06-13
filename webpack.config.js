@@ -2,16 +2,16 @@ var path = require('path');
 
 module.exports = {
     // Target the output of the typescript compiler
-    context: path.join(__dirname, "src"),
+    context: path.join(__dirname, "test"),
 
     // File(s) to target
-    entry: './index.ts',
+    entry: './index.tsx',
 
     // Output
     output: {
-        filename: 'gd-sprest-components.js',
+        filename: 'test.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: "/dist/"
+        publicPath: "/test/"
     },
 
     // Resolve the file extensions

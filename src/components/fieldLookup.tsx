@@ -33,7 +33,6 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             // Update the dropdown properties
             props.onRenderItem = this.renderOption;
             props.onRenderTitle = this.renderTitle;
-            props.selectedKey = null;
         }
 
         // Return the component

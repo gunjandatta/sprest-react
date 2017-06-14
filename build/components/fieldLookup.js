@@ -135,7 +135,7 @@ var FieldLookup = (function (_super) {
                         var item = items.results[i];
                         var option = {
                             key: item.Id,
-                            selected: item.Id == defaultValue ? defaultValue.ID : 0,
+                            selected: item.Id == (defaultValue ? defaultValue.ID : 0),
                             text: item[_this.state.fieldInfo.lookupFieldName]
                         };
                         // See if this is a multi-lookup, and there is a default value
@@ -144,8 +144,9 @@ var FieldLookup = (function (_super) {
                             // Parse the default values
                             for (var j = 0; j < results.length; j++) {
                                 var result = results[j];
+                                var itemId = typeof (result) === "number" ? result : result.ID;
                                 // See if this is the current option
-                                if (option.key == result.ID) {
+                                if (option.key == itemId) {
                                     // Select this option
                                     option.selected = true;
                                     break;

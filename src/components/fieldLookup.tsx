@@ -166,7 +166,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                             let item = items.results[i];
                             let option = {
                                 key: item.Id,
-                                selected: item.Id == defaultValue ? defaultValue.ID : 0,
+                                selected: item.Id == (defaultValue ? defaultValue.ID : 0),
                                 text: item[this.state.fieldInfo.lookupFieldName]
                             };
 
@@ -177,9 +177,10 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                                 // Parse the default values
                                 for (let j = 0; j < results.length; j++) {
                                     let result = results[j];
+                                    let itemId = typeof(result) === "number" ? result : result.ID;
 
                                     // See if this is the current option
-                                    if (option.key == result.ID) {
+                                    if (option.key == itemId) {
                                         // Select this option
                                         option.selected = true;
                                         break;

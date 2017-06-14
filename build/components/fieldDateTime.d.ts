@@ -19,6 +19,5 @@ export declare class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDate
      * Methods
      */
     private getValue;
-    private getTime;
     private renderTime;
 }

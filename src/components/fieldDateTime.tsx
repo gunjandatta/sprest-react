@@ -49,12 +49,11 @@ export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeStat
 
     // The date changed event
     private onDateChanged = (date: Date) => {
-        // Get the time
-        let time = this.getTime();
-
-        // Update the date
-        date.setHours(time.Hours);
-        date.setMinutes(time.Minutes);
+        // Clear the time
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
 
         // Update the value
         this.updateValue(date);
@@ -66,12 +65,14 @@ export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeStat
     // The time changed event
     private onTimeChanged = (option: IDropdownOption) => {
         // Get the time
-        let time = this.getTime(option);
+        let time = option ? option.key.toString().split("|") : "00";
+        let hours = parseInt(time[0]);
+        let minutes = parseInt(time[1]);
 
         // Update the selected date
         let date = (this.refs["date"] as DatePicker).state.selectedDate;
-        date.setHours(time.Hours);
-        date.setMinutes(time.Minutes);
+        date.setHours(hours);
+        date.setMinutes(minutes);
 
         // Update the value
         this.updateValue(date);
@@ -95,26 +96,6 @@ export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeStat
 
         // Return the value
         return null;
-    }
-
-    // Method to get the time
-    private getTime = (option?: IDropdownOption) => {
-        // Ensure the option exists
-        if (option == null) {
-            let ddl = this.refs["time"] as Dropdown;
-
-            // Get the selected option
-            option = ddl.props.options[ddl.state.selectedIndex];
-        }
-
-        // Get the time
-        let time = option ? option.key.toString().split("|") : "00";
-
-        // Return the time
-        return {
-            Hours: parseInt(time[0]),
-            Minutes: parseInt(time[1])
-        };
     }
 
     // Method to render the time component

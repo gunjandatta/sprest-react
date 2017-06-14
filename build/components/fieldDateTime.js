@@ -42,11 +42,11 @@ var FieldDateTime = (function (_super) {
         };
         // The date changed event
         _this.onDateChanged = function (date) {
-            // Get the time
-            var time = _this.getTime();
-            // Update the date
-            date.setHours(time.Hours);
-            date.setMinutes(time.Minutes);
+            // Clear the time
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
             // Update the value
             _this.updateValue(date);
             // Call the change event
@@ -55,11 +55,13 @@ var FieldDateTime = (function (_super) {
         // The time changed event
         _this.onTimeChanged = function (option) {
             // Get the time
-            var time = _this.getTime(option);
+            var time = option ? option.key.toString().split("|") : "00";
+            var hours = parseInt(time[0]);
+            var minutes = parseInt(time[1]);
             // Update the selected date
             var date = _this.refs["date"].state.selectedDate;
-            date.setHours(time.Hours);
-            date.setMinutes(time.Minutes);
+            date.setHours(hours);
+            date.setMinutes(minutes);
             // Update the value
             _this.updateValue(date);
             // Call the change event
@@ -78,22 +80,6 @@ var FieldDateTime = (function (_super) {
             }
             // Return the value
             return null;
-        };
-        // Method to get the time
-        _this.getTime = function (option) {
-            // Ensure the option exists
-            if (option == null) {
-                var ddl = _this.refs["time"];
-                // Get the selected option
-                option = ddl.props.options[ddl.state.selectedIndex];
-            }
-            // Get the time
-            var time = option ? option.key.toString().split("|") : "00";
-            // Return the time
-            return {
-                Hours: parseInt(time[0]),
-                Minutes: parseInt(time[1])
-            };
         };
         // Method to render the time component
         _this.renderTime = function (date) {

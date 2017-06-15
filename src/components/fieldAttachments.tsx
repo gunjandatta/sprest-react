@@ -23,7 +23,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: this.loadFiles(props.files || []),
+            files: this.loadFiles(props.files),
             loadingFl: false
         };
     }
@@ -219,18 +219,21 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private loadFiles = (attachments: Types.ComplexTypes.FieldAttachmentFiles) => {
         let files: Array<IAttachmentFile> = [];
 
-        // Parse the attachments
-        for (let i = 0; i < attachments.results.length; i++) {
-            let attachment = attachments.results[i];
+        // Ensure attachments exist
+        if(attachments && attachments.results) {
+            // Parse the attachments
+            for (let i = 0; i < attachments.results.length; i++) {
+                let attachment = attachments.results[i];
 
-            // Add the file
-            files.push({
-                data: null,
-                deleteFl: false,
-                existsFl: true,
-                name: attachment.FileName,
-                url: attachment.ServerRelativeUrl
-            });
+                // Add the file
+                files.push({
+                    data: null,
+                    deleteFl: false,
+                    existsFl: true,
+                    name: attachment.FileName,
+                    url: attachment.ServerRelativeUrl
+                });
+            }
         }
 
         // Return the files

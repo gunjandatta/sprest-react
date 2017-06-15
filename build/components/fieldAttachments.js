@@ -167,17 +167,20 @@ var FieldAttachments = (function (_super) {
         // Method to load the files
         _this.loadFiles = function (attachments) {
             var files = [];
-            // Parse the attachments
-            for (var i = 0; i < attachments.results.length; i++) {
-                var attachment = attachments.results[i];
-                // Add the file
-                files.push({
-                    data: null,
-                    deleteFl: false,
-                    existsFl: true,
-                    name: attachment.FileName,
-                    url: attachment.ServerRelativeUrl
-                });
+            // Ensure attachments exist
+            if (attachments && attachments.results) {
+                // Parse the attachments
+                for (var i = 0; i < attachments.results.length; i++) {
+                    var attachment = attachments.results[i];
+                    // Add the file
+                    files.push({
+                        data: null,
+                        deleteFl: false,
+                        existsFl: true,
+                        name: attachment.FileName,
+                        url: attachment.ServerRelativeUrl
+                    });
+                }
             }
             // Return the files
             return files;
@@ -237,7 +240,7 @@ var FieldAttachments = (function (_super) {
         // Update the state
         _this.state = {
             errorMessage: "",
-            files: _this.loadFiles(props.files || []),
+            files: _this.loadFiles(props.files),
             loadingFl: false
         };
         return _this;

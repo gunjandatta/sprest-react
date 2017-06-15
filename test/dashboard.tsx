@@ -94,11 +94,21 @@ export class Dashboard extends React.Component<null, State> {
 
     // Method to save the item
     private save = () => {
+        let itemForm:ItemForm = this.refs["item"] as ItemForm;
+
         // Save the item
-        DataSource.save((this.refs["item"] as ItemForm).getValues()).then((item: ITestItem) => {
-            // Update the message
-            (this.refs["message"] as HTMLSpanElement).innerHTML =
-                item.existsFl ? "The item was saved successfully." : "Error: " + item.response;
+        DataSource.save(itemForm.getValues()).then((item: ITestItem) => {
+            // Ensure the item exists
+            if(item.existsFl) {
+                // Save the attachments
+                itemForm.saveAttachments(item.Id).then(() => {
+                    // Update the message
+                    (this.refs["message"] as HTMLSpanElement).innerHTML = "The item was saved successfully.";
+                });
+            } else {
+                // Update the message
+                (this.refs["message"] as HTMLSpanElement).innerHTML = "Error: " + item.response;
+            }
         });
     }
 

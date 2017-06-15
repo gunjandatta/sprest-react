@@ -1,5 +1,6 @@
 import { IBasePanelProps, IBasePanelState } from "./basePanel";
 import { IField, IFieldInfo, IFieldProps, IFieldState } from "./field";
+import { IAttachmentFile, IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState } from "./fieldAttachments";
 import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "./fieldBoolean";
 import { IChoiceFieldInfo, IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "./fieldChoice";
 import { IDateTimeFieldInfo, IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "./fieldDateTime";
@@ -11,6 +12,7 @@ import { IFieldUser, IUserFieldInfo, IFieldUserProps, IFieldUserState } from "./
 export {
     IBasePanelProps, IBasePanelState,
     IField, IFieldProps, IFieldState, IFieldInfo,
+    IAttachmentFile, IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState,
     IFieldBoolean, IFieldBooleanProps, IFieldBooleanState,
     IChoiceFieldInfo, IFieldChoice, IFieldChoiceProps, IFieldChoiceState,
     IDateTimeFieldInfo, IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState,

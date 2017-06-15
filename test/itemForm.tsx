@@ -2,7 +2,7 @@ import * as React from "react";
 import { Label, PrimaryButton } from "office-ui-fabric-react";
 import { DataSource, ITestItem } from "./data";
 import {
-    Field, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
+    Field, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
     FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser
 } from "../build";
 
@@ -51,6 +51,12 @@ export class ItemForm extends React.Component<Props, null> {
         );
     }
 
+    // Method to save the item attachments
+    saveAttachments = (itemId:number) => {
+        // Save the attachments
+        return (this.refs["attachments"] as FieldAttachments).save(itemId);
+    }
+
     /**
      * Methods
      */
@@ -60,6 +66,11 @@ export class ItemForm extends React.Component<Props, null> {
         let item: ITestItem = this.props.item || {} as ITestItem;
         return (
             <div className="ms-Grid-col ms-u-md12">
+                <FieldAttachments
+                    files={item.AttachmentFiles}
+                    listName={DataSource.ListName}
+                    ref="attachments"
+                />
                 <FieldText
                     defaultValue={item.Title}
                     listName={DataSource.ListName}

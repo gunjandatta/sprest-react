@@ -5,6 +5,7 @@ import { List, Types } from "gd-sprest";
  * Test Item Information
  */
 export interface ITestItem extends Types.IListItem {
+    Attachments?: boolean;
     TestBoolean?: boolean;
     TestChoice?: string;
     TestDate?: string;
@@ -54,9 +55,9 @@ export class DataSource {
                 // Set the query
                 .query({
                     Filter: itemId > 0 ? "ID eq " + itemId : "",
-                    Expand: ["TestLookup", "TestMultiLookup", "TestMultiUser", "TestUser"],
+                    Expand: ["AttachmentFiles", "TestLookup", "TestMultiLookup", "TestMultiUser", "TestUser"],
                     OrderBy: ["Title"],
-                    Select: ["*", "TestLookup/ID", "TestLookup/Title", "TestMultiLookup/ID", "TestMultiLookup/Title", "TestMultiUser/ID", "TestMultiUser/Title", "TestUser/ID", "TestUser/Title"],
+                    Select: ["*", "Attachments", "AttachmentFiles", "TestLookup/ID", "TestLookup/Title", "TestMultiLookup/ID", "TestMultiLookup/Title", "TestMultiUser/ID", "TestMultiUser/Title", "TestUser/ID", "TestUser/Title"],
                     Top: 50
                 })
                 // Execute the request

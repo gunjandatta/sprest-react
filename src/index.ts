@@ -11,6 +11,7 @@ import { BasePanel } from "./components/basePanel";
 /**
  * Fields
  */
+import { FieldAttachments } from "./components/fieldAttachments";
 import { FieldBoolean } from "./components/fieldBoolean";
 import { FieldChoice } from "./components/fieldChoice";
 import { FieldDateTime } from "./components/fieldDateTime";
@@ -27,6 +28,7 @@ import { FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState, } from "./defin
 
 export {
     Field, IFieldInfo, IFieldProps, IFieldState,
+    FieldAttachments,
     FieldBoolean,
     FieldChoice,
     FieldDateTime,

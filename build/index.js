@@ -13,6 +13,8 @@ exports.Panel = basePanel_1.BasePanel;
 /**
  * Fields
  */
+var fieldAttachments_1 = require("./components/fieldAttachments");
+exports.FieldAttachments = fieldAttachments_1.FieldAttachments;
 var fieldBoolean_1 = require("./components/fieldBoolean");
 exports.FieldBoolean = fieldBoolean_1.FieldBoolean;
 var fieldChoice_1 = require("./components/fieldChoice");

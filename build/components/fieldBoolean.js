@@ -49,7 +49,7 @@ var FieldBoolean = (function (_super) {
     FieldBoolean.prototype.renderField = function () {
         // Update the checkbox properties
         var props = this.props.props || {};
-        props.checked = typeof (props.checked) === "boolean" ? props.checked : this.getValue();
+        props.checked = this.getValue();
         props.onChange = this.onChange;
         // Render the component
         return (React.createElement("div", null,

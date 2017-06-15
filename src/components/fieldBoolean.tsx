@@ -11,7 +11,7 @@ export class FieldBoolean extends Field<IFieldBooleanProps, IFieldBooleanState> 
     renderField() {
         // Update the checkbox properties
         let props: ICheckboxProps = this.props.props || {};
-        props.checked = typeof (props.checked) === "boolean" ? props.checked : this.getValue();
+        props.checked = this.getValue();
         props.onChange = this.onChange;
 
         // Render the component

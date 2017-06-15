@@ -43,7 +43,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                             label="Uploading the file"
                         />
                         :
-                        <Link onClick={this.showFileDialog}>Add an attachment</Link>
+                        <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
                 }
                 {
                     this.state.errorMessage == "" ? null :

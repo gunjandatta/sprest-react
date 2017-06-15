@@ -255,7 +255,7 @@ var FieldAttachments = (function (_super) {
             this.state.loadingFl ?
                 React.createElement(office_ui_fabric_react_1.Spinner, { label: "Uploading the file" })
                 :
-                    React.createElement(office_ui_fabric_react_1.Link, { onClick: this.showFileDialog }, "Add an attachment"),
+                    React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
             this.state.errorMessage == "" ? null :
                 React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage),
             React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: "file" })));

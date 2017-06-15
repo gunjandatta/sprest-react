@@ -90,8 +90,14 @@ export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeStat
         // Get the value
         let value = this.getFieldValue();
         if (value && typeof (value) === "string") {
-            // Convert the value
-            return new Date(value);
+            // See if the default value is set to today
+            if(value == "[today]") {
+                // Return the current date/time
+                return new Date(Date.now());
+            } else {
+                // Convert the value
+                return new Date(value);
+            }
         }
 
         // Return the value

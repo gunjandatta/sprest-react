@@ -102,6 +102,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
                         // Update the file
                         file.data = ev.target.result;
+                        file.deleteFl = false;
                         file.name = srcFile.name;
 
                         // Break from the loop
@@ -249,7 +250,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
             // Add the file
             files.push(
-                <Link className="ms-AttachmentLink" key={file.name} download={file.url}>
+                <Link className="ms-AttachmentLink" key={file.name} href={file.url} download={true}>
                     <span className="ms-fontSize-m">{file.name}</span>
                     <i className="ms-Icon ms-Icon--Delete" data-fileName={file.name.toLowerCase()} onClick={this.removeAttachment} />
                 </Link>

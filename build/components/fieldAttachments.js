@@ -66,6 +66,7 @@ var FieldAttachments = (function (_super) {
                             newFl = false;
                             // Update the file
                             file.data = ev.target.result;
+                            file.deleteFl = false;
                             file.name = srcFile.name;
                             // Break from the loop
                             break;
@@ -192,7 +193,7 @@ var FieldAttachments = (function (_super) {
                     continue;
                 }
                 // Add the file
-                files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, download: file.url },
+                files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, download: true },
                     React.createElement("span", { className: "ms-fontSize-m" }, file.name),
                     React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-fileName": file.name.toLowerCase(), onClick: _this.removeAttachment })));
             }

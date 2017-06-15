@@ -37,9 +37,6 @@ export class DataSource {
     // List Name
     static ListName = "SPReact";
 
-    // List Entity Name
-    //static ListEntityName = "SP.Data.SPReactListItem";
-
     /**
      * Methods
      */
@@ -108,9 +105,6 @@ export class DataSource {
                         }
                     });
             } else {
-                // Set the list entity type name
-                //item["__metadata"] = { type: DataSource.ListEntityName };
-
                 // Get the list
                 (new List(DataSource.ListName))
                     // Execute the request

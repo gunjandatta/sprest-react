@@ -237,7 +237,7 @@ var FieldAttachments = (function (_super) {
         // Update the state
         _this.state = {
             errorMessage: "",
-            files: _this.loadFiles(props.files),
+            files: _this.loadFiles(props.files || []),
             loadingFl: false
         };
         return _this;

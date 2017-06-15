@@ -23,7 +23,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: this.loadFiles(props.files),
+            files: this.loadFiles(props.files || []),
             loadingFl: false
         };
     }

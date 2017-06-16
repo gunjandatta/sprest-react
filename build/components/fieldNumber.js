@@ -62,12 +62,12 @@ var FieldNumber = (function (_super) {
     FieldNumber.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.defaultValue = this.getValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.onChange;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
+        props.value = this.getValue();
+        props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
         // Return the component
         return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "number" })));
     };

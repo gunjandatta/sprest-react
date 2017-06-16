@@ -78,19 +78,18 @@ var FieldChoice = (function (_super) {
     FieldChoice.prototype.renderField = function () {
         // Update the properties
         var props = this.props.props || {};
-        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.onChanged = this.onChange;
         props.options = this.state.choices;
         props.required = props.required || this.state.fieldInfo.required;
+        props.selectedKey = this.getFieldValue();
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         // Parse the choices to set the default value
-        var defaultValue = this.props.defaultValue || props.defaultSelectedKey;
         for (var i = 0; i < props.options.length; i++) {
             var option = props.options[i];
             // Update the choice
-            option.selected = option.key == defaultValue;
+            option.selected = option.key == props.selectedKey;
         }
         // Return the dropdown
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "choice" })));

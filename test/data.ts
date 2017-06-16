@@ -37,6 +37,9 @@ export class DataSource {
     // List Name
     static ListName = "SPReact";
 
+    // List Item Entity Type Name (Required for complex field item add operation)
+    static ListItemEntityTypeFullName = "SP.Data.SPReactListItem";
+
     /**
      * Methods
      */
@@ -105,15 +108,16 @@ export class DataSource {
                         }
                     });
             } else {
+                // Set the item metadata - This is required for complex field updates
+                item["__metadata"] = { type: DataSource.ListItemEntityTypeFullName };
+
                 // Get the list
                 (new List(DataSource.ListName))
-                    // Execute the request
-                    .execute()
                     // Get the items
                     .Items()
                     // Add the item
                     .add(item)
-                    // Execute the request after the previous one
+                    // Execute the request
                     .execute((item: ITestItem) => {
                         // Load the item again to get the expanded field values
                         DataSource.load(item.Id).then((item: ITestItem) => {

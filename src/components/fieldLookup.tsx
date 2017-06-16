@@ -21,7 +21,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
         let props: IDropdownProps = this.props.props || {};
 
         // Update the properties
-        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
+        props.selectedKey = this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -78,7 +78,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             let selectedOptions = this.getSelectedOptions(options, "key");
 
             // Update the field value
-            this.updateValue({
+            this.updateValue(selectedOptions.length == 0 ? null : {
                 __metadata: { type: "Collection(Edm.Int32)" },
                 results: selectedOptions
             });
@@ -118,7 +118,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             }
 
             // Set the value
-            state.value = {
+            state.value = results.length == 0 ? null : {
                 __metadata: { type: "Collection(Edm.Int32)" },
                 results
             };

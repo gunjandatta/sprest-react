@@ -17,21 +17,20 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
     renderField() {
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
-        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.onChanged = this.onChange;
         props.options = this.state.choices;
         props.required = props.required || this.state.fieldInfo.required;
+        props.selectedKey = this.getFieldValue();
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
 
         // Parse the choices to set the default value
-        let defaultValue = this.props.defaultValue || props.defaultSelectedKey;
         for (let i = 0; i < props.options.length; i++) {
             let option = props.options[i];
 
             // Update the choice
-            option.selected = option.key == defaultValue;
+            option.selected = option.key == props.selectedKey;
         }
 
         // Return the dropdown

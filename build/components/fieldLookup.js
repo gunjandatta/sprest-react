@@ -62,7 +62,7 @@ var FieldLookup = (function (_super) {
             _this.setState({ options: options }, function () {
                 var selectedOptions = _this.getSelectedOptions(options, "key");
                 // Update the field value
-                _this.updateValue({
+                _this.updateValue(selectedOptions.length == 0 ? null : {
                     __metadata: { type: "Collection(Edm.Int32)" },
                     results: selectedOptions
                 });
@@ -95,7 +95,7 @@ var FieldLookup = (function (_super) {
                     results.push(defaultValue[i].ID);
                 }
                 // Set the value
-                state.value = {
+                state.value = results.length == 0 ? null : {
                     __metadata: { type: "Collection(Edm.Int32)" },
                     results: results
                 };
@@ -195,7 +195,7 @@ var FieldLookup = (function (_super) {
     FieldLookup.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.selectedKey = props.defaultSelectedKey || this.getFieldValue();
+        props.selectedKey = this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;

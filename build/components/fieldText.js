@@ -60,14 +60,14 @@ var FieldText = (function (_super) {
     FieldText.prototype.renderField = function () {
         var props = this.props.props || {};
         // Update the properties
-        props.defaultValue = this.props.defaultValue || this.getFieldValue();
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? (props.defaultValue ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
         props.onChanged = this.onChange;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
+        props.value = this.getFieldValue();
+        props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
         // Return the component
         return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "text" })));
     };

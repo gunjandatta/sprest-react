@@ -121,7 +121,7 @@ var FieldLookup = (function (_super) {
                     Top: 500
                 })
                     .execute(function (items) {
-                    var defaultValue = _this.props.defaultValue ? _this.props.defaultValue : null;
+                    var defaultValue = _this.props.defaultValue ? _this.props.defaultValue : 0;
                     var options = [];
                     // Add an empty option for single lookup fields
                     if (!_this.state.fieldInfo.allowMultipleValues) {
@@ -135,7 +135,7 @@ var FieldLookup = (function (_super) {
                         var item = items.results[i];
                         var option = {
                             key: item.Id,
-                            selected: item.Id == (defaultValue ? defaultValue.ID : 0),
+                            selected: item.Id == (defaultValue.ID ? defaultValue.ID : defaultValue),
                             text: item[_this.state.fieldInfo.lookupFieldName]
                         };
                         // See if this is a multi-lookup, and there is a default value
@@ -144,7 +144,7 @@ var FieldLookup = (function (_super) {
                             // Parse the default values
                             for (var j = 0; j < results.length; j++) {
                                 var result = results[j];
-                                var itemId = typeof (result) === "number" ? result : result.ID;
+                                var itemId = result.ID ? result.ID : result;
                                 // See if this is the current option
                                 if (option.key == itemId) {
                                     // Select this option

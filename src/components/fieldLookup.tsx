@@ -150,7 +150,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                     })
                     // Execute the request
                     .execute((items: Types.IListItems) => {
-                        let defaultValue = this.props.defaultValue ? this.props.defaultValue : null;
+                        let defaultValue = this.props.defaultValue ? this.props.defaultValue : 0;
                         let options: Array<IDropdownOption> = [];
 
                         // Add an empty option for single lookup fields
@@ -166,7 +166,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                             let item = items.results[i];
                             let option = {
                                 key: item.Id,
-                                selected: item.Id == (defaultValue ? defaultValue.ID : 0),
+                                selected: item.Id == (defaultValue.ID ? defaultValue.ID : defaultValue),
                                 text: item[this.state.fieldInfo.lookupFieldName]
                             };
 
@@ -177,7 +177,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                                 // Parse the default values
                                 for (let j = 0; j < results.length; j++) {
                                     let result = results[j];
-                                    let itemId = typeof(result) === "number" ? result : result.ID;
+                                    let itemId = result.ID ? result.ID : result;
 
                                     // See if this is the current option
                                     if (option.key == itemId) {

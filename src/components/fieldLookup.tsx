@@ -124,7 +124,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             };
         } else {
             // Set the value
-            state.value = this.props.defaultValue ? this.props.defaultValue.ID : null;
+            state.value = this.props.defaultValue && this.props.defaultValue.ID > 0 ? this.props.defaultValue.ID : this.props.defaultValue;
         }
     }
 

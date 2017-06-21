@@ -27,6 +27,10 @@ export const Configuration = new Helper.SPConfig({
                         '</Field>'
                 },
                 {
+                    Name: "TestComments",
+                    SchemaXml: '<Field ID="{0E11F904-4DA2-48E1-B45B-601720923498}" Name="TestComments" StaticName="TestComments" DisplayName="Comments" Type="Note" AppendOnly="TRUE" />'
+                },
+                {
                     Name: "TestDate",
                     SchemaXml: '<Field ID="{5BF47BE2-2697-47C1-B6FE-6017207B221A}" Name="TestDate" StaticName="TestDate" DisplayName="Date Only" Type="DateTime" Format="DateOnly" />'
                 },

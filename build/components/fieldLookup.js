@@ -102,7 +102,7 @@ var FieldLookup = (function (_super) {
             }
             else {
                 // Set the value
-                state.value = _this.props.defaultValue ? _this.props.defaultValue.ID : null;
+                state.value = _this.props.defaultValue && _this.props.defaultValue.ID > 0 ? _this.props.defaultValue.ID : _this.props.defaultValue;
             }
         };
         // The field loaded event

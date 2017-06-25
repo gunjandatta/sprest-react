@@ -59,8 +59,7 @@ var FieldUser = (function (_super) {
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-            // Note - Needs to be updated for multi-user
-            state.value = _this.props.defaultValue ? _this.props.defaultValue.ID : null;
+            state.value = _this.props.defaultValue;
         };
         /**
          * Methods
@@ -69,16 +68,23 @@ var FieldUser = (function (_super) {
         _this.getDefaultPersonas = function () {
             var personas = [];
             // See if the default value exists
-            var user = _this.props.defaultValue;
-            if (user && user.ID > 0) {
-                // Add the persona
-                personas.push({
-                    id: user.UserName,
-                    itemID: user.ID.toString(),
-                    primaryText: user.Title,
-                    secondaryText: user.Email,
-                    tertiaryText: user.JobTitle,
-                });
+            if (_this.props.defaultValue) {
+                // Parse the users
+                var users = _this.props.defaultValue.results ? _this.props.defaultValue.results : [_this.props.defaultValue];
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    // Ensure the user exists
+                    if (user.ID > 0) {
+                        // Add the persona
+                        personas.push({
+                            id: user.UserName,
+                            itemID: user.ID.toString(),
+                            primaryText: user.Title,
+                            secondaryText: user.Email,
+                            tertiaryText: user.JobTitle,
+                        });
+                    }
+                }
             }
             // Return the default personas
             return personas;
@@ -94,8 +100,7 @@ var FieldUser = (function (_super) {
                     results.push(personas[i].itemID);
                 }
                 // Return the results
-                return results.length == 0 ? null : {
-                    __metadata: { type: "Collection(Edm.Int32)" },
+                return {
                     results: results
                 };
             }

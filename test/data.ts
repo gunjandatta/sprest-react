@@ -89,7 +89,7 @@ export class DataSource {
                     TestLookupId: item.TestLookupId,
                     TestMultiChoice: item.TestMultiChoice,
                     TestMultiLookupId: item.TestMultiLookupId,
-                    //TestMultiUserId: item.TestMultiUserId,
+                    TestMultiUserId: item.TestMultiUserId,
                     TestNote: item.TestNote,
                     TestNumberDecimal: item.TestNumberDecimal,
                     TestNumberInteger: item.TestNumberInteger,

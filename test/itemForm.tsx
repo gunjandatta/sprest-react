@@ -119,14 +119,12 @@ export class ItemForm extends React.Component<Props, null> {
                     name="TestMultiLookup"
                     ref="TestMultiLookupId"
                 />
-                {/**
                 <FieldUser
                     defaultValue={item.TestMultiUser}
                     listName={DataSource.ListName}
                     name="TestMultiUser"
                     ref="TestMultiUserId"
                 />
-                */}
                 <FieldText
                     defaultValue={item.TestNote}
                     listName={DataSource.ListName}

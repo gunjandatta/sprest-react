@@ -81,8 +81,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
 
         // Update the state
         state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-        // Note - Needs to be updated for multi-user
-        state.value = this.props.defaultValue ? this.props.defaultValue.ID : null;
+        state.value = this.props.defaultValue;
     }
 
     /**
@@ -94,16 +93,24 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
         let personas: Array<IPersonaProps> = [];
 
         // See if the default value exists
-        let user: Types.ComplexTypes.FieldUserValue = this.props.defaultValue;
-        if (user && user.ID > 0) {
-            // Add the persona
-            personas.push({
-                id: user.UserName,
-                itemID: user.ID.toString(),
-                primaryText: user.Title,
-                secondaryText: user.Email,
-                tertiaryText: user.JobTitle,
-            });
+        if (this.props.defaultValue) {
+            // Parse the users
+            let users = this.props.defaultValue.results ? this.props.defaultValue.results : [this.props.defaultValue];
+            for (let i = 0; i < users.length; i++) {
+                let user: Types.ComplexTypes.FieldUserValue = users[i];
+
+                // Ensure the user exists
+                if(user.ID > 0) {
+                    // Add the persona
+                    personas.push({
+                        id: user.UserName,
+                        itemID: user.ID.toString(),
+                        primaryText: user.Title,
+                        secondaryText: user.Email,
+                        tertiaryText: user.JobTitle,
+                    });
+                }
+            }
         }
 
         // Return the default personas
@@ -123,8 +130,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
             }
 
             // Return the results
-            return results.length == 0 ? null : {
-                __metadata: { type: "Collection(Edm.Int32)" },
+            return {
                 results
             };
         } else {

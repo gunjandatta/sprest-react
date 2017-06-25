@@ -4,7 +4,7 @@ import { List, Types } from "gd-sprest";
 /**
  * Test Item Information
  */
-export interface ITestItem extends Types.IListItem {
+export interface ITestItem extends Types.IListItemResult {
     Attachments?: boolean;
     TestBoolean?: boolean;
     TestChoice?: string;
@@ -61,14 +61,14 @@ export class DataSource {
                     Top: 50
                 })
                 // Execute the request
-                .execute((items: Types.IListItems) => {
+                .execute((items) => {
                     // Ensure the items exist
-                    if (items.existsFl) {
+                    if (items.results) {
                         // Resolve the request
                         resolve(itemId > 0 ? items.results[0] : items.results);
                     } else {
                         // Reject the request
-                        reject(items.response);
+                        reject();
                     }
                 });
         });
@@ -97,7 +97,7 @@ export class DataSource {
                     TestUserId: item.TestUserId
                 } as ITestItem)
                     // Execute the request
-                    .execute((request:Types.IBase) => {
+                    .execute((request) => {
                         // Ensure the update was successful
                         if(request.response == "") {
                             // Resolve the request

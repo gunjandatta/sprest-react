@@ -135,7 +135,7 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
             // Get the field by its internal name
             .getByInternalNameOrTitle(state.fieldInfo.name)
             // Execute the request
-            .execute((field: Types.IField) => {
+            .execute((field) => {
                 // Update the field information
                 state.fieldInfo.defaultValue = field.DefaultValue;
                 state.fieldInfo.required = field.Required;

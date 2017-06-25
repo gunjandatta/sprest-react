@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types, Site } from "gd-sprest";
+import { SPTypes, Site } from "gd-sprest";
 import { IFieldLookupProps, IFieldLookupState } from "../definitions";
 import { Field } from "../common";
 import {
@@ -135,7 +135,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             // Get the web containing the lookup list
             .openWebById(this.state.fieldInfo.lookupWebId)
             // Execute the request
-            .execute((web: Types.IWeb) => {
+            .execute((web) => {
                 // Get the list
                 web.Lists()
                     // Get the list by id
@@ -149,7 +149,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                         Top: 500
                     })
                     // Execute the request
-                    .execute((items: Types.IListItems) => {
+                    .execute((items) => {
                         let defaultValue = this.props.defaultValue ? this.props.defaultValue : 0;
                         let options: Array<IDropdownOption> = [];
 

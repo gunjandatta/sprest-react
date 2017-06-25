@@ -87,7 +87,7 @@ export class DataSource {
                     TestDate: item.TestDate,
                     TestDateTime: item.TestDateTime,
                     TestLookupId: item.TestLookupId,
-                    //TestMultiChoice: item.TestMultiChoice,
+                    TestMultiChoice: item.TestMultiChoice,
                     TestMultiLookupId: item.TestMultiLookupId,
                     //TestMultiUserId: item.TestMultiUserId,
                     TestNote: item.TestNote,

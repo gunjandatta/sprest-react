@@ -28,7 +28,6 @@ export interface IFieldLookupProps extends IFieldProps {
 export interface IFieldLookupState extends IFieldState {
     options?: Array<IDropdownOption>;
     fieldInfo: ILookupFieldInfo;
-    selectedOptionsText?: string;
 }
 /**
  * Lookup Field

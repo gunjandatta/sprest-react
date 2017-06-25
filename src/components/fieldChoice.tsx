@@ -1,9 +1,12 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
+import {
+    Checkbox,
+    Dropdown, IDropdownOption, IDropdownProps
+} from "office-ui-fabric-react";
 import { Field } from "../common";
 import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../definitions";
-
+import "../../sass/fieldChoice.scss";
 
 /**
  * Boolean field
@@ -19,18 +22,17 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
         let props: IDropdownProps = this.props.props || {};
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
-        props.onChanged = this.onChange;
+        props.onChanged = this.onChanged;
         props.options = this.state.choices;
         props.required = props.required || this.state.fieldInfo.required;
         props.selectedKey = this.getFieldValue();
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
 
-        // Parse the choices to set the default value
-        for (let i = 0; i < props.options.length; i++) {
-            let option = props.options[i];
-
-            // Update the choice
-            option.selected = option.key == props.selectedKey;
+        // See if this is a multi-choice field
+        if(this.state.fieldInfo.multiChoice) {
+            // Update the dropdown properties
+            props.onRenderItem = this.renderOption;
+            props.onRenderTitle = this.renderTitle;
         }
 
         // Return the dropdown
@@ -43,13 +45,43 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
      * Events
      */
 
-    // The change event
-    protected onChange = (option: IDropdownOption) => {
+    // The change event for the dropdown list
+    protected onChanged = (option: IDropdownOption) => {
+        // Execute the change event
+        this.props.onChange ? this.props.onChange(option) : null;
+
         // Update the field value
         this.updateValue(option.key);
+    }
 
-        // Call the change event
-        this.props.onChange ? this.props.onChange(option) : null;
+    // The change event for selecting a multi-lookup item
+    private onChecked = (key: string | number) => {
+        let choices = this.state.choices;
+
+        // Parse the choice options
+        for (let i = 0; i < choices.length; i++) {
+            let option = choices[i];
+
+            // See if this is the target option
+            if (option.key == key) {
+                // Update the selection
+                option.selected = option.selected ? false : true;
+                break;
+            }
+        }
+
+        // Update the state
+        this.setState({ choices }, () => {
+            let selectedChoices = this.getSelectedOptions(choices, "key");
+
+            // Update the field value
+            this.updateValue(selectedChoices.length == 0 ? null : {
+                results: selectedChoices
+            });
+
+            // Call the change event
+            this.props.onChange ? this.props.onChange(selectedChoices) : null;
+        });
     }
 
     // The field initialized event
@@ -58,10 +90,19 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
         state.fieldInfo.choices = [];
 
         // Ensure this is a choice field
-        if (field.FieldTypeKind != SPTypes.FieldType.Choice) {
-            // Log
-            console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a choice field.");
-            return;
+        switch (field.FieldTypeKind) {
+            // Choice Field
+            case SPTypes.FieldType.Choice:
+                break;
+            // Multi-Choice Field
+            case SPTypes.FieldType.MultiChoice:
+                // Update the state
+                state.fieldInfo.multiChoice = true;
+                break;
+            default:
+                // Log
+                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a choice field.");
+                return;
         }
 
         // Parse the choices
@@ -82,9 +123,90 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
 
     // The field loaded event
     onFieldLoaded = () => {
+        let choices = this.state.fieldInfo.choices;
+
+        // See if there is a default value
+        let defaultValue = this.props.defaultValue ? this.props.defaultValue : "";
+        if(defaultValue) {
+            // See if this is a multi-choice
+            if(this.state.fieldInfo.multiChoice && defaultValue) {
+                let values = defaultValue.results;
+
+                // Parse the selected values
+                for(let i=0; i<values.length; i++) {
+                    let value = values[i];
+
+                    // Parse the choices
+                    for(let j=0; j<choices.length; j++) {
+                        let choice = choices[j];
+                        
+                        // See if this is the selected choice
+                        if(choice.text == value) {
+                            choice.selected = true;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                // Parse the choices
+                for (let i = 0; i < choices.length; i++) {
+                    let option = choices[i];
+
+                    // Set the selected flag
+                    option.selected = option.key == defaultValue;
+                }
+            }
+        }
+
+
         // Set the options
         this.setState({
             choices: this.state.fieldInfo.choices
         });
+    }
+
+    /**
+     * Methods
+     */
+
+    // Method to get the selected lookup items
+    private getSelectedOptions = (options: Array<IDropdownOption>, key: string): Array<string | number> => {
+        let values = [];
+
+        // Parse the options
+        for (let i = 0; i < options.length; i++) {
+            let option = options[i];
+
+            // See if this option is selected
+            if (option.selected) {
+                // Add the option
+                values.push(option[key]);
+            }
+        }
+
+        // Return the values
+        return values;
+    }
+
+    // Method to render the multi-lookup option
+    private renderOption = (option?: IDropdownOption) => {
+        // Return a checkbox
+        return (
+            <Checkbox
+                checked={option.selected}
+                className="ms-Choice-Checkbox"
+                key={option.key}
+                label={option.text}
+                onChange={() => { this.onChecked(option.key); }}
+            />
+        )
+    }
+
+    // Method to render the multi-lookup display value
+    private renderTitle = () => {
+        // Return the title
+        return (
+            <span>{this.getSelectedOptions(this.state.choices, "text").join(", ")}</span>
+        );
     }
 }

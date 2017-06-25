@@ -107,14 +107,12 @@ export class ItemForm extends React.Component<Props, null> {
                     name="TestLookup"
                     ref="TestLookupId"
                 />
-                {/**
                 <FieldChoice
                     defaultValue={item.TestMultiChoice}
                     listName={DataSource.ListName}
                     name="TestMultiChoice"
                     ref="TestMultiChoice"
                 />
-                */}
                 <FieldLookup
                     defaultValue={item.TestMultiLookup}
                     listName={DataSource.ListName}

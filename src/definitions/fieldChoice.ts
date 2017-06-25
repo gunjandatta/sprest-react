@@ -8,6 +8,9 @@ import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 export interface IChoiceFieldInfo extends IFieldInfo {
     /** The dropdown choices. */
     choices: Array<IDropdownOption>;
+
+    /** Flag to determine if this is a multi-choice field. */
+    multiChoice?: boolean;
 }
 
 /**
@@ -15,7 +18,7 @@ export interface IChoiceFieldInfo extends IFieldInfo {
  */
 export interface IFieldChoiceProps extends IFieldProps {
     /** Event triggered when the field value changes. */
-    onChange?: (value: IDropdownOption) => void;
+    onChange?: (value: IDropdownOption | Array<string | number>) => void;
 
     /** The dropdown properties. */
     props?: IDropdownProps;

@@ -52,9 +52,6 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
 
         // Update the field value
         this.updateValue(option.key);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(option) : null;
     }
 
     // The change event for selecting a multi-lookup item
@@ -79,7 +76,6 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
 
             // Update the field value
             this.updateValue(selectedOptions.length == 0 ? null : {
-                __metadata: { type: "Collection(Edm.Int32)" },
                 results: selectedOptions
             });
 

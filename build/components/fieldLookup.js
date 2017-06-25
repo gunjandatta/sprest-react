@@ -42,8 +42,6 @@ var FieldLookup = (function (_super) {
             _this.props.onChange ? _this.props.onChange(option) : null;
             // Update the field value
             _this.updateValue(option.key);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
         };
         // The change event for selecting a multi-lookup item
         _this.onChecked = function (key) {
@@ -63,7 +61,6 @@ var FieldLookup = (function (_super) {
                 var selectedOptions = _this.getSelectedOptions(options, "key");
                 // Update the field value
                 _this.updateValue(selectedOptions.length == 0 ? null : {
-                    __metadata: { type: "Collection(Edm.Int32)" },
                     results: selectedOptions
                 });
                 // Call the change event

@@ -58,18 +58,23 @@ var FieldUser = (function (_super) {
                 return;
             }
             // Parse the default value to set the state's field value
-            var userIDs = [];
             var defaultValue = field.AllowMultipleValues ? _this.props.defaultValue : [_this.props.defaultValue];
-            for (var i = 0; i < defaultValue.length; i++) {
-                var userValue = defaultValue[i];
-                if (userValue.ID > 0) {
-                    // Add the user lookup id
-                    userIDs.push(userValue.ID);
+            if (defaultValue) {
+                var userIDs = [];
+                // Parse the users
+                for (var i = 0; i < defaultValue.length; i++) {
+                    var userValue = defaultValue[i];
+                    if (userValue.ID > 0) {
+                        // Add the user lookup id
+                        userIDs.push(userValue.ID);
+                    }
                 }
+                // Set the default value
+                defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-            state.value = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
+            state.value = defaultValue;
         };
         /**
          * Methods

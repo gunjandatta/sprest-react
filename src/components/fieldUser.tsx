@@ -80,19 +80,26 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
         }
 
         // Parse the default value to set the state's field value
-        let userIDs = [];
         let defaultValue = field.AllowMultipleValues ? this.props.defaultValue : [this.props.defaultValue];
-        for (let i = 0; i < defaultValue.length; i++) {
-            let userValue:Types.ComplexTypes.FieldUserValue = defaultValue[i];
-            if(userValue.ID > 0) {
-                // Add the user lookup id
-                userIDs.push(userValue.ID);
+        if(defaultValue) {
+            let userIDs = [];
+
+            // Parse the users
+            for (let i = 0; i < defaultValue.length; i++) {
+                let userValue:Types.ComplexTypes.FieldUserValue = defaultValue[i];
+                if(userValue.ID > 0) {
+                    // Add the user lookup id
+                    userIDs.push(userValue.ID);
+                }
             }
+
+            // Set the default value
+            defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
         }
 
         // Update the state
         state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-        state.value = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
+        state.value = defaultValue;
     }
 
     /**

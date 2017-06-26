@@ -121,7 +121,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             };
         } else {
             // Set the value
-            state.value = this.props.defaultValue && this.props.defaultValue.ID > 0 ? this.props.defaultValue.ID : null;
+            state.value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
         }
     }
 
@@ -163,7 +163,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                             let item = items.results[i];
                             let option = {
                                 key: item.Id,
-                                selected: item.Id == (defaultValue.ID ? defaultValue.ID : defaultValue),
+                                selected: item.Id == (defaultValue.ID || defaultValue),
                                 text: item[this.state.fieldInfo.lookupFieldName]
                             };
 
@@ -174,7 +174,7 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                                 // Parse the default values
                                 for (let j = 0; j < results.length; j++) {
                                     let result = results[j];
-                                    let itemId = result.ID ? result.ID : result;
+                                    let itemId = result.ID || result;
 
                                     // See if this is the current option
                                     if (option.key == itemId) {

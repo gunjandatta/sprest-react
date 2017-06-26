@@ -75,7 +75,8 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             let selectedOptions = this.getSelectedOptions(options, "key");
 
             // Update the field value
-            this.updateValue(selectedOptions.length == 0 ? null : {
+            this.updateValue({
+                __metadata: { type: "Collection(Edm.Int32)" },
                 results: selectedOptions
             });
 
@@ -114,13 +115,13 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
             }
 
             // Set the value
-            state.value = results.length == 0 ? null : {
+            state.value = {
                 __metadata: { type: "Collection(Edm.Int32)" },
                 results
             };
         } else {
             // Set the value
-            state.value = this.props.defaultValue && this.props.defaultValue.ID > 0 ? this.props.defaultValue.ID : this.props.defaultValue;
+            state.value = this.props.defaultValue && this.props.defaultValue.ID > 0 ? this.props.defaultValue.ID : null;
         }
     }
 

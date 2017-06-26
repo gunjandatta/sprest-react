@@ -29,7 +29,7 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
 
         // See if this is a multi-choice field
-        if(this.state.fieldInfo.multiChoice) {
+        if (this.state.fieldInfo.multiChoice) {
             // Update the dropdown properties
             props.onRenderItem = this.renderOption;
             props.onRenderTitle = this.renderTitle;
@@ -75,7 +75,7 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
             let selectedChoices = this.getSelectedOptions(choices, "key");
 
             // Update the field value
-            this.updateValue(selectedChoices.length == 0 ? null : {
+            this.updateValue({
                 results: selectedChoices
             });
 
@@ -117,8 +117,18 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
             });
         }
 
-        // Set the choices
+        // Update the choices
         state.choices = state.fieldInfo.choices;
+
+        // See if this is a multi-choice field
+        if (state.fieldInfo.multiChoice) {
+            let selectedChoices = this.getSelectedOptions(state.choices, "key");
+
+            // Update the value
+            state.value = {
+                results: selectedChoices
+            };
+        }
     }
 
     // The field loaded event
@@ -127,21 +137,21 @@ export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> imp
 
         // See if there is a default value
         let defaultValue = this.props.defaultValue ? this.props.defaultValue : "";
-        if(defaultValue) {
+        if (defaultValue) {
             // See if this is a multi-choice
-            if(this.state.fieldInfo.multiChoice && defaultValue) {
+            if (this.state.fieldInfo.multiChoice && defaultValue) {
                 let values = defaultValue.results;
 
                 // Parse the selected values
-                for(let i=0; i<values.length; i++) {
+                for (let i = 0; i < values.length; i++) {
                     let value = values[i];
 
                     // Parse the choices
-                    for(let j=0; j<choices.length; j++) {
+                    for (let j = 0; j < choices.length; j++) {
                         let choice = choices[j];
-                        
+
                         // See if this is the selected choice
-                        if(choice.text == value) {
+                        if (choice.text == value) {
                             choice.selected = true;
                             break;
                         }

@@ -59,7 +59,7 @@ var FieldUser = (function (_super) {
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-            state.value = _this.props.defaultValue;
+            state.value = _this.getValue(_this.props.defaultValue);
         };
         /**
          * Methods
@@ -91,6 +91,7 @@ var FieldUser = (function (_super) {
         };
         // Method to get the field value
         _this.getValue = function (personas) {
+            personas = personas ? personas : [];
             // See if we are allowing multiple
             if (_this.state.fieldInfo.allowMultiple) {
                 var results = [];

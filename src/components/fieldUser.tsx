@@ -81,7 +81,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
 
         // Update the state
         state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-        state.value = this.props.defaultValue;
+        state.value = this.getValue(this.props.defaultValue);
     }
 
     /**
@@ -119,6 +119,8 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
 
     // Method to get the field value
     private getValue = (personas: Array<IPersonaProps>) => {
+        personas = personas ? personas : [];
+        
         // See if we are allowing multiple
         if (this.state.fieldInfo.allowMultiple) {
             let results = [];

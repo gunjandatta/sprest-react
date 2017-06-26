@@ -60,7 +60,8 @@ var FieldLookup = (function (_super) {
             _this.setState({ options: options }, function () {
                 var selectedOptions = _this.getSelectedOptions(options, "key");
                 // Update the field value
-                _this.updateValue(selectedOptions.length == 0 ? null : {
+                _this.updateValue({
+                    __metadata: { type: "Collection(Edm.Int32)" },
                     results: selectedOptions
                 });
                 // Call the change event
@@ -92,14 +93,14 @@ var FieldLookup = (function (_super) {
                     results.push(defaultValue[i].ID);
                 }
                 // Set the value
-                state.value = results.length == 0 ? null : {
+                state.value = {
                     __metadata: { type: "Collection(Edm.Int32)" },
                     results: results
                 };
             }
             else {
                 // Set the value
-                state.value = _this.props.defaultValue && _this.props.defaultValue.ID > 0 ? _this.props.defaultValue.ID : _this.props.defaultValue;
+                state.value = _this.props.defaultValue && _this.props.defaultValue.ID > 0 ? _this.props.defaultValue.ID : null;
             }
         };
         // The field loaded event

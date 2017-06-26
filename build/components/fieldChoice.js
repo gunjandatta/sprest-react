@@ -60,7 +60,7 @@ var FieldChoice = (function (_super) {
             _this.setState({ choices: choices }, function () {
                 var selectedChoices = _this.getSelectedOptions(choices, "key");
                 // Update the field value
-                _this.updateValue(selectedChoices.length == 0 ? null : {
+                _this.updateValue({
                     results: selectedChoices
                 });
                 // Call the change event
@@ -96,8 +96,16 @@ var FieldChoice = (function (_super) {
                     text: choice
                 });
             }
-            // Set the choices
+            // Update the choices
             state.choices = state.fieldInfo.choices;
+            // See if this is a multi-choice field
+            if (state.fieldInfo.multiChoice) {
+                var selectedChoices = _this.getSelectedOptions(state.choices, "key");
+                // Update the value
+                state.value = {
+                    results: selectedChoices
+                };
+            }
         };
         // The field loaded event
         _this.onFieldLoaded = function () {

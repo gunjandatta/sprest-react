@@ -57,9 +57,19 @@ var FieldUser = (function (_super) {
                 console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a user field.");
                 return;
             }
+            // Parse the default value to set the state's field value
+            var userIDs = [];
+            var defaultValue = field.AllowMultipleValues ? _this.props.defaultValue : [_this.props.defaultValue];
+            for (var i = 0; i < defaultValue.length; i++) {
+                var userValue = defaultValue[i];
+                if (userValue.ID > 0) {
+                    // Add the user lookup id
+                    userIDs.push(userValue.ID);
+                }
+            }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-            state.value = _this.getValue(_this.props.defaultValue);
+            state.value = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
         };
         /**
          * Methods

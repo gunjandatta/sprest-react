@@ -79,9 +79,20 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
             return;
         }
 
+        // Parse the default value to set the state's field value
+        let userIDs = [];
+        let defaultValue = field.AllowMultipleValues ? this.props.defaultValue : [this.props.defaultValue];
+        for (let i = 0; i < defaultValue.length; i++) {
+            let userValue:Types.ComplexTypes.FieldUserValue = defaultValue[i];
+            if(userValue.ID > 0) {
+                // Add the user lookup id
+                userIDs.push(userValue.ID);
+            }
+        }
+
         // Update the state
         state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-        state.value = this.getValue(this.props.defaultValue);
+        state.value = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
     }
 
     /**
@@ -100,7 +111,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
                 let user: Types.ComplexTypes.FieldUserValue = users[i];
 
                 // Ensure the user exists
-                if(user.ID > 0) {
+                if (user.ID > 0) {
                     // Add the persona
                     personas.push({
                         id: user.UserName,
@@ -120,7 +131,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
     // Method to get the field value
     private getValue = (personas: Array<IPersonaProps>) => {
         personas = personas ? personas : [];
-        
+
         // See if we are allowing multiple
         if (this.state.fieldInfo.allowMultiple) {
             let results = [];

@@ -64,7 +64,7 @@ var FieldUser = (function (_super) {
                 // Parse the users
                 for (var i = 0; i < defaultValue.length; i++) {
                     var userValue = defaultValue[i];
-                    if (userValue.ID > 0) {
+                    if (userValue && userValue.ID > 0) {
                         // Add the user lookup id
                         userIDs.push(userValue.ID);
                     }

@@ -87,7 +87,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
             // Parse the users
             for (let i = 0; i < defaultValue.length; i++) {
                 let userValue:Types.ComplexTypes.FieldUserValue = defaultValue[i];
-                if(userValue.ID > 0) {
+                if(userValue && userValue.ID > 0) {
                     // Add the user lookup id
                     userIDs.push(userValue.ID);
                 }

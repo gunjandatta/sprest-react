@@ -5,14 +5,6 @@ import {Helper, SPTypes} from "gd-sprest";
  */
 export const Configuration = new Helper.SPConfig({
     ListCfg: [
-        /** Lookup List */
-        {
-            ListInformation: {
-                BaseTemplate: SPTypes.ListTemplateType.GenericList,
-                Title: "Test Lookup"
-            }
-        },
-
         /** Test List */
         {
             CustomFields: [
@@ -49,7 +41,7 @@ export const Configuration = new Helper.SPConfig({
                 },
                 {
                     Name: "TestLookup",
-                    SchemaXml: '<Field ID="{ACF5F7EE-629A-452B-8381-60172088E176}" Name="TestLookup" StaticName="TestLookup" DisplayName="Lookup" Type="Lookup" List="Test Lookup" ShowField="Title" />'
+                    SchemaXml: '<Field ID="{ACF5F7EE-629A-452B-8381-60172088E176}" Name="TestLookup" StaticName="TestLookup" DisplayName="Lookup" Type="Lookup" List="SPReact" ShowField="Title" />'
                 },
                 {
                     Name: "TestMultiChoice",
@@ -66,7 +58,7 @@ export const Configuration = new Helper.SPConfig({
                 },
                 {
                     Name: "TestMultiLookup",
-                    SchemaXml: '<Field ID="{68465DA3-34DD-4FEA-BE7A-60172019C4FA}" Name="TestMultiLookup" StaticName="TestMultiLookup" DisplayName="Multi-Lookup" Type="LookupMulti" List="Test Lookup" Mult="TRUE" ShowField="Title" />'
+                    SchemaXml: '<Field ID="{68465DA3-34DD-4FEA-BE7A-60172019C4FA}" Name="TestMultiLookup" StaticName="TestMultiLookup" DisplayName="Multi-Lookup" Type="LookupMulti" List="SPReact" Mult="TRUE" ShowField="Title" />'
                 },
                 {
                     Name: "TestMultiUser",

@@ -24,7 +24,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
     /**
      * Required Methods
      */
-    abstract onRenderContents(cfg: IWebPartCfg): React.Component<any>;
+    abstract onRenderContents: (cfg: IWebPartCfg) => React.Component<any>;
 
     /**
      * Public Interface

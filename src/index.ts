@@ -28,7 +28,7 @@ import { FieldUser } from "./components/fieldUser";
  */
 import {
     FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState,
-    IWebPartCfg
+    IWebPartCfg, IWebPartTargetInfo
 } from "./definitions";
 
 export {
@@ -44,5 +44,5 @@ export {
     FieldUrl,
     FieldUser,
     BasePanel as Panel,
-    WebPart, WebPartConfigurationPanel, IWebPartCfg
+    WebPart, WebPartConfigurationPanel, IWebPartCfg, IWebPartTargetInfo
 }

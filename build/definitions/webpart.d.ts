@@ -19,8 +19,8 @@ export interface IWebPartProps {
     displayElement?: React.ComponentClass<any>;
     editElement?: React.ComponentClass<any>;
     onPostRender?: (targetInfo?: IWebPartTargetInfo) => void;
-    onRenderDisplayElement?: (wpInfo: IWebPartInfo) => any;
-    onRenderEditElement?: (wpInfo: IWebPartInfo) => any;
+    onRenderDisplayElement?: (targetInfo: IWebPartTargetInfo) => any;
+    onRenderEditElement?: (targetInfo: IWebPartTargetInfo) => any;
     targetElementId: string;
 }
 /**

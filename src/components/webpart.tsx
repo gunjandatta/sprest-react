@@ -122,20 +122,15 @@ export class WebPart {
             return;
         }
 
-        // Set the webpart information
-        let wpInfo: IWebPartInfo = {
-            cfg: targetInfo.cfg
-        };
-
         // See if the page is being edited
         if (Page.isEditMode()) {
             // Set the element
-            element = this._props.onRenderEditElement ? this._props.onRenderEditElement(wpInfo) : <this._props.editElement cfg={targetInfo.cfg} />;
+            element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : <this._props.editElement cfg={targetInfo.cfg} />;
         } else {
             // See if the configuration exists
             if (targetInfo.cfg || this._props.cfgElementId == null) {
                 // Set the element
-                element = this._props.onRenderDisplayElement ? this._props.onRenderDisplayElement(wpInfo) : <this._props.displayElement cfg={targetInfo.cfg} />;
+                element = this._props.onRenderDisplayElement ? this._props.onRenderDisplayElement(targetInfo) : <this._props.displayElement cfg={targetInfo.cfg} />;
             } else {
                 element = <div className="ms-fontSize-l">Please edit the page and configure the webpart.</div>;
             }

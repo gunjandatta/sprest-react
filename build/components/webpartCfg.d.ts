@@ -4,11 +4,11 @@ import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } f
 /**
  * Web Part Configuration
  */
-export declare abstract class WebPartConfigurationPanel extends React.Component<IWebPartConfigurationProps, IWebPartConfigurationState> {
+export declare abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps, State extends IWebPartConfigurationState> extends React.Component<Props, State> {
     /**
      * Constructor
      */
-    constructor(props: IWebPartConfigurationProps);
+    constructor(props: Props);
     /**
      * Required Methods
      */

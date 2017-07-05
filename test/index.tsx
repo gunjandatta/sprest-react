@@ -1,7 +1,8 @@
 import * as React from "react";
-import {render} from "react-dom";
-import {Configuration} from "./cfg";
-import {Dashboard} from "./dashboard";
+import { render } from "react-dom";
+import { Configuration } from "./cfg";
+import { Dashboard } from "./dashboard";
+import { WebPart } from "../src";
 declare var SP;
 
 // Create the global variable
@@ -11,12 +12,11 @@ window["gdSPRestReact"] = {
 
     // The initialization method
     init: () => {
-        // Get the target element
-        let el = document.querySelector("#target");
-        if(el) {
-            // Render the dashboard to the target element
-            render(<Dashboard />, el);
-        }
+        // Create the webpart
+        new WebPart({
+            displayElement: Dashboard,
+            targetElementId: "target"
+        });
     }
 };
 

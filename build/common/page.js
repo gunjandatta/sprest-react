@@ -61,16 +61,16 @@ var Page = (function () {
     };
     // Method to detect if a page is being edited
     Page.isEditMode = function () {
-        // Get the webpart page mode
-        var wpPageMode = document.forms[0];
-        wpPageMode = wpPageMode ? wpPageMode.elements["MSOLayout_InDesignMode"] : null;
-        wpPageMode = wpPageMode ? wpPageMode.value : "";
         // Get the wiki page mode
         var wikiPageMode = document.forms[0];
         wikiPageMode = wikiPageMode ? wikiPageMode.elements["_wikiPageMode"] : null;
         wikiPageMode = wikiPageMode ? wikiPageMode.value : null;
+        // Get the webpart page mode
+        var wpPageMode = document.forms[0];
+        wpPageMode = wpPageMode ? wpPageMode.elements["MSOLayout_InDesignMode"] : null;
+        wpPageMode = wpPageMode ? wpPageMode.value : "";
         // Determine if the page is being edited
-        return wpPageMode == "Edit" || wikiPageMode == "1";
+        return wikiPageMode == "Edit" || wpPageMode == "1";
     };
     return Page;
 }());

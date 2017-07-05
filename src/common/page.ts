@@ -5,7 +5,7 @@ declare var SP;
 /**
  * WebPart Information
  */
-interface IWebPartInfo {
+export interface IWebPartInfo {
     Context: any;
     Properties: any;
     WebPart: any;

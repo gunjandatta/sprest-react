@@ -8,7 +8,7 @@ declare var SP;
 /**
  * Web Part Configuration
  */
-export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps, State extends IWebPartConfigurationState> extends React.Component<Props, State> {
+export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
     /**
      * Constructor
      */
@@ -18,13 +18,13 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
         // Set the state
         this.state = {
             cfg: props.cfg || {}
-        } as State;
+        } as any;
     }
 
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => React.Component<any>;
+    abstract onRenderContents: (cfg: IWebPartCfg) => any;
 
     /**
      * Public Interface

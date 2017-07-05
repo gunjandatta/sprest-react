@@ -4,7 +4,7 @@ import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } f
 /**
  * Web Part Configuration
  */
-export declare abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps, State extends IWebPartConfigurationState> extends React.Component<Props, State> {
+export declare abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
     /**
      * Constructor
      */
@@ -12,7 +12,7 @@ export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCo
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => React.Component<any>;
+    abstract onRenderContents: (cfg: IWebPartCfg) => any;
     /**
      * Public Interface
      */

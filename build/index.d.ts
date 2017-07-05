@@ -23,5 +23,5 @@ import { FieldUser } from "./components/fieldUser";
 /**
  * Definitions
  */
-import { FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState, IWebPartCfg, IWebPartTargetInfo } from "./definitions";
-export { Field, IFieldInfo, IFieldProps, IFieldState, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup, FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser, BasePanel as Panel, WebPart, WebPartConfigurationPanel, IWebPartCfg, IWebPartTargetInfo };
+import { FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState, IWebPartTargetInfo } from "./definitions";
+export { Field, IFieldInfo, IFieldProps, IFieldState, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup, FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser, BasePanel as Panel, WebPart, WebPartConfigurationPanel, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState, IWebPartTargetInfo };

@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var basePanel_1 = require("./basePanel");
 exports.Panel = basePanel_1.BasePanel;
+var webpart_1 = require("./webpart");
+exports.WebPart = webpart_1.WebPart;
+var webpartCfg_1 = require("./webpartCfg");
+exports.WebPartConfigurationPanel = webpartCfg_1.WebPartConfigurationPanel;
 /**
  * Fields
  */

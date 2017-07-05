@@ -9,6 +9,8 @@ import { FieldNumberTypes, IFieldNumber, IFieldNumberProps, IFieldNumberState } 
 import { IFieldText, ITextFieldInformation, IFieldTextProps, IFieldTextState } from "./fieldText";
 import { IFieldUrl, IUrlFieldInformation, IFieldUrlProps, IFieldUrlState } from "./fieldUrl";
 import { IFieldUser, IUserFieldInfo, IFieldUserProps, IFieldUserState } from "./fieldUser";
+import { IWebPartCfg, IWebPartInfo, IWebPartProps, IWebPartTargetInfo } from "./webpart";
+import { IWebPartConfigurationProps, IWebPartConfigurationState } from "./webpartCfg";
 export {
     IBasePanelProps, IBasePanelState,
     IField, IFieldProps, IFieldState, IFieldInfo,
@@ -20,5 +22,7 @@ export {
     FieldNumberTypes, IFieldNumber, IFieldNumberProps, IFieldNumberState,
     IFieldText, ITextFieldInformation, IFieldTextProps, IFieldTextState,
     IFieldUrl, IUrlFieldInformation, IFieldUrlProps, IFieldUrlState,
-    IFieldUser, IUserFieldInfo, IFieldUserProps, IFieldUserState
+    IFieldUser, IUserFieldInfo, IFieldUserProps, IFieldUserState,
+    IWebPartCfg, IWebPartInfo, IWebPartProps, IWebPartTargetInfo,
+    IWebPartConfigurationProps, IWebPartConfigurationState
 }

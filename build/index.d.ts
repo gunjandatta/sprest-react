@@ -6,6 +6,8 @@ import { Field } from "./common";
  * Components
  */
 import { BasePanel } from "./components/basePanel";
+import { WebPart } from "./components/webpart";
+import { WebPartConfigurationPanel } from "./components/webpartCfg";
 /**
  * Fields
  */
@@ -21,5 +23,5 @@ import { FieldUser } from "./components/fieldUser";
 /**
  * Definitions
  */
-import { FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState } from "./definitions";
-export { Field, IFieldInfo, IFieldProps, IFieldState, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup, FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser, BasePanel as Panel };
+import { FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState, IWebPartCfg } from "./definitions";
+export { Field, IFieldInfo, IFieldProps, IFieldState, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup, FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser, BasePanel as Panel, WebPart, WebPartConfigurationPanel, IWebPartCfg };

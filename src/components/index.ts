@@ -2,6 +2,8 @@
  * Components
  */
 import { BasePanel } from "./basePanel";
+import { WebPart } from "./webpart";
+import { WebPartConfigurationPanel } from "./webpartCfg";
 
 /**
  * Fields
@@ -17,6 +19,7 @@ import { FieldUrl } from "./fieldUrl";
 import { FieldUser } from "./fieldUser";
 
 export {
+    BasePanel as Panel,
     FieldAttachments,
     FieldBoolean,
     FieldChoice,
@@ -26,5 +29,6 @@ export {
     FieldText,
     FieldUrl,
     FieldUser,
-    BasePanel as Panel
+    WebPart,
+    WebPartConfigurationPanel
 }

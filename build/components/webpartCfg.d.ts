@@ -20,6 +20,6 @@ export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCo
     /**
      * Methods
      */
-    protected saveConfiguration: (wpCfg: object) => void;
+    protected saveConfiguration: (wpCfg: any) => void;
     private show;
 }

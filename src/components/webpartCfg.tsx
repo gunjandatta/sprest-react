@@ -48,7 +48,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
      */
 
     // Method to save the webpart configuration
-    protected saveConfiguration = (wpCfg: object) => {
+    protected saveConfiguration = (wpCfg: any) => {
         // Clear the error message
         (this.refs["errorMessage"] as HTMLDivElement).innerText = "";
 

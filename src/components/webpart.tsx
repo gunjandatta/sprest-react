@@ -125,7 +125,7 @@ export class WebPart {
         // See if the page is being edited
         if (Page.isEditMode()) {
             // Set the element
-            element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : <this._props.editElement cfg={targetInfo.cfg} />;
+            element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : <this._props.editElement cfg={targetInfo.cfg} cfgElementId={this._props.cfgElementId} />;
         } else {
             // See if the configuration exists
             if (targetInfo.cfg || this._props.cfgElementId == null) {

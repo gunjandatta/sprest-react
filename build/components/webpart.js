@@ -105,7 +105,7 @@ var WebPart = (function () {
             // See if the page is being edited
             if (common_1.Page.isEditMode()) {
                 // Set the element
-                element = _this._props.onRenderEditElement ? _this._props.onRenderEditElement(targetInfo) : React.createElement(_this._props.editElement, { cfg: targetInfo.cfg });
+                element = _this._props.onRenderEditElement ? _this._props.onRenderEditElement(targetInfo) : React.createElement(_this._props.editElement, { cfg: targetInfo.cfg, cfgElementId: _this._props.cfgElementId });
             }
             else {
                 // See if the configuration exists

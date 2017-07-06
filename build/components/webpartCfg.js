@@ -27,78 +27,53 @@ var WebPartConfigurationPanel = (function (_super) {
         /**
          * Methods
          */
-        // Method to get the webpart content element
-        _this.getWebPartContentElement = function (wpId) {
-            // Get the webpart element
-            var elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
-            if (elWebPart) {
-                // Get the associated webpart element id
-                var wpId2 = elWebPart.getAttribute("webpartid2");
-                if (wpId2) {
-                    // Return the hidden webpart element
-                    return document.querySelector(".aspNetHidden input[name='" + wpId2 + "scriptcontent']");
-                }
-            }
-            // Element not found
-            return null;
-        };
         // Method to save the webpart configuration
         _this.saveConfiguration = function (wpCfg) {
             // Clear the error message
             _this.refs["errorMessage"].innerText = "";
-            // Get the webpart content element
-            var elWPContent = _this.getWebPartContentElement(_this.props.cfg.WebPartId);
-            if (elWPContent) {
-                // Create an element so we can update the configuration
-                var el = document.createElement("div");
-                el.innerHTML = elWPContent.value;
-                // Get the configuration element and update it
-                var cfg = el.querySelector("#" + _this.props.cfgElementId);
-                cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
-                // Update the value
-                elWPContent.value = el.innerHTML;
+            // Update the webpart content elements
+            if (_this.updateWebPartContentElements(_this.props.cfg.WebPartId, wpCfg)) {
                 // Close the panel
                 _this.refs["panel"].hide();
+                return;
             }
-            else {
-                // Get the target webpart
-                common_1.Page.getWebPart(_this.props.cfg.WebPartId).then(function (wpInfo) {
-                    // Get the content
-                    var content = wpInfo && wpInfo.Properties.get_fieldValues()["Content"];
-                    if (content) {
-                        // Create an element so we can update the configuration
-                        var el = document.createElement("div");
-                        el.innerHTML = content;
-                        // Get the configuration element and update it
-                        var cfg = el.querySelector("#" + _this.props.cfgElementId);
-                        cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
-                        // Update the webpart
-                        wpInfo.Properties.set_item("Content", el.innerHTML);
-                        wpInfo.WebPartDefinition.saveWebPartChanges();
-                        wpInfo.Context.load(wpInfo.WebPartDefinition);
-                        // Execute the request
-                        wpInfo.Context.executeQueryAsync(
-                        // Success
-                        function () {
-                            // Disable the edit page warning
-                            if (SP && SP.Ribbon && SP.Ribbon.PageState && SP.Ribbon.PageState.PageStateHandler) {
-                                SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
-                            }
-                            // Refresh the page
-                            window.location.href = window.location.href;
-                        }, 
-                        // Error
-                        function () {
-                            var args = [];
-                            for (var _i = 0; _i < arguments.length; _i++) {
-                                args[_i] = arguments[_i];
-                            }
-                            // Set the error message
-                            _this.refs["errorMessage"].innerText = args[1].get_message();
-                        });
-                    }
-                });
-            }
+            // Get the target webpart
+            common_1.Page.getWebPart(_this.props.cfg.WebPartId).then(function (wpInfo) {
+                // Get the content
+                var content = wpInfo && wpInfo.Properties.get_fieldValues()["Content"];
+                if (content) {
+                    // Create an element so we can update the configuration
+                    var el = document.createElement("div");
+                    el.innerHTML = content;
+                    // Get the configuration element and update it
+                    var cfg = el.querySelector("#" + _this.props.cfgElementId);
+                    cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
+                    // Update the webpart
+                    wpInfo.Properties.set_item("Content", el.innerHTML);
+                    wpInfo.WebPartDefinition.saveWebPartChanges();
+                    wpInfo.Context.load(wpInfo.WebPartDefinition);
+                    // Execute the request
+                    wpInfo.Context.executeQueryAsync(
+                    // Success
+                    function () {
+                        // Disable the edit page warning
+                        if (SP && SP.Ribbon && SP.Ribbon.PageState && SP.Ribbon.PageState.PageStateHandler) {
+                            SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
+                        }
+                        // Refresh the page
+                        window.location.href = window.location.href;
+                    }, 
+                    // Error
+                    function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Set the error message
+                        _this.refs["errorMessage"].innerText = args[1].get_message();
+                    });
+                }
+            });
         };
         // Method to show the panel
         _this.show = function (ev) {
@@ -106,6 +81,44 @@ var WebPartConfigurationPanel = (function (_super) {
             ev.preventDefault();
             // Show the panel
             _this.refs["panel"].show();
+        };
+        // Method to update the webpart content elements
+        _this.updateWebPartContentElements = function (wpId, wpCfg) {
+            // Get the webpart element
+            var elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
+            if (elWebPart) {
+                // Update the configuration
+                var cfg = elWebPart.querySelector("#" + _this.props.cfgElementId);
+                cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
+                // Get the associated webpart element id
+                var wpId2 = elWebPart.getAttribute("webpartid2");
+                var elWPContent = wpId2 ? document.querySelector(".aspNetHidden input[name='" + wpId2 + "scriptcontent']") : null;
+                if (elWPContent) {
+                    // Update the configuration in the webpart content element
+                    _this.updateConfigurationInElement(elWPContent, wpCfg);
+                }
+                // Get the content for the page
+                var elPageContent = document.querySelector("input[id$='RichHtmlField_hiddenDisplay']");
+                if (elPageContent) {
+                    // Update the configuration in the webpart content element
+                    _this.updateConfigurationInElement(elPageContent, wpCfg);
+                }
+                // Return true, if the content elements were found
+                return elWPContent != null && elPageContent != null;
+            }
+            // Webpart is not in a content field
+            return false;
+        };
+        // Method to update the configuration element
+        _this.updateConfigurationInElement = function (elTarget, wpCfg) {
+            // Create an element so we can update the configuration
+            var el = document.createElement("div");
+            el.innerHTML = elTarget.value;
+            // Get the configuration element and update it
+            var cfg = el.querySelector("#" + _this.props.cfgElementId);
+            cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
+            // Update the value
+            elTarget.value = el.innerHTML;
         };
         // Set the state
         _this.state = {

@@ -27,21 +27,36 @@ var WebPartConfigurationPanel = (function (_super) {
         /**
          * Methods
          */
+        // Method to get the webpart content element
+        _this.getWebPartContentElement = function (wpId) {
+            // Get the webpart element
+            var elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
+            if (elWebPart) {
+                // Get the associated webpart element id
+                var wpId2 = elWebPart.getAttribute("webpartid2");
+                if (wpId2) {
+                    // Return the hidden webpart element
+                    return document.querySelector(".aspNetHidden input[name='" + wpId2 + "scriptcontent']");
+                }
+            }
+            // Element not found
+            return null;
+        };
         // Method to save the webpart configuration
         _this.saveConfiguration = function (wpCfg) {
             // Clear the error message
             _this.refs["errorMessage"].innerText = "";
-            // See if this webpart in the page content
-            var wpContent = document.querySelector(".aspNetHidden input[name='" + _this.props.cfg.WebPartId + "scriptcontent']");
-            if (wpContent) {
+            // Get the webpart content element
+            var elWPContent = _this.getWebPartContentElement(_this.props.cfg.WebPartId);
+            if (elWPContent) {
                 // Create an element so we can update the configuration
                 var el = document.createElement("div");
-                el.innerHTML = wpContent.value;
+                el.innerHTML = elWPContent.value;
                 // Get the configuration element and update it
                 var cfg = el.querySelector("#" + _this.props.cfgElementId);
-                cfg.innerText = JSON.stringify(wpCfg);
+                cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
                 // Update the value
-                wpContent.value = el.innerHTML;
+                elWPContent.value = el.innerHTML;
                 // Close the panel
                 _this.refs["panel"].hide();
             }
@@ -56,7 +71,7 @@ var WebPartConfigurationPanel = (function (_super) {
                         el.innerHTML = content;
                         // Get the configuration element and update it
                         var cfg = el.querySelector("#" + _this.props.cfgElementId);
-                        cfg.innerText = JSON.stringify(wpCfg);
+                        cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
                         // Update the webpart
                         wpInfo.Properties.set_item("Content", el.innerHTML);
                         wpInfo.WebPartDefinition.saveWebPartChanges();

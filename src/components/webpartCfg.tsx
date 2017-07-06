@@ -47,24 +47,41 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
      * Methods
      */
 
+    // Method to get the webpart content element
+    private getWebPartContentElement = (wpId: string): HTMLInputElement => {
+        // Get the webpart element
+        let elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
+        if (elWebPart) {
+            // Get the associated webpart element id
+            let wpId2 = elWebPart.getAttribute("webpartid2");
+            if (wpId2) {
+                // Return the hidden webpart element
+                return document.querySelector(".aspNetHidden input[name='" + wpId2 + "scriptcontent']") as HTMLInputElement;
+            }
+        }
+
+        // Element not found
+        return null;
+    }
+
     // Method to save the webpart configuration
     protected saveConfiguration = (wpCfg: any) => {
         // Clear the error message
         (this.refs["errorMessage"] as HTMLDivElement).innerText = "";
 
-        // See if this webpart in the page content
-        let wpContent = document.querySelector(".aspNetHidden input[name='" + this.props.cfg.WebPartId + "scriptcontent']") as HTMLInputElement;
-        if(wpContent) {
+        // Get the webpart content element
+        let elWPContent = this.getWebPartContentElement(this.props.cfg.WebPartId);
+        if (elWPContent) {
             // Create an element so we can update the configuration
             let el = document.createElement("div");
-            el.innerHTML = wpContent.value;
+            el.innerHTML = elWPContent.value;
 
             // Get the configuration element and update it
             let cfg = el.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
-            cfg.innerText = JSON.stringify(wpCfg);
+            cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
 
             // Update the value
-            wpContent.value = el.innerHTML;
+            elWPContent.value = el.innerHTML;
 
             // Close the panel
             (this.refs["panel"] as Panel).hide();
@@ -80,7 +97,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
 
                     // Get the configuration element and update it
                     let cfg = el.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
-                    cfg.innerText = JSON.stringify(wpCfg);
+                    cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
 
                     // Update the webpart
                     wpInfo.Properties.set_item("Content", el.innerHTML);

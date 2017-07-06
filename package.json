@@ -21,7 +21,7 @@
   "homepage": "https://github.com/gunjandatta/sprest-react#readme",
   "dependencies": {
     "gd-sprest": "*",
-    "office-ui-fabric-react": "^4.13.2",
+    "office-ui-fabric-react": "^4.15.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
@@ -35,7 +35,7 @@
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
-    "ts-loader": "^2.2.1",
+    "ts-loader": "^2.2.2",
     "webpack": "^2.6.1"
   }
 }

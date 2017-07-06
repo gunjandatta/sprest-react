@@ -31,43 +31,59 @@ var WebPartConfigurationPanel = (function (_super) {
         _this.saveConfiguration = function (wpCfg) {
             // Clear the error message
             _this.refs["errorMessage"].innerText = "";
-            // Get the target webpart
-            common_1.Page.getWebPart(_this.props.cfg.WebPartId).then(function (wpInfo) {
-                // Get the content
-                var content = wpInfo && wpInfo.Properties.get_fieldValues()["Content"];
-                if (content) {
-                    // Create an element so we can update the configuration
-                    var el = document.createElement("div");
-                    el.innerHTML = content;
-                    // Get the configuration element and update it
-                    var cfg = el.querySelector("#" + _this.props.cfgElementId);
-                    cfg.innerText = JSON.stringify(wpCfg);
-                    // Update the webpart
-                    wpInfo.Properties.set_item("Content", el.innerHTML);
-                    wpInfo.WebPartDefinition.saveWebPartChanges();
-                    wpInfo.Context.load(wpInfo.WebPartDefinition);
-                    // Execute the request
-                    wpInfo.Context.executeQueryAsync(
-                    // Success
-                    function () {
-                        // Disable the edit page warning
-                        if (SP && SP.Ribbon && SP.Ribbon.PageState && SP.Ribbon.PageState.PageStateHandler) {
-                            SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
-                        }
-                        // Refresh the page
-                        window.location.href = window.location.href;
-                    }, 
-                    // Error
-                    function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Set the error message
-                        _this.refs["errorMessage"].innerText = args[1].get_message();
-                    });
-                }
-            });
+            // See if this webpart in the page content
+            var wpContent = document.querySelector(".aspNetHidden input[name='" + _this.props.cfg.WebPartId + "scriptcontent']");
+            if (wpContent) {
+                // Create an element so we can update the configuration
+                var el = document.createElement("div");
+                el.innerHTML = wpContent.value;
+                // Get the configuration element and update it
+                var cfg = el.querySelector("#" + _this.props.cfgElementId);
+                cfg.innerText = JSON.stringify(wpCfg);
+                // Update the value
+                wpContent.value = el.innerHTML;
+                // Close the panel
+                _this.refs["panel"].hide();
+            }
+            else {
+                // Get the target webpart
+                common_1.Page.getWebPart(_this.props.cfg.WebPartId).then(function (wpInfo) {
+                    // Get the content
+                    var content = wpInfo && wpInfo.Properties.get_fieldValues()["Content"];
+                    if (content) {
+                        // Create an element so we can update the configuration
+                        var el = document.createElement("div");
+                        el.innerHTML = content;
+                        // Get the configuration element and update it
+                        var cfg = el.querySelector("#" + _this.props.cfgElementId);
+                        cfg.innerText = JSON.stringify(wpCfg);
+                        // Update the webpart
+                        wpInfo.Properties.set_item("Content", el.innerHTML);
+                        wpInfo.WebPartDefinition.saveWebPartChanges();
+                        wpInfo.Context.load(wpInfo.WebPartDefinition);
+                        // Execute the request
+                        wpInfo.Context.executeQueryAsync(
+                        // Success
+                        function () {
+                            // Disable the edit page warning
+                            if (SP && SP.Ribbon && SP.Ribbon.PageState && SP.Ribbon.PageState.PageStateHandler) {
+                                SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
+                            }
+                            // Refresh the page
+                            window.location.href = window.location.href;
+                        }, 
+                        // Error
+                        function () {
+                            var args = [];
+                            for (var _i = 0; _i < arguments.length; _i++) {
+                                args[_i] = arguments[_i];
+                            }
+                            // Set the error message
+                            _this.refs["errorMessage"].innerText = args[1].get_message();
+                        });
+                    }
+                });
+            }
         };
         // Method to show the panel
         _this.show = function (ev) {

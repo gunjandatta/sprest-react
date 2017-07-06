@@ -14,4 +14,5 @@ export declare class Page {
     static getWebPart(wpId: string): PromiseLike<IWebPartInfo>;
     static getWebPartId(el: HTMLElement): string;
     static isEditMode(): boolean;
+    static isWikiPage(): void;
 }

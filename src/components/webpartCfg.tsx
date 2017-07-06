@@ -52,44 +52,62 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
         // Clear the error message
         (this.refs["errorMessage"] as HTMLDivElement).innerText = "";
 
-        // Get the target webpart
-        Page.getWebPart(this.props.cfg.WebPartId).then((wpInfo) => {
-            // Get the content
-            let content = wpInfo && wpInfo.Properties.get_fieldValues()["Content"];
-            if (content) {
-                // Create an element so we can update the configuration
-                let el = document.createElement("div");
-                el.innerHTML = content;
+        // See if this webpart in the page content
+        let wpContent = document.querySelector(".aspNetHidden input[name='" + this.props.cfg.WebPartId + "scriptcontent']") as HTMLInputElement;
+        if(wpContent) {
+            // Create an element so we can update the configuration
+            let el = document.createElement("div");
+            el.innerHTML = wpContent.value;
 
-                // Get the configuration element and update it
-                let cfg = el.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
-                cfg.innerText = JSON.stringify(wpCfg);
+            // Get the configuration element and update it
+            let cfg = el.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
+            cfg.innerText = JSON.stringify(wpCfg);
 
-                // Update the webpart
-                wpInfo.Properties.set_item("Content", el.innerHTML);
-                wpInfo.WebPartDefinition.saveWebPartChanges();
-                wpInfo.Context.load(wpInfo.WebPartDefinition);
+            // Update the value
+            wpContent.value = el.innerHTML;
 
-                // Execute the request
-                wpInfo.Context.executeQueryAsync(
-                    // Success
-                    () => {
-                        // Disable the edit page warning
-                        if (SP && SP.Ribbon && SP.Ribbon.PageState && SP.Ribbon.PageState.PageStateHandler) {
-                            SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
+            // Close the panel
+            (this.refs["panel"] as Panel).hide();
+        } else {
+            // Get the target webpart
+            Page.getWebPart(this.props.cfg.WebPartId).then((wpInfo) => {
+                // Get the content
+                let content = wpInfo && wpInfo.Properties.get_fieldValues()["Content"];
+                if (content) {
+                    // Create an element so we can update the configuration
+                    let el = document.createElement("div");
+                    el.innerHTML = content;
+
+                    // Get the configuration element and update it
+                    let cfg = el.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
+                    cfg.innerText = JSON.stringify(wpCfg);
+
+                    // Update the webpart
+                    wpInfo.Properties.set_item("Content", el.innerHTML);
+                    wpInfo.WebPartDefinition.saveWebPartChanges();
+                    wpInfo.Context.load(wpInfo.WebPartDefinition);
+
+                    // Execute the request
+                    wpInfo.Context.executeQueryAsync(
+                        // Success
+                        () => {
+                            // Disable the edit page warning
+                            if (SP && SP.Ribbon && SP.Ribbon.PageState && SP.Ribbon.PageState.PageStateHandler) {
+                                SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
+                            }
+
+                            // Refresh the page
+                            window.location.href = window.location.href;
+                        },
+                        // Error
+                        (...args) => {
+                            // Set the error message
+                            (this.refs["errorMessage"] as HTMLDivElement).innerText = args[1].get_message();
                         }
-
-                        // Refresh the page
-                        window.location.href = window.location.href;
-                    },
-                    // Error
-                    (...args) => {
-                        // Set the error message
-                        (this.refs["errorMessage"] as HTMLDivElement).innerText = args[1].get_message();
-                    }
-                );
-            }
-        });
+                    );
+                }
+            });
+        }
     }
 
     // Method to show the panel

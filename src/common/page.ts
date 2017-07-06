@@ -1,5 +1,6 @@
 import { ContextInfo } from "gd-sprest";
 import { Promise } from "es6-promise";
+declare var MSOWebPartPageFormName;
 declare var SP;
 
 /**
@@ -72,17 +73,26 @@ export class Page {
 
     // Method to detect if a page is being edited
     static isEditMode() {
-        // Get the wiki page mode
-        let wikiPageMode: any = document.forms[0];
-        wikiPageMode = wikiPageMode ? wikiPageMode.elements["_wikiPageMode"] : null;
-        wikiPageMode = wikiPageMode ? wikiPageMode.value : null;
+        let formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
 
-        // Get the webpart page mode
-        let wpPageMode: any = document.forms[0];
-        wpPageMode = wpPageMode ? wpPageMode.elements["MSOLayout_InDesignMode"] : null;
-        wpPageMode = wpPageMode ? wpPageMode.value : "";
+        // Get the form
+        let form = document.forms[MSOWebPartPageFormName];
+        if(form) {
+            // Get the wiki page mode
+            let wikiPageMode: any = form._wikiPageMode ? form._wikiPageMode.value : null;
 
-        // Determine if the page is being edited
-        return wikiPageMode == "Edit" || wpPageMode == "1";
+            // Get the webpart page mode
+            let wpPageMode = form.MSOLayout_InDesignMode ? form.MSOLayout_InDesignMode.value : null;
+
+            // Determine if the page is being edited
+            return wikiPageMode == "Edit" || wpPageMode == "1";
+        }
+
+        // Unable to determine
+        return false;
+    }
+
+    // Method to detect if the page is a wiki page.
+    static isWikiPage() {
     }
 }

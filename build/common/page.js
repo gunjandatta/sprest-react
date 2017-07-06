@@ -61,16 +61,22 @@ var Page = (function () {
     };
     // Method to detect if a page is being edited
     Page.isEditMode = function () {
-        // Get the wiki page mode
-        var wikiPageMode = document.forms[0];
-        wikiPageMode = wikiPageMode ? wikiPageMode.elements["_wikiPageMode"] : null;
-        wikiPageMode = wikiPageMode ? wikiPageMode.value : null;
-        // Get the webpart page mode
-        var wpPageMode = document.forms[0];
-        wpPageMode = wpPageMode ? wpPageMode.elements["MSOLayout_InDesignMode"] : null;
-        wpPageMode = wpPageMode ? wpPageMode.value : "";
-        // Determine if the page is being edited
-        return wikiPageMode == "Edit" || wpPageMode == "1";
+        var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
+        // Get the form
+        var form = document.forms[MSOWebPartPageFormName];
+        if (form) {
+            // Get the wiki page mode
+            var wikiPageMode = form._wikiPageMode ? form._wikiPageMode.value : null;
+            // Get the webpart page mode
+            var wpPageMode = form.MSOLayout_InDesignMode ? form.MSOLayout_InDesignMode.value : null;
+            // Determine if the page is being edited
+            return wikiPageMode == "Edit" || wpPageMode == "1";
+        }
+        // Unable to determine
+        return false;
+    };
+    // Method to detect if the page is a wiki page.
+    Page.isWikiPage = function () {
     };
     return Page;
 }());

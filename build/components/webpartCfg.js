@@ -61,7 +61,7 @@ var WebPartConfigurationPanel = (function (_super) {
                             SP.Ribbon.PageState.PageStateHandler.ignoreNextUnload = true;
                         }
                         // Refresh the page
-                        window.location.href = window.location.href;
+                        window.location.href = window.location.pathname + "?DisplayMode=Design";
                     }, 
                     // Error
                     function () {

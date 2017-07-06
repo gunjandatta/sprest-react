@@ -87,7 +87,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
                         }
 
                         // Refresh the page
-                        window.location.href = window.location.href;
+                        window.location.href = window.location.pathname + "?DisplayMode=Design";
                     },
                     // Error
                     (...args) => {

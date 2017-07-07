@@ -1,5 +1,6 @@
 import { Promise } from "es6-promise";
-import { List, Types } from "gd-sprest";
+import { Types, Web } from "gd-sprest";
+import { IDemoCfg } from "./wpCfg";
 
 /**
  * Test Item Information
@@ -31,25 +32,48 @@ export interface ITestItem extends Types.IListItemResult {
  */
 export class DataSource {
     /**
+     * Constructor
+     */
+    constructor(cfg: IDemoCfg) {
+        // Get the web
+        (new Web(cfg.WebUrl))
+            // Get the list
+            .Lists(cfg.ListName)
+            // Execute the request
+            .execute((list) => {
+                // Update the global properties
+                this._listItemEntityTypeFullName = list.ListItemEntityTypeFullName;
+                this._listName = list.Title;
+                this._webUrl = cfg.WebUrl;
+            });
+    }
+
+
+    /**
      * Properties
      */
 
     // List Name
-    static ListName = "SPReact";
+    private _listName = "";
 
     // List Item Entity Type Name (Required for complex field item add operation)
-    static ListItemEntityTypeFullName = "SP.Data.SPReactListItem";
+    private _listItemEntityTypeFullName = "";
+
+    // The web contining the list
+    private _webUrl = "";
 
     /**
      * Methods
      */
 
     // Method to load the test data
-    static load = (itemId?:number): PromiseLike<ITestItem | Array<ITestItem>> => {
+    load = (itemId?: number): PromiseLike<ITestItem | Array<ITestItem>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Get the list
-            (new List(DataSource.ListName))
+            // Get the web
+            (new Web(this._webUrl))
+                // Get the list
+                .Lists(this._listName)
                 // Get the items
                 .Items()
                 // Set the query
@@ -75,7 +99,7 @@ export class DataSource {
     }
 
     // Method to save a test item
-    static save = (item: ITestItem): PromiseLike<ITestItem> => {
+    save = (item: ITestItem): PromiseLike<ITestItem> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if this is an existing item
@@ -99,7 +123,7 @@ export class DataSource {
                     // Execute the request
                     .execute((request) => {
                         // Ensure the update was successful
-                        if(request.response == "") {
+                        if (request.response == "") {
                             // Resolve the request
                             resolve(item);
                         } else {
@@ -109,10 +133,12 @@ export class DataSource {
                     });
             } else {
                 // Set the item metadata - This is required for complex field updates
-                item["__metadata"] = { type: DataSource.ListItemEntityTypeFullName };
+                item["__metadata"] = { type: this._listItemEntityTypeFullName };
 
-                // Get the list
-                (new List(DataSource.ListName))
+                // Get the web
+                (new Web(this._webUrl))
+                    // Get the list
+                    .Lists(this._listName)
                     // Get the items
                     .Items()
                     // Add the item
@@ -120,10 +146,10 @@ export class DataSource {
                     // Execute the request
                     .execute((item: ITestItem) => {
                         // Load the item again to get the expanded field values
-                        DataSource.load(item.Id).then((item: ITestItem) => {
+                        this.load(item.Id).then((item: ITestItem) => {
                             // Resolve the request
                             resolve(item);
-                        })
+                        });
                     });
             }
         });

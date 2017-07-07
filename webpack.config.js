@@ -5,13 +5,12 @@ module.exports = {
     context: path.join(__dirname, "test"),
 
     // File(s) to target
-    entry: './index.tsx',
+    entry: './index.ts',
 
     // Output
     output: {
-        filename: 'test.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: "/test/"
+        filename: 'demo.js',
+        path: path.resolve(__dirname, 'dist')
     },
 
     // Resolve the file extensions

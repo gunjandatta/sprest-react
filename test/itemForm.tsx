@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Label, PrimaryButton } from "office-ui-fabric-react";
-import { DataSource, ITestItem } from "./data";
+import { ITestItem } from "./data";
 import {
     Field, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
     FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser
@@ -11,6 +11,7 @@ import {
  */
 interface Props {
     item?: ITestItem
+    listName: string;
 }
 
 /**
@@ -22,7 +23,7 @@ export class ItemForm extends React.Component<Props, null> {
      */
 
     // Method to get the form values
-    getValues = ():ITestItem => {
+    getValues = (): ITestItem => {
         let item: ITestItem = this.props.item || {} as ITestItem;
 
         // Parse the references
@@ -52,7 +53,7 @@ export class ItemForm extends React.Component<Props, null> {
     }
 
     // Method to save the item attachments
-    saveAttachments = (itemId:number) => {
+    saveAttachments = (itemId: number) => {
         // Save the attachments
         return (this.refs["attachments"] as FieldAttachments).save(itemId);
     }
@@ -64,95 +65,96 @@ export class ItemForm extends React.Component<Props, null> {
     // Method to render the item form
     private renderForm = () => {
         let item: ITestItem = this.props.item || {} as ITestItem;
+        let listName = this.props.listName;
         return (
             <div className="ms-Grid-col ms-u-md12">
                 <FieldAttachments
                     files={item.AttachmentFiles}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     ref="attachments"
                 />
                 <FieldText
                     defaultValue={item.Title}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="Title"
                     ref="Title"
                 />
                 <FieldBoolean
                     defaultValue={item.TestBoolean}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestBoolean"
                     ref="TestBoolean"
                 />
                 <FieldChoice
                     defaultValue={item.TestChoice}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestChoice"
                     ref="TestChoice"
                 />
                 <FieldDateTime
                     defaultValue={item.TestDate}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestDate"
                     ref="TestDate"
                 />
                 <FieldDateTime
                     defaultValue={item.TestDateTime}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestDateTime"
                     ref="TestDateTime"
                 />
                 <FieldLookup
                     defaultValue={item.TestLookup}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestLookup"
                     ref="TestLookupId"
                 />
                 <FieldChoice
                     defaultValue={item.TestMultiChoice}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestMultiChoice"
                     ref="TestMultiChoice"
                 />
                 <FieldLookup
                     defaultValue={item.TestMultiLookup}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestMultiLookup"
                     ref="TestMultiLookupId"
                 />
                 <FieldUser
                     defaultValue={item.TestMultiUser}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestMultiUser"
                     ref="TestMultiUserId"
                 />
                 <FieldText
                     defaultValue={item.TestNote}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestNote"
                     ref="TestNote"
                 />
                 <FieldNumber
                     defaultValue={item.TestNumberDecimal}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestNumberDecimal"
                     ref="TestNumberDecimal"
                     type={FieldNumberTypes.Decimal}
                 />
                 <FieldNumber
                     defaultValue={item.TestNumberInteger}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestNumberInteger"
                     ref="TestNumberInteger"
                 />
                 <FieldUrl
                     defaultValue={item.TestUrl}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestUrl"
                     ref="TestUrl"
                 />
                 <FieldUser
                     defaultValue={item.TestUser}
-                    listName={DataSource.ListName}
+                    listName={listName}
                     name="TestUser"
                     ref="TestUserId"
                 />

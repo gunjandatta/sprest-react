@@ -1,4 +1,4 @@
-import {Helper, SPTypes} from "gd-sprest";
+import { Helper, SPTypes } from "gd-sprest";
 
 /**
  * Test Configuration
@@ -11,21 +11,21 @@ export const Configuration = new Helper.SPConfig({
                 {
                     Name: "TestBoolean",
                     SchemaXml: '<Field ID="{E6C387B9-AA16-4115-B57F-601720F9D85B}" Name="TestBoolean" StaticName="TestBoolean" DisplayName="Boolean" Type="Boolean">' +
-                        '<Default>0</Default>' +
-                        '</Field>'
+                    '<Default>0</Default>' +
+                    '</Field>'
                 },
                 {
                     Name: "TestChoice",
                     SchemaXml: '<Field ID="{8B6EB335-3D5C-42B5-A2DB-601720E8A0BC}" Name="TestChoice" StaticName="TestChoice" DisplayName="Choice" Type="Choice">' +
-                        '<Default>Choice 3</Default>' +
-                        '<CHOICES>' +
-                        '<CHOICE>Choice 1</CHOICE>' +
-                        '<CHOICE>Choice 2</CHOICE>' +
-                        '<CHOICE>Choice 3</CHOICE>' +
-                        '<CHOICE>Choice 4</CHOICE>' +
-                        '<CHOICE>Choice 5</CHOICE>' +
-                        '</CHOICES>' +
-                        '</Field>'
+                    '<Default>Choice 3</Default>' +
+                    '<CHOICES>' +
+                    '<CHOICE>Choice 1</CHOICE>' +
+                    '<CHOICE>Choice 2</CHOICE>' +
+                    '<CHOICE>Choice 3</CHOICE>' +
+                    '<CHOICE>Choice 4</CHOICE>' +
+                    '<CHOICE>Choice 5</CHOICE>' +
+                    '</CHOICES>' +
+                    '</Field>'
                 },
                 {
                     Name: "TestComments",
@@ -46,15 +46,15 @@ export const Configuration = new Helper.SPConfig({
                 {
                     Name: "TestMultiChoice",
                     SchemaXml: '<Field ID="{22AFA098-4B62-4236-8C01-6017208DAB49}" Name="TestMultiChoice" StaticName="TestMultiChoice" DisplayName="Multi-Choice" Type="MultiChoice">' +
-                        '<Default>Choice 3</Default>' +
-                        '<CHOICES>' +
-                        '<CHOICE>Choice 1</CHOICE>' +
-                        '<CHOICE>Choice 2</CHOICE>' +
-                        '<CHOICE>Choice 3</CHOICE>' +
-                        '<CHOICE>Choice 4</CHOICE>' +
-                        '<CHOICE>Choice 5</CHOICE>' +
-                        '</CHOICES>' +
-                        '</Field>'
+                    '<Default>Choice 3</Default>' +
+                    '<CHOICES>' +
+                    '<CHOICE>Choice 1</CHOICE>' +
+                    '<CHOICE>Choice 2</CHOICE>' +
+                    '<CHOICE>Choice 3</CHOICE>' +
+                    '<CHOICE>Choice 4</CHOICE>' +
+                    '<CHOICE>Choice 5</CHOICE>' +
+                    '</CHOICES>' +
+                    '</Field>'
                 },
                 {
                     Name: "TestMultiLookup",
@@ -99,6 +99,36 @@ export const Configuration = new Helper.SPConfig({
                     ViewName: "All Items"
                 }
             ]
+        }
+    ],
+
+    WebPartCfg: [
+        {
+            FileName: "sprest-react-demo.webpart",
+            Group: "Demo",
+            XML:
+            `<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+    <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+        <metaData>
+            <type name="Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>
+        </metaData>
+        <data>
+            <properties>
+                <property name="Title" type="string">SPREST React Demo</property>
+                <property name="Description" type="string">Demo webpart for the SP-REST React project.</property>
+                <property name="ChromeType" type="chrometype">None</property>
+                <property name="Content" type="string">
+                    &lt;script type="text/javascript" src="/sites/dev/siteassets/sprest-react/demo.js"&gt;&lt;/script&gt;
+                    &lt;div id="wp-demo"&gt;&lt;/div&gt;
+                    &lt;div id="wp-demoCfg" style="display:none"&gt;&lt;/div&gt;
+                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo(); }, 'demo.js');&lt;/script&gt;
+                </property>
+            </properties>
+        </data>
+    </webPart>
+</webParts>`
         }
     ]
 });

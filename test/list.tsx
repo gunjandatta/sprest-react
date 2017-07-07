@@ -1,47 +1,23 @@
 import * as React from "react";
-import {Types} from "gd-sprest";
+import { Types } from "gd-sprest";
 import {
     DetailsList, IColumn,
     PrimaryButton
 } from "office-ui-fabric-react";
-import { DataSource, ITestItem } from "./data";
+import { ITestItem } from "./data";
 
 /**
  * Properties
  */
 interface Props {
-    viewItem?: (item: ITestItem) => void;
-}
-
-/**
- * State
- */
-interface State {
     items: Array<ITestItem>;
+    viewItem?: (item: ITestItem) => void;
 }
 
 /**
  * Test List
  */
-export class TestList extends React.Component<Props, State> {
-    /**
-     * Constructor
-     */
-    constructor(props: Props) {
-        super(props);
-
-        // Set the state
-        this.state = {
-            items: []
-        };
-
-        // Load the items
-        DataSource.load().then((items: Array<ITestItem>) => {
-            // Update the state
-            this.setState({ items });
-        });
-    }
-
+export class TestList extends React.Component<Props, null> {
     /**
      * Global Variables
      */
@@ -69,7 +45,7 @@ export class TestList extends React.Component<Props, State> {
                     <div className="ms-Grid-col ms-u-md12">
                         <DetailsList
                             columns={this._columns}
-                            items={this.state.items}
+                            items={this.props.items}
                             onRenderItemColumn={this.renderColumn}
                         />
                     </div>
@@ -109,7 +85,7 @@ export class TestList extends React.Component<Props, State> {
 
             // URL Field
             case "TestUrl":
-                let urlValue:Types.ComplexTypes.FieldUrlValue = value;
+                let urlValue: Types.ComplexTypes.FieldUrlValue = value;
                 return (
                     <a href={urlValue.Url}>{urlValue.Description || urlValue.Url}</a>
                 );
@@ -118,7 +94,7 @@ export class TestList extends React.Component<Props, State> {
             default:
                 // Render the value
                 return (
-                    <span>{typeof(value) === "string" ? value : ""}</span>
+                    <span>{typeof (value) === "string" ? value : ""}</span>
                 );
         }
     }

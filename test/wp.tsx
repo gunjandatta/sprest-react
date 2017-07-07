@@ -4,28 +4,46 @@ import { Panel } from "../build";
 import { DataSource, ITestItem } from "./data";
 import { ItemForm } from "./itemForm";
 import { TestList } from "./list";
+import { IDemoCfg } from "./wpCfg";
+
+/**
+ * Properties
+ */
+interface Props {
+    cfg: IDemoCfg;
+}
 
 /**
  * State
  */
 interface State {
-    item:ITestItem;
+    datasource: DataSource;
+    item: ITestItem;
+    items: Array<ITestItem>;
 }
 
 /**
- * Dashboard
+ * Demo WebPart
  */
-export class Dashboard extends React.Component<null, State> {
+export class DemoWebpart extends React.Component<Props, State> {
     /**
      * Constructor
      */
-    constructor() {
-        super();
+    constructor(props: Props) {
+        super(props);
 
         // Set the state
         this.state = {
-            item: {} as ITestItem
+            datasource: new DataSource(props.cfg),
+            item: {} as ITestItem,
+            items: []
         };
+
+        // Load the items
+        this.state.datasource.load().then((items: any) => {
+            // Update the state
+            this.setState({ items });
+        });
     }
 
     /**
@@ -37,7 +55,11 @@ export class Dashboard extends React.Component<null, State> {
         return (
             <div>
                 <PrimaryButton onClick={this.onClick} text="New Item" />
-                <TestList viewItem={this.viewItem} ref="list" />
+                <TestList
+                    items={this.state.items}
+                    viewItem={this.viewItem}
+                    ref="list"
+                />
                 <Panel
                     isLightDismiss={true}
                     headerText="Test Item Form"
@@ -50,7 +72,11 @@ export class Dashboard extends React.Component<null, State> {
                             </div>
                         </div>
                     </div>
-                    <ItemForm item={this.state.item} ref="item" />
+                    <ItemForm
+                        item={this.state.item}
+                        listName={this.props.cfg.ListName}
+                        ref="item"
+                    />
                 </Panel>
             </div>
         );
@@ -94,12 +120,12 @@ export class Dashboard extends React.Component<null, State> {
 
     // Method to save the item
     private save = () => {
-        let itemForm:ItemForm = this.refs["item"] as ItemForm;
+        let itemForm: ItemForm = this.refs["item"] as ItemForm;
 
         // Save the item
-        DataSource.save(itemForm.getValues()).then((item: ITestItem) => {
+        this.state.datasource.save(itemForm.getValues()).then((item: ITestItem) => {
             // Ensure the item exists
-            if(item.existsFl) {
+            if (item.existsFl) {
                 // Save the attachments
                 itemForm.saveAttachments(item.Id).then(() => {
                     // Update the message
@@ -113,7 +139,7 @@ export class Dashboard extends React.Component<null, State> {
     }
 
     // Method to view an item
-    private viewItem = (item:ITestItem) => {
+    private viewItem = (item: ITestItem) => {
         // Update the state
         this.setState({ item }, () => {
             // Show the item form

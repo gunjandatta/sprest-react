@@ -128,31 +128,34 @@ var FieldLookup = (function (_super) {
                             text: ""
                         });
                     }
-                    // Parse the items
-                    for (var i = 0; i < items.results.length; i++) {
-                        var item = items.results[i];
-                        var option = {
-                            key: item.Id,
-                            selected: item.Id == (defaultValue.ID || defaultValue),
-                            text: item[_this.state.fieldInfo.lookupFieldName]
-                        };
-                        // See if this is a multi-lookup, and there is a default value
-                        if (_this.state.fieldInfo.allowMultipleValues && defaultValue) {
-                            var results = defaultValue ? defaultValue.results : [];
-                            // Parse the default values
-                            for (var j = 0; j < results.length; j++) {
-                                var result = results[j];
-                                var itemId = result.ID || result;
-                                // See if this is the current option
-                                if (option.key == itemId) {
-                                    // Select this option
-                                    option.selected = true;
-                                    break;
+                    // Ensure items exists
+                    if (items.results) {
+                        // Parse the items
+                        for (var i = 0; i < items.results.length; i++) {
+                            var item = items.results[i];
+                            var option = {
+                                key: item.Id,
+                                selected: item.Id == (defaultValue.ID || defaultValue),
+                                text: item[_this.state.fieldInfo.lookupFieldName]
+                            };
+                            // See if this is a multi-lookup, and there is a default value
+                            if (_this.state.fieldInfo.allowMultipleValues && defaultValue) {
+                                var results = defaultValue ? defaultValue.results : [];
+                                // Parse the default values
+                                for (var j = 0; j < results.length; j++) {
+                                    var result = results[j];
+                                    var itemId = result.ID || result;
+                                    // See if this is the current option
+                                    if (option.key == itemId) {
+                                        // Select this option
+                                        option.selected = true;
+                                        break;
+                                    }
                                 }
                             }
+                            // Add the option
+                            options.push(option);
                         }
-                        // Add the option
-                        options.push(option);
                     }
                     // Update the state
                     _this.setState({ options: options });

@@ -171,7 +171,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
         this._filterText = filterText.toLowerCase();
 
         // Ensure we have a minimum of 3 characters
-        if (this._filterText.length < 3) { return personas; }
+        if (this._filterText.length < 3) { return []; }
 
         // Return a promise
         return new Promise((resolve, reject) => {

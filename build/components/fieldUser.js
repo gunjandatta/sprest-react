@@ -135,7 +135,7 @@ var FieldUser = (function (_super) {
             _this._filterText = filterText.toLowerCase();
             // Ensure we have a minimum of 3 characters
             if (_this._filterText.length < 3) {
-                return personas;
+                return [];
             }
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {

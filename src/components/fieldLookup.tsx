@@ -158,35 +158,38 @@ export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
                             });
                         }
 
-                        // Parse the items
-                        for (let i = 0; i < items.results.length; i++) {
-                            let item = items.results[i];
-                            let option = {
-                                key: item.Id,
-                                selected: item.Id == (defaultValue.ID || defaultValue),
-                                text: item[this.state.fieldInfo.lookupFieldName]
-                            };
+                        // Ensure items exists
+                        if(items.results) {
+                            // Parse the items
+                            for (let i = 0; i < items.results.length; i++) {
+                                let item = items.results[i];
+                                let option = {
+                                    key: item.Id,
+                                    selected: item.Id == (defaultValue.ID || defaultValue),
+                                    text: item[this.state.fieldInfo.lookupFieldName]
+                                };
 
-                            // See if this is a multi-lookup, and there is a default value
-                            if (this.state.fieldInfo.allowMultipleValues && defaultValue) {
-                                let results = defaultValue ? defaultValue.results : [];
+                                // See if this is a multi-lookup, and there is a default value
+                                if (this.state.fieldInfo.allowMultipleValues && defaultValue) {
+                                    let results = defaultValue ? defaultValue.results : [];
 
-                                // Parse the default values
-                                for (let j = 0; j < results.length; j++) {
-                                    let result = results[j];
-                                    let itemId = result.ID || result;
+                                    // Parse the default values
+                                    for (let j = 0; j < results.length; j++) {
+                                        let result = results[j];
+                                        let itemId = result.ID || result;
 
-                                    // See if this is the current option
-                                    if (option.key == itemId) {
-                                        // Select this option
-                                        option.selected = true;
-                                        break;
+                                        // See if this is the current option
+                                        if (option.key == itemId) {
+                                            // Select this option
+                                            option.selected = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
 
-                            // Add the option
-                            options.push(option);
+                                // Add the option
+                                options.push(option);
+                            }
                         }
 
                         // Update the state

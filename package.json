@@ -5,14 +5,24 @@
   "main": "build/index.js",
   "typings": "build/index.d.ts",
   "scripts": {
-    "build": "tsc --declaration",
-    "test": "tsc --declaration && webpack"
+    "build": "tsc",
+    "test": "tsc && webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gunjandatta/sprest-react.git"
   },
-  "keywords": [],
+  "keywords": [
+    "gd-sprest",
+    "sharepoint",
+    "sharepoint 2013",
+    "sharepoint online",
+    "react",
+    "rest",
+    "api",
+    "typescript",
+    "javascript"
+  ],
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io/sprest)",
   "license": "MIT",
   "bugs": {
@@ -21,7 +31,7 @@
   "homepage": "https://github.com/gunjandatta/sprest-react#readme",
   "dependencies": {
     "gd-sprest": "*",
-    "office-ui-fabric-react": "^4.16.0",
+    "office-ui-fabric-react": "^4.16.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },

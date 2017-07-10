@@ -166,7 +166,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
     }
 
     // Method to search for the user
-    private search = (filterText: string, personas: Array<IPersonaProps>): Array<IPersonaProps> | PromiseLike<IPersonaProps> => {
+    private search = (filterText: string, personas: Array<IPersonaProps>): Array<IPersonaProps> | PromiseLike<Array<IPersonaProps>> => {
         // Save the filter
         this._filterText = filterText.toLowerCase();
 

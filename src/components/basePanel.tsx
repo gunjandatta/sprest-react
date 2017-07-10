@@ -5,17 +5,17 @@ import { IBasePanelProps, IBasePanelState } from "../definitions";
 /**
  * Base Panel
  */
-export class BasePanel extends React.Component<IBasePanelProps, IBasePanelState> {
+export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends React.Component<Props, State> {
     /**
      * Constructor
      */
-    constructor(props: IBasePanelProps) {
+    constructor(props: Props) {
         super(props);
 
         // Set the state
         this.state = {
             visible: typeof (props.isOpen) === "boolean" ? props.isOpen : false
-        };
+        } as any;
     }
 
     /**

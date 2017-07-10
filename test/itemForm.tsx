@@ -9,7 +9,7 @@ import {
 /**
  * Properties
  */
-interface Props {
+export interface Props {
     item?: ITestItem
     listName: string;
 }

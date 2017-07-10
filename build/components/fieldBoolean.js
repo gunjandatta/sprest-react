@@ -59,3 +59,4 @@ var FieldBoolean = (function (_super) {
     return FieldBoolean;
 }(common_1.Field));
 exports.FieldBoolean = FieldBoolean;
+//# sourceMappingURL=fieldBoolean.js.map

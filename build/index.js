@@ -40,3 +40,4 @@ exports.FieldUser = fieldUser_1.FieldUser;
  */
 var definitions_1 = require("./definitions");
 exports.FieldNumberTypes = definitions_1.FieldNumberTypes;
+//# sourceMappingURL=index.js.map

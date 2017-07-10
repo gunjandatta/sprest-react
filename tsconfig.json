@@ -3,7 +3,7 @@
         "declaration": true,
         "jsx": "react",
         "outDir": "build",
-        "sourceMap": false,
+        "sourceMap": true,
         "target": "es5"
     },
     "include": [

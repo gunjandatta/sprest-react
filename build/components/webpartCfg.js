@@ -140,3 +140,4 @@ var WebPartConfigurationPanel = (function (_super) {
     return WebPartConfigurationPanel;
 }(React.Component));
 exports.WebPartConfigurationPanel = WebPartConfigurationPanel;
+//# sourceMappingURL=webpartCfg.js.map

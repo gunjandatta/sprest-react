@@ -95,3 +95,4 @@ var FieldUrl = (function (_super) {
     return FieldUrl;
 }(common_1.Field));
 exports.FieldUrl = FieldUrl;
+//# sourceMappingURL=fieldUrl.js.map

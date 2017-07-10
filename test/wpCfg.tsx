@@ -14,14 +14,14 @@ export interface IDemoCfg extends IWebPartCfg {
 /**
  * Properties
  */
-interface Props extends IWebPartConfigurationProps {
+export interface Props extends IWebPartConfigurationProps {
     cfg: IDemoCfg;
 }
 
 /**
  * State
  */
-interface State extends IWebPartConfigurationState {
+export interface State extends IWebPartConfigurationState {
     cfg: IDemoCfg;
     lists: Array<IDropdownOption>;
 }

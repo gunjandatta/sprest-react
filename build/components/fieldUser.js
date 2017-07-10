@@ -204,3 +204,4 @@ var FieldUser = (function (_super) {
     return FieldUser;
 }(common_1.Field));
 exports.FieldUser = FieldUser;
+//# sourceMappingURL=fieldUser.js.map

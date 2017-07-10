@@ -9,7 +9,7 @@ import { ITestItem } from "./data";
 /**
  * Properties
  */
-interface Props {
+export interface Props {
     items: Array<ITestItem>;
     viewItem?: (item: ITestItem) => void;
 }

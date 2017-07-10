@@ -9,14 +9,14 @@ import { IDemoCfg } from "./wpCfg";
 /**
  * Properties
  */
-interface Props {
+export interface Props {
     cfg: IDemoCfg;
 }
 
 /**
  * State
  */
-interface State {
+export interface State {
     datasource: DataSource;
     item: ITestItem;
     items: Array<ITestItem>;

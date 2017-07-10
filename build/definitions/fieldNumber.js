@@ -8,3 +8,4 @@ var FieldNumberTypes;
     FieldNumberTypes[FieldNumberTypes["Decimal"] = 0] = "Decimal";
     FieldNumberTypes[FieldNumberTypes["Integer"] = 1] = "Integer";
 })(FieldNumberTypes = exports.FieldNumberTypes || (exports.FieldNumberTypes = {}));
+//# sourceMappingURL=fieldNumber.js.map

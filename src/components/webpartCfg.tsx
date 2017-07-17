@@ -126,14 +126,17 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
             }
 
             // Get the content for the page
-            let elPageContent = document.querySelector("input[id$='RichHtmlField_hiddenDisplay']") as HTMLInputElement;
+            let elPageContent = (
+                document.querySelector("input[id$='RichHtmlField_hiddenDisplay']") ||
+                document.querySelector("input[id$='TextField_spSave']")
+             ) as HTMLInputElement;
             if(elPageContent) {
                 // Update the configuration in the webpart content element
                 this.updateConfigurationInElement(elPageContent, wpCfg);
             }
 
-            // Return true, if the content elements were found
-            return elWPContent != null && elPageContent != null;
+            // Return true, if the content element exists
+            return elPageContent != null;
         }
 
         // Webpart is not in a content field

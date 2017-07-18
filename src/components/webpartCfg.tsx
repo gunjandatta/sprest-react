@@ -126,10 +126,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
             }
 
             // Get the content for the page
-            let elPageContent = (
-                document.querySelector("input[id$='RichHtmlField_hiddenDisplay']") ||
-                document.querySelector("input[id$='TextField_spSave']")
-             ) as HTMLInputElement;
+            let elPageContent = document.querySelector("input[id$='TextField_spSave']") as HTMLInputElement;
             if(elPageContent) {
                 // Update the configuration in the webpart content element
                 this.updateConfigurationInElement(elPageContent, wpCfg);

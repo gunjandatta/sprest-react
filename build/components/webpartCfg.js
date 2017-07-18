@@ -98,8 +98,7 @@ var WebPartConfigurationPanel = (function (_super) {
                     _this.updateConfigurationInElement(elWPContent, wpCfg);
                 }
                 // Get the content for the page
-                var elPageContent = (document.querySelector("input[id$='RichHtmlField_hiddenDisplay']") ||
-                    document.querySelector("input[id$='TextField_spSave']"));
+                var elPageContent = document.querySelector("input[id$='TextField_spSave']");
                 if (elPageContent) {
                     // Update the configuration in the webpart content element
                     _this.updateConfigurationInElement(elPageContent, wpCfg);

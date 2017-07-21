@@ -101,7 +101,7 @@ var WebPartConfigurationPanel = (function (_super) {
                         continue;
                     }
                     // See if this is the webpart content element
-                    if (elHidden.getAttribute("name") == "wpId" + "scriptcontent") {
+                    if (elHidden.name == "wpId" + "scriptcontent") {
                         // Set the webpart content element
                         wpContent = elHidden;
                         // Update the configuration in the webpart content element
@@ -113,7 +113,7 @@ var WebPartConfigurationPanel = (function (_super) {
                     var el = document.createElement("div");
                     el.innerHTML = elHidden.value;
                     // See if this is a hidden field element
-                    if (elHidden.querySelector("#" + _this.props.cfgElementId)) {
+                    if (el.querySelector("#" + _this.props.cfgElementId)) {
                         // Set the webpart page content
                         wpPageContent = elHidden;
                         // Update the configuration in the webpart content element

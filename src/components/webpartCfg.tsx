@@ -129,7 +129,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
                 if (wpContent && wpPageContent) { continue; }
 
                 // See if this is a hidden webpart content element
-                if (elHidden.name && elHidden.name.indexOf("scriptcontent") > elHidden.name.length - 13) {
+                if (elHidden.name && elHidden.name.indexOf("scriptcontent") == elHidden.name.length - 13) {
                     // See if it's for this webpart
                     if(elHidden.name.indexOf(wpId) == 0) {
                         // Set the webpart content element

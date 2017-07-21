@@ -87,24 +87,43 @@ var WebPartConfigurationPanel = (function (_super) {
             // Get the webpart element
             var elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
             if (elWebPart) {
+                var wpContent = null;
+                var wpPageContent = null;
                 // Update the configuration
                 var cfg = elWebPart.querySelector("#" + _this.props.cfgElementId);
                 cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
-                // Get the associated webpart element id
-                var wpId2 = elWebPart.getAttribute("webpartid2");
-                var elWPContent = wpId2 ? document.querySelector(".aspNetHidden input[name='" + wpId2 + "scriptcontent']") : null;
-                if (elWPContent) {
-                    // Update the configuration in the webpart content element
-                    _this.updateConfigurationInElement(elWPContent, wpCfg);
+                // Parse the hidden elements on the page
+                var hiddenElements = document.querySelectorAll("input[type='hidden']");
+                for (var i = 0; hiddenElements.length; i++) {
+                    var elHidden = hiddenElements[i];
+                    // See if we have found the webpart content and page content hidden elements
+                    if (wpContent && wpPageContent) {
+                        continue;
+                    }
+                    // See if this is the webpart content element
+                    if (elHidden.getAttribute("name") == "wpId" + "scriptcontent") {
+                        // Set the webpart content element
+                        wpContent = elHidden;
+                        // Update the configuration in the webpart content element
+                        _this.updateConfigurationInElement(wpContent, wpCfg);
+                        // Continue the loop
+                        continue;
+                    }
+                    // Create an element and set the inner html to the value
+                    var el = document.createElement("div");
+                    el.innerHTML = elHidden.value;
+                    // See if this is a hidden field element
+                    if (elHidden.querySelector("#" + _this.props.cfgElementId)) {
+                        // Set the webpart page content
+                        wpPageContent = elHidden;
+                        // Update the configuration in the webpart content element
+                        _this.updateConfigurationInElement(wpPageContent, wpCfg);
+                        // Continue the loop
+                        continue;
+                    }
                 }
-                // Get the content for the page
-                var elPageContent = document.querySelector("input[id$='TextField_spSave']");
-                if (elPageContent) {
-                    // Update the configuration in the webpart content element
-                    _this.updateConfigurationInElement(elPageContent, wpCfg);
-                }
-                // Return true, if the content element exists
-                return elPageContent != null;
+                // Return true, if the page content exists
+                return wpPageContent != null;
             }
             // Webpart is not in a content field
             return false;

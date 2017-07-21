@@ -53,7 +53,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
         (this.refs["errorMessage"] as HTMLDivElement).innerText = "";
 
         // Update the webpart content elements
-        if(this.updateWebPartContentElements(this.props.cfg.WebPartId, wpCfg)) {
+        if (this.updateWebPartContentElements(this.props.cfg.WebPartId, wpCfg)) {
             // Close the panel
             (this.refs["panel"] as Panel).hide();
             return;
@@ -113,27 +113,52 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
         // Get the webpart element
         let elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
         if (elWebPart) {
+            let wpContent = null;
+            let wpPageContent = null;
+
             // Update the configuration
             var cfg = elWebPart.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
             cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
 
-            // Get the associated webpart element id
-            let wpId2 = elWebPart.getAttribute("webpartid2");
-            let elWPContent = wpId2 ? document.querySelector(".aspNetHidden input[name='" + wpId2 + "scriptcontent']") as HTMLInputElement : null;
-            if (elWPContent) {
-                // Update the configuration in the webpart content element
-                this.updateConfigurationInElement(elWPContent, wpCfg);
+            // Parse the hidden elements on the page
+            let hiddenElements = document.querySelectorAll("input[type='hidden']");
+            for (let i = 0; hiddenElements.length; i++) {
+                let elHidden: HTMLInputElement = hiddenElements[i] as any;
+
+                // See if we have found the webpart content and page content hidden elements
+                if (wpContent && wpPageContent) { continue; }
+
+                // See if this is the webpart content element
+                if (elHidden.getAttribute("name") == "wpId" + "scriptcontent") {
+                    // Set the webpart content element
+                    wpContent = elHidden;
+
+                    // Update the configuration in the webpart content element
+                    this.updateConfigurationInElement(wpContent, wpCfg);
+
+                    // Continue the loop
+                    continue;
+                }
+
+                // Create an element and set the inner html to the value
+                let el = document.createElement("div");
+                el.innerHTML = elHidden.value;
+
+                // See if this is a hidden field element
+                if (elHidden.querySelector("#" + this.props.cfgElementId)) {
+                    // Set the webpart page content
+                    wpPageContent = elHidden;
+
+                    // Update the configuration in the webpart content element
+                    this.updateConfigurationInElement(wpPageContent, wpCfg);
+
+                    // Continue the loop
+                    continue;
+                }
             }
 
-            // Get the content for the page
-            let elPageContent = document.querySelector("input[id$='TextField_spSave']") as HTMLInputElement;
-            if(elPageContent) {
-                // Update the configuration in the webpart content element
-                this.updateConfigurationInElement(elPageContent, wpCfg);
-            }
-
-            // Return true, if the content element exists
-            return elPageContent != null;
+            // Return true, if the page content exists
+            return wpPageContent != null;
         }
 
         // Webpart is not in a content field
@@ -141,7 +166,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
     }
 
     // Method to update the configuration element
-    private updateConfigurationInElement = (elTarget:HTMLInputElement, wpCfg) => {
+    private updateConfigurationInElement = (elTarget: HTMLInputElement, wpCfg) => {
         // Create an element so we can update the configuration
         let el = document.createElement("div");
         el.innerHTML = elTarget.value;

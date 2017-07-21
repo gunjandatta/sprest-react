@@ -100,12 +100,15 @@ var WebPartConfigurationPanel = (function (_super) {
                     if (wpContent && wpPageContent) {
                         continue;
                     }
-                    // See if this is the webpart content element
-                    if (elHidden.name == wpId + "scriptcontent") {
-                        // Set the webpart content element
-                        wpContent = elHidden;
-                        // Update the configuration in the webpart content element
-                        _this.updateConfigurationInElement(wpContent, wpCfg);
+                    // See if this is a hidden webpart content element
+                    if (elHidden.name && elHidden.name.indexOf("scriptcontent") > elHidden.name.length - 13) {
+                        // See if it's for this webpart
+                        if (elHidden.name.indexOf(wpId) == 0) {
+                            // Set the webpart content element
+                            wpContent = elHidden;
+                            // Update the configuration in the webpart content element
+                            _this.updateConfigurationInElement(wpContent, wpCfg);
+                        }
                         // Continue the loop
                         continue;
                     }

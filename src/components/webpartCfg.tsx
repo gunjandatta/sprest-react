@@ -122,7 +122,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
 
             // Parse the hidden elements on the page
             let hiddenElements = document.querySelectorAll("input[type='hidden']");
-            for (let i = 0; hiddenElements.length; i++) {
+            for (let i = 0; i < hiddenElements.length; i++) {
                 let elHidden: HTMLInputElement = hiddenElements[i] as any;
 
                 // See if we have found the webpart content and page content hidden elements
@@ -131,7 +131,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
                 // See if this is a hidden webpart content element
                 if (elHidden.name && elHidden.name.indexOf("scriptcontent") == elHidden.name.length - 13) {
                     // See if it's for this webpart
-                    if(elHidden.name.indexOf(wpId) == 0) {
+                    if (elHidden.name.indexOf(wpId) == 0) {
                         // Set the webpart content element
                         wpContent = elHidden;
 

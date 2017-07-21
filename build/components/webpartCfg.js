@@ -94,7 +94,7 @@ var WebPartConfigurationPanel = (function (_super) {
                 cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
                 // Parse the hidden elements on the page
                 var hiddenElements = document.querySelectorAll("input[type='hidden']");
-                for (var i = 0; hiddenElements.length; i++) {
+                for (var i = 0; i < hiddenElements.length; i++) {
                     var elHidden = hiddenElements[i];
                     // See if we have found the webpart content and page content hidden elements
                     if (wpContent && wpPageContent) {

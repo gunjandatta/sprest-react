@@ -89,6 +89,8 @@ var WebPartConfigurationPanel = (function (_super) {
             if (elWebPart) {
                 var wpContent = null;
                 var wpPageContent = null;
+                // Get the associated webpart id
+                var wpId2 = elWebPart.getAttribute("webpartid2");
                 // Update the configuration
                 var cfg = elWebPart.querySelector("#" + _this.props.cfgElementId);
                 cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
@@ -103,7 +105,7 @@ var WebPartConfigurationPanel = (function (_super) {
                     // See if this is a hidden webpart content element
                     if (elHidden.name && elHidden.name.indexOf("scriptcontent") == elHidden.name.length - 13) {
                         // See if it's for this webpart
-                        if (elHidden.name.indexOf(wpId) == 0) {
+                        if (elHidden.name.indexOf(wpId2) == 0) {
                             // Set the webpart content element
                             wpContent = elHidden;
                             // Update the configuration in the webpart content element

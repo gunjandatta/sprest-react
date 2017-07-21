@@ -116,6 +116,9 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
             let wpContent = null;
             let wpPageContent = null;
 
+            // Get the associated webpart id
+            let wpId2 = elWebPart.getAttribute("webpartid2");
+
             // Update the configuration
             var cfg = elWebPart.querySelector("#" + this.props.cfgElementId) as HTMLDivElement;
             cfg ? cfg.innerText = JSON.stringify(wpCfg) : null;
@@ -131,7 +134,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
                 // See if this is a hidden webpart content element
                 if (elHidden.name && elHidden.name.indexOf("scriptcontent") == elHidden.name.length - 13) {
                     // See if it's for this webpart
-                    if (elHidden.name.indexOf(wpId) == 0) {
+                    if (elHidden.name.indexOf(wpId2) == 0) {
                         // Set the webpart content element
                         wpContent = elHidden;
 

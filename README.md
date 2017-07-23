@@ -3,7 +3,6 @@ SharePoint field components using the Office Fabric-UI React framework.
 * [Overview](http://dattabase.com/sharepoint-react-components/)
 * [SharePoint 2013 Deployment](http://dattabase.com/sharepoint-2013-project-deployment/)
 
-# Field Components
 ### Override Properties
 Each component has a "props" property which is the base properties of the Office Fabric React component. For example the text field below can be overriden by doing the following:
 ```

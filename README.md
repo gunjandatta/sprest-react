@@ -1,7 +1,7 @@
-# sprest-react
-SharePoint field components using the Office Fabric-UI React Framework.
-
-This project is referenced from this [blog post](http://dattabase.com/sharepoint-react-components/).
+# SharePoint 2013/Online Field Components
+SharePoint field components using the Office Fabric-UI React framework.
+* [Overview](http://dattabase.com/sharepoint-react-components/)
+* [SharePoint 2013 Deployment](http://dattabase.com/sharepoint-2013-project-deployment/)
 
 # Field Components
 ### Override Properties

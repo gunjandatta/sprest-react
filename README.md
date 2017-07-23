@@ -1,5 +1,5 @@
 # SharePoint 2013/Online Field Components
-SharePoint field components using the Office Fabric-UI React framework.
+SharePoint field components using the Office Fabric-UI React framework. This plugin is targeted for SharePoint 2013+ solutions using the React framework.
 * [Overview](http://dattabase.com/sharepoint-react-components/)
 * [SharePoint 2013 Deployment](http://dattabase.com/sharepoint-2013-project-deployment/)
 
@@ -18,39 +18,39 @@ Each component has a "props" property which is the base properties of the Office
 />
 ```
 Below is a list of fields and their properties
-**Boolean**
+#### Boolean
 onChange: (value: boolean) => void
 props: ICheckboxProps
 
-**Choice**
+#### Choice
 onChange: (Array<IDropdownOption>) => void
 props: IDropdownProps
 
-**Date/Time**
+#### Date/Time
 dtProps: IDatePickerProps
 onChange: (value: Date) => void
 timeProps: IDropdownProps
 
-**Lookup**
+#### Lookup
 getAllItemsFl: boolean
 onChange: (value: IDropdownOption | Array<string | number>) => void
 props: IDropdownProps
 
-**Number**
+#### Number
 onChange: (value: number) => void
 props: ITextFieldProps
 type: FieldNumberTypes
 
-**Text**
+#### Text
 onChange: (value:string) => void
 props: ITextFieldProps
 
-**Url**
+#### Url
 descProps: ITextFieldProps
 onChange: (value:Types.ComplexTypes.FieldUrlValue) => void
 urlProps: ITextFieldProps
 
-**User**
+#### User
 lblProps: ILabelProps
 onChange: (value:Array<number>) => void
 pickerProps: IPeoplePickerProps

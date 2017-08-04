@@ -17,11 +17,7 @@ export class FieldBoolean extends Field<IFieldBooleanProps, IFieldBooleanState> 
         // Render the component
         return (
             <div>
-                <Label
-                    ref="label"
-                    required={typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required}>
-                    {props.label || this.state.label}
-                </Label>
+                <Label ref="label">{props.label || this.state.label}</Label>
                 <Checkbox {...props as any} ref="checkbox" />
             </div>
         );

@@ -198,7 +198,7 @@ var FieldUser = (function (_super) {
         };
         // Render the component
         return (React.createElement("div", null,
-            React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.value || this.state.label),
+            React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
             React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, pickerProps, { ref: "user" }))));
     };
     return FieldUser;

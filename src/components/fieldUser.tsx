@@ -41,7 +41,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
         // Render the component
         return (
             <div>
-                <Label {...lblProps as any}>{lblProps.value || this.state.label}</Label>
+                <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
                 <NormalPeoplePicker {...pickerProps} ref="user" />
             </div>
         );
@@ -81,13 +81,13 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
 
         // Parse the default value to set the state's field value
         let defaultValue = field.AllowMultipleValues ? this.props.defaultValue : [this.props.defaultValue];
-        if(defaultValue) {
+        if (defaultValue) {
             let userIDs = [];
 
             // Parse the users
             for (let i = 0; i < defaultValue.length; i++) {
-                let userValue:Types.ComplexTypes.FieldUserValue = defaultValue[i];
-                if(userValue && userValue.ID > 0) {
+                let userValue: Types.ComplexTypes.FieldUserValue = defaultValue[i];
+                if (userValue && userValue.ID > 0) {
                     // Add the user lookup id
                     userIDs.push(userValue.ID);
                 }

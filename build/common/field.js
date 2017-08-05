@@ -96,10 +96,10 @@ var Field = (function (_super) {
                 .execute(function (field) {
                 // Update the field information
                 state.fieldInfo.defaultValue = field.DefaultValue;
-                state.fieldInfo.required = field.Required;
+                state.fieldInfo.required = field.Required ? true : false;
                 state.fieldInfo.title = field.Title;
                 state.initFl = true;
-                state.label = state.fieldInfo.title + ":";
+                state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
                 state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
                 // Call the on initialized event
                 _this.onFieldInit ? _this.onFieldInit(field, state) : null;

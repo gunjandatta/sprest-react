@@ -41,6 +41,7 @@ export class WebPart {
                 helpLink.setAttribute("role", "button");
                 helpLink.title = this._props.helpTitle || "Help";
                 helpLink.innerHTML = "<span class='ms-metadata'>" + helpLink.title + "</span>";
+                helpLink.target = "_blank";
 
                 // Append the link
                 link.parentElement.appendChild(helpLink);

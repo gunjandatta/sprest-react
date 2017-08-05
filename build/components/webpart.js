@@ -30,6 +30,7 @@ var WebPart = (function () {
                     helpLink.setAttribute("role", "button");
                     helpLink.title = _this._props.helpTitle || "Help";
                     helpLink.innerHTML = "<span class='ms-metadata'>" + helpLink.title + "</span>";
+                    helpLink.target = "_blank";
                     // Append the link
                     link.parentElement.appendChild(helpLink);
                 }

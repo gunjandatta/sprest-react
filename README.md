@@ -19,38 +19,38 @@ Each component has a "props" property which is the base properties of the Office
 ```
 Below is a list of fields and their properties
 #### Boolean
-onChange: (value: boolean) => void
-props: ICheckboxProps
+* onChange: (value: boolean) => void
+* props: ICheckboxProps
 
 #### Choice
-onChange: (Array<IDropdownOption>) => void
-props: IDropdownProps
+* onChange: (Array<IDropdownOption>) => void
+* props: IDropdownProps
 
 #### Date/Time
-dtProps: IDatePickerProps
-onChange: (value: Date) => void
-timeProps: IDropdownProps
+* dtProps: IDatePickerProps
+* onChange: (value: Date) => void
+* timeProps: IDropdownProps
 
 #### Lookup
-getAllItemsFl: boolean
-onChange: (value: IDropdownOption | Array<string | number>) => void
-props: IDropdownProps
+* getAllItemsFl: boolean
+* onChange: (value: IDropdownOption | Array<string | number>) => void
+* props: IDropdownProps
 
 #### Number
-onChange: (value: number) => void
-props: ITextFieldProps
-type: FieldNumberTypes
+* onChange: (value: number) => void
+* props: ITextFieldProps
+* type: FieldNumberTypes
 
 #### Text
-onChange: (value:string) => void
-props: ITextFieldProps
+* onChange: (value:string) => void
+* props: ITextFieldProps
 
 #### Url
-descProps: ITextFieldProps
-onChange: (value:Types.ComplexTypes.FieldUrlValue) => void
-urlProps: ITextFieldProps
+* descProps: ITextFieldProps
+* onChange: (value:Types.ComplexTypes.FieldUrlValue) => void
+* urlProps: ITextFieldProps
 
 #### User
-lblProps: ILabelProps
-onChange: (value:Array<number>) => void
-pickerProps: IPeoplePickerProps
+* lblProps: ILabelProps
+* onChange: (value:Array<number>) => void
+* pickerProps: IPeoplePickerProps

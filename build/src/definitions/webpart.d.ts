@@ -18,6 +18,8 @@ export interface IWebPartProps {
     cfgElementId?: string;
     displayElement?: React.ComponentClass<any>;
     editElement?: React.ComponentClass<any>;
+    helpTitle?: string;
+    helpUrl?: string;
     onPostRender?: (targetInfo?: IWebPartTargetInfo) => void;
     onRenderDisplayElement?: (targetInfo: IWebPartTargetInfo) => any;
     onRenderEditElement?: (targetInfo: IWebPartTargetInfo) => any;

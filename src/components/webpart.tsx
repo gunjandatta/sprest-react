@@ -27,6 +27,27 @@ export class WebPart {
      * Methods
      */
 
+    // Method to add the help link
+    private addHelpLink = (wpId:string) => {
+        // Ensure the help url exists
+        if(this._props.helpUrl) {
+            // Get the webpart's "Snippet"
+            let link = document.querySelector("div[webpartid='" + wpId + "'] a[title='Edit Snippet']");
+            if(link) {
+                // Create the help link
+                let helpLink = document.createElement("a");
+                helpLink.href = this._props.helpUrl;
+                helpLink.style.paddingLeft = "10px";
+                helpLink.setAttribute("role", "button");
+                helpLink.title = this._props.helpTitle || "Help";
+                helpLink.innerHTML = "<span class='ms-metadata'>" + helpLink.title + "</span>";
+
+                // Append the link
+                link.parentElement.appendChild(helpLink);
+            }
+        }
+    }
+
     // Method to get the target information
     private getTargetInformation = (): IWebPartTargetInfo => {
         let targetInfo: IWebPartTargetInfo = {
@@ -126,6 +147,9 @@ export class WebPart {
         if (Page.isEditMode()) {
             // Set the element
             element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : <this._props.editElement cfg={targetInfo.cfg} cfgElementId={this._props.cfgElementId} />;
+
+            // Add the help link
+            this.addHelpLink(targetInfo.cfg.WebPartId);
         } else {
             // See if the configuration exists
             if (targetInfo.cfg || this._props.cfgElementId == null) {

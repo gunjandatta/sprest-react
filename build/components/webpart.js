@@ -16,6 +16,25 @@ var WebPart = (function () {
         /**
          * Methods
          */
+        // Method to add the help link
+        this.addHelpLink = function (wpId) {
+            // Ensure the help url exists
+            if (_this._props.helpUrl) {
+                // Get the webpart's "Snippet"
+                var link = document.querySelector("div[webpartid='" + wpId + "'] a[title='Edit Snippet']");
+                if (link) {
+                    // Create the help link
+                    var helpLink = document.createElement("a");
+                    helpLink.href = _this._props.helpUrl;
+                    helpLink.style.paddingLeft = "10px";
+                    helpLink.setAttribute("role", "button");
+                    helpLink.title = _this._props.helpTitle || "Help";
+                    helpLink.innerHTML = "<span class='ms-metadata'>" + helpLink.title + "</span>";
+                    // Append the link
+                    link.parentElement.appendChild(helpLink);
+                }
+            }
+        };
         // Method to get the target information
         this.getTargetInformation = function () {
             var targetInfo = {
@@ -106,6 +125,8 @@ var WebPart = (function () {
             if (common_1.Page.isEditMode()) {
                 // Set the element
                 element = _this._props.onRenderEditElement ? _this._props.onRenderEditElement(targetInfo) : React.createElement(_this._props.editElement, { cfg: targetInfo.cfg, cfgElementId: _this._props.cfgElementId });
+                // Add the help link
+                _this.addHelpLink(targetInfo.cfg.WebPartId);
             }
             else {
                 // See if the configuration exists

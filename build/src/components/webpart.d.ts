@@ -11,6 +11,7 @@ export declare class WebPart {
     /**
      * Methods
      */
+    private addHelpLink;
     private getTargetInformation;
     private render;
 }

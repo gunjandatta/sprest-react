@@ -20,7 +20,8 @@ class Demo {
             cfgElementId: "wp-demoCfg",
             displayElement: DemoWebpart,
             editElement: WebPartCfg,
-            targetElementId: "wp-demo"
+            targetElementId: "wp-demo",
+            helpUrl: "#"
         });
     }
 }

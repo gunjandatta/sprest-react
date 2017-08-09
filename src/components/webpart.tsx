@@ -150,7 +150,7 @@ export class WebPart {
             element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : <this._props.editElement cfg={targetInfo.cfg} cfgElementId={this._props.cfgElementId} />;
 
             // Add the help link
-            this.addHelpLink(targetInfo.cfg.WebPartId);
+            targetInfo.cfg ? this.addHelpLink(targetInfo.cfg.WebPartId) : null;
         } else {
             // See if the configuration exists
             if (targetInfo.cfg || this._props.cfgElementId == null) {

@@ -89,7 +89,7 @@ export class DataSource {
                     // Ensure the items exist
                     if (items.results) {
                         // Resolve the request
-                        resolve(itemId > 0 ? items.results[0] : items.results);
+                        resolve(itemId > 0 ? items.results[0] : items.results as any);
                     } else {
                         // Reject the request
                         reject();

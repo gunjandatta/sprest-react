@@ -125,7 +125,8 @@ var WebPart = (function () {
             // See if the page is being edited
             if (common_1.Page.isEditMode()) {
                 // Set the element
-                element = _this._props.onRenderEditElement ? _this._props.onRenderEditElement(targetInfo) : React.createElement(_this._props.editElement, { cfg: targetInfo.cfg, cfgElementId: _this._props.cfgElementId });
+                element = _this._props.editElement ? React.createElement(_this._props.editElement, { cfg: targetInfo.cfg, cfgElementId: _this._props.cfgElementId }) : null;
+                element = _this._props.onRenderEditElement ? _this._props.onRenderEditElement(targetInfo) : element;
                 // Add the help link
                 targetInfo.cfg ? _this.addHelpLink(targetInfo.cfg.WebPartId) : null;
             }
@@ -133,7 +134,8 @@ var WebPart = (function () {
                 // See if the configuration exists
                 if (targetInfo.cfg || _this._props.cfgElementId == null) {
                     // Set the element
-                    element = _this._props.onRenderDisplayElement ? _this._props.onRenderDisplayElement(targetInfo) : React.createElement(_this._props.displayElement, { cfg: targetInfo.cfg });
+                    element = _this._props.displayElement ? React.createElement(_this._props.displayElement, { cfg: targetInfo.cfg }) : null;
+                    element = _this._props.onRenderDisplayElement ? _this._props.onRenderDisplayElement(targetInfo) : element;
                 }
                 else {
                     element = React.createElement("div", { className: "ms-fontSize-l" }, "Please edit the page and configure the webpart.");

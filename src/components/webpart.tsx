@@ -28,12 +28,12 @@ export class WebPart {
      */
 
     // Method to add the help link
-    private addHelpLink = (wpId:string) => {
+    private addHelpLink = (wpId: string) => {
         // Ensure the help url exists
-        if(this._props.helpUrl) {
+        if (this._props.helpUrl) {
             // Get the webpart's "Snippet"
             let link = document.querySelector("div[webpartid='" + wpId + "'] a[title='Edit Snippet']");
-            if(link) {
+            if (link) {
                 // Create the help link
                 let helpLink = document.createElement("a");
                 helpLink.href = this._props.helpUrl;
@@ -147,7 +147,8 @@ export class WebPart {
         // See if the page is being edited
         if (Page.isEditMode()) {
             // Set the element
-            element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : <this._props.editElement cfg={targetInfo.cfg} cfgElementId={this._props.cfgElementId} />;
+            element = this._props.editElement ? <this._props.editElement cfg={targetInfo.cfg} cfgElementId={this._props.cfgElementId} /> : null;
+            element = this._props.onRenderEditElement ? this._props.onRenderEditElement(targetInfo) : element;
 
             // Add the help link
             targetInfo.cfg ? this.addHelpLink(targetInfo.cfg.WebPartId) : null;
@@ -155,7 +156,8 @@ export class WebPart {
             // See if the configuration exists
             if (targetInfo.cfg || this._props.cfgElementId == null) {
                 // Set the element
-                element = this._props.onRenderDisplayElement ? this._props.onRenderDisplayElement(targetInfo) : <this._props.displayElement cfg={targetInfo.cfg} />;
+                element = this._props.displayElement ? <this._props.displayElement cfg={targetInfo.cfg} /> : null;
+                element = this._props.onRenderDisplayElement ? this._props.onRenderDisplayElement(targetInfo) : element;
             } else {
                 element = <div className="ms-fontSize-l">Please edit the page and configure the webpart.</div>;
             }

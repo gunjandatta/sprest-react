@@ -1,6 +1,6 @@
-[![Current Version](https://badge.fury.io/js/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest-react)
-[![Downloads](https://img.shields.io/npm/dm/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest-react)
-[![Total Downloads](https://img.shields.io/npm/dt/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest-react)
+[![Current Version](https://badge.fury.io/js/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
+[![Downloads](https://img.shields.io/npm/dm/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
+[![Total Downloads](https://img.shields.io/npm/dt/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 
 # SharePoint 2013/Online Field Components
 SharePoint field components using the Office Fabric-UI React framework. This plugin is targeted for SharePoint 2013+ solutions using the React framework.

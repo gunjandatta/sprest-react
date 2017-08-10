@@ -11,19 +11,8 @@ export declare class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
      */
     renderField(): JSX.Element;
     /**
-     * Global Variables
-     */
-    private _filterText;
-    private _promise;
-    /**
      * Events
      */
     onChange: (value: any) => void;
     onFieldInit: (field: any, state: IFieldUserState) => void;
-    /**
-     * Methods
-     */
-    private getDefaultPersonas;
-    private getValue;
-    private search;
 }

@@ -1,7 +1,7 @@
 /**
  * Common
  */
-import { Field } from "./common";
+import { Field, SPPeoplePicker, ISPPeoplePickerProps, ISPPeoplePickerState } from "./common";
 /**
  * Components
  */
@@ -24,4 +24,4 @@ import { FieldUser } from "./components/fieldUser";
  * Definitions
  */
 import { IBasePanelProps, IBasePanelState, FieldNumberTypes, IFieldInfo, IFieldProps, IFieldState, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState, IWebPartTargetInfo } from "./definitions";
-export { Field, IFieldInfo, IFieldProps, IFieldState, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup, FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser, BasePanel as Panel, IBasePanelProps, IBasePanelState, WebPart, WebPartConfigurationPanel, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState, IWebPartTargetInfo };
+export { Field, IFieldInfo, IFieldProps, IFieldState, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup, FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser, BasePanel as Panel, IBasePanelProps, IBasePanelState, SPPeoplePicker, ISPPeoplePickerProps, ISPPeoplePickerState, WebPart, WebPartConfigurationPanel, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState, IWebPartTargetInfo };

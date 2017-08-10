@@ -1,6 +1,6 @@
 import { Types } from "gd-sprest";
 import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
-import {IPersonaProps,ILabelProps,IPeoplePickerProps} from "office-ui-fabric-react";
+import { IPersonaProps, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
 
 /**
  * User Field Information
@@ -17,7 +17,7 @@ export interface IFieldUserProps extends IFieldProps {
     lblProps?: ILabelProps;
 
     /** Event triggered when the field value changes. */
-    onChange?: (value:Array<number>) => void;
+    onChange?: (value: number | Array<number>) => void;
 
     /** The properties of the people picker. */
     pickerProps?: IPeoplePickerProps;

@@ -14,7 +14,7 @@ export interface IFieldUserProps extends IFieldProps {
     /** The properties for the user field label. */
     lblProps?: ILabelProps;
     /** Event triggered when the field value changes. */
-    onChange?: (value: Array<number>) => void;
+    onChange?: (value: number | Array<number>) => void;
     /** The properties of the people picker. */
     pickerProps?: IPeoplePickerProps;
 }

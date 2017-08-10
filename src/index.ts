@@ -1,7 +1,10 @@
 /**
  * Common
  */
-import { Field } from "./common";
+import {
+    Field,
+    SPPeoplePicker, ISPPeoplePickerProps, ISPPeoplePickerState
+} from "./common";
 
 /**
  * Components
@@ -45,5 +48,6 @@ export {
     FieldUrl,
     FieldUser,
     BasePanel as Panel, IBasePanelProps, IBasePanelState,
+    SPPeoplePicker, ISPPeoplePickerProps, ISPPeoplePickerState,
     WebPart, WebPartConfigurationPanel, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState, IWebPartTargetInfo
 }

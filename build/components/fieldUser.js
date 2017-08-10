@@ -79,10 +79,20 @@ var FieldUser = (function (_super) {
         // Update the label properties
         var lblProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
+        // Get the field value
+        var fieldValue = null;
+        if (this.state.fieldInfo.allowMultiple) {
+            // Set it to the results array
+            fieldValue = this.props.defaultValue ? this.props.defaultValue.results : null;
+        }
+        else {
+            // Set the value to an array
+            fieldValue = this.props.defaultValue ? [this.props.defaultValue] : null;
+        }
         // Render the component
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(common_1.SPPeoplePicker, __assign({}, this.props.pickerProps, { allowMultiple: this.state.fieldInfo.allowMultiple, onChange: this.onChange, ref: "user" }))));
+            React.createElement(common_1.SPPeoplePicker, __assign({}, this.props.pickerProps, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: fieldValue, onChange: this.onChange, ref: "user" }))));
     };
     return FieldUser;
 }(common_1.Field));

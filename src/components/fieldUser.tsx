@@ -21,12 +21,23 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
         let lblProps: ILabelProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
 
+        // Get the field value
+        let fieldValue = null;
+        if (this.state.fieldInfo.allowMultiple) {
+            // Set it to the results array
+            fieldValue = this.props.defaultValue ? this.props.defaultValue.results : null;
+        } else {
+            // Set the value to an array
+            fieldValue = this.props.defaultValue ? [this.props.defaultValue] : null;
+        }
+
         // Render the component
         return (
             <div>
                 <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
                 <SPPeoplePicker {...this.props.pickerProps}
                     allowMultiple={this.state.fieldInfo.allowMultiple}
+                    fieldValue={fieldValue}
                     onChange={this.onChange}
                     ref="user"
                 />

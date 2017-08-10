@@ -37,8 +37,6 @@ var SPPeoplePicker = (function (_super) {
          */
         // Filter text
         _this._filterText = "";
-        // Custom onChange event
-        _this._onChange = null;
         /**
          * Methods
          */
@@ -67,6 +65,7 @@ var SPPeoplePicker = (function (_super) {
         // Method to convert the user to persona value
         _this.convertToPersonas = function (users) {
             var personas = [];
+            // Parse the users
             for (var i = 0; i < users.length; i++) {
                 var user = users[i];
                 // Ensure the user exists
@@ -86,15 +85,19 @@ var SPPeoplePicker = (function (_super) {
         };
         // Method executed when the value changes
         _this.onChange = function (personas) {
-            // Default the value
+            // Update the personas
             personas = personas ? personas : [];
+            if (personas.length > 1) {
+                // Remove all values except for the last entry for single user types
+                personas = _this.props.allowMultiple ? personas : personas.splice(personas.length - 1, 1);
+            }
             // Update the state
             _this.setState({
                 fieldValue: _this.convertToFieldValue(personas),
                 personas: personas
             }, function () {
                 // Call the custom onChange event
-                _this._onChange ? _this._onChange(personas) : null;
+                _this.props && _this.props.onChange ? _this.props.onChange(personas) : null;
             });
         };
         // Method to search for the user
@@ -144,7 +147,7 @@ var SPPeoplePicker = (function (_super) {
             });
         };
         // Get the personas
-        var personas = _this.convertToPersonas(props.fieldValue || []);
+        var personas = _this.convertToPersonas(props.fieldValue);
         // Set the state
         _this.state = {
             fieldValue: _this.convertToFieldValue(personas),
@@ -155,20 +158,15 @@ var SPPeoplePicker = (function (_super) {
     // Render the component
     SPPeoplePicker.prototype.render = function () {
         var props = this.props || {};
-        // Save the change event
-        this._onChange = props.onChange;
-        // Update the properties
-        props.getTextFromItem = function (persona) { return persona.primaryText; };
-        props.onChange = this.onChange;
-        props.onResolveSuggestions = this.search;
-        props.pickerSuggestionsProps = props.pickerSuggestionsProps ? props.pickerSuggestionsProps : {
+        // Default the suggested properties
+        var pickerSuggestionsProps = props.pickerSuggestionsProps || {
             className: "ms-PeoplePicker",
             loadingText: "Loading the user...",
             noResultsFoundText: "No users were found.",
             suggestionsHeaderText: "Suggested Users"
         };
         // Return the people picker
-        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props)));
+        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { defaultSelectedItems: this.state.personas, getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps })));
     };
     return SPPeoplePicker;
 }(React.Component));

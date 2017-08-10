@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PrimaryButton } from "office-ui-fabric-react";
+import { PrimaryButton, Spinner } from "office-ui-fabric-react";
 import { Panel } from "../build";
 import { DataSource, ITestItem } from "./data";
 import { ItemForm } from "./itemForm";
@@ -36,14 +36,8 @@ export class DemoWebpart extends React.Component<Props, State> {
         this.state = {
             datasource: new DataSource(props.cfg),
             item: {} as ITestItem,
-            items: []
+            items: null
         };
-
-        // Load the items
-        this.state.datasource.load().then((items: any) => {
-            // Update the state
-            this.setState({ items });
-        });
     }
 
     /**
@@ -52,6 +46,21 @@ export class DemoWebpart extends React.Component<Props, State> {
 
     // Render the component
     render() {
+        // See if the data needs to be loaded
+        if(this.state.items == null) {
+            // Load the items
+            this.state.datasource.load().then((items: any) => {
+                // Update the state
+                this.setState({ items });
+            });
+
+            // Return a spinner
+            return (
+                <Spinner label="Loading the list data..." />
+            );
+        }
+
+        // Render the webpart
         return (
             <div>
                 <PrimaryButton onClick={this.onClick} text="New Item" />

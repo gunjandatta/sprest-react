@@ -32,9 +32,6 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     // Filter text
     private _filterText = "";
 
-    // Custom onChange event
-    private _onChange: any = null;
-
     /**
      * Constructor
      */
@@ -42,7 +39,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         super(props);
 
         // Get the personas
-        let personas = this.convertToPersonas(props.fieldValue || []);
+        let personas = this.convertToPersonas(props.fieldValue);
 
         // Set the state
         this.state = {
@@ -55,14 +52,8 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     render() {
         let props = this.props || {} as IPeoplePickerProps;
 
-        // Save the change event
-        this._onChange = props.onChange;
-
-        // Update the properties
-        props.getTextFromItem = (persona: IPersonaProps) => { return persona.primaryText; };
-        props.onChange = this.onChange;
-        props.onResolveSuggestions = this.search;
-        props.pickerSuggestionsProps = props.pickerSuggestionsProps ? props.pickerSuggestionsProps : {
+        // Default the suggested properties
+        let pickerSuggestionsProps = props.pickerSuggestionsProps || {
             className: "ms-PeoplePicker",
             loadingText: "Loading the user...",
             noResultsFoundText: "No users were found.",
@@ -71,7 +62,14 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
         // Return the people picker
         return (
-            <NormalPeoplePicker {...props} />
+            <NormalPeoplePicker
+                {...props}
+                defaultSelectedItems={this.state.personas}
+                getTextFromItem={(persona: IPersonaProps) => { return persona.primaryText; }}
+                onChange={this.onChange}
+                onResolveSuggestions={this.search}
+                pickerSuggestionsProps={pickerSuggestionsProps}
+            />
         );
     }
 
@@ -109,6 +107,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue>): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
+        // Parse the users
         for (let i = 0; i < users.length; i++) {
             let user: Types.ComplexTypes.FieldUserValue = users[i];
 
@@ -131,8 +130,12 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
     // Method executed when the value changes
     private onChange = (personas?: Array<IPersonaProps>) => {
-        // Default the value
+        // Update the personas
         personas = personas ? personas : [];
+        if (personas.length > 1) {
+            // Remove all values except for the last entry for single user types
+            personas = this.props.allowMultiple ? personas : personas.splice(personas.length - 1, 1);
+        }
 
         // Update the state
         this.setState({
@@ -140,7 +143,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             personas
         }, () => {
             // Call the custom onChange event
-            this._onChange ? this._onChange(personas) : null;
+            this.props && this.props.onChange ? this.props.onChange(personas) : null;
         });
     }
 

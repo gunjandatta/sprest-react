@@ -31,15 +31,14 @@ export interface ITestItem extends Types.IListItemResult {
  */
 export declare class DataSource {
     /**
+     * Properties
+     */
+    private _cfg;
+    private _listItemEntityTypeFullName;
+    /**
      * Constructor
      */
     constructor(cfg: IDemoCfg);
-    /**
-     * Properties
-     */
-    private _listName;
-    private _listItemEntityTypeFullName;
-    private _webUrl;
     /**
      * Methods
      */

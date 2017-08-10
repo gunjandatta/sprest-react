@@ -32,35 +32,32 @@ export interface ITestItem extends Types.IListItemResult {
  */
 export class DataSource {
     /**
+     * Properties
+     */
+
+    // Configuration
+    private _cfg: IDemoCfg = null;
+
+    // List Item Entity Type Name (Required for complex field item add operation)
+    private _listItemEntityTypeFullName = "";
+
+    /**
      * Constructor
      */
     constructor(cfg: IDemoCfg) {
+        // Save the configuration        
+        this._cfg = cfg;
+
         // Get the web
         (new Web(cfg.WebUrl))
             // Get the list
             .Lists(cfg.ListName)
             // Execute the request
             .execute((list) => {
-                // Update the global properties
+                // Save the list entiry full name
                 this._listItemEntityTypeFullName = list.ListItemEntityTypeFullName;
-                this._listName = list.Title;
-                this._webUrl = cfg.WebUrl;
             });
     }
-
-
-    /**
-     * Properties
-     */
-
-    // List Name
-    private _listName = "";
-
-    // List Item Entity Type Name (Required for complex field item add operation)
-    private _listItemEntityTypeFullName = "";
-
-    // The web contining the list
-    private _webUrl = "";
 
     /**
      * Methods
@@ -71,9 +68,9 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the web
-            (new Web(this._webUrl))
+            (new Web(this._cfg.WebUrl))
                 // Get the list
-                .Lists(this._listName)
+                .Lists(this._cfg.ListName)
                 // Get the items
                 .Items()
                 // Set the query
@@ -136,9 +133,9 @@ export class DataSource {
                 item["__metadata"] = { type: this._listItemEntityTypeFullName };
 
                 // Get the web
-                (new Web(this._webUrl))
+                (new Web(this._cfg.WebUrl))
                     // Get the list
-                    .Lists(this._listName)
+                    .Lists(this._cfg.ListName)
                     // Get the items
                     .Items()
                     // Add the item

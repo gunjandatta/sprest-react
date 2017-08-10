@@ -24,7 +24,6 @@ export declare class SPPeoplePicker extends React.Component<ISPPeoplePickerProps
      * Global Variables
      */
     private _filterText;
-    private _onChange;
     /**
      * Constructor
      */

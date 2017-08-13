@@ -150,7 +150,7 @@ var SPPeoplePicker = (function (_super) {
             });
         };
         // Get the personas
-        var personas = _this.convertToPersonas(props.fieldValue);
+        var personas = props.props && props.props.defaultSelectedItems ? props.props.defaultSelectedItems : _this.convertToPersonas(props.fieldValue);
         // Set the state
         _this.state = {
             fieldValue: _this.convertToFieldValue(personas),

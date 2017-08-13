@@ -40,7 +40,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         super(props);
 
         // Get the personas
-        let personas = this.convertToPersonas(props.fieldValue);
+        let personas = props.props && props.props.defaultSelectedItems ? props.props.defaultSelectedItems : this.convertToPersonas(props.fieldValue);
 
         // Set the state
         this.state = {

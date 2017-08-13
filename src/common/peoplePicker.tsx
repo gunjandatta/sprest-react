@@ -8,9 +8,10 @@ import {
 /**
  * Properties
  */
-export interface ISPPeoplePickerProps extends IPeoplePickerProps {
+export interface ISPPeoplePickerProps {
     allowMultiple?: boolean;
     fieldValue?: Array<Types.ComplexTypes.FieldUserValue>;
+    props?: IPeoplePickerProps;
 }
 
 /**
@@ -50,7 +51,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
     // Render the component
     render() {
-        let props = this.props || {} as IPeoplePickerProps;
+        let props = this.props.props || {} as IPeoplePickerProps;
 
         // Default the suggested properties
         let pickerSuggestionsProps = props.pickerSuggestionsProps || {
@@ -107,20 +108,23 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue>): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
-        // Parse the users
-        for (let i = 0; i < users.length; i++) {
-            let user: Types.ComplexTypes.FieldUserValue = users[i];
+        // Ensure users exist
+        if(users && users.length > 0) {
+            // Parse the users
+            for (let i = 0; i < users.length; i++) {
+                let user: Types.ComplexTypes.FieldUserValue = users[i];
 
-            // Ensure the user exists
-            if (user.ID > 0) {
-                // Add the persona
-                personas.push({
-                    id: user.UserName,
-                    itemID: user.ID.toString(),
-                    primaryText: user.Title,
-                    secondaryText: user.Email,
-                    tertiaryText: user.JobTitle,
-                });
+                // Ensure the user exists
+                if (user.ID > 0) {
+                    // Add the persona
+                    personas.push({
+                        id: user.UserName,
+                        itemID: user.ID.toString(),
+                        primaryText: user.Title,
+                        secondaryText: user.Email,
+                        tertiaryText: user.JobTitle,
+                    });
+                }
             }
         }
 
@@ -143,7 +147,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             personas
         }, () => {
             // Call the custom onChange event
-            this.props && this.props.onChange ? this.props.onChange(personas) : null;
+            this.props.props && this.props.props.onChange ? this.props.props.onChange(personas) : null;
         });
     }
 

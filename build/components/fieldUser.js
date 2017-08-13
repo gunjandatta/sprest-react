@@ -37,7 +37,7 @@ var FieldUser = (function (_super) {
          * Events
          */
         // The change event
-        _this.onChange = function (value) {
+        _this.onChange = function () {
             // Get the field value
             var fieldValue = _this.refs["user"].state.fieldValue;
             // Update the field value
@@ -89,10 +89,13 @@ var FieldUser = (function (_super) {
             // Set the value to an array
             fieldValue = this.props.defaultValue ? [this.props.defaultValue] : null;
         }
+        // Set the picker props
+        var props = this.props.pickerProps || {};
+        props.onChange = this.onChange;
         // Render the component
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(common_1.SPPeoplePicker, __assign({}, this.props.pickerProps, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: fieldValue, onChange: this.onChange, ref: "user" }))));
+            React.createElement(common_1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: fieldValue, props: props, ref: "user" })));
     };
     return FieldUser;
 }(common_1.Field));

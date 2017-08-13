@@ -65,19 +65,22 @@ var SPPeoplePicker = (function (_super) {
         // Method to convert the user to persona value
         _this.convertToPersonas = function (users) {
             var personas = [];
-            // Parse the users
-            for (var i = 0; i < users.length; i++) {
-                var user = users[i];
-                // Ensure the user exists
-                if (user.ID > 0) {
-                    // Add the persona
-                    personas.push({
-                        id: user.UserName,
-                        itemID: user.ID.toString(),
-                        primaryText: user.Title,
-                        secondaryText: user.Email,
-                        tertiaryText: user.JobTitle,
-                    });
+            // Ensure users exist
+            if (users && users.length > 0) {
+                // Parse the users
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    // Ensure the user exists
+                    if (user.ID > 0) {
+                        // Add the persona
+                        personas.push({
+                            id: user.UserName,
+                            itemID: user.ID.toString(),
+                            primaryText: user.Title,
+                            secondaryText: user.Email,
+                            tertiaryText: user.JobTitle,
+                        });
+                    }
                 }
             }
             // Return the personas
@@ -97,7 +100,7 @@ var SPPeoplePicker = (function (_super) {
                 personas: personas
             }, function () {
                 // Call the custom onChange event
-                _this.props && _this.props.onChange ? _this.props.onChange(personas) : null;
+                _this.props.props && _this.props.props.onChange ? _this.props.props.onChange(personas) : null;
             });
         };
         // Method to search for the user
@@ -157,7 +160,7 @@ var SPPeoplePicker = (function (_super) {
     }
     // Render the component
     SPPeoplePicker.prototype.render = function () {
-        var props = this.props || {};
+        var props = this.props.props || {};
         // Default the suggested properties
         var pickerSuggestionsProps = props.pickerSuggestionsProps || {
             className: "ms-PeoplePicker",

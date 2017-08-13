@@ -13,6 +13,6 @@ export declare class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
     /**
      * Events
      */
-    onChange: (value: any) => void;
+    onChange: () => void;
     onFieldInit: (field: any, state: IFieldUserState) => void;
 }

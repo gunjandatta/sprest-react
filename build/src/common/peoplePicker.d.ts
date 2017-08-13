@@ -5,9 +5,10 @@ import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 /**
  * Properties
  */
-export interface ISPPeoplePickerProps extends IPeoplePickerProps {
+export interface ISPPeoplePickerProps {
     allowMultiple?: boolean;
     fieldValue?: Array<Types.ComplexTypes.FieldUserValue>;
+    props?: IPeoplePickerProps;
 }
 /**
  * State

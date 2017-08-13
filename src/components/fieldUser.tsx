@@ -31,14 +31,18 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
             fieldValue = this.props.defaultValue ? [this.props.defaultValue] : null;
         }
 
+        // Set the picker props
+        let props: any = this.props.pickerProps || {};
+        props.onChange = this.onChange;
+
         // Render the component
         return (
             <div>
                 <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
-                <SPPeoplePicker {...this.props.pickerProps}
+                <SPPeoplePicker
                     allowMultiple={this.state.fieldInfo.allowMultiple}
                     fieldValue={fieldValue}
-                    onChange={this.onChange}
+                    props={props}
                     ref="user"
                 />
             </div>
@@ -50,7 +54,7 @@ export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
      */
 
     // The change event
-    onChange = (value) => {
+    onChange = () => {
         // Get the field value
         let fieldValue = (this.refs["user"] as SPPeoplePicker).state.fieldValue;
 

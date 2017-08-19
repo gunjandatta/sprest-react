@@ -1,6 +1,6 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { ITextFieldProps } from "office-ui-fabric-react";
+import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
 
 /**
  * Number Field Types
@@ -13,28 +13,28 @@ export enum FieldNumberTypes {
 /**
  * Number Field Properties
  */
-export interface IFieldNumberProps extends IFieldProps {
+export interface IFieldNumberProps extends IBaseFieldProps {
     /** Event triggered when the field value changes. */
     onChange?: (value: number) => void;
 
+    /** The type of number. */
+    numberType?: FieldNumberTypes;
+
     /** The textfield properties. */
     props?: ITextFieldProps;
-
-    /** The number type. */
-    type?: FieldNumberTypes;
 }
 
 /**
  * Number Field State
  */
-export interface IFieldNumberState extends IFieldState { }
+export interface IFieldNumberState extends IBaseFieldState { }
 
 /**
  * Number Field
  */
-export interface IFieldNumber extends IField<IFieldNumberProps, IFieldNumberState> {
+export interface IFieldNumber extends IBaseField<IFieldNumberProps, IFieldNumberState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldCurrency | Types.IFieldNumber, state: IFieldState) => void;
+    onFieldInit: (field: Types.IFieldCurrency | Types.IFieldNumber, state: IBaseFieldState) => void;
 }

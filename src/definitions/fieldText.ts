@@ -1,11 +1,11 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { ITextFieldProps } from "office-ui-fabric-react";
+import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
 
 /**
  * Text Field Information
  */
-export interface ITextFieldInformation extends IFieldInfo {
+export interface ITextFieldInformation extends IBaseFieldInfo {
     multiline?: boolean;
     rows?: number;
 }
@@ -13,7 +13,7 @@ export interface ITextFieldInformation extends IFieldInfo {
 /**
  * Text Field Properties
  */
-export interface IFieldTextProps extends IFieldProps {
+export interface IFieldTextProps extends IBaseFieldProps {
     /** Event triggered when the field value changes. */
     onChange?: (value: string) => void;
 
@@ -24,16 +24,16 @@ export interface IFieldTextProps extends IFieldProps {
 /**
  * Text Field State
  */
-export interface IFieldTextState extends IFieldState {
+export interface IFieldTextState extends IBaseFieldState {
     fieldInfo: ITextFieldInformation;
 }
 
 /**
  * Text Field
  */
-export interface IFieldText extends IField<IFieldTextProps, IFieldTextState> {
+export interface IFieldText extends IBaseField<IFieldTextProps, IFieldTextState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldNote | Types.IFieldText, state: IFieldState) => void;
+    onFieldInit: (field: Types.IFieldNote | Types.IFieldText, state: IBaseFieldState) => void;
 }

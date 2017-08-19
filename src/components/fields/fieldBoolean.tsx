@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Checkbox, ICheckboxProps, Label } from "office-ui-fabric-react";
-import { Field } from "../common";
-import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../definitions";
+import { BaseField } from "../../common";
+import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../../definitions";
 
 /**
  * Boolean field
  */
-export class FieldBoolean extends Field<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean {
+export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean {
     // Render the field
     renderField() {
         // Update the checkbox properties

@@ -1,5 +1,5 @@
+import { IBaseField, IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "./baseField";
 import { IBasePanelProps, IBasePanelState } from "./basePanel";
-import { IField, IFieldInfo, IFieldProps, IFieldState } from "./field";
 import { IAttachmentFile, IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState } from "./fieldAttachments";
 import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "./fieldBoolean";
 import { IChoiceFieldInfo, IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "./fieldChoice";
@@ -13,7 +13,7 @@ import { IWebPartCfg, IWebPartInfo, IWebPartProps, IWebPartTargetInfo } from "./
 import { IWebPartConfigurationProps, IWebPartConfigurationState } from "./webpartCfg";
 export {
     IBasePanelProps, IBasePanelState,
-    IField, IFieldProps, IFieldState, IFieldInfo,
+    IBaseField, IBaseFieldInfo, IBaseFieldProps, IBaseFieldState,
     IAttachmentFile, IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState,
     IFieldBoolean, IFieldBooleanProps, IFieldBooleanState,
     IChoiceFieldInfo, IFieldChoice, IFieldChoiceProps, IFieldChoiceState,

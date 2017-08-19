@@ -1,11 +1,11 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
+import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
 
 /**
  * Lookup Field Information
  */
-export interface ILookupFieldInfo extends IFieldInfo {
+export interface ILookupFieldInfo extends IBaseFieldInfo {
     allowMultipleValues: boolean;
     lookupFieldName: string;
     lookupListName: string;
@@ -16,7 +16,7 @@ export interface ILookupFieldInfo extends IFieldInfo {
 /**
  * Lookup Field Properties
  */
-export interface IFieldLookupProps extends IFieldProps {
+export interface IFieldLookupProps extends IBaseFieldProps {
     /** Flag to determine if we should get all items. */
     getAllItemsFl?: boolean;
 
@@ -30,7 +30,7 @@ export interface IFieldLookupProps extends IFieldProps {
 /**
  * Lookup Field State
  */
-export interface IFieldLookupState extends IFieldState {
+export interface IFieldLookupState extends IBaseFieldState {
     options?: Array<IDropdownOption>;
     fieldInfo: ILookupFieldInfo;
 }
@@ -38,9 +38,9 @@ export interface IFieldLookupState extends IFieldState {
 /**
  * Lookup Field
  */
-export interface IFieldLookup extends IField<IFieldLookupProps, IFieldLookupState> {
+export interface IFieldLookup extends IBaseField<IFieldLookupProps, IFieldLookupState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldLookup, state: IFieldState) => void;
+    onFieldInit: (field: Types.IFieldLookup, state: IBaseFieldState) => void;
 }

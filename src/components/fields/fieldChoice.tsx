@@ -4,14 +4,14 @@ import {
     Checkbox,
     Dropdown, IDropdownOption, IDropdownProps
 } from "office-ui-fabric-react";
-import { Field } from "../common";
-import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../definitions";
-import "../../sass/fieldChoice.scss";
+import { BaseField } from "../../common";
+import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../../definitions";
+import "../../../sass/fieldChoice.scss";
 
 /**
  * Boolean field
  */
-export class FieldChoice extends Field<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
+export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
     /**
      * Public Interface
      */

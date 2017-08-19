@@ -5,13 +5,13 @@ import {
     Dropdown, IDropdownOption, IDropdownProps,
     Label
 } from "office-ui-fabric-react";
-import { DatePickerStrings, Field } from "../common";
-import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "../definitions";
+import { DatePickerStrings, BaseField } from "../../common";
+import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "../../definitions";
 
 /**
  * Date Time field
  */
-export class FieldDateTime extends Field<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
+export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
     /**
      * Public Interface
      */

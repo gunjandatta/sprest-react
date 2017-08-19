@@ -1,10 +1,7 @@
 import * as React from "react";
 import { Label, PrimaryButton } from "office-ui-fabric-react";
 import { ITestItem } from "./data";
-import {
-    Field, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
-    FieldNumber, FieldNumberTypes, FieldText, FieldUrl, FieldUser
-} from "../build";
+import { Field, Fields } from "../build";
 
 /**
  * Properties
@@ -33,7 +30,7 @@ export class ItemForm extends React.Component<Props, null> {
             // See if this is a field
             if (ref instanceof Field) {
                 // Update the item value
-                item[fieldName] = (ref as Field<any, any>).state.value;
+                item[fieldName] = (ref as Field).state.value;
             }
         }
 
@@ -55,7 +52,7 @@ export class ItemForm extends React.Component<Props, null> {
     // Method to save the item attachments
     saveAttachments = (itemId: number) => {
         // Save the attachments
-        return (this.refs["attachments"] as FieldAttachments).save(itemId);
+        return (this.refs["attachments"] as Fields.FieldAttachments).save(itemId);
     }
 
     /**
@@ -68,91 +65,90 @@ export class ItemForm extends React.Component<Props, null> {
         let listName = this.props.listName;
         return (
             <div className="ms-Grid-col ms-u-md12">
-                <FieldAttachments
+                <Fields.FieldAttachments
                     files={item.AttachmentFiles}
                     listName={listName}
                     ref="attachments"
                 />
-                <FieldText
+                <Field
                     defaultValue={item.Title}
                     listName={listName}
                     name="Title"
                     ref="Title"
                 />
-                <FieldBoolean
+                <Field
                     defaultValue={item.TestBoolean}
                     listName={listName}
                     name="TestBoolean"
                     ref="TestBoolean"
                 />
-                <FieldChoice
+                <Field
                     defaultValue={item.TestChoice}
                     listName={listName}
                     name="TestChoice"
                     ref="TestChoice"
                 />
-                <FieldDateTime
+                <Field
                     defaultValue={item.TestDate}
                     listName={listName}
                     name="TestDate"
                     ref="TestDate"
                 />
-                <FieldDateTime
+                <Field
                     defaultValue={item.TestDateTime}
                     listName={listName}
                     name="TestDateTime"
                     ref="TestDateTime"
                 />
-                <FieldLookup
+                <Field
                     defaultValue={item.TestLookup}
                     listName={listName}
                     name="TestLookup"
                     ref="TestLookupId"
                 />
-                <FieldChoice
+                <Field
                     defaultValue={item.TestMultiChoice}
                     listName={listName}
                     name="TestMultiChoice"
                     ref="TestMultiChoice"
                 />
-                <FieldLookup
+                <Field
                     defaultValue={item.TestMultiLookup}
                     listName={listName}
                     name="TestMultiLookup"
                     ref="TestMultiLookupId"
                 />
-                <FieldUser
+                <Field
                     defaultValue={item.TestMultiUser}
                     listName={listName}
                     name="TestMultiUser"
                     ref="TestMultiUserId"
                 />
-                <FieldText
+                <Field
                     defaultValue={item.TestNote}
                     listName={listName}
                     name="TestNote"
                     ref="TestNote"
                 />
-                <FieldNumber
+                <Field
                     defaultValue={item.TestNumberDecimal}
                     listName={listName}
                     name="TestNumberDecimal"
                     ref="TestNumberDecimal"
-                    type={FieldNumberTypes.Decimal}
                 />
-                <FieldNumber
+                <Field
                     defaultValue={item.TestNumberInteger}
                     listName={listName}
                     name="TestNumberInteger"
                     ref="TestNumberInteger"
                 />
-                <FieldUrl
+                <Field
                     defaultValue={item.TestUrl}
                     listName={listName}
                     name="TestUrl"
                     ref="TestUrl"
                 />
-                <FieldUser
+                <Field
                     defaultValue={item.TestUser}
                     listName={listName}
                     name="TestUser"

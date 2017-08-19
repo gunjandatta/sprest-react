@@ -1,16 +1,16 @@
 import { Types } from "gd-sprest";
-import { IField, IFieldProps, IFieldState, IFieldInfo } from ".";
 import { ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
+import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
 /**
  * User Field Information
  */
-export interface IUserFieldInfo extends IFieldInfo {
+export interface IUserFieldInfo extends IBaseFieldInfo {
     allowMultiple?: boolean;
 }
 /**
  * User Field Properties
  */
-export interface IFieldUserProps extends IFieldProps {
+export interface IFieldUserProps extends IBaseFieldProps {
     /** The properties for the user field label. */
     lblProps?: ILabelProps;
     /** Event triggered when the field value changes. */
@@ -21,15 +21,15 @@ export interface IFieldUserProps extends IFieldProps {
 /**
  * User Field State
  */
-export interface IFieldUserState extends IFieldState {
+export interface IFieldUserState extends IBaseFieldState {
     fieldInfo: IUserFieldInfo;
 }
 /**
  * User Field
  */
-export interface IFieldUser extends IField<IFieldUserProps, IFieldUserState> {
+export interface IFieldUser extends IBaseField<IFieldUserProps, IFieldUserState> {
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldUser, state: IFieldState) => void;
+    onFieldInit: (field: Types.IFieldUser, state: IBaseFieldState) => void;
 }

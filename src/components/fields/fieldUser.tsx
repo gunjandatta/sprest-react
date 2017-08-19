@@ -2,15 +2,15 @@ import * as React from "react";
 import { PeoplePicker, SPTypes, Types } from "gd-sprest";
 import { Promise } from "es6-promise";
 import { Label, ILabelProps } from "office-ui-fabric-react";
-import { Field, SPPeoplePicker } from "../common";
-import { IFieldUserProps, IFieldUserState } from "../definitions";
-import "../../sass/fieldUser.scss";
+import { BaseField, SPPeoplePicker } from "../../common";
+import { IFieldUserProps, IFieldUserState } from "../../definitions";
+import "../../../sass/fieldUser.scss";
 
 
 /**
  * User Field
  */
-export class FieldUser extends Field<IFieldUserProps, IFieldUserState> {
+export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
     /**
      * Public Interface
      */

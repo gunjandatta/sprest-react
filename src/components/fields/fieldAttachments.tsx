@@ -7,8 +7,8 @@ import {
 } from "office-ui-fabric-react";
 import {
     IAttachmentFile, IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState
-} from "../definitions";
-import "../../sass/fieldAttachments.scss";
+} from "../../definitions";
+import "../../../sass/fieldAttachments.scss";
 
 /**
  * Attachments field

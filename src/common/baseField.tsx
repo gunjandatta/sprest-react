@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Types, Web } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
-import { IField, IFieldInfo, IFieldProps, IFieldState } from "../definitions";
+import { IBaseField, IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "../definitions";
 
 /**
  * Base Field
  */
-export abstract class Field<Props extends IFieldProps, State extends IFieldState> extends React.Component<Props, State> implements IField<Props, State> {
+export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps, State extends IBaseFieldState = IBaseFieldState> extends React.Component<Props, State> implements IBaseField<Props, State> {
     /**
      * Constructor
      */
@@ -102,7 +102,7 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
             try {
                 let data = JSON.parse(sessionData);
                 let list = data[state.fieldInfo.listName] || {};
-                let field: IFieldInfo = list.Fields ? list.Fields[state.fieldInfo.name] : null;
+                let field: IBaseFieldInfo = list.Fields ? list.Fields[state.fieldInfo.name] : null;
 
                 // See if fields exist
                 if (field) {
@@ -140,6 +140,7 @@ export abstract class Field<Props extends IFieldProps, State extends IFieldState
                 state.fieldInfo.defaultValue = field.DefaultValue;
                 state.fieldInfo.required = field.Required ? true : false;
                 state.fieldInfo.title = field.Title;
+                state.fieldInfo.type = field.FieldTypeKind as number;
                 state.initFl = true;
                 state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
                 state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;

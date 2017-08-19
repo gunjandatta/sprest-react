@@ -1,12 +1,12 @@
 import * as React from "react";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
-import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../definitions";
-import { Field } from "../common";
+import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../../definitions";
+import { BaseField } from "../../common";
 
 /**
  * Number Field
  */
-export class FieldNumber extends Field<IFieldNumberProps, IFieldNumberState> {
+export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState> {
     /**
      * Public Interface
      */
@@ -37,11 +37,11 @@ export class FieldNumber extends Field<IFieldNumberProps, IFieldNumberState> {
     private getValue = () => {
         let value = this.getFieldValue();
 
-        // Default the field type
-        let fieldType = typeof (this.props.type) === "number" ? this.props.type : FieldNumberTypes.Integer;
+        // Default the number type
+        let numberType = typeof (this.props.numberType) === "number" ? this.props.numberType : FieldNumberTypes.Integer;
 
         // Ensure a value exists and need to convert it
-        if (value && fieldType == FieldNumberTypes.Integer) {
+        if (value && numberType == FieldNumberTypes.Integer) {
             // Convert the value to an integer
             let intValue = parseInt(value);
             value = intValue ? intValue.toString() : value;

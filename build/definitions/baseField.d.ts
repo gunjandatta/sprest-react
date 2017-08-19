@@ -1,83 +1,66 @@
-import {Types} from "gd-sprest";
-
+import { Types } from "gd-sprest";
 /**
- * Field Information
+ * Base Field Information
  */
-export interface IFieldInfo {
+export interface IBaseFieldInfo {
     /** The default value. */
     defaultValue?: any;
-
     /** The error message to display. This requires the "required" property to be set to true. */
     errorMessage?: string;
-
     /** The list name. */
     listName: string;
-
     /** The internal name of the field. */
     name: string;
-
     /** True indicates a required field type. */
     required?: boolean;
-
     /** The display name of the field. */
     title?: string;
-
+    /** The field type. */
+    type?: number;
     /** The relative web url containing the list. */
     webUrl?: string;
 }
-
 /**
- * Field Properties
+ * Base Field Properties
  */
-export interface IFieldProps extends IFieldInfo {
+export interface IBaseFieldProps extends IBaseFieldInfo {
     /** Flag to show a loading indicator. The default value is true. */
     showLoadingFl?: boolean;
 }
-
 /**
- * Field State
+ * BaseField State
  */
-export interface IFieldState {
+export interface IBaseFieldState {
     /** The field information. */
-    fieldInfo: IFieldInfo;
-
+    fieldInfo: IBaseFieldInfo;
     /** Flag to determine if the field is initialized. */
     initFl?: boolean;
-
     /** The field label. */
     label?: string;
-
     /** The change event */
     onChange?: (value: any) => void;
-
     /** The current field value. */
     value?: any;
-
     /** Flag to show the error message. */
     showErrorMessage?: boolean;
 }
-
-export interface IField<Props extends IFieldProps, State extends IFieldState> {
+export interface IBaseField<Props extends IBaseFieldProps, State extends IBaseFieldState> {
     /**
      * The render field event.
      */
-    renderField():any;
-
+    renderField(): any;
     /**
      * Method to get the field value.
      */
     getFieldValue: () => any;
-
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IField, state: IFieldState) => void;
-
+    onFieldInit: (field: Types.IField, state: IBaseFieldState) => void;
     /**
      * Event triggered after loading the field information.
      */
     onFieldLoaded: () => void;
-
     /**
      * Method to update the value
      */

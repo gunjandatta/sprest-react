@@ -1,17 +1,17 @@
 import * as React from "react";
 import { SPTypes, Site } from "gd-sprest";
-import { IFieldLookupProps, IFieldLookupState } from "../definitions";
-import { Field } from "../common";
+import { IFieldLookupProps, IFieldLookupState } from "../../definitions";
+import { BaseField } from "../../common";
 import {
     Checkbox,
     Dropdown, IDropdownOption, IDropdownProps
 } from "office-ui-fabric-react";
-import "../../sass/fieldLookup.scss";
+import "../../../sass/fieldLookup.scss";
 
 /**
  * Lookup Field
  */
-export class FieldLookup extends Field<IFieldLookupProps, IFieldLookupState> {
+export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState> {
     /**
      * Public Interface
      */

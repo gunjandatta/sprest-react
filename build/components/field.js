@@ -31,7 +31,6 @@ var Field = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Field.prototype.renderField = function () {
-        debugger;
         var props = this.props || {};
         var fieldInfo = this.state.fieldInfo;
         // Return the field component, based on the type

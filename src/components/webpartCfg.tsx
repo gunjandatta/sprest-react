@@ -2,7 +2,7 @@ import * as React from "react";
 import { PrimaryButton } from "office-ui-fabric-react";
 import { Page } from "../common";
 import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../definitions";
-import { Panel } from '.';
+import { Panel } from '..';
 declare var SP;
 
 /**

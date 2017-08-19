@@ -42,8 +42,6 @@ var FieldUser = (function (_super) {
             var fieldValue = _this.refs["user"].state.fieldValue;
             // Update the field value
             _this.updateValue(fieldValue);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
         };
         // The field initialized event
         _this.onFieldInit = function (field, state) {

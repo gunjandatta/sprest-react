@@ -47,9 +47,6 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
 
     // The change event for the dropdown list
     private onChanged = (option: IDropdownOption) => {
-        // Execute the change event
-        this.props.onChange ? this.props.onChange(option) : null;
-
         // Update the field value
         this.updateValue(option.key);
     }
@@ -79,9 +76,6 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
                 __metadata: { type: "Collection(Edm.Int32)" },
                 results: selectedOptions
             });
-
-            // Call the change event
-            this.props.onChange ? this.props.onChange(selectedOptions) : null;
         });
     }
 

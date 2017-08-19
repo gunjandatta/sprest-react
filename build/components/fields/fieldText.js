@@ -47,13 +47,6 @@ var FieldText = (function (_super) {
             state.fieldInfo.multiline = field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.Note;
             state.fieldInfo.rows = field.NumberOfLines;
         };
-        // The change event
-        _this.onChange = function (value) {
-            // Update the field value
-            _this.updateValue(value);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(value) : null;
-        };
         return _this;
     }
     // Method to render the component
@@ -63,7 +56,7 @@ var FieldText = (function (_super) {
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
-        props.onChanged = this.onChange;
+        props.onChanged = this.updateValue;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
         props.value = this.getFieldValue();

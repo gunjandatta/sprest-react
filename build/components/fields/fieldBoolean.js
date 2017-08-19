@@ -40,8 +40,6 @@ var FieldBoolean = (function (_super) {
             var value = _this.refs["checkbox"].checked;
             // Update the value
             _this.updateValue(value);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(value) : null;
         };
         return _this;
     }

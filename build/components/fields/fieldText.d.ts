@@ -13,5 +13,4 @@ export declare class FieldText extends BaseField<IFieldTextProps, IFieldTextStat
      * Events
      */
     onFieldInit: (field: any, state: IFieldTextState) => void;
-    private onChange;
 }

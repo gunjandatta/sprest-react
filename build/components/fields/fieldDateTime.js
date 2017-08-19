@@ -49,8 +49,6 @@ var FieldDateTime = (function (_super) {
             date.setMilliseconds(0);
             // Update the value
             _this.updateValue(date);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(date) : null;
         };
         // The time changed event
         _this.onTimeChanged = function (option) {
@@ -64,8 +62,6 @@ var FieldDateTime = (function (_super) {
             date.setMinutes(minutes);
             // Update the value
             _this.updateValue(date);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(date) : null;
         };
         /**
          * Methods

@@ -38,8 +38,6 @@ var FieldLookup = (function (_super) {
          */
         // The change event for the dropdown list
         _this.onChanged = function (option) {
-            // Execute the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
             // Update the field value
             _this.updateValue(option.key);
         };
@@ -64,8 +62,6 @@ var FieldLookup = (function (_super) {
                     __metadata: { type: "Collection(Edm.Int32)" },
                     results: selectedOptions
                 });
-                // Call the change event
-                _this.props.onChange ? _this.props.onChange(selectedOptions) : null;
             });
         };
         // The field initialized event

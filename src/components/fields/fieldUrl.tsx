@@ -55,9 +55,6 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
         // Update the value
         this.updateValue(this.getValue(fieldValue));
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(fieldValue) : null;
     }
 
     // The change event for the url field
@@ -70,9 +67,6 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
         // Update the value
         this.updateValue(this.getValue(fieldValue));
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(fieldValue) : null;
     }
 
     /**

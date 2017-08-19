@@ -42,8 +42,6 @@ var FieldUrl = (function (_super) {
             fieldValue.Description = value;
             // Update the value
             _this.updateValue(_this.getValue(fieldValue));
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
         };
         // The change event for the url field
         _this.onUrlChanged = function (value) {
@@ -53,8 +51,6 @@ var FieldUrl = (function (_super) {
             fieldValue.Url = value;
             // Update the value
             _this.updateValue(_this.getValue(fieldValue));
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
         };
         /**
          * Methods

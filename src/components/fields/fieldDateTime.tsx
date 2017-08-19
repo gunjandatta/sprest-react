@@ -57,9 +57,6 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Update the value
         this.updateValue(date);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(date) : null;
     }
 
     // The time changed event
@@ -76,9 +73,6 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Update the value
         this.updateValue(date);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(date) : null;
     }
 
     /**

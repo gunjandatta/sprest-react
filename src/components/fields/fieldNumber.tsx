@@ -18,7 +18,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         // Update the properties
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label ? props.label : this.state.label;
-        props.onChanged = this.onChange;
+        props.onChanged = this.updateValue;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.value = this.getValue();
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
@@ -49,14 +49,5 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
 
         // Return the value
         return value;
-    }
-
-    // The change event
-    private onChange = (value: string) => {
-        // Update the value
-        this.updateValue(value);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(parseInt(value)) : null;
     }
 }

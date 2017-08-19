@@ -38,8 +38,5 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
 
         // Update the value
         this.updateValue(value);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(value) : null;
     }
 }

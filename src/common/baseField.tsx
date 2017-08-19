@@ -42,6 +42,9 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
 
     // Method to update the value
     updateValue = (value: any) => {
+        // Call the on change event
+        this.props.onChange ? this.props.onChange(value) : null;
+        
         // Update the state
         this.setState({
             showErrorMessage: this.state.fieldInfo.required ? (value ? false : true) : false,
@@ -54,7 +57,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         // See if the field is initialized
         if (this.state.initFl) {
             // Render the field
-            return this.renderField();
+            return this.props.onRender ? this.props.onRender(this.state.fieldInfo) : this.renderField();
         }
 
         // Determine if we are showing a spinner

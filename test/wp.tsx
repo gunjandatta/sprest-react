@@ -1,8 +1,7 @@
 import * as React from "react";
 import { PrimaryButton, Spinner } from "office-ui-fabric-react";
-import { Panel } from "../build";
+import { ItemForm, Panel } from "../build";
 import { DataSource, ITestItem } from "./data";
-import { ItemForm } from "./itemForm";
 import { TestList } from "./list";
 import { IDemoCfg } from "./wpCfg";
 
@@ -47,7 +46,7 @@ export class DemoWebpart extends React.Component<Props, State> {
     // Render the component
     render() {
         // See if the data needs to be loaded
-        if(this.state.items == null) {
+        if (this.state.items == null) {
             // Load the items
             this.state.datasource.load().then((items: any) => {
                 // Update the state
@@ -82,9 +81,26 @@ export class DemoWebpart extends React.Component<Props, State> {
                         </div>
                     </div>
                     <ItemForm
+                        fields={[
+                            { name: "Attachments" },
+                            { name: "Title" },
+                            { name: "TestBoolean" },
+                            { name: "TestChoice" },
+                            { name: "TestDate" },
+                            { name: "TestDateTime" },
+                            { name: "TestLookup" },
+                            { name: "TestMultiChoice" },
+                            { name: "TestMultiLookup" },
+                            { name: "TestMultiUser" },
+                            { name: "TestNote" },
+                            { name: "TestNumberDecimal" },
+                            { name: "TestNumberInteger" },
+                            { name: "TestUrl" },
+                            { name: "TestUser" }
+                        ]}
                         item={this.state.item}
                         listName={this.props.cfg.ListName}
-                        ref="item"
+                        ref="itemForm"
                     />
                 </Panel>
             </div>
@@ -129,21 +145,13 @@ export class DemoWebpart extends React.Component<Props, State> {
 
     // Method to save the item
     private save = () => {
-        let itemForm: ItemForm = this.refs["item"] as ItemForm;
+        let itemForm: ItemForm = this.refs["itemForm"] as ItemForm;
 
         // Save the item
-        this.state.datasource.save(itemForm.getValues()).then((item: ITestItem) => {
-            // Ensure the item exists
-            if (item.existsFl) {
-                // Save the attachments
-                itemForm.saveAttachments(item.Id).then(() => {
-                    // Update the message
-                    (this.refs["message"] as HTMLSpanElement).innerHTML = "The item was saved successfully.";
-                });
-            } else {
-                // Update the message
-                (this.refs["message"] as HTMLSpanElement).innerHTML = "Error: " + item.response;
-            }
+        itemForm.save<ITestItem>().then(item => {
+            // Update the message
+            (this.refs["message"] as HTMLSpanElement).innerHTML =
+                item.existsFl ? "The item was saved successfully." : "Error: " + item.response;
         });
     }
 

@@ -20,7 +20,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
-        props.onChanged = this.onChange;
+        props.onChanged = this.updateValue;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
         props.value = this.getFieldValue();
@@ -48,14 +48,5 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         // Update the state
         state.fieldInfo.multiline = field.FieldTypeKind == SPTypes.FieldType.Note;
         state.fieldInfo.rows = field.NumberOfLines;
-    }
-
-    // The change event
-    private onChange = (value: string) => {
-        // Update the field value
-        this.updateValue(value);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(value) : null;
     }
 }

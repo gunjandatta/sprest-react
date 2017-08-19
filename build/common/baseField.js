@@ -36,6 +36,8 @@ var BaseField = (function (_super) {
         _this.onFieldLoaded = function () { };
         // Method to update the value
         _this.updateValue = function (value) {
+            // Call the on change event
+            _this.props.onChange ? _this.props.onChange(value) : null;
             // Update the state
             _this.setState({
                 showErrorMessage: _this.state.fieldInfo.required ? (value ? false : true) : false,
@@ -122,7 +124,7 @@ var BaseField = (function (_super) {
         // See if the field is initialized
         if (this.state.initFl) {
             // Render the field
-            return this.renderField();
+            return this.props.onRender ? this.props.onRender(this.state.fieldInfo) : this.renderField();
         }
         // Determine if we are showing a spinner
         var showFl = typeof (this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;

@@ -60,9 +60,6 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
         // Update the field value
         this.updateValue(fieldValue);
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(fieldValue) : null;
     }
 
     // The field initialized event

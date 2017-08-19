@@ -47,9 +47,6 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
 
     // The change event for the dropdown list
     protected onChanged = (option: IDropdownOption) => {
-        // Execute the change event
-        this.props.onChange ? this.props.onChange(option) : null;
-
         // Update the field value
         this.updateValue(option.key);
     }
@@ -78,9 +75,6 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
             this.updateValue({
                 results: selectedChoices
             });
-
-            // Call the change event
-            this.props.onChange ? this.props.onChange(selectedChoices) : null;
         });
     }
 

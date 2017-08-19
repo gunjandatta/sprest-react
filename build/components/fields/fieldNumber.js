@@ -49,13 +49,6 @@ var FieldNumber = (function (_super) {
             // Return the value
             return value;
         };
-        // The change event
-        _this.onChange = function (value) {
-            // Update the value
-            _this.updateValue(value);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(parseInt(value)) : null;
-        };
         return _this;
     }
     // Method to render the component
@@ -64,7 +57,7 @@ var FieldNumber = (function (_super) {
         // Update the properties
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label ? props.label : this.state.label;
-        props.onChanged = this.onChange;
+        props.onChanged = this.updateValue;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.value = this.getValue();
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";

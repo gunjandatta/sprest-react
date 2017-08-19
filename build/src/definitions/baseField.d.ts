@@ -24,6 +24,10 @@ export interface IBaseFieldInfo {
  * Base Field Properties
  */
 export interface IBaseFieldProps extends IBaseFieldInfo {
+    /** The on change event */
+    onChange?: (value: any) => void;
+    /** The on render method */
+    onRender?: (fieldInfo: IBaseFieldInfo) => void;
     /** Flag to show a loading indicator. The default value is true. */
     showLoadingFl?: boolean;
 }

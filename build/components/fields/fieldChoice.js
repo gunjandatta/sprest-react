@@ -38,8 +38,6 @@ var FieldChoice = (function (_super) {
          */
         // The change event for the dropdown list
         _this.onChanged = function (option) {
-            // Execute the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
             // Update the field value
             _this.updateValue(option.key);
         };
@@ -63,8 +61,6 @@ var FieldChoice = (function (_super) {
                 _this.updateValue({
                     results: selectedChoices
                 });
-                // Call the change event
-                _this.props.onChange ? _this.props.onChange(selectedChoices) : null;
             });
         };
         // The field initialized event

@@ -13,5 +13,4 @@ export declare class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumb
      * Methods
      */
     private getValue;
-    private onChange;
 }

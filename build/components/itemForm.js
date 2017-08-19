@@ -77,7 +77,7 @@ var ItemForm = (function (_super) {
                     default:
                         formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
                             React.createElement("div", { className: "ms-Grid-col ms-u-md12" },
-                                React.createElement(_1.Field, { listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender }))));
+                                React.createElement(_1.Field, { defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender }))));
                         break;
                 }
             }

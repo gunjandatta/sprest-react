@@ -142,6 +142,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         <div className="ms-Grid-row" key={"row_" + field.name}>
                             <div className="ms-Grid-col ms-u-md12">
                                 <Field
+                                    defaultValue={item[field.name]}
                                     listName={this.props.listName}
                                     key={field.name}
                                     name={field.name}

@@ -44,9 +44,35 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
         // Set the state
         this.state = {
-            fieldValue: this.convertToFieldValue(personas),
+            fieldValue: SPPeoplePicker.convertToFieldValue(personas),
             personas
         };
+    }
+
+    // Method to convert the personas to a field value
+    static convertToFieldValue = (personas: Array<IPersonaProps>, allowMultiple?: boolean) => {
+        let fieldValue = null;
+
+        // See if we are allowing multiple
+        if (allowMultiple) {
+            // Default the field value
+            fieldValue = { results: [] };
+
+            // Parse the personas
+            for (let i = 0; i < personas.length; i++) {
+                // Add the user id
+                fieldValue.results.push(personas[i].itemID);
+            }
+        } else {
+            // Get the last persona
+            let persona = personas.length > 0 ? personas[personas.length - 1] : null;
+
+            // Set the field value
+            fieldValue = persona ? persona.itemID : null;
+        }
+
+        // Return the field value
+        return fieldValue;
     }
 
     // Render the component
@@ -78,38 +104,12 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Methods
      */
 
-    // Method to convert the personas to a field value
-    private convertToFieldValue = (personas: Array<IPersonaProps>) => {
-        let fieldValue = null;
-
-        // See if we are allowing multiple
-        if (this.props.allowMultiple) {
-            // Default the field value
-            fieldValue = { results: [] };
-
-            // Parse the personas
-            for (let i = 0; i < personas.length; i++) {
-                // Add the user id
-                fieldValue.results.push(personas[i].itemID);
-            }
-        } else {
-            // Get the last persona
-            let persona = personas.length > 0 ? personas[personas.length - 1] : null;
-
-            // Set the field value
-            fieldValue = persona ? persona.itemID : null;
-        }
-
-        // Return the field value
-        return fieldValue;
-    }
-
     // Method to convert the user to persona value
     private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue>): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist
-        if(users && users.length > 0) {
+        if (users && users.length > 0) {
             // Parse the users
             for (let i = 0; i < users.length; i++) {
                 let user: Types.ComplexTypes.FieldUserValue = users[i];
@@ -143,7 +143,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
         // Update the state
         this.setState({
-            fieldValue: this.convertToFieldValue(personas),
+            fieldValue: SPPeoplePicker.convertToFieldValue(personas),
             personas
         }, () => {
             // Call the custom onChange event

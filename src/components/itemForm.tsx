@@ -3,6 +3,7 @@ import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
 import {
     IBaseFieldInfo,
+    IFieldUserState,
     IItemFormField, IItemFormProps, IItemFormState
 } from "../definitions";
 import { Field, Fields } from ".";
@@ -131,20 +132,32 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // See if this is a field
             if (ref instanceof Field) {
                 let field = ref as Field;
+                let fieldValue: any = (ref as Field).state.value;
 
                 // See if this is a lookup or user field
                 if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
                     field.state.fieldInfo.type == SPTypes.FieldType.User) {
                     // Ensure the field name is the "Id" field
                     fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
-                }
 
-                // Remove the 'deferred' property from the field value
-                // Note - This is for existing items
-                // Note - This may not be needed. Need to figure out why updates aren't working.
-                let fieldValue: any = (ref as Field).state.value;
-                if (fieldValue && fieldValue.__deferred) {
-                    delete fieldValue.__deferred;
+                    // See if this is a multi-value field
+                    if (fieldValue.results) {
+                        let results = [];
+
+                        // Parse the personas
+                        for (let i = 0; i < fieldValue.results.length; i++) {
+                            let lookupValue = fieldValue.results[i];
+
+                            // Add the user id
+                            results.push(lookupValue.ID || lookupValue);
+                        }
+
+                        // Set the field value
+                        fieldValue = { results };
+                    } else {
+                        // Ensure a value exists
+                        fieldValue = fieldValue > 0 ? fieldValue : null;
+                    }
                 }
 
                 // Set the field value

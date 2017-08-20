@@ -40,28 +40,6 @@ var SPPeoplePicker = (function (_super) {
         /**
          * Methods
          */
-        // Method to convert the personas to a field value
-        _this.convertToFieldValue = function (personas) {
-            var fieldValue = null;
-            // See if we are allowing multiple
-            if (_this.props.allowMultiple) {
-                // Default the field value
-                fieldValue = { results: [] };
-                // Parse the personas
-                for (var i = 0; i < personas.length; i++) {
-                    // Add the user id
-                    fieldValue.results.push(personas[i].itemID);
-                }
-            }
-            else {
-                // Get the last persona
-                var persona = personas.length > 0 ? personas[personas.length - 1] : null;
-                // Set the field value
-                fieldValue = persona ? persona.itemID : null;
-            }
-            // Return the field value
-            return fieldValue;
-        };
         // Method to convert the user to persona value
         _this.convertToPersonas = function (users) {
             var personas = [];
@@ -96,7 +74,7 @@ var SPPeoplePicker = (function (_super) {
             }
             // Update the state
             _this.setState({
-                fieldValue: _this.convertToFieldValue(personas),
+                fieldValue: SPPeoplePicker.convertToFieldValue(personas),
                 personas: personas
             }, function () {
                 // Call the custom onChange event
@@ -153,7 +131,7 @@ var SPPeoplePicker = (function (_super) {
         var personas = props.props && props.props.defaultSelectedItems ? props.props.defaultSelectedItems : _this.convertToPersonas(props.fieldValue);
         // Set the state
         _this.state = {
-            fieldValue: _this.convertToFieldValue(personas),
+            fieldValue: SPPeoplePicker.convertToFieldValue(personas),
             personas: personas
         };
         return _this;
@@ -170,6 +148,28 @@ var SPPeoplePicker = (function (_super) {
         };
         // Return the people picker
         return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { defaultSelectedItems: this.state.personas, getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps })));
+    };
+    // Method to convert the personas to a field value
+    SPPeoplePicker.convertToFieldValue = function (personas, allowMultiple) {
+        var fieldValue = null;
+        // See if we are allowing multiple
+        if (allowMultiple) {
+            // Default the field value
+            fieldValue = { results: [] };
+            // Parse the personas
+            for (var i = 0; i < personas.length; i++) {
+                // Add the user id
+                fieldValue.results.push(personas[i].itemID);
+            }
+        }
+        else {
+            // Get the last persona
+            var persona = personas.length > 0 ? personas[personas.length - 1] : null;
+            // Set the field value
+            fieldValue = persona ? persona.itemID : null;
+        }
+        // Return the field value
+        return fieldValue;
     };
     return SPPeoplePicker;
 }(React.Component));

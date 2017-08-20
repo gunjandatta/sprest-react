@@ -54,9 +54,9 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      */
 
     // The change event
-    onChange = () => {
+    onChange = (personas) => {
         // Get the field value
-        let fieldValue = (this.refs["user"] as SPPeoplePicker).state.fieldValue;
+        let fieldValue = SPPeoplePicker.convertToFieldValue(personas);
 
         // Update the field value
         this.updateValue(fieldValue);

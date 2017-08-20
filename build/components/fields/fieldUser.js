@@ -37,9 +37,9 @@ var FieldUser = (function (_super) {
          * Events
          */
         // The change event
-        _this.onChange = function () {
+        _this.onChange = function (personas) {
             // Get the field value
-            var fieldValue = _this.refs["user"].state.fieldValue;
+            var fieldValue = common_1.SPPeoplePicker.convertToFieldValue(personas);
             // Update the field value
             _this.updateValue(fieldValue);
         };

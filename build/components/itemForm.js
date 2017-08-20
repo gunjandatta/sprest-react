@@ -193,18 +193,28 @@ var ItemForm = (function (_super) {
             // See if this is a field
             if (ref instanceof _1.Field) {
                 var field = ref;
+                var fieldValue = ref.state.value;
                 // See if this is a lookup or user field
                 if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
                     field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
                     // Ensure the field name is the "Id" field
                     fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
-                }
-                // Remove the 'deferred' property from the field value
-                // Note - This is for existing items
-                // Note - This may not be needed. Need to figure out why updates aren't working.
-                var fieldValue = ref.state.value;
-                if (fieldValue && fieldValue.__deferred) {
-                    delete fieldValue.__deferred;
+                    // See if this is a multi-value field
+                    if (fieldValue.results) {
+                        var results = [];
+                        // Parse the personas
+                        for (var i = 0; i < fieldValue.results.length; i++) {
+                            var lookupValue = fieldValue.results[i];
+                            // Add the user id
+                            results.push(lookupValue.ID || lookupValue);
+                        }
+                        // Set the field value
+                        fieldValue = { results: results };
+                    }
+                    else {
+                        // Ensure a value exists
+                        fieldValue = fieldValue > 0 ? fieldValue : null;
+                    }
                 }
                 // Set the field value
                 formValues[fieldName] = fieldValue;

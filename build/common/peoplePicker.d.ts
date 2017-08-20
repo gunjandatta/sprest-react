@@ -29,11 +29,11 @@ export declare class SPPeoplePicker extends React.Component<ISPPeoplePickerProps
      * Constructor
      */
     constructor(props: ISPPeoplePickerProps);
+    static convertToFieldValue: (personas: IPersonaProps[], allowMultiple?: boolean) => any;
     render(): JSX.Element;
     /**
      * Methods
      */
-    private convertToFieldValue;
     private convertToPersonas;
     private onChange;
     private search;

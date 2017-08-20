@@ -24,6 +24,7 @@ var ItemForm = (function (_super) {
      */
     function ItemForm(props) {
         var _this = _super.call(this, props) || this;
+        _this._list = null;
         /**
          * Methods
          */
@@ -32,30 +33,54 @@ var ItemForm = (function (_super) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
                 var query = {
-                    Select: []
+                    Select: ["*"]
                 };
-                // Get the select fields
+                // Parse the fields
                 for (var i = 0; i < _this.props.fields.length; i++) {
                     var field = _this.props.fields[i];
-                    // Add the field
-                    query.Select.push(field.name);
                     // See if this is the attachments field
                     if (field.name == "Attachments") {
-                        // Expand the attachments
-                        query.Expand = ["Attachments"];
+                        // Expand the attachment files
+                        query.Expand = ["AttachmentFiles"];
                         // Get the attachment files
+                        query.Select.push("Attachments");
                         query.Select.push("AttachmentFiles");
+                        // Break from the loop
+                        break;
                     }
                 }
-                // Get the web
-                (new gd_sprest_1.Web(_this.props.webUrl))
-                    .Lists(_this.props.listName)
-                    .Items(itemId)
-                    .query(query)
-                    .execute(function (item) {
-                    // Resolve the promise
-                    resolve(item.Id);
+                // Get the list
+                _this.getList().then(function (list) {
+                    // Get the items
+                    list.Items(itemId)
+                        .query(query)
+                        .execute(function (item) {
+                        // Resolve the promise
+                        resolve(item);
+                    });
                 });
+            });
+        };
+        // Method to get the list
+        _this.getList = function () {
+            // Return a promise
+            return new es6_promise_1.Promise(function (resolve, reject) {
+                // See if we have already queried the list
+                if (_this._list) {
+                    // Resolve the promise
+                    resolve(_this._list);
+                }
+                else {
+                    // Get the web
+                    (new gd_sprest_1.Web(_this.props.webUrl))
+                        .Lists(_this.props.listName)
+                        .execute(function (list) {
+                        // Save the list
+                        _this._list = list;
+                        // Resolve the promise
+                        resolve(list);
+                    });
+                }
             });
         };
         // Method to render the fields
@@ -77,7 +102,7 @@ var ItemForm = (function (_super) {
                     default:
                         formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
                             React.createElement("div", { className: "ms-Grid-col ms-u-md12" },
-                                React.createElement(_1.Field, { defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender }))));
+                                React.createElement(_1.Field, { defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender, ref: field.name }))));
                         break;
                 }
             }
@@ -119,14 +144,17 @@ var ItemForm = (function (_super) {
                     });
                 }
                 else {
-                    // Get the web
-                    (new gd_sprest_1.Web(_this.props.webUrl))
-                        .Lists(_this.props.listName)
-                        .Items()
-                        .add(formValues)
-                        .execute(function (item) {
-                        // Resolve the request
-                        resolve(item.Id);
+                    // Get the list
+                    _this.getList().then(function (list) {
+                        // Set the metadata type
+                        formValues["__metadata"] = { type: list.ListItemEntityTypeFullName };
+                        // Get the items
+                        list.Items()
+                            .add(formValues)
+                            .execute(function (item) {
+                            // Resolve the request
+                            resolve(item.Id);
+                        });
                     });
                 }
             });
@@ -158,9 +186,20 @@ var ItemForm = (function (_super) {
         // Parse the references
         for (var fieldName in this.refs) {
             var ref = this.refs[fieldName];
+            // Skip the attachments
+            if (fieldName == "attachments") {
+                continue;
+            }
             // See if this is a field
             if (ref instanceof _1.Field) {
-                // Update the item value
+                var field = ref;
+                // See if this is a lookup or user field
+                if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                    field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
+                    // Ensure the field name is the "Id" field
+                    fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
+                }
+                // Set the field value
                 formValues[fieldName] = ref.state.value;
             }
         }

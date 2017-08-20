@@ -36,10 +36,9 @@ var FieldBoolean = (function (_super) {
             return typeof (value) === "boolean" ? value : false;
         };
         // The on change event
-        _this.onChange = function () {
-            var value = _this.refs["checkbox"].checked;
+        _this.onChange = function (ev, checked) {
             // Update the value
-            _this.updateValue(value);
+            _this.updateValue(checked);
         };
         return _this;
     }

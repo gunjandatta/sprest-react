@@ -5,6 +5,7 @@ import { IItemFormProps, IItemFormState } from "../definitions";
  * Item Form WebPart
  */
 export declare class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
+    private _list;
     /**
      * Constructor
      */
@@ -15,6 +16,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Methods
      */
     private getItem;
+    private getList;
     private getValues<IItem>();
     private renderFields;
     private saveAttachments;

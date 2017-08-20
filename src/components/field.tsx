@@ -7,6 +7,7 @@ import * as Fields from "./fields";
  * Field
  */
 export class Field extends BaseField {
+    // Method to render the field
     renderField(): any {
         let props: any = this.props || {};
         let fieldInfo = this.state.fieldInfo;
@@ -15,36 +16,46 @@ export class Field extends BaseField {
         switch (fieldInfo.type) {
             // Boolean
             case SPTypes.FieldType.Boolean:
-                return <Fields.FieldBoolean {...props} />;
+                return <Fields.FieldBoolean {...props} onChange={this.onChange} />;
             // Choice
             case SPTypes.FieldType.Choice:
             case SPTypes.FieldType.MultiChoice:
-                return <Fields.FieldChoice {...props} />;
+                return <Fields.FieldChoice {...props} onChange={this.onChange} />;
             // Date/Time
             case SPTypes.FieldType.DateTime:
-                return <Fields.FieldDateTime {...props} />;
+                return <Fields.FieldDateTime {...props} onChange={this.onChange} />;
             // Lookup
             case SPTypes.FieldType.Lookup:
-                return <Fields.FieldLookup {...props} />;
+                return <Fields.FieldLookup {...props} onChange={this.onChange} />;
             // Number
             case SPTypes.FieldType.Currency:
             case SPTypes.FieldType.Number:
-                return <Fields.FieldNumber {...props} />;
+                return <Fields.FieldNumber {...props} onChange={this.onChange} />;
             // Text
             case SPTypes.FieldType.Note:
             case SPTypes.FieldType.Text:
-                return <Fields.FieldText {...props} />;
+                return <Fields.FieldText {...props} onChange={this.onChange} />;
             // URL
             case SPTypes.FieldType.URL:
-                return <Fields.FieldUrl {...props} />;
+                return <Fields.FieldUrl {...props} onChange={this.onChange} />;
             // User
             case SPTypes.FieldType.User:
-                return <Fields.FieldUser {...props} />;
+                return <Fields.FieldUser {...props} onChange={this.onChange} />;
             // Default
             default:
                 return (
                     <div>{this.state.value}</div>
                 );
         }
+    }
+
+    /**
+     * Methods
+     */
+
+    // The on change event
+    private onChange = (value) => {
+        // Update the state
+        this.setState({ value });
     }
 }

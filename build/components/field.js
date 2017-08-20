@@ -28,8 +28,18 @@ var Fields = require("./fields");
 var Field = (function (_super) {
     __extends(Field, _super);
     function Field() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * Methods
+         */
+        // The on change event
+        _this.onChange = function (value) {
+            // Update the state
+            _this.setState({ value: value });
+        };
+        return _this;
     }
+    // Method to render the field
     Field.prototype.renderField = function () {
         var props = this.props || {};
         var fieldInfo = this.state.fieldInfo;
@@ -37,31 +47,31 @@ var Field = (function (_super) {
         switch (fieldInfo.type) {
             // Boolean
             case gd_sprest_1.SPTypes.FieldType.Boolean:
-                return React.createElement(Fields.FieldBoolean, __assign({}, props));
+                return React.createElement(Fields.FieldBoolean, __assign({}, props, { onChange: this.onChange }));
             // Choice
             case gd_sprest_1.SPTypes.FieldType.Choice:
             case gd_sprest_1.SPTypes.FieldType.MultiChoice:
-                return React.createElement(Fields.FieldChoice, __assign({}, props));
+                return React.createElement(Fields.FieldChoice, __assign({}, props, { onChange: this.onChange }));
             // Date/Time
             case gd_sprest_1.SPTypes.FieldType.DateTime:
-                return React.createElement(Fields.FieldDateTime, __assign({}, props));
+                return React.createElement(Fields.FieldDateTime, __assign({}, props, { onChange: this.onChange }));
             // Lookup
             case gd_sprest_1.SPTypes.FieldType.Lookup:
-                return React.createElement(Fields.FieldLookup, __assign({}, props));
+                return React.createElement(Fields.FieldLookup, __assign({}, props, { onChange: this.onChange }));
             // Number
             case gd_sprest_1.SPTypes.FieldType.Currency:
             case gd_sprest_1.SPTypes.FieldType.Number:
-                return React.createElement(Fields.FieldNumber, __assign({}, props));
+                return React.createElement(Fields.FieldNumber, __assign({}, props, { onChange: this.onChange }));
             // Text
             case gd_sprest_1.SPTypes.FieldType.Note:
             case gd_sprest_1.SPTypes.FieldType.Text:
-                return React.createElement(Fields.FieldText, __assign({}, props));
+                return React.createElement(Fields.FieldText, __assign({}, props, { onChange: this.onChange }));
             // URL
             case gd_sprest_1.SPTypes.FieldType.URL:
-                return React.createElement(Fields.FieldUrl, __assign({}, props));
+                return React.createElement(Fields.FieldUrl, __assign({}, props, { onChange: this.onChange }));
             // User
             case gd_sprest_1.SPTypes.FieldType.User:
-                return React.createElement(Fields.FieldUser, __assign({}, props));
+                return React.createElement(Fields.FieldUser, __assign({}, props, { onChange: this.onChange }));
             // Default
             default:
                 return (React.createElement("div", null, this.state.value));

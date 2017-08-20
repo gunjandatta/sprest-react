@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Promise } from "es6-promise";
-import { Types, Web } from "gd-sprest";
+import { SPTypes, Types, Web } from "gd-sprest";
 import {
     IBaseFieldInfo,
     IItemFormField, IItemFormProps, IItemFormState
@@ -11,6 +11,8 @@ import { Field, Fields } from ".";
  * Item Form WebPart
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
+    private _list: Types.IListResult = null;
+
     /**
      * Constructor
      */
@@ -55,39 +57,64 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Return a promise
         return new Promise((resolve, reject) => {
             let query = {
-                Select: []
+                Select: ["*"]
             } as Types.ODataQuery;
 
-            // Get the select fields
+            // Parse the fields
             for (let i = 0; i < this.props.fields.length; i++) {
                 let field = this.props.fields[i];
 
-                // Add the field
-                query.Select.push(field.name);
-
                 // See if this is the attachments field
                 if (field.name == "Attachments") {
-                    // Expand the attachments
-                    query.Expand = ["Attachments"];
+                    // Expand the attachment files
+                    query.Expand = ["AttachmentFiles"];
 
                     // Get the attachment files
+                    query.Select.push("Attachments");
                     query.Select.push("AttachmentFiles");
+
+                    // Break from the loop
+                    break;
                 }
             }
 
-            // Get the web
-            (new Web(this.props.webUrl))
-                // Get the list
-                .Lists(this.props.listName)
+            // Get the list
+            this.getList().then((list: Types.IListResult) => {
                 // Get the items
-                .Items(itemId)
-                // Set the query
-                .query(query)
-                // Execute the request
-                .execute(item => {
-                    // Resolve the promise
-                    resolve(item.Id);
-                });
+                list.Items(itemId)
+                    // Set the query
+                    .query(query)
+                    // Execute the request
+                    .execute(item => {
+                        // Resolve the promise
+                        resolve(item);
+                    });
+            });
+        });
+    }
+
+    // Method to get the list
+    private getList = () => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // See if we have already queried the list
+            if (this._list) {
+                // Resolve the promise
+                resolve(this._list);
+            } else {
+                // Get the web
+                (new Web(this.props.webUrl))
+                    // Get the list
+                    .Lists(this.props.listName)
+                    // Execute this request
+                    .execute(list => {
+                        // Save the list
+                        this._list = list;
+
+                        // Resolve the promise
+                        resolve(list);
+                    });
+            }
         });
     }
 
@@ -99,9 +126,21 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         for (let fieldName in this.refs) {
             let ref = this.refs[fieldName];
 
+            // Skip the attachments
+            if (fieldName == "attachments") { continue; }
+
             // See if this is a field
             if (ref instanceof Field) {
-                // Update the item value
+                let field = ref as Field;
+
+                // See if this is a lookup or user field
+                if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
+                    field.state.fieldInfo.type == SPTypes.FieldType.User) {
+                    // Ensure the field name is the "Id" field
+                    fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
+                }
+
+                // Set the field value
                 formValues[fieldName] = (ref as Field).state.value;
             }
         }
@@ -148,6 +187,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                                     name={field.name}
                                     onChange={field.onChange}
                                     onRender={field.onRender}
+                                    ref={field.name}
                                 />
                             </div>
                         </div>
@@ -196,19 +236,21 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     resolve(item.Id);
                 });
             } else {
-                // Get the web
-                (new Web(this.props.webUrl))
-                    // Get the list
-                    .Lists(this.props.listName)
+                // Get the list
+                this.getList().then((list: Types.IListResult) => {
+                    // Set the metadata type
+                    formValues["__metadata"] = { type: list.ListItemEntityTypeFullName };
+
                     // Get the items
-                    .Items()
-                    // Add the item
-                    .add(formValues)
-                    // Execute the request
-                    .execute(item => {
-                        // Resolve the request
-                        resolve(item.Id);
-                    });
+                    list.Items()
+                        // Add the item
+                        .add(formValues)
+                        // Execute the request
+                        .execute(item => {
+                            // Resolve the request
+                            resolve(item.Id);
+                        });
+                });
             }
         });
     }

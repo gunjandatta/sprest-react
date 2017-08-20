@@ -7,7 +7,7 @@ import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "..
  */
 export interface IChoiceFieldInfo extends IBaseFieldInfo {
     /** The dropdown choices. */
-    choices: Array<IDropdownOption>;
+    choices: Types.ComplexTypes.FieldMultiChoiceValue;
 
     /** Flag to determine if this is a multi-choice field. */
     multiChoice?: boolean;
@@ -28,8 +28,8 @@ export interface IFieldChoiceProps extends IBaseFieldProps {
  * Choice Field State
  */
 export interface IFieldChoiceState extends IBaseFieldState {
-    /** The dropdown choices. */
-    choices?: Array<IDropdownOption>;
+    /** The dropdown options. */
+    options?: Array<IDropdownOption>;
 
     /** The field information */
     fieldInfo: IChoiceFieldInfo;

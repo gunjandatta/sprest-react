@@ -132,32 +132,43 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // See if this is a field
             if (ref instanceof Field) {
                 let field = ref as Field;
-                let fieldValue: any = (ref as Field).state.value;
 
                 // See if this is a lookup or user field
                 if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
                     field.state.fieldInfo.type == SPTypes.FieldType.User) {
                     // Ensure the field name is the "Id" field
                     fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
+                }
 
+                // Get the field value
+                let fieldValue: any = (ref as Field).state.value;
+                if (fieldValue) {
                     // See if this is a multi-value field
                     if (fieldValue.results) {
                         let results = [];
 
-                        // Parse the personas
+                        // Parse the results
                         for (let i = 0; i < fieldValue.results.length; i++) {
                             let lookupValue = fieldValue.results[i];
 
-                            // Add the user id
+                            // Add the lookup id if it exists
                             results.push(lookupValue.ID || lookupValue);
                         }
 
                         // Set the field value
                         fieldValue = { results };
-                    } else {
-                        // Ensure a value exists
+                    }
+                    // See if this is a lookup or user field
+                    else if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
+                        field.state.fieldInfo.type == SPTypes.FieldType.User) {
+                        // Clear the value if it doesn't exist
                         fieldValue = fieldValue > 0 ? fieldValue : null;
                     }
+                }
+                // Else, see if this is a multi-choice field
+                else if (field.state.fieldInfo.type == SPTypes.FieldType.MultiChoice) {
+                    // Default the value
+                    fieldValue = { results: [] };
                 }
 
                 // Set the field value

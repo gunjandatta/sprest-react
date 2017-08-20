@@ -193,28 +193,36 @@ var ItemForm = (function (_super) {
             // See if this is a field
             if (ref instanceof _1.Field) {
                 var field = ref;
-                var fieldValue = ref.state.value;
                 // See if this is a lookup or user field
                 if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
                     field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
                     // Ensure the field name is the "Id" field
                     fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
+                }
+                // Get the field value
+                var fieldValue = ref.state.value;
+                if (fieldValue) {
                     // See if this is a multi-value field
                     if (fieldValue.results) {
                         var results = [];
-                        // Parse the personas
+                        // Parse the results
                         for (var i = 0; i < fieldValue.results.length; i++) {
                             var lookupValue = fieldValue.results[i];
-                            // Add the user id
+                            // Add the lookup id if it exists
                             results.push(lookupValue.ID || lookupValue);
                         }
                         // Set the field value
                         fieldValue = { results: results };
                     }
-                    else {
-                        // Ensure a value exists
+                    else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                        field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
+                        // Clear the value if it doesn't exist
                         fieldValue = fieldValue > 0 ? fieldValue : null;
                     }
+                }
+                else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.MultiChoice) {
+                    // Default the value
+                    fieldValue = { results: [] };
                 }
                 // Set the field value
                 formValues[fieldName] = fieldValue;

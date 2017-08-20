@@ -33,6 +33,7 @@ var ItemForm = (function (_super) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
                 var query = {
+                    Filter: "ID eq " + itemId,
                     Select: ["*"]
                 };
                 // Parse the fields
@@ -51,12 +52,11 @@ var ItemForm = (function (_super) {
                 }
                 // Get the list
                 _this.getList().then(function (list) {
-                    // Get the items
-                    list.Items(itemId)
-                        .query(query)
-                        .execute(function (item) {
+                    // Get the item
+                    list.Items().query(query)
+                        .execute(function (items) {
                         // Resolve the promise
-                        resolve(item);
+                        resolve(items.results ? items.results[0] : null);
                     });
                 });
             });
@@ -199,8 +199,15 @@ var ItemForm = (function (_super) {
                     // Ensure the field name is the "Id" field
                     fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
                 }
+                // Remove the 'deferred' property from the field value
+                // Note - This is for existing items
+                // Note - This may not be needed. Need to figure out why updates aren't working.
+                var fieldValue = ref.state.value;
+                if (fieldValue && fieldValue.__deferred) {
+                    delete fieldValue.__deferred;
+                }
                 // Set the field value
-                formValues[fieldName] = ref.state.value;
+                formValues[fieldName] = fieldValue;
             }
         }
         // Return the form values

@@ -57,6 +57,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Return a promise
         return new Promise((resolve, reject) => {
             let query = {
+                Filter: "ID eq " + itemId,
                 Select: ["*"]
             } as Types.ODataQuery;
 
@@ -80,14 +81,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
             // Get the list
             this.getList().then((list: Types.IListResult) => {
-                // Get the items
-                list.Items(itemId)
-                    // Set the query
-                    .query(query)
+                // Get the item
+                list.Items().query(query)
                     // Execute the request
-                    .execute(item => {
+                    .execute(items => {
                         // Resolve the promise
-                        resolve(item);
+                        resolve(items.results ? items.results[0] : null);
                     });
             });
         });
@@ -140,8 +139,16 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
                 }
 
+                // Remove the 'deferred' property from the field value
+                // Note - This is for existing items
+                // Note - This may not be needed. Need to figure out why updates aren't working.
+                let fieldValue: any = (ref as Field).state.value;
+                if (fieldValue && fieldValue.__deferred) {
+                    delete fieldValue.__deferred;
+                }
+
                 // Set the field value
-                formValues[fieldName] = (ref as Field).state.value;
+                formValues[fieldName] = fieldValue;
             }
         }
 

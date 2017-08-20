@@ -33,10 +33,8 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
     }
 
     // The on change event
-    private onChange = () => {
-        let value = (this.refs["checkbox"] as Checkbox).checked;
-
+    private onChange = (ev: React.MouseEvent<HTMLInputElement>, checked: boolean) => {
         // Update the value
-        this.updateValue(value);
+        this.updateValue(checked);
     }
 }

@@ -31,13 +31,13 @@
   "homepage": "https://github.com/gunjandatta/sprest-react#readme",
   "dependencies": {
     "gd-sprest": "*",
-    "office-ui-fabric-react": "^4.35.0",
+    "office-ui-fabric-react": "^4.35.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
-    "@types/react": "^16.0.2",
-    "@types/react-dom": "^15.5.3",
+    "@types/react": "^16.0.3",
+    "@types/react-dom": "^15.5.4",
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "css-loader": "^0.28.5",

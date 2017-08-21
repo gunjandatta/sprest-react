@@ -2,15 +2,6 @@ import { Types } from "gd-sprest";
 import { IBaseFieldInfo } from ".";
 
 /**
- * Form Modes
- */
-export enum FormMode {
-    Edit = 2,
-    New = 0,
-    Display = 1,
-}
-
-/**
  * Field Information
  */
 export interface IItemFormField {

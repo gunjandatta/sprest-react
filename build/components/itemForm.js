@@ -102,7 +102,7 @@ var ItemForm = (function (_super) {
                     default:
                         formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
                             React.createElement("div", { className: "ms-Grid-col ms-u-md12" },
-                                React.createElement(_1.Field, { controlMode: item == null ? gd_sprest_1.SPTypes.ControlMode.New : gd_sprest_1.SPTypes.ControlMode.Edit || _this.props.controlMode, defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender, ref: field.name }))));
+                                React.createElement(_1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender, ref: field.name }))));
                         break;
                 }
             }

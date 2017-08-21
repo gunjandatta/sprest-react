@@ -53,8 +53,14 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
             if (option.selected) {
                 fieldValue.results.push(option.key);
             } else {
-                // Remove the selected option
-                fieldValue.results.splice(idx, 1);
+                // Parse the results
+                for (let i = 0; i < fieldValue.results.length; i++) {
+                    if (fieldValue.results[i] == option.key) {
+                        // Remove the selected option
+                        fieldValue.results.splice(i, 1);
+                        break;
+                    }
+                }
             }
 
             // Update the field value

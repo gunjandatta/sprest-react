@@ -18,7 +18,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         let props: IDropdownProps = this.props.props || {};
 
         // Ensure the options exist
-        if(this.state.options == null) {
+        if (this.state.options == null) {
             // Render a loading indicator
             return (
                 <Spinner label="Loading the lookup data..." />
@@ -64,8 +64,14 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
             if (option.selected) {
                 fieldValue.results.push(option.key);
             } else {
-                // Remove the selected option
-                fieldValue.results.splice(idx, 1);
+                // Parse the results
+                for (let i = 0; i < fieldValue.results.length; i++) {
+                    if (fieldValue.results[i] == option.key) {
+                        // Remove the selected option
+                        fieldValue.results.splice(i, 1);
+                        break;
+                    }
+                }
             }
 
             // Update the field value

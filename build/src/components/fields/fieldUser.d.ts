@@ -1,7 +1,6 @@
 /// <reference types="react" />
 import { BaseField } from "../../common";
 import { IFieldUserProps, IFieldUserState } from "../../definitions";
-import "../../../sass/fieldUser.scss";
 /**
  * User Field
  */

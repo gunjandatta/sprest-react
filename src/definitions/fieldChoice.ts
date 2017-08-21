@@ -28,11 +28,11 @@ export interface IFieldChoiceProps extends IBaseFieldProps {
  * Choice Field State
  */
 export interface IFieldChoiceState extends IBaseFieldState {
-    /** The dropdown options. */
-    options?: Array<IDropdownOption>;
-
     /** The field information */
     fieldInfo: IChoiceFieldInfo;
+
+    /** The dropdown options. */
+    options?: Array<IDropdownOption>;
 }
 
 /**

@@ -3,7 +3,7 @@ import { IDropdownOption } from "office-ui-fabric-react";
 import { BaseField } from "../../common";
 import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../../definitions";
 /**
- * Boolean field
+ * Choice field
  */
 export declare class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
     /**

@@ -212,6 +212,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         <div className="ms-Grid-row" key={"row_" + field.name}>
                             <div className="ms-Grid-col ms-u-md12">
                                 <Field
+                                    controlMode={item == null ? SPTypes.ControlMode.New : SPTypes.ControlMode.Edit || this.props.controlMode}
                                     defaultValue={item[field.name]}
                                     listName={this.props.listName}
                                     key={field.name}

@@ -23,7 +23,7 @@ var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../../common");
 /**
- * Boolean field
+ * Choice field
  */
 var FieldChoice = (function (_super) {
     __extends(FieldChoice, _super);
@@ -65,23 +65,22 @@ var FieldChoice = (function (_super) {
                 console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a choice field.");
                 return;
             }
-            // Update the field information
+            // Update the state
             state.fieldInfo.choices = choiceField.Choices;
             state.fieldInfo.multiChoice = choiceField.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.MultiChoice;
+            state.options = _this.toOptions();
             // See if the default value is provided
             if (_this.props.defaultValue) {
-                // Set the options and value
-                state.options = _this.toOptions(state.fieldInfo.multiChoice ? _this.props.defaultValue.results : [_this.props.defaultValue]);
+                // Set the value
                 state.value = _this.props.defaultValue;
             }
-            else if (choiceField.DefaultValue) {
-                // Set the options and value
-                state.options = _this.toOptions([choiceField.DefaultValue]);
+            else if (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.New && choiceField.DefaultValue) {
+                // Set the value
                 state.value = state.fieldInfo.multiChoice ? { results: [choiceField.DefaultValue] } : choiceField.DefaultValue;
             }
             else {
-                // Set the options and value
-                state.options = _this.toOptions();
+                // Set the default value
+                state.value = state.fieldInfo.multiChoice ? { results: [] } : null;
             }
         };
         /**
@@ -97,16 +96,23 @@ var FieldChoice = (function (_super) {
                 // See if this option is selected
                 if (option.selected) {
                     // Add the result
-                    results.push(option.text);
+                    results.push(option.key);
                 }
             }
             // Return the field value
             return { results: results };
         };
         // Method to convert the field value to options
-        _this.toOptions = function (choices) {
-            if (choices === void 0) { choices = []; }
+        _this.toOptions = function () {
             var options = [];
+            // See if this is not a required multi-choice field
+            if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.multiChoice) {
+                // Add a blank option
+                options.push({
+                    key: null,
+                    text: ""
+                });
+            }
             // Parse the choices
             for (var i = 0; i < _this.state.fieldInfo.choices.results.length; i++) {
                 var choice = _this.state.fieldInfo.choices.results[i];
@@ -126,21 +132,19 @@ var FieldChoice = (function (_super) {
         // Update the properties
         var props = this.props.props || {};
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.multiSelect = this.state.fieldInfo.multiChoice;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
         props.required = props.required || this.state.fieldInfo.required;
-        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
-            props.defaultSelectedKeys = this.state.value.results;
             props.selectedKeys = this.state.value.results;
         }
         else {
             // Set the selected key
-            props.defaultSelectedKey = this.state.value;
             props.selectedKey = this.state.value;
         }
         // Return the dropdown

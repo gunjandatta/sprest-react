@@ -1,14 +1,11 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import {
-    Checkbox,
-    Dropdown, IDropdownOption, IDropdownProps
-} from "office-ui-fabric-react";
+import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 import { BaseField } from "../../common";
 import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../../definitions";
 
 /**
- * Boolean field
+ * Choice field
  */
 export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
     /**
@@ -20,21 +17,19 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;
         props.multiSelect = this.state.fieldInfo.multiChoice;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
         props.required = props.required || this.state.fieldInfo.required;
-        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
 
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
-            props.defaultSelectedKeys = this.state.value.results;
             props.selectedKeys = this.state.value.results;
         } else {
             // Set the selected key
-            props.defaultSelectedKey = this.state.value;
             props.selectedKey = this.state.value;
         }
 
@@ -81,24 +76,23 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
             return;
         }
 
-        // Update the field information
+        // Update the state
         state.fieldInfo.choices = choiceField.Choices;
         state.fieldInfo.multiChoice = choiceField.FieldTypeKind == SPTypes.FieldType.MultiChoice;
+        state.options = this.toOptions();
 
         // See if the default value is provided
         if (this.props.defaultValue) {
-            // Set the options and value
-            state.options = this.toOptions(state.fieldInfo.multiChoice ? this.props.defaultValue.results : [this.props.defaultValue]);
+            // Set the value
             state.value = this.props.defaultValue;
         }
-        // Else, see if the field has a default value
-        else if (choiceField.DefaultValue) {
-            // Set the options and value
-            state.options = this.toOptions([choiceField.DefaultValue]);
+        // Else, see if this is a new form, and a default value exists
+        else if (this.props.controlMode == SPTypes.ControlMode.New && choiceField.DefaultValue) {
+            // Set the value
             state.value = state.fieldInfo.multiChoice ? { results: [choiceField.DefaultValue] } : choiceField.DefaultValue;
         } else {
-            // Set the options and value
-            state.options = this.toOptions();
+            // Set the default value
+            state.value = state.fieldInfo.multiChoice ? { results: [] } : null;
         }
     }
 
@@ -117,7 +111,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
             // See if this option is selected
             if (option.selected) {
                 // Add the result
-                results.push(option.text);
+                results.push(option.key);
             }
         }
 
@@ -126,8 +120,17 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     }
 
     // Method to convert the field value to options
-    private toOptions = (choices: Array<string> = []) => {
+    private toOptions = () => {
         let options: Array<IDropdownOption> = [];
+
+        // See if this is not a required multi-choice field
+        if (!this.state.fieldInfo.required && !this.state.fieldInfo.multiChoice) {
+            // Add a blank option
+            options.push({
+                key: null,
+                text: ""
+            });
+        }
 
         // Parse the choices
         for (let i = 0; i < this.state.fieldInfo.choices.results.length; i++) {

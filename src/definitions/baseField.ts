@@ -33,6 +33,9 @@ export interface IBaseFieldInfo {
  * Base Field Properties
  */
 export interface IBaseFieldProps extends IBaseFieldInfo {
+    /** The field control mode. */
+    controlMode?: number | Types.SPTypes.ControlMode;
+
     /** The on change event */
     onChange?: (value: any) => void;
 
@@ -47,6 +50,9 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
  * BaseField State
  */
 export interface IBaseFieldState {
+    /** The field control mode. */
+    controlMode?: number | Types.SPTypes.ControlMode;
+
     /** The field information. */
     fieldInfo: IBaseFieldInfo;
 

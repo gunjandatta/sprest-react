@@ -4,7 +4,6 @@ import { Promise } from "es6-promise";
 import { Label, ILabelProps } from "office-ui-fabric-react";
 import { BaseField, SPPeoplePicker } from "../../common";
 import { IFieldUserProps, IFieldUserState } from "../../definitions";
-import "../../../sass/fieldUser.scss";
 
 
 /**

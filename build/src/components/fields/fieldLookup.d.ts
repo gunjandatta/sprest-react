@@ -1,11 +1,11 @@
 /// <reference types="react" />
-import { IFieldLookupProps, IFieldLookupState } from "../../definitions";
+import { IDropdownOption } from "office-ui-fabric-react";
 import { BaseField } from "../../common";
-import "../../../sass/fieldLookup.scss";
+import { IFieldLookup, IFieldLookupProps, IFieldLookupState } from "../../definitions";
 /**
  * Lookup Field
  */
-export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState> {
+export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState> implements IFieldLookup {
     /**
      * Public Interface
      */
@@ -13,14 +13,12 @@ export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLook
     /**
      * Events
      */
-    private onChanged;
-    private onChecked;
+    protected onChanged: (option: IDropdownOption, idx: number) => void;
     onFieldInit: (field: any, state: IFieldLookupState) => void;
-    onFieldLoaded: () => void;
     /**
      * Methods
      */
-    private getSelectedOptions;
-    private renderOption;
-    private renderTitle;
+    private loadLookupItems;
+    private toFieldValue;
+    private toOptions;
 }

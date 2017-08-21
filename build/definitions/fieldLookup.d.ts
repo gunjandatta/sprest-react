@@ -5,18 +5,21 @@ import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "..
  * Lookup Field Information
  */
 export interface ILookupFieldInfo extends IBaseFieldInfo {
+    /** Flag to allow multiple items to be selected. */
     allowMultipleValues: boolean;
+    /** The lookup items. */
+    items: Array<Types.IListItemQueryResult>;
+    /** The lookup field name. */
     lookupFieldName: string;
+    /** The lookup list name. */
     lookupListName: string;
+    /** The lookup web id. */
     lookupWebId: string;
-    showField: string;
 }
 /**
  * Lookup Field Properties
  */
 export interface IFieldLookupProps extends IBaseFieldProps {
-    /** Flag to determine if we should get all items. */
-    getAllItemsFl?: boolean;
     /** Event triggered when the field value changes. */
     onChange?: (value: IDropdownOption | Array<string | number>) => void;
     /** The dropdown list properties. */
@@ -26,8 +29,10 @@ export interface IFieldLookupProps extends IBaseFieldProps {
  * Lookup Field State
  */
 export interface IFieldLookupState extends IBaseFieldState {
-    options?: Array<IDropdownOption>;
+    /** The field information */
     fieldInfo: ILookupFieldInfo;
+    /** The dropdown options. */
+    options?: Array<IDropdownOption>;
 }
 /**
  * Lookup Field

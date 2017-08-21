@@ -22,7 +22,6 @@ var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../../common");
-require("../../../sass/fieldUser.scss");
 /**
  * User Field
  */
@@ -39,7 +38,7 @@ var FieldUser = (function (_super) {
         // The change event
         _this.onChange = function (personas) {
             // Get the field value
-            var fieldValue = common_1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple);
+            var fieldValue = common_1.SPPeoplePicker.convertToFieldValue(personas);
             // Update the field value
             _this.updateValue(fieldValue);
         };
@@ -64,7 +63,7 @@ var FieldUser = (function (_super) {
                     }
                 }
                 // Set the default value
-                defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0] || userIDs[0].ID;
+                defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
@@ -81,7 +80,7 @@ var FieldUser = (function (_super) {
         var fieldValue = null;
         if (this.state.fieldInfo.allowMultiple) {
             // Set it to the results array
-            fieldValue = (this.props.defaultValue ? this.props.defaultValue.results : null) || [];
+            fieldValue = this.props.defaultValue ? this.props.defaultValue.results : null;
         }
         else {
             // Set the value to an array

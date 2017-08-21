@@ -75,7 +75,7 @@ export class DemoWebpart extends React.Component<Props, State> {
                     ref="panel">
                     <div className="ms-Grid">
                         <div className="ms-Grid-row">
-                            <div className="ms-Grid-col ms-u-md12">
+                            <div className="ms-Grid-col ms-md12">
                                 <span className="ms-fontSize-l" ref="message"></span>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ export class DemoWebpart extends React.Component<Props, State> {
         return (
             <div className="ms-Grid">
                 <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-md2 ms-u-mdPush9">
+                    <div className="ms-Grid-col ms-md2 ms-mdPush9">
                         <PrimaryButton
                             onClick={this.save}
                             text="Save"

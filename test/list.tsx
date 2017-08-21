@@ -42,7 +42,7 @@ export class TestList extends React.Component<Props, null> {
         return (
             <div className="ms-Grid">
                 <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-md12">
+                    <div className="ms-Grid-col ms-md12">
                         <DetailsList
                             columns={this._columns}
                             items={this.props.items}

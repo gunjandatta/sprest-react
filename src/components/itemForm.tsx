@@ -195,7 +195,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 case "Attachments":
                     formFields.push(
                         <div className="ms-Grid-row" key={"row_" + field.name}>
-                            <div className="ms-Grid-col ms-u-md12">
+                            <div className="ms-Grid-col-md12">
                                 <Fields.FieldAttachments
                                     files={item.AttachmentFiles}
                                     key={field.name}
@@ -210,7 +210,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 default:
                     formFields.push(
                         <div className="ms-Grid-row" key={"row_" + field.name}>
-                            <div className="ms-Grid-col ms-u-md12">
+                            <div className="ms-Grid-col ms-md12">
                                 <Field
                                     controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
                                     defaultValue={item[field.name]}

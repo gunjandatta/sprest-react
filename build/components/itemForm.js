@@ -95,13 +95,13 @@ var ItemForm = (function (_super) {
                     // Attachment Field
                     case "Attachments":
                         formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
-                            React.createElement("div", { className: "ms-Grid-col ms-u-md12" },
+                            React.createElement("div", { className: "ms-Grid-col-md12" },
                                 React.createElement(_1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: field.name, listName: _this.props.listName, ref: "attachments" }))));
                         break;
                     // Default
                     default:
                         formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
-                            React.createElement("div", { className: "ms-Grid-col ms-u-md12" },
+                            React.createElement("div", { className: "ms-Grid-col ms-md12" },
                                 React.createElement(_1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender, ref: field.name }))));
                         break;
                 }

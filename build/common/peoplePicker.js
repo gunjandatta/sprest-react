@@ -74,7 +74,7 @@ var SPPeoplePicker = (function (_super) {
             }
             // Update the state
             _this.setState({
-                fieldValue: SPPeoplePicker.convertToFieldValue(personas),
+                fieldValue: SPPeoplePicker.convertToFieldValue(personas, _this.props.allowMultiple),
                 personas: personas
             }, function () {
                 // Call the custom onChange event
@@ -131,7 +131,7 @@ var SPPeoplePicker = (function (_super) {
         var personas = props.props && props.props.defaultSelectedItems ? props.props.defaultSelectedItems : _this.convertToPersonas(props.fieldValue);
         // Set the state
         _this.state = {
-            fieldValue: SPPeoplePicker.convertToFieldValue(personas),
+            fieldValue: SPPeoplePicker.convertToFieldValue(personas, props.allowMultiple),
             personas: personas
         };
         return _this;

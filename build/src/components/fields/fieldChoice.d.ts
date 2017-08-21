@@ -13,7 +13,7 @@ export declare class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoi
     /**
      * Events
      */
-    protected onChanged: (option: IDropdownOption) => void;
+    protected onChanged: (option: IDropdownOption, idx: number) => void;
     onFieldInit: (field: any, state: IFieldChoiceState) => void;
     /**
      * Methods

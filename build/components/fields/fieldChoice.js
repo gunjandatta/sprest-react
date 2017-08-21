@@ -36,9 +36,25 @@ var FieldChoice = (function (_super) {
          * Events
          */
         // The change event for the dropdown list
-        _this.onChanged = function (option) {
-            // Update the field value
-            _this.updateValue(_this.state.fieldInfo.multiChoice ? _this.toFieldValue(_this.state.options) : option || option.key);
+        _this.onChanged = function (option, idx) {
+            // See if this is a multi-choice field
+            if (_this.state.fieldInfo.multiChoice) {
+                var fieldValue = _this.state.value;
+                // Append the option if it was selected
+                if (option.selected) {
+                    fieldValue.results.push(option.key);
+                }
+                else {
+                    // Remove the selected option
+                    fieldValue.results.splice(idx, 1);
+                }
+                // Update the field value
+                _this.updateValue(fieldValue);
+            }
+            else {
+                // Update the field value
+                _this.updateValue(option.selected ? option.key : null);
+            }
         };
         // The field initialized event
         _this.onFieldInit = function (field, state) {
@@ -54,19 +70,19 @@ var FieldChoice = (function (_super) {
             state.fieldInfo.multiChoice = choiceField.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.MultiChoice;
             // See if the default value is provided
             if (_this.props.defaultValue) {
-                // Set the options
+                // Set the options and value
                 state.options = _this.toOptions(state.fieldInfo.multiChoice ? _this.props.defaultValue.results : [_this.props.defaultValue]);
+                state.value = _this.props.defaultValue;
             }
             else if (choiceField.DefaultValue) {
-                // Set the options
+                // Set the options and value
                 state.options = _this.toOptions([choiceField.DefaultValue]);
+                state.value = state.fieldInfo.multiChoice ? { results: [choiceField.DefaultValue] } : choiceField.DefaultValue;
             }
             else {
-                // Set the options
+                // Set the options and value
                 state.options = _this.toOptions();
             }
-            // Set the field value
-            state.value = state.fieldInfo.multiChoice ? _this.toFieldValue(state.options) : state.fieldInfo.defaultValue;
         };
         /**
          * Methods
@@ -94,23 +110,11 @@ var FieldChoice = (function (_super) {
             // Parse the choices
             for (var i = 0; i < _this.state.fieldInfo.choices.results.length; i++) {
                 var choice = _this.state.fieldInfo.choices.results[i];
-                // Create the option
-                var option = {
-                    key: choice,
-                    selected: false,
-                    text: choice
-                };
-                // Parse the selected choices
-                for (var j = 0; j < choices.length; j++) {
-                    var choice_1 = choices[j];
-                    // See if this is the selected choice
-                    if (option.text == choice_1) {
-                        option.selected = true;
-                        break;
-                    }
-                }
                 // Add the option
-                options.push(option);
+                options.push({
+                    key: choice,
+                    text: choice
+                });
             }
             // Return the options
             return options;
@@ -131,10 +135,12 @@ var FieldChoice = (function (_super) {
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
+            props.defaultSelectedKeys = this.state.value.results;
             props.selectedKeys = this.state.value.results;
         }
         else {
             // Set the selected key
+            props.defaultSelectedKey = this.state.value;
             props.selectedKey = this.state.value;
         }
         // Return the dropdown

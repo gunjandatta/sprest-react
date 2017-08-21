@@ -28,11 +28,13 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
 
         // See if this is a multi-choice
-        if(props.multiSelect) {
+        if (props.multiSelect) {
             // Set the selected keys
+            props.defaultSelectedKeys = this.state.value.results;
             props.selectedKeys = this.state.value.results;
         } else {
             // Set the selected key
+            props.defaultSelectedKey = this.state.value;
             props.selectedKey = this.state.value;
         }
 
@@ -47,9 +49,25 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
      */
 
     // The change event for the dropdown list
-    protected onChanged = (option: IDropdownOption) => {
-        // Update the field value
-        this.updateValue(this.state.fieldInfo.multiChoice ? this.toFieldValue(this.state.options) : option || option.key);
+    protected onChanged = (option: IDropdownOption, idx: number) => {
+        // See if this is a multi-choice field
+        if (this.state.fieldInfo.multiChoice) {
+            let fieldValue = this.state.value;
+
+            // Append the option if it was selected
+            if (option.selected) {
+                fieldValue.results.push(option.key);
+            } else {
+                // Remove the selected option
+                fieldValue.results.splice(idx, 1);
+            }
+
+            // Update the field value
+            this.updateValue(fieldValue);
+        } else {
+            // Update the field value
+            this.updateValue(option.selected ? option.key : null);
+        }
     }
 
     // The field initialized event
@@ -69,20 +87,19 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
 
         // See if the default value is provided
         if (this.props.defaultValue) {
-            // Set the options
+            // Set the options and value
             state.options = this.toOptions(state.fieldInfo.multiChoice ? this.props.defaultValue.results : [this.props.defaultValue]);
+            state.value = this.props.defaultValue;
         }
         // Else, see if the field has a default value
         else if (choiceField.DefaultValue) {
-            // Set the options
+            // Set the options and value
             state.options = this.toOptions([choiceField.DefaultValue]);
+            state.value = state.fieldInfo.multiChoice ? { results: [choiceField.DefaultValue] } : choiceField.DefaultValue;
         } else {
-            // Set the options
+            // Set the options and value
             state.options = this.toOptions();
         }
-
-        // Set the field value
-        state.value = state.fieldInfo.multiChoice ? this.toFieldValue(state.options) : state.fieldInfo.defaultValue;
     }
 
     /**
@@ -116,26 +133,11 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         for (let i = 0; i < this.state.fieldInfo.choices.results.length; i++) {
             let choice = this.state.fieldInfo.choices.results[i];
 
-            // Create the option
-            let option = {
-                key: choice,
-                selected: false,
-                text: choice
-            };
-
-            // Parse the selected choices
-            for (let j = 0; j < choices.length; j++) {
-                let choice = choices[j];
-
-                // See if this is the selected choice
-                if (option.text == choice) {
-                    option.selected = true;
-                    break;
-                }
-            }
-
             // Add the option
-            options.push(option);
+            options.push({
+                key: choice,
+                text: choice
+            });
         }
 
         // Return the options

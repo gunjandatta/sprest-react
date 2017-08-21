@@ -39,7 +39,7 @@ var FieldUser = (function (_super) {
         // The change event
         _this.onChange = function (personas) {
             // Get the field value
-            var fieldValue = common_1.SPPeoplePicker.convertToFieldValue(personas);
+            var fieldValue = common_1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple);
             // Update the field value
             _this.updateValue(fieldValue);
         };
@@ -64,7 +64,7 @@ var FieldUser = (function (_super) {
                     }
                 }
                 // Set the default value
-                defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
+                defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0] || userIDs[0].ID;
             }
             // Update the state
             state.fieldInfo.allowMultiple = field.AllowMultipleValues;
@@ -81,7 +81,7 @@ var FieldUser = (function (_super) {
         var fieldValue = null;
         if (this.state.fieldInfo.allowMultiple) {
             // Set it to the results array
-            fieldValue = this.props.defaultValue ? this.props.defaultValue.results : null;
+            fieldValue = (this.props.defaultValue ? this.props.defaultValue.results : null) || [];
         }
         else {
             // Set the value to an array

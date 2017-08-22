@@ -42,6 +42,7 @@ var SPPeoplePicker = (function (_super) {
          */
         // Method to convert the user to persona value
         _this.convertToPersonas = function (users) {
+            if (users === void 0) { users = []; }
             var personas = [];
             // Ensure users exist
             if (users && users.length > 0) {

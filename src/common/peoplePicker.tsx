@@ -105,7 +105,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      */
 
     // Method to convert the user to persona value
-    private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue>): Array<IPersonaProps> => {
+    private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist

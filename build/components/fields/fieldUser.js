@@ -53,7 +53,22 @@ var FieldUser = (function (_super) {
             }
             // Update the state
             state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
-            state.value = common_1.SPPeoplePicker.convertToFieldValue(_this.props.defaultValue);
+            // See if this is a multi-lookup field
+            if (state.fieldInfo.allowMultiple) {
+                var results = [];
+                // Parse the users
+                var users = (_this.props.defaultValue ? _this.props.defaultValue.results : _this.props.defaultValue) || [];
+                for (var i = 0; i < users.length; i++) {
+                    // Add the item id
+                    results.push(users[i].ID || users[i]);
+                }
+                // Set the value
+                state.value = { results: results };
+            }
+            else {
+                // Set the value
+                state.value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
+            }
         };
         return _this;
     }
@@ -72,7 +87,7 @@ var FieldUser = (function (_super) {
         // Render the component
         return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(common_1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.state.value, props: props, ref: "user" })));
+            React.createElement(common_1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null, props: props, ref: "user" })));
     };
     return FieldUser;
 }(common_1.BaseField));

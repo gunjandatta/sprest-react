@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types } from "gd-sprest";
 import { Promise } from "es6-promise";
-import { Label, ILabelProps } from "office-ui-fabric-react";
+import { Label, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
 import { BaseField, SPPeoplePicker } from "../../common";
 import { IFieldUserProps, IFieldUserState } from "../../definitions";
 
@@ -17,7 +17,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
     // Method to render the field
     renderField() {
         // See if a custom render method exists
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
 
@@ -26,7 +26,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
 
         // Set the picker props
-        let props: any = this.props.pickerProps || {};
+        let props: IPeoplePickerProps = this.props.pickerProps || {} as any;
         props.onChange = this.onChange;
 
         // Render the component
@@ -35,7 +35,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
                 <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
                 <SPPeoplePicker
                     allowMultiple={this.state.fieldInfo.allowMultiple}
-                    fieldValue={this.state.value}
+                    fieldValue={this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null}
                     props={props}
                     ref="user"
                 />
@@ -69,6 +69,23 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
         // Update the state
         state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
-        state.value = SPPeoplePicker.convertToFieldValue(this.props.defaultValue);
+
+        // See if this is a multi-lookup field
+        if (state.fieldInfo.allowMultiple) {
+            let results = [];
+
+            // Parse the users
+            let users = (this.props.defaultValue ? this.props.defaultValue.results : this.props.defaultValue) || [];
+            for (let i = 0; i < users.length; i++) {
+                // Add the item id
+                results.push(users[i].ID || users[i]);
+            }
+
+            // Set the value
+            state.value = { results };
+        } else {
+            // Set the value
+            state.value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
+        }
     }
 }

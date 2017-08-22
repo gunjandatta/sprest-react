@@ -18,6 +18,5 @@ export declare class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoi
     /**
      * Methods
      */
-    private toFieldValue;
     private toOptions;
 }

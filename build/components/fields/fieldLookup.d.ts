@@ -19,6 +19,5 @@ export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLook
      * Methods
      */
     private loadLookupItems;
-    private toFieldValue;
     private toOptions;
 }

@@ -27,10 +27,10 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
-            props.selectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = this.state.value.results;
         } else {
             // Set the selected key
-            props.selectedKey = this.state.value;
+            props.defaultSelectedKey = this.state.value;
         }
 
         // Return the dropdown
@@ -50,7 +50,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
             let fieldValue = this.state.value;
 
             // Append the option if it was selected
-            if (option.selected) {
+            if (option.isSelected || option.selected) {
                 fieldValue.results.push(option.key);
             } else {
                 // Parse the results
@@ -105,25 +105,6 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     /**
      * Methods
      */
-
-    // Method to convert the options to a multi-choice field value
-    private toFieldValue = (options: Array<IDropdownOption> = []) => {
-        let results = [];
-
-        // Parse the options
-        for (let i = 0; i < options.length; i++) {
-            let option = options[i];
-
-            // See if this option is selected
-            if (option.selected) {
-                // Add the result
-                results.push(option.key);
-            }
-        }
-
-        // Return the field value
-        return { results };
-    }
 
     // Method to convert the field value to options
     private toOptions = () => {

@@ -41,7 +41,7 @@ var FieldChoice = (function (_super) {
             if (_this.state.fieldInfo.multiChoice) {
                 var fieldValue = _this.state.value;
                 // Append the option if it was selected
-                if (option.selected) {
+                if (option.isSelected || option.selected) {
                     fieldValue.results.push(option.key);
                 }
                 else {
@@ -92,22 +92,6 @@ var FieldChoice = (function (_super) {
         /**
          * Methods
          */
-        // Method to convert the options to a multi-choice field value
-        _this.toFieldValue = function (options) {
-            if (options === void 0) { options = []; }
-            var results = [];
-            // Parse the options
-            for (var i = 0; i < options.length; i++) {
-                var option = options[i];
-                // See if this option is selected
-                if (option.selected) {
-                    // Add the result
-                    results.push(option.key);
-                }
-            }
-            // Return the field value
-            return { results: results };
-        };
         // Method to convert the field value to options
         _this.toOptions = function () {
             var options = [];
@@ -147,11 +131,11 @@ var FieldChoice = (function (_super) {
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
-            props.selectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = this.state.value.results;
         }
         else {
             // Set the selected key
-            props.selectedKey = this.state.value;
+            props.defaultSelectedKey = this.state.value;
         }
         // Return the dropdown
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "choice" })));

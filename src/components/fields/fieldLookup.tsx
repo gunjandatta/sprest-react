@@ -15,8 +15,6 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
 
     // Render the field
     renderField() {
-        let props: IDropdownProps = this.props.props || {};
-
         // Ensure the options exist
         if (this.state.options == null) {
             // Render a loading indicator
@@ -26,7 +24,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         }
 
         // Update the properties
-        props.selectedKey = this.getFieldValue();
+        let props: IDropdownProps = this.props.props || {};
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -38,10 +36,10 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
-            props.selectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = this.state.value.results;
         } else {
             // Set the selected key
-            props.selectedKey = this.state.value;
+            props.defaultSelectedKey = this.state.value;
         }
 
         // Return the component
@@ -61,7 +59,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
             let fieldValue = this.state.value;
 
             // Append the option if it was selected
-            if (option.selected) {
+            if (option.isSelected || option.selected) {
                 fieldValue.results.push(option.key);
             } else {
                 // Parse the results
@@ -99,30 +97,33 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         state.fieldInfo.lookupListName = lookupField.LookupList;
         state.fieldInfo.lookupWebId = lookupField.LookupWebId;
 
-        // See if this is a multi-lookup field
-        if (lookupField.AllowMultipleValues) {
-            let results = [];
-            let defaultValue = (this.props.defaultValue ? this.props.defaultValue.results : null) || [];
-
-            // Parse the default values
-            for (let i = 0; i < defaultValue.length; i++) {
-                // Add the item id
-                results.push(defaultValue[i].ID || defaultValue[i]);
-            }
-
-            // Set the value
-            state.value = { results };
-        } else {
-            // Set the value
-            state.value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
-        }
-
         // Load the lookup data
         this.loadLookupItems(state.fieldInfo).then((fieldInfo: ILookupFieldInfo) => {
+            let value = null;
+
+            // See if this is a multi-lookup field and a value exists
+            if (fieldInfo.allowMultipleValues) {
+                let results = [];
+
+                // Parse the values
+                let values = this.props.defaultValue ? this.props.defaultValue.results : [];
+                for (let i = 0; i < values.length; i++) {
+                    // Add the item id
+                    results.push(values[i].ID || values[i]);
+                }
+
+                // Set the default value
+                value = { results };
+            } else {
+                // Set the default value
+                value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
+            }
+
             // Update the state
             this.setState({
                 fieldInfo,
-                options: this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName)
+                options: this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
+                value
             });
         });
     }
@@ -165,27 +166,8 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         });
     }
 
-    // Method to convert the options to a multi-choice field value
-    private toFieldValue = (options: Array<IDropdownOption> = []) => {
-        let results = [];
-
-        // Parse the options
-        for (let i = 0; i < options.length; i++) {
-            let option = options[i];
-
-            // See if this option is selected
-            if (option.selected) {
-                // Add the result
-                results.push(option.key);
-            }
-        }
-
-        // Return the field value
-        return { results };
-    }
-
     // Method to convert the field value to options
-    private toOptions = (items: Array<Types.IListItemQueryResult> = [], fieldName) => {
+    private toOptions = (items: Array<Types.IListItemQueryResult> = [], fieldName: string) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-lookup field

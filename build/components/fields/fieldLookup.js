@@ -42,7 +42,7 @@ var FieldLookup = (function (_super) {
             if (_this.state.fieldInfo.allowMultipleValues) {
                 var fieldValue = _this.state.value;
                 // Append the option if it was selected
-                if (option.selected) {
+                if (option.isSelected || option.selected) {
                     fieldValue.results.push(option.key);
                 }
                 else {
@@ -77,28 +77,30 @@ var FieldLookup = (function (_super) {
             state.fieldInfo.lookupFieldName = lookupField.LookupField;
             state.fieldInfo.lookupListName = lookupField.LookupList;
             state.fieldInfo.lookupWebId = lookupField.LookupWebId;
-            // See if this is a multi-lookup field
-            if (lookupField.AllowMultipleValues) {
-                var results = [];
-                var defaultValue = (_this.props.defaultValue ? _this.props.defaultValue.results : null) || [];
-                // Parse the default values
-                for (var i = 0; i < defaultValue.length; i++) {
-                    // Add the item id
-                    results.push(defaultValue[i].ID || defaultValue[i]);
-                }
-                // Set the value
-                state.value = { results: results };
-            }
-            else {
-                // Set the value
-                state.value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
-            }
             // Load the lookup data
             _this.loadLookupItems(state.fieldInfo).then(function (fieldInfo) {
+                var value = null;
+                // See if this is a multi-lookup field and a value exists
+                if (fieldInfo.allowMultipleValues) {
+                    var results = [];
+                    // Parse the values
+                    var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
+                    for (var i = 0; i < values.length; i++) {
+                        // Add the item id
+                        results.push(values[i].ID || values[i]);
+                    }
+                    // Set the default value
+                    value = { results: results };
+                }
+                else {
+                    // Set the default value
+                    value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
+                }
                 // Update the state
                 _this.setState({
                     fieldInfo: fieldInfo,
-                    options: _this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName)
+                    options: _this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
+                    value: value
                 });
             });
         };
@@ -131,22 +133,6 @@ var FieldLookup = (function (_super) {
                 });
             });
         };
-        // Method to convert the options to a multi-choice field value
-        _this.toFieldValue = function (options) {
-            if (options === void 0) { options = []; }
-            var results = [];
-            // Parse the options
-            for (var i = 0; i < options.length; i++) {
-                var option = options[i];
-                // See if this option is selected
-                if (option.selected) {
-                    // Add the result
-                    results.push(option.key);
-                }
-            }
-            // Return the field value
-            return { results: results };
-        };
         // Method to convert the field value to options
         _this.toOptions = function (items, fieldName) {
             if (items === void 0) { items = []; }
@@ -175,14 +161,13 @@ var FieldLookup = (function (_super) {
     }
     // Render the field
     FieldLookup.prototype.renderField = function () {
-        var props = this.props.props || {};
         // Ensure the options exist
         if (this.state.options == null) {
             // Render a loading indicator
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the lookup data..." }));
         }
         // Update the properties
-        props.selectedKey = this.getFieldValue();
+        var props = this.props.props || {};
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -193,11 +178,11 @@ var FieldLookup = (function (_super) {
         // See if this is a multi-choice
         if (props.multiSelect) {
             // Set the selected keys
-            props.selectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = this.state.value.results;
         }
         else {
             // Set the selected key
-            props.selectedKey = this.state.value;
+            props.defaultSelectedKey = this.state.value;
         }
         // Return the component
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "lookup" })));

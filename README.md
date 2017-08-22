@@ -36,12 +36,14 @@ This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sp
 * onChange(value) - The change event for the field.
 * onRender(fieldInfo) - Override the component render method.
 
-## Examples
+
+## Code Examples
 #### Field
 The field component requires the list name and internal field name properties to be set. A query will be made to SharePoint and will render based on its properties.
 ```
 <Field defaultValue={item.Title} listName={listName} name="Title" />
 ```
+
 
 #### Item Form
 The item form component requires an array of field information items and the list name to be set. The field information element allows you to specify:
@@ -76,14 +78,17 @@ The item form component requires an array of field information items and the lis
 />
 ```
 
+
 #### SharePoint People Picker
 The people picker component will currently search the user information list. This will be enhanced to include a "Search Global" to allow the user to search all role providers.
 ```
 <SPPeoplePicker allowMultiple={this.state.fieldInfo.allowMultiple} fieldValue={this.state.value} />
 ```
 
+
 #### WebPart
 The webpart component supports webpart and wiki pages. The component will auto detect the page mode (display or edit) and allow you to render a component based on the page state.
+
 _Refer to this (blog post)[http://dattabase.com/sharepoint-2013-modern-webpart/] for a guide to creating webparts in SharePoint 2013._
 ```
 export class WebPartDemo {

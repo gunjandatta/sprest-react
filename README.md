@@ -11,8 +11,8 @@ This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sp
 
 ## Components
 * Field
-* Panel
 * Item Form
+* Panel
 * SharePoint People Picker
 * WebPart (2013/Online)
 

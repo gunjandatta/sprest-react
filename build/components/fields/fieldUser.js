@@ -37,62 +37,42 @@ var FieldUser = (function (_super) {
          */
         // The change event
         _this.onChange = function (personas) {
-            // Get the field value
-            var fieldValue = common_1.SPPeoplePicker.convertToFieldValue(personas);
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(personas) : null;
             // Update the field value
-            _this.updateValue(fieldValue);
+            _this.updateValue(common_1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple));
         };
         // The field initialized event
         _this.onFieldInit = function (field, state) {
+            var userField = field;
             // Ensure this is a lookup field
-            if (field.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.User) {
+            if (userField.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.User) {
                 // Log
-                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a user field.");
+                console.warn("[gd-sprest] The field '" + userField.InternalName + "' is not a user field.");
                 return;
             }
-            // Parse the default value to set the state's field value
-            var defaultValue = field.AllowMultipleValues ? _this.props.defaultValue : [_this.props.defaultValue];
-            if (defaultValue) {
-                var userIDs = [];
-                // Parse the users
-                for (var i = 0; i < defaultValue.length; i++) {
-                    var userValue = defaultValue[i];
-                    if (userValue && userValue.ID > 0) {
-                        // Add the user lookup id
-                        userIDs.push(userValue.ID);
-                    }
-                }
-                // Set the default value
-                defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
-            }
             // Update the state
-            state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-            state.value = defaultValue;
+            state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
+            state.value = common_1.SPPeoplePicker.convertToFieldValue(_this.props.defaultValue);
         };
         return _this;
     }
     // Method to render the field
     FieldUser.prototype.renderField = function () {
+        // See if a custom render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
         // Update the label properties
         var lblProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
-        // Get the field value
-        var fieldValue = null;
-        if (this.state.fieldInfo.allowMultiple) {
-            // Set it to the results array
-            fieldValue = this.props.defaultValue ? this.props.defaultValue.results : null;
-        }
-        else {
-            // Set the value to an array
-            fieldValue = this.props.defaultValue ? [this.props.defaultValue] : null;
-        }
         // Set the picker props
         var props = this.props.pickerProps || {};
         props.onChange = this.onChange;
         // Render the component
-        return (React.createElement("div", null,
+        return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(common_1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: fieldValue, props: props, ref: "user" })));
+            React.createElement(common_1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.state.value, props: props, ref: "user" })));
     };
     return FieldUser;
 }(common_1.BaseField));

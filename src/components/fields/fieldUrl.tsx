@@ -14,11 +14,17 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
     // Method to render the component
     renderField() {
-        let defaultValue = this.getValue();
+        // See if a custom render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
+
+        // Get the default value
+        let defaultValue = this.getFieldValue();
 
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};
-        urlProps.defaultValue = defaultValue.Url;
+        urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
         urlProps.onChanged = this.onUrlChanged;
@@ -26,7 +32,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
         // Update the description properties
         let descProps: ITextFieldProps = this.props.descProps || {};
-        descProps.defaultValue = defaultValue.Description;
+        descProps.defaultValue = defaultValue ? defaultValue.Description : "";
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;
@@ -34,7 +40,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
         // Return the component
         return (
-            <div>
+            <div className={this.props.className}>
                 <TextField {...urlProps as any} ref="url" />
                 <TextField {...descProps as any} ref="description" />
             </div>
@@ -53,8 +59,14 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Set the description
         fieldValue.Description = value;
 
+        // Ensure the metadata type exists
+        fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+
+        // Call the change event
+        this.props.onChange ? this.props.onChange(fieldValue) : null;
+
         // Update the value
-        this.updateValue(this.getValue(fieldValue));
+        this.updateValue(fieldValue);
     }
 
     // The change event for the url field
@@ -65,21 +77,13 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Set the url
         fieldValue.Url = value;
 
+        // Ensure the metadata type exists
+        fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+
+        // Call the change event
+        this.props.onChange ? this.props.onChange(fieldValue) : null;
+
         // Update the value
-        this.updateValue(this.getValue(fieldValue));
-    }
-
-    /**
-     * Methods
-     */
-
-    // Method to get the field value
-    private getValue = (value?: Types.ComplexTypes.FieldUrlValue): Types.ComplexTypes.FieldUrlValue => {
-        value = value ? value : this.getFieldValue() || {};
-        return {
-            __metadata: value.__metadata ? value.__metadata : { type: "SP.FieldUrlValue" },
-            Description: value.Description ? value.Description : "",
-            Url: value.Url ? value.Url : ""
-        };
+        this.updateValue(fieldValue);
     }
 }

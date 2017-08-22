@@ -24,6 +24,8 @@ export interface IBaseFieldInfo {
  * Base Field Properties
  */
 export interface IBaseFieldProps extends IBaseFieldInfo {
+    /** The class name. */
+    className?: string;
     /** The field control mode. */
     controlMode?: number | Types.SPTypes.ControlMode;
     /** The on change event */

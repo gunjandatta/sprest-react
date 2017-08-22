@@ -9,7 +9,7 @@ export declare class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoi
     /**
      * Public Interface
      */
-    renderField(): JSX.Element;
+    renderField(): void | JSX.Element;
     /**
      * Events
      */

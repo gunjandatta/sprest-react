@@ -16,19 +16,14 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
     // Method to render the field
     renderField() {
+        // See if a custom render method exists
+        if(this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
+
         // Update the label properties
         let lblProps: ILabelProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
-
-        // Get the field value
-        let fieldValue = null;
-        if (this.state.fieldInfo.allowMultiple) {
-            // Set it to the results array
-            fieldValue = this.props.defaultValue ? this.props.defaultValue.results : null;
-        } else {
-            // Set the value to an array
-            fieldValue = this.props.defaultValue ? [this.props.defaultValue] : null;
-        }
 
         // Set the picker props
         let props: any = this.props.pickerProps || {};
@@ -36,11 +31,11 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
         // Render the component
         return (
-            <div>
+            <div className={this.props.className}>
                 <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
                 <SPPeoplePicker
                     allowMultiple={this.state.fieldInfo.allowMultiple}
-                    fieldValue={fieldValue}
+                    fieldValue={this.state.value}
                     props={props}
                     ref="user"
                 />
@@ -54,42 +49,26 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
     // The change event
     onChange = (personas) => {
-        // Get the field value
-        let fieldValue = SPPeoplePicker.convertToFieldValue(personas);
+        // Call the change event
+        this.props.onChange ? this.props.onChange(personas) : null;
 
         // Update the field value
-        this.updateValue(fieldValue);
+        this.updateValue(SPPeoplePicker.convertToFieldValue(personas, this.state.fieldInfo.allowMultiple));
     }
 
     // The field initialized event
     onFieldInit = (field: any, state: IFieldUserState) => {
+        let userField = field as Types.IFieldUser;
+
         // Ensure this is a lookup field
-        if (field.FieldTypeKind != SPTypes.FieldType.User) {
+        if (userField.FieldTypeKind != SPTypes.FieldType.User) {
             // Log
-            console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a user field.");
+            console.warn("[gd-sprest] The field '" + userField.InternalName + "' is not a user field.");
             return;
         }
 
-        // Parse the default value to set the state's field value
-        let defaultValue = field.AllowMultipleValues ? this.props.defaultValue : [this.props.defaultValue];
-        if (defaultValue) {
-            let userIDs = [];
-
-            // Parse the users
-            for (let i = 0; i < defaultValue.length; i++) {
-                let userValue: Types.ComplexTypes.FieldUserValue = defaultValue[i];
-                if (userValue && userValue.ID > 0) {
-                    // Add the user lookup id
-                    userIDs.push(userValue.ID);
-                }
-            }
-
-            // Set the default value
-            defaultValue = field.AllowMultipleValues ? { results: userIDs } : userIDs[0];
-        }
-
         // Update the state
-        state.fieldInfo.allowMultiple = field.AllowMultipleValues;
-        state.value = defaultValue;
+        state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
+        state.value = SPPeoplePicker.convertToFieldValue(this.props.defaultValue);
     }
 }

@@ -37,6 +37,8 @@ var FieldBoolean = (function (_super) {
         };
         // The on change event
         _this.onChange = function (ev, checked) {
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(checked) : null;
             // Update the value
             _this.updateValue(checked);
         };
@@ -44,12 +46,16 @@ var FieldBoolean = (function (_super) {
     }
     // Render the field
     FieldBoolean.prototype.renderField = function () {
+        // See if a custom render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
         // Update the checkbox properties
         var props = this.props.props || {};
         props.checked = this.getValue();
         props.onChange = this.onChange;
         // Render the component
-        return (React.createElement("div", null,
+        return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.Label, { ref: "label" }, props.label || this.state.label),
             React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props, { ref: "checkbox" }))));
     };

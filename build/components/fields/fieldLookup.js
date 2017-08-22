@@ -38,6 +38,8 @@ var FieldLookup = (function (_super) {
          */
         // The change event for the dropdown list
         _this.onChanged = function (option, idx) {
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(option) : null;
             // See if this is a multi-choice field
             if (_this.state.fieldInfo.allowMultipleValues) {
                 var fieldValue = _this.state.value;
@@ -166,8 +168,13 @@ var FieldLookup = (function (_super) {
             // Render a loading indicator
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the lookup data..." }));
         }
+        // See if a custom render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
         // Update the properties
         var props = this.props.props || {};
+        props.className = this.props.className;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;

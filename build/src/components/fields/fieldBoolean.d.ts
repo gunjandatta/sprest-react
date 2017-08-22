@@ -5,7 +5,7 @@ import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../../def
  * Boolean field
  */
 export declare class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean {
-    renderField(): JSX.Element;
+    renderField(): void | JSX.Element;
     private getValue;
     private onChange;
 }

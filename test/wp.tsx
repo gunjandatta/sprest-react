@@ -91,12 +91,12 @@ export class DemoWebpart extends React.Component<Props, State> {
                             { name: "TestLookup" },
                             { name: "TestMultiChoice" },
                             { name: "TestMultiLookup" },
-                            //{ name: "TestMultiUser" },
+                            { name: "TestMultiUser" },
                             { name: "TestNote" },
                             { name: "TestNumberDecimal" },
                             { name: "TestNumberInteger" },
                             { name: "TestUrl" },
-                            //{ name: "TestUser" }
+                            { name: "TestUser" }
                         ]}
                         item={this.state.item}
                         listName={this.props.cfg.ListName}

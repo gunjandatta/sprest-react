@@ -8,14 +8,10 @@ export declare class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> 
     /**
      * Public Interface
      */
-    renderField(): JSX.Element;
+    renderField(): void | JSX.Element;
     /**
      * Events
      */
     private onDescChanged;
     private onUrlChanged;
-    /**
-     * Methods
-     */
-    private getValue;
 }

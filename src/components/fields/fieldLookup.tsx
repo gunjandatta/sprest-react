@@ -23,8 +23,14 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
             );
         }
 
+        // See if a custom render method exists
+        if(this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
+
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
+        props.className = this.props.className;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;
@@ -54,6 +60,9 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
 
     // The change event for the dropdown list
     protected onChanged = (option: IDropdownOption, idx: number) => {
+        // Call the change event
+        this.props.onChange ? this.props.onChange(option) : null;
+        
         // See if this is a multi-choice field
         if (this.state.fieldInfo.allowMultipleValues) {
             let fieldValue = this.state.value;

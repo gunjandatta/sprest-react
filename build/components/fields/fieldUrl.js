@@ -40,8 +40,12 @@ var FieldUrl = (function (_super) {
             var fieldValue = _this.state.value || {};
             // Set the description
             fieldValue.Description = value;
+            // Ensure the metadata type exists
+            fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
             // Update the value
-            _this.updateValue(_this.getValue(fieldValue));
+            _this.updateValue(fieldValue);
         };
         // The change event for the url field
         _this.onUrlChanged = function (value) {
@@ -49,42 +53,39 @@ var FieldUrl = (function (_super) {
             var fieldValue = _this.state.value || {};
             // Set the url
             fieldValue.Url = value;
+            // Ensure the metadata type exists
+            fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
             // Update the value
-            _this.updateValue(_this.getValue(fieldValue));
-        };
-        /**
-         * Methods
-         */
-        // Method to get the field value
-        _this.getValue = function (value) {
-            value = value ? value : _this.getFieldValue() || {};
-            return {
-                __metadata: value.__metadata ? value.__metadata : { type: "SP.FieldUrlValue" },
-                Description: value.Description ? value.Description : "",
-                Url: value.Url ? value.Url : ""
-            };
+            _this.updateValue(fieldValue);
         };
         return _this;
     }
     // Method to render the component
     FieldUrl.prototype.renderField = function () {
-        var defaultValue = this.getValue();
+        // See if a custom render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
+        // Get the default value
+        var defaultValue = this.getFieldValue();
         // Update the url properties
         var urlProps = this.props.urlProps || {};
-        urlProps.defaultValue = defaultValue.Url;
+        urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
         urlProps.onChanged = this.onUrlChanged;
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
         // Update the description properties
         var descProps = this.props.descProps || {};
-        descProps.defaultValue = defaultValue.Description;
+        descProps.defaultValue = defaultValue ? defaultValue.Description : "";
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
         // Return the component
-        return (React.createElement("div", null,
+        return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps, { ref: "url" })),
             React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps, { ref: "description" }))));
     };

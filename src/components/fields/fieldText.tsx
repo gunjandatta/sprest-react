@@ -14,13 +14,18 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
 
     // Method to render the component
     renderField() {
-        let props: ITextFieldProps = this.props.props || {};
+        // See if a custom render method exists
+        if(this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
 
         // Update the properties
+        let props: ITextFieldProps = this.props.props || {};
+        props.className = this.props.className;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
-        props.onChanged = this.updateValue;
+        props.onChanged = this.onChange;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
         props.value = this.getFieldValue();
@@ -48,5 +53,14 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         // Update the state
         state.fieldInfo.multiline = field.FieldTypeKind == SPTypes.FieldType.Note;
         state.fieldInfo.rows = field.NumberOfLines;
+    }
+
+    // The on change event
+    private onChange = (value: string) => {
+        // Call the change event
+        this.props.onChange ? this.props.onChange(value) : null;
+
+        // Update the value
+        this.updateValue(value);
     }
 }

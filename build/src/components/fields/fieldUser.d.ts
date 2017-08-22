@@ -8,7 +8,7 @@ export declare class FieldUser extends BaseField<IFieldUserProps, IFieldUserStat
     /**
      * Public Interface
      */
-    renderField(): JSX.Element;
+    renderField(): void | JSX.Element;
     /**
      * Events
      */

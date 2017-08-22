@@ -49,12 +49,24 @@ var FieldNumber = (function (_super) {
             // Return the value
             return value;
         };
+        // The on change event
+        _this.onChange = function (value) {
+            // Call the change event
+            _this.props.onChange ? _this.props.onChange(value) : null;
+            // Update the value
+            _this.updateValue(value);
+        };
         return _this;
     }
     // Method to render the component
     FieldNumber.prototype.renderField = function () {
-        var props = this.props.props || {};
+        // See if a custom render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
         // Update the properties
+        var props = this.props.props || {};
+        props.className = this.props.className;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.updateValue;

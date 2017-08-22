@@ -2,59 +2,65 @@
 [![Downloads](https://img.shields.io/npm/dm/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 [![Total Downloads](https://img.shields.io/npm/dt/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 
-# SharePoint 2013/Online Field Components
-SharePoint field components using the Office Fabric-UI React framework. This plugin is targeted for SharePoint 2013+ solutions using the React framework.
+# SharePoint React Library
+This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sprest) framework. This library provides react components designed to work in SharePoint 2013. The Office Fabric-UI React framework is being used to keep a consistent OTB look and feel, similar to Office 365.
 * [Overview](http://dattabase.com/sharepoint-react-components/)
-* [SharePoint 2013 Deployment](http://dattabase.com/sharepoint-2013-project-deployment/)
+* [SharePoint 2013 Modern WebPart](http://dattabase.com/sharepoint-2013-modern-webpart)
+* [SharePoint 2013/Online REST Framework](https://gunjandatta.github.io/sprest)
+* [SharePoint 2013 Project Deployment](http://dattabase.com/sharepoint-2013-project-deployment/)
 
-### Override Component Properties
-Each component has a "props" property which is the base properties of the Office Fabric React component. For example the text field below can be overriden by doing the following:
+## Components
+* Field
+* Panel
+* Item Form
+* SharePoint People Picker
+* WebPart (2013/Online)
+
+## Field Component
+#### Supported Field Types
+* Attachments
+* Boolean
+* Choice
+* Date
+* Date/Time
+* Lookup
+* Multi-Choice
+* Multi-User
+* Note (Plain Text)
+* Number
+* Text
+* Url
+* User
+
+#### Events
+* onChange(value) - The change event for the field.
+* onRender(fieldInfo) - Override the component render method.
+
+## Examples
+#### Field
+The field component requires the list name and internal field name properties to be set. A query will be made to SharePoint and will render based on its properties.
 ```
-<FieldText
-    defaultValue={item.Title}
-    listName={listName}
-    name="Title"
-    ref="Title"
-    props={{
-        // Text field properties go here
-        // Reference the ITextFieldProps from the Office Fabric React framework
-    }}
-/>
+<Field defaultValue={item.Title} listName={listName} name="Title" />
 ```
-Below is a list of fields and their properties
-#### Boolean
-* onChange: (value: boolean) => void
-* props: ICheckboxProps
 
-#### Choice
-* onChange: (Array<IDropdownOption>) => void
-* props: IDropdownProps
+#### SharePoint People Picker
+The people picker component will currently search the user information list. This will be enhanced to include a "Search Global" to allow the user to search all role providers.
+```
+<SPPeoplePicker allowMultiple={this.state.fieldInfo.allowMultiple} fieldValue={this.state.value} />
+```
 
-#### Date/Time
-* dtProps: IDatePickerProps
-* onChange: (value: Date) => void
-* timeProps: IDropdownProps
-
-#### Lookup
-* getAllItemsFl: boolean
-* onChange: (value: IDropdownOption | Array<string | number>) => void
-* props: IDropdownProps
-
-#### Number
-* onChange: (value: number) => void
-* props: ITextFieldProps
-* type: FieldNumberTypes
-
-#### Text
-* onChange: (value:string) => void
-* props: ITextFieldProps
-
-#### Url
-* descProps: ITextFieldProps
-* onChange: (value:Types.ComplexTypes.FieldUrlValue) => void
-* urlProps: ITextFieldProps
-
-#### User
-* lblProps: ILabelProps
-* onChange: (value:Array<number>) => void
-* pickerProps: IPeoplePickerProps
+#### WebPart
+The webpart component supports webpart and wiki pages. The component will auto detect the page mode (display or edit) and allow you to render a component based on the page state.
+_Refer to this (blog post)[http://dattabase.com/sharepoint-2013-modern-webpart/] for a guide to creating webparts in SharePoint 2013._
+```
+export class WebPartDemo {
+    constructor() {
+        new WebPart({
+            cfgElementId: "wp-demoCfg",
+            displayElement: DemoWebpart,
+            editElement: WebPartCfg,
+            targetElementId: "wp-demo"
+        });
+    }
+}
+```

@@ -13,9 +13,14 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
 
     // Method to render the component
     renderField() {
-        let props: ITextFieldProps = this.props.props || {};
+        // See if a custom render method exists
+        if(this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
 
         // Update the properties
+        let props: ITextFieldProps = this.props.props || {};
+        props.className = this.props.className;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.updateValue;
@@ -49,5 +54,14 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
 
         // Return the value
         return value;
+    }
+
+    // The on change event
+    private onChange = (value: number) => {
+        // Call the change event
+        this.props.onChange ? this.props.onChange(value) : null;
+
+        // Update the value
+        this.updateValue(value);
     }
 }

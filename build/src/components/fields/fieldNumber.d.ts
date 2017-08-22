@@ -8,9 +8,10 @@ export declare class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumb
     /**
      * Public Interface
      */
-    renderField(): JSX.Element;
+    renderField(): void | JSX.Element;
     /**
      * Methods
      */
     private getValue;
+    private onChange;
 }

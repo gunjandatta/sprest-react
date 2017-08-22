@@ -18,6 +18,11 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
     // Render the field
     renderField() {
+        // See if a custom render method exists
+        if(this.props.onRender) {
+            return this.props.onRender(this.state.fieldInfo);
+        }
+
         // Update the date picker properties
         let props: IDatePickerProps = this.props.dtProps || {};
         props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : DayOfWeek.Sunday;
@@ -30,7 +35,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Render the component
         return (
-            <div>
+            <div className={this.props.className}>
                 <DatePicker {...props} ref="date" />
                 {this.renderTime(props.value)}
             </div>
@@ -55,6 +60,9 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         date.setSeconds(0);
         date.setMilliseconds(0);
 
+        // Call the change event
+        this.props.onChange ? this.props.onChange(date) : null;
+        
         // Update the value
         this.updateValue(date);
     }
@@ -71,6 +79,9 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         date.setHours(hours);
         date.setMinutes(minutes);
 
+        // Call the change event
+        this.props.onChange ? this.props.onChange(date) : null;
+        
         // Update the value
         this.updateValue(date);
     }

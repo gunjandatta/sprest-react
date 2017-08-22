@@ -8,9 +8,10 @@ export declare class FieldText extends BaseField<IFieldTextProps, IFieldTextStat
     /**
      * Public Interface
      */
-    renderField(): JSX.Element;
+    renderField(): void | JSX.Element;
     /**
      * Events
      */
     onFieldInit: (field: any, state: IFieldTextState) => void;
+    private onChange;
 }

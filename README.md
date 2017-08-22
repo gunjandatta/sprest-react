@@ -43,6 +43,39 @@ The field component requires the list name and internal field name properties to
 <Field defaultValue={item.Title} listName={listName} name="Title" />
 ```
 
+#### Item Form
+The item form component requires an array of field information items and the list name to be set. The field information element allows you to specify:
+* controlMode
+    * Display - Displays the field value. _(TBD - To be developed)_
+    * Edit - Does not default the value to the field's default value defined in SharePoint.
+    * New - Defaults the value to the field's default value defined in SharePoint.
+* name - The internal field name.
+* onChange(value) - The change event for the field.
+* onRender(fieldInfo) - Override the component render method.
+```
+<ItemForm
+    fields={[
+        { name: "Attachments" },
+        { name: "Title" },
+        { name: "TestBoolean" },
+        { name: "TestChoice" },
+        { name: "TestDate" },
+        { name: "TestDateTime" },
+        { name: "TestLookup" },
+        { name: "TestMultiChoice" },
+        { name: "TestMultiLookup" },
+        { name: "TestMultiUser" },
+        { name: "TestNote" },
+        { name: "TestNumberDecimal" },
+        { name: "TestNumberInteger" },
+        { name: "TestUrl" },
+        { name: "TestUser" }
+    ]}
+    item={this.state.item}
+    listName={this.props.cfg.ListName}
+/>
+```
+
 #### SharePoint People Picker
 The people picker component will currently search the user information list. This will be enhanced to include a "Search Global" to allow the user to search all role providers.
 ```

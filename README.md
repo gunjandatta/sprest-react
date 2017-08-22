@@ -89,7 +89,7 @@ The people picker component will currently search the user information list. Thi
 #### WebPart
 The webpart component supports webpart and wiki pages. The component will auto detect the page mode (display or edit) and allow you to render a component based on the page state.
 
-_Refer to this (blog post)[http://dattabase.com/sharepoint-2013-modern-webpart/] for a guide to creating webparts in SharePoint 2013._
+_Refer to this [blog post](http://dattabase.com/sharepoint-2013-modern-webpart/) for a guide to creating webparts in SharePoint 2013._
 ```
 export class WebPartDemo {
     constructor() {

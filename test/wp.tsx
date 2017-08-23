@@ -82,7 +82,6 @@ export class DemoWebpart extends React.Component<Props, State> {
                         </div>
                     </div>
                     <ItemForm
-                        controlMode={SPTypes.ControlMode.Display}
                         fields={[
                             { name: "Attachments" },
                             { name: "Title" },

@@ -15,8 +15,16 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
     // Method to render the component
     renderField() {
         // See if a custom render method exists
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
+        }
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            return (
+                <div className={this.props.className}>{this.getFieldValue() || ""}</div>
+            );
         }
 
         // Update the properties

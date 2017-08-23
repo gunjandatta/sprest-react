@@ -1,4 +1,5 @@
 import * as React from "react";
+import { SPTypes } from "gd-sprest";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../../definitions";
 import { BaseField } from "../../common";
@@ -14,8 +15,16 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
     // Method to render the component
     renderField() {
         // See if a custom render method exists
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
+        }
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            return (
+                <div className={this.props.className}>{this.getValue() || ""}</div>
+            );
         }
 
         // Update the properties

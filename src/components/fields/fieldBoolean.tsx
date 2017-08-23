@@ -1,4 +1,5 @@
 import * as React from "react";
+import { SPTypes } from "gd-sprest";
 import { Checkbox, ICheckboxProps, Label } from "office-ui-fabric-react";
 import { BaseField } from "../../common";
 import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../../definitions";
@@ -10,8 +11,16 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
     // Render the field
     renderField() {
         // See if a custom render method exists
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
+        }
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            return (
+                <div className={this.props.className}>{this.getValue() ? "Yes" : "No"}</div>
+            );
         }
 
         // Update the checkbox properties
@@ -41,7 +50,7 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
     private onChange = (ev: React.MouseEvent<HTMLInputElement>, checked: boolean) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(checked) : null;
-        
+
         // Update the value
         this.updateValue(checked);
     }

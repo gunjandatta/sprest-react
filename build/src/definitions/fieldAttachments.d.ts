@@ -13,6 +13,10 @@ export interface IAttachmentFile {
  * Attachments Field Properties
  */
 export interface IFieldAttachmentsProps {
+    /** The class name. */
+    className?: string;
+    /** The field control mode. */
+    controlMode?: number | Types.SPTypes.ControlMode;
     /** The list name. */
     listName: string;
     /** The existing attachment files. */

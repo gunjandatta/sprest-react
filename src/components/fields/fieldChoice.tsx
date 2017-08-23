@@ -15,8 +15,24 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     // Render the field
     renderField() {
         // See if a custom render method exists
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
+        }
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // See if this is a multi-choice field
+            if (this.state.fieldInfo.multiChoice) {
+                // Render the multi-choice field
+                return (
+                    <div className={this.props.className}>{(this.state.value.results as Array<string>).join(", ")}</div>
+                );
+            }
+
+            // Return the selected choice
+            return (
+                <div className={this.props.className}>{this.state.value || ""}</div>
+            );
         }
 
         // Update the properties
@@ -53,7 +69,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(option) : null;
-        
+
         // See if this is a multi-choice field
         if (this.state.fieldInfo.multiChoice) {
             let fieldValue = this.state.value;

@@ -19,6 +19,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../../common");
 /**
@@ -70,6 +71,11 @@ var FieldUrl = (function (_super) {
         }
         // Get the default value
         var defaultValue = this.getFieldValue();
+        // See if this is the display mode
+        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            // Return the value
+            return (React.createElement("a", { href: defaultValue.Url, className: this.props.className }, defaultValue ? defaultValue.Description || defaultValue.Url : ""));
+        }
         // Update the url properties
         var urlProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue ? defaultValue.Url : "";

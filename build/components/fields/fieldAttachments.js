@@ -250,7 +250,13 @@ var FieldAttachments = (function (_super) {
      */
     // Method to render the component
     FieldAttachments.prototype.render = function () {
-        return (React.createElement("div", null,
+        // See if this is the display mode
+        if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            // Render the attachments
+            return (React.createElement("div", { className: this.props.className }, this.renderAttachments()));
+        }
+        // Render the attachments
+        return (React.createElement("div", { className: this.props.className },
             this.renderAttachments(),
             this.state.loadingFl ?
                 React.createElement(office_ui_fabric_react_1.Spinner, { label: "Uploading the file" })

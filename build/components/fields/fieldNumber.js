@@ -19,6 +19,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var definitions_1 = require("../../definitions");
 var common_1 = require("../../common");
@@ -63,6 +64,11 @@ var FieldNumber = (function (_super) {
         // See if a custom render method exists
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
+        }
+        // See if this is the display mode
+        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            // Return the value
+            return (React.createElement("div", { className: this.props.className }, this.getValue() || ""));
         }
         // Update the properties
         var props = this.props.props || {};

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Types } from "gd-sprest";
+import { SPTypes, Types } from "gd-sprest";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { BaseField } from "../../common";
 import { IFieldUrlProps, IFieldUrlState } from "../../definitions";
@@ -20,7 +20,15 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         }
 
         // Get the default value
-        let defaultValue = this.getFieldValue();
+        let defaultValue = this.getFieldValue() as Types.ComplexTypes.FieldUrlValue;
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            return (
+                <a href={defaultValue.Url} className={this.props.className}>{defaultValue ? defaultValue.Description || defaultValue.Url : ""}</a>
+            );
+        }
 
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};

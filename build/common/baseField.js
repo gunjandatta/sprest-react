@@ -51,6 +51,7 @@ var BaseField = (function (_super) {
         _this.load = function () {
             // Default the state
             var state = {
+                controlMode: _this.props.controlMode,
                 fieldInfo: {
                     defaultValue: "",
                     errorMessage: _this.props.errorMessage || "This field requires a value.",

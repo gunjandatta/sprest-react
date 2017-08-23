@@ -44,7 +44,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     updateValue = (value: any) => {
         // Call the on change event
         this.props.onChange ? this.props.onChange(value) : null;
-        
+
         // Update the state
         this.setState({
             showErrorMessage: this.state.fieldInfo.required ? (value ? false : true) : false,
@@ -84,6 +84,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     private load = (): State => {
         // Default the state
         let state: State = {
+            controlMode: this.props.controlMode,
             fieldInfo: {
                 defaultValue: "",
                 errorMessage: this.props.errorMessage || "This field requires a value.",

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Promise } from "es6-promise";
-import { Types, Web } from "gd-sprest";
+import { SPTypes, Types, Web } from "gd-sprest";
 import {
     Label, Link,
     Spinner
@@ -34,8 +34,17 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
     // Method to render the component
     render() {
+        // See if this is the display mode
+        if (this.props.controlMode == SPTypes.ControlMode.Display) {
+            // Render the attachments
+            return (
+                <div className={this.props.className}>{this.renderAttachments()}</div>
+            );
+        }
+
+        // Render the attachments
         return (
-            <div>
+            <div className={this.props.className}>
                 {this.renderAttachments()}
                 {
                     this.state.loadingFl ?
@@ -55,7 +64,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     // Method to save the attachments to the item
-    save = (itemId:number): PromiseLike<any> => {
+    save = (itemId: number): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Delete the attachments
@@ -156,9 +165,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             let file = files[i];
 
             // See if this is the attachment to remove
-            if(file.name.toLowerCase() == fileName) {
+            if (file.name.toLowerCase() == fileName) {
                 // See if this item exists
-                if(file.existsFl) {
+                if (file.existsFl) {
                     // Set the delete flag
                     file.deleteFl = true;
                 } else {
@@ -191,13 +200,13 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         return new Promise((resolve, reject) => {
             // Get the web
             let web = new Web(this.props.webUrl);
-            
+
             // Parse the files
             for (let i = 0; i < this.state.files.length; i++) {
                 let file = this.state.files[i];
-                
+
                 // See if we are deleting the file
-                if(file.deleteFl) {
+                if (file.deleteFl) {
                     // Get the file
                     web.getFileByServerRelativeUrl(file.url)
                         // Delete the file
@@ -220,7 +229,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         let files: Array<IAttachmentFile> = [];
 
         // Ensure attachments exist
-        if(attachments && attachments.results) {
+        if (attachments && attachments.results) {
             // Parse the attachments
             for (let i = 0; i < attachments.results.length; i++) {
                 let attachment = attachments.results[i];
@@ -249,7 +258,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             let file = this.state.files[i];
 
             // Ensure we are not deleting this fiel
-            if(file.deleteFl) { continue; }
+            if (file.deleteFl) { continue; }
 
             // Add the file
             files.push(
@@ -265,7 +274,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     // Method to save the attachments
-    private saveAttachments = (itemId:number) => {
+    private saveAttachments = (itemId: number) => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the list item
@@ -278,9 +287,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             // Parse the files
             for (let i = 0; i < this.state.files.length; i++) {
                 let file = this.state.files[i];
-                
+
                 // See if we are deleting the file
-                if(file.deleteFl) { continue; }
+                if (file.deleteFl) { continue; }
 
                 // See if the binary data exists
                 if (file.data) {

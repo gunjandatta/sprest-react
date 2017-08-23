@@ -21,6 +21,40 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
             return this.props.onRender(this.state.fieldInfo);
         }
 
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Ensure a value exists
+            if (this.props.defaultValue) {
+                // See if this is a multi-user field
+                if (this.state.fieldInfo.allowMultiple && this.props.defaultValue.results) {
+                    let users = [];
+
+                    // Parse the results
+                    for (let i = 0; i < this.props.defaultValue.results.length; i++) {
+                        let user = this.props.defaultValue.results[i] as Types.ComplexTypes.FieldUserValue;
+
+                        // Add the user
+                        users.push(user.Title || "");
+                    }
+
+                    // Return the value
+                    return (
+                        <div className={this.props.className}>{users.join(", ")}</div>
+                    );
+                }
+
+                // Return the selected user
+                return (
+                    <div className={this.props.className}>{this.props.defaultValue.Title || ""}</div>
+                );
+            }
+
+            // Return nothing
+            return (
+                <div className={this.props.className}></div>
+            );
+        }
+
         // Update the label properties
         let lblProps: ILabelProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;

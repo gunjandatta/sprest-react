@@ -132,6 +132,12 @@ var FieldDateTime = (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
+        // See if this is the display mode
+        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            // Return the value
+            var value = this.getValue();
+            return (React.createElement("div", { className: this.props.className }, value ? (this.state.fieldInfo.showTime ? value.toLocaleString() : value.toLocaleDateString()) : ""));
+        }
         // Update the date picker properties
         var props = this.props.dtProps || {};
         props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;

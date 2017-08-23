@@ -1,4 +1,5 @@
 import * as React from "react";
+import { SPTypes } from "gd-sprest";
 import { PrimaryButton, Spinner } from "office-ui-fabric-react";
 import { ItemForm, Panel } from "../build";
 import { DataSource, ITestItem } from "./data";
@@ -81,6 +82,7 @@ export class DemoWebpart extends React.Component<Props, State> {
                         </div>
                     </div>
                     <ItemForm
+                        controlMode={SPTypes.ControlMode.Display}
                         fields={[
                             { name: "Attachments" },
                             { name: "Title" },

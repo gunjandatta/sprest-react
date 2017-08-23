@@ -19,8 +19,17 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
     // Render the field
     renderField() {
         // See if a custom render method exists
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
+        }
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            let value: Date = this.getValue();
+            return (
+                <div className={this.props.className}>{value ? (this.state.fieldInfo.showTime ? value.toLocaleString() : value.toLocaleDateString()) : ""}</div>
+            );
         }
 
         // Update the date picker properties
@@ -62,7 +71,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Call the change event
         this.props.onChange ? this.props.onChange(date) : null;
-        
+
         // Update the value
         this.updateValue(date);
     }
@@ -81,7 +90,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Call the change event
         this.props.onChange ? this.props.onChange(date) : null;
-        
+
         // Update the value
         this.updateValue(date);
     }
@@ -96,7 +105,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         let value = this.getFieldValue();
         if (value && typeof (value) === "string") {
             // See if the default value is set to today
-            if(value == "[today]") {
+            if (value == "[today]") {
                 // Return the current date/time
                 return new Date(Date.now());
             } else {

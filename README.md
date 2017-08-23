@@ -48,7 +48,7 @@ The field component requires the list name and internal field name properties to
 #### Item Form
 The item form component requires an array of field information items and the list name to be set. The field information element allows you to specify:
 * controlMode
-    * Display - Displays the field value. _(TBD - To be developed)_
+    * Display - Displays the field value.
     * Edit - Does not default the value to the field's default value defined in SharePoint.
     * New - Defaults the value to the field's default value defined in SharePoint.
 * name - The internal field name.

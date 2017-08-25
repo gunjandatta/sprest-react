@@ -1,6 +1,6 @@
 import { Promise } from "es6-promise";
 import { Types, Web } from "gd-sprest";
-import { IDemoCfg } from "./wpCfg";
+import { IWebPartListCfg } from "../src";
 
 /**
  * Test Item Information
@@ -36,7 +36,7 @@ export class DataSource {
      */
 
     // Configuration
-    private _cfg: IDemoCfg = null;
+    private _cfg: IWebPartListCfg = null;
 
     // List Item Entity Type Name (Required for complex field item add operation)
     private _listItemEntityTypeFullName = "";
@@ -44,7 +44,7 @@ export class DataSource {
     /**
      * Constructor
      */
-    constructor(cfg: IDemoCfg) {
+    constructor(cfg: IWebPartListCfg) {
         // Save the configuration        
         this._cfg = cfg;
 

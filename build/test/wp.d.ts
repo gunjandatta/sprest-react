@@ -1,12 +1,12 @@
 /// <reference types="react" />
 import * as React from "react";
+import { IWebPartListCfg } from "../src";
 import { DataSource, ITestItem } from "./data";
-import { IDemoCfg } from "./wpCfg";
 /**
  * Properties
  */
 export interface Props {
-    cfg: IDemoCfg;
+    cfg: IWebPartListCfg;
 }
 /**
  * State

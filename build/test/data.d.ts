@@ -1,5 +1,5 @@
 import { Types } from "gd-sprest";
-import { IDemoCfg } from "./wpCfg";
+import { IWebPartListCfg } from "../src";
 /**
  * Test Item Information
  */
@@ -38,7 +38,7 @@ export declare class DataSource {
     /**
      * Constructor
      */
-    constructor(cfg: IDemoCfg);
+    constructor(cfg: IWebPartListCfg);
     /**
      * Methods
      */

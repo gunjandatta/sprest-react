@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import { BaseField } from "../../common";
 import { IFieldUrlProps, IFieldUrlState } from "../../definitions";
+import { BaseField } from ".";
 /**
  * URL Field
  */

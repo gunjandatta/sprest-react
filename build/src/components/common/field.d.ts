@@ -1,8 +1,8 @@
-import { BaseField } from "../../common";
+import { Fields } from "..";
 /**
  * Field
  */
-export declare class Field extends BaseField {
+export declare class Field extends Fields.BaseField {
     renderField(): any;
     /**
      * Methods

@@ -1,16 +1,15 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
 import { PrimaryButton, Spinner } from "office-ui-fabric-react";
-import { ItemForm, Panel } from "../build";
+import { ItemForm, IWebPartListCfg, Panel } from "../src";
 import { DataSource, ITestItem } from "./data";
 import { TestList } from "./list";
-import { IDemoCfg } from "./wpCfg";
 
 /**
  * Properties
  */
 export interface Props {
-    cfg: IDemoCfg;
+    cfg: IWebPartListCfg;
 }
 
 /**

@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import { BaseField } from "../../common";
 import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "../../definitions";
+import { BaseField } from ".";
 /**
  * Date Time field
  */

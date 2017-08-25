@@ -110,12 +110,14 @@ The webpart component supports webpart and wiki pages. The component will auto d
 
 _Refer to this [blog post](http://dattabase.com/sharepoint-2013-modern-webpart/) for a guide to creating webparts in SharePoint 2013._
 ```
+import { WebPartListCfg } from "gd-sprest-react";
+
 export class WebPartDemo {
     constructor() {
         new WebPart({
             cfgElementId: "wp-demoCfg",
             displayElement: DemoWebpart,
-            editElement: WebPartCfg,
+            editElement: WebPartListCfg,
             targetElementId: "wp-demo"
         });
     }

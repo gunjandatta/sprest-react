@@ -5,7 +5,7 @@ import { WebPartConfigurationPanel } from ".";
 /**
  * List Configuration
  */
-export interface IListCfg extends IWebPartCfg {
+export interface IWebPartListCfg extends IWebPartCfg {
     ListName: string;
     WebUrl: string;
 }
@@ -13,13 +13,13 @@ export interface IListCfg extends IWebPartCfg {
  * Properties
  */
 export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
-    cfg: IListCfg;
+    cfg: IWebPartListCfg;
 }
 /**
  * State
  */
 export interface IWebPartListCfgState extends IWebPartConfigurationState {
-    cfg: IListCfg;
+    cfg: IWebPartListCfg;
     lists: Array<IDropdownOption>;
 }
 /**
@@ -34,7 +34,7 @@ export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartLi
      * Methods
      */
     private loadLists;
-    onRenderContents: (cfg: IListCfg) => JSX.Element;
+    onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
     private onRefresh;
     private onSave;
     private updateListName;

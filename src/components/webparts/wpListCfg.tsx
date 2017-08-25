@@ -7,7 +7,7 @@ import { WebPartConfigurationPanel } from ".";
 /**
  * List Configuration
  */
-export interface IListCfg extends IWebPartCfg {
+export interface IWebPartListCfg extends IWebPartCfg {
     ListName: string;
     WebUrl: string;
 }
@@ -16,14 +16,14 @@ export interface IListCfg extends IWebPartCfg {
  * Properties
  */
 export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
-    cfg: IListCfg;
+    cfg: IWebPartListCfg;
 }
 
 /**
  * State
  */
 export interface IWebPartListCfgState extends IWebPartConfigurationState {
-    cfg: IListCfg;
+    cfg: IWebPartListCfg;
     lists: Array<IDropdownOption>;
 }
 
@@ -46,7 +46,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
      */
 
     // Method to load the lists for the drop down
-    private loadLists = (cfg: IListCfg) => {
+    private loadLists = (cfg: IWebPartListCfg) => {
         // Get the web
         (new Web(cfg.WebUrl))
             // Get the lists
@@ -80,7 +80,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
     }
 
     // Method to render the panel content
-    onRenderContents = (cfg: IListCfg) => {
+    onRenderContents = (cfg: IWebPartListCfg) => {
         return (
             <div>
                 <TextField

@@ -5,36 +5,36 @@ import { WebPartConfigurationPanel } from ".";
 /**
  * List Configuration
  */
-export interface IListCfg extends IWebPartCfg {
+export interface IWebPartListCfg extends IWebPartCfg {
     ListName: string;
     WebUrl: string;
 }
 /**
  * Properties
  */
-export interface Props extends IWebPartConfigurationProps {
-    cfg: IListCfg;
+export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
+    cfg: IWebPartListCfg;
 }
 /**
  * State
  */
-export interface State extends IWebPartConfigurationState {
-    cfg: IListCfg;
+export interface IWebPartListCfgState extends IWebPartConfigurationState {
+    cfg: IWebPartListCfg;
     lists: Array<IDropdownOption>;
 }
 /**
  * WebPart List Configuration
  */
-export declare class WebPartListCfg extends WebPartConfigurationPanel<Props, State> {
+export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
     /**
      * Constructor
      */
-    constructor(props: Props);
+    constructor(props: IWebPartListCfgProps);
     /**
      * Methods
      */
     private loadLists;
-    onRenderContents: (cfg: IListCfg) => JSX.Element;
+    onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
     private onRefresh;
     private onSave;
     private updateListName;

@@ -5,8 +5,8 @@ import {
     IBaseFieldInfo,
     IFieldUserState,
     IItemFormField, IItemFormProps, IItemFormState
-} from "../definitions";
-import { Field, Fields } from ".";
+} from "../../definitions";
+import { Field, Fields } from "..";
 
 /**
  * Item Form WebPart

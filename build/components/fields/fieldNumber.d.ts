@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { IFieldNumberProps, IFieldNumberState } from "../../definitions";
-import { BaseField } from "../../common";
+import { BaseField } from ".";
 /**
  * Number Field
  */

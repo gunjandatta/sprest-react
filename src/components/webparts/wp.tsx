@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { Page } from "../common";
-import { IWebPartCfg, IWebPartInfo, IWebPartProps, IWebPartTargetInfo } from "../definitions";
+import { Page } from "../../common";
+import { IWebPartCfg, IWebPartInfo, IWebPartProps, IWebPartTargetInfo } from "../../definitions";
 
 /**
  * Web Part

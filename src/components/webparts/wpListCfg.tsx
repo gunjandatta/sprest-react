@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Web, SPTypes } from "gd-sprest";
-import { WebPartConfigurationPanel, IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../src";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
+import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../..";
+import { WebPartConfigurationPanel } from ".";
 
 /**
- * Demo Configuration
+ * List Configuration
  */
-export interface IDemoCfg extends IWebPartCfg {
+export interface IListCfg extends IWebPartCfg {
     ListName: string;
     WebUrl: string;
 }
@@ -14,26 +15,26 @@ export interface IDemoCfg extends IWebPartCfg {
 /**
  * Properties
  */
-export interface Props extends IWebPartConfigurationProps {
-    cfg: IDemoCfg;
+export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
+    cfg: IListCfg;
 }
 
 /**
  * State
  */
-export interface State extends IWebPartConfigurationState {
-    cfg: IDemoCfg;
+export interface IWebPartListCfgState extends IWebPartConfigurationState {
+    cfg: IListCfg;
     lists: Array<IDropdownOption>;
 }
 
 /**
- * WebPart Configuration
+ * WebPart List Configuration
  */
-export class WebPartCfg extends WebPartConfigurationPanel<Props, State> {
+export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
     /**
      * Constructor
      */
-    constructor(props: Props) {
+    constructor(props: IWebPartListCfgProps) {
         super(props);
 
         // Load the lists
@@ -45,11 +46,16 @@ export class WebPartCfg extends WebPartConfigurationPanel<Props, State> {
      */
 
     // Method to load the lists for the drop down
-    private loadLists = (cfg: IDemoCfg) => {
+    private loadLists = (cfg: IListCfg) => {
         // Get the web
         (new Web(cfg.WebUrl))
             // Get the lists
             .Lists()
+            // Set the query
+            .query({
+                OrderBy: ["Title"],
+                Top: 500
+            })
             // Execute the request
             .execute((lists) => {
                 let options: Array<IDropdownOption> = [];
@@ -60,7 +66,7 @@ export class WebPartCfg extends WebPartConfigurationPanel<Props, State> {
 
                     // Add the option
                     options.push({
-                        key: list.Title,
+                        key: list.Id,
                         text: list.Title
                     })
                 }
@@ -74,7 +80,7 @@ export class WebPartCfg extends WebPartConfigurationPanel<Props, State> {
     }
 
     // Method to render the panel content
-    onRenderContents = (cfg: IDemoCfg) => {
+    onRenderContents = (cfg: IListCfg) => {
         return (
             <div>
                 <TextField

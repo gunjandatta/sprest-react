@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var common_1 = require("../../common");
+var _1 = require(".");
 /**
  * Boolean field
  */
@@ -66,6 +66,6 @@ var FieldBoolean = (function (_super) {
             React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props, { ref: "checkbox" }))));
     };
     return FieldBoolean;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldBoolean = FieldBoolean;
 //# sourceMappingURL=fieldBoolean.js.map

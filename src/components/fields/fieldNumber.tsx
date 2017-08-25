@@ -2,7 +2,7 @@ import * as React from "react";
 import { SPTypes } from "gd-sprest";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../../definitions";
-import { BaseField } from "../../common";
+import { BaseField } from ".";
 
 /**
  * Number Field

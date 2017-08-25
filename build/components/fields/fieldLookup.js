@@ -22,7 +22,7 @@ var React = require("react");
 var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var common_1 = require("../../common");
+var _1 = require(".");
 /**
  * Lookup Field
  */
@@ -218,6 +218,6 @@ var FieldLookup = (function (_super) {
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "lookup" })));
     };
     return FieldLookup;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldLookup = FieldLookup;
 //# sourceMappingURL=fieldLookup.js.map

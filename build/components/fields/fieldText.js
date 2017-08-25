@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var common_1 = require("../../common");
+var _1 = require(".");
 /**
  * Text Field
  */
@@ -82,6 +82,6 @@ var FieldText = (function (_super) {
         return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "text" })));
     };
     return FieldText;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldText = FieldText;
 //# sourceMappingURL=fieldText.js.map

@@ -1,11 +1,8 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var baseField_1 = require("./baseField");
-exports.BaseField = baseField_1.BaseField;
-var dtStrings_1 = require("./dtStrings");
-exports.DatePickerStrings = dtStrings_1.DatePickerStrings;
-var page_1 = require("./page");
-exports.Page = page_1.Page;
-var peoplePicker_1 = require("./peoplePicker");
-exports.SPPeoplePicker = peoplePicker_1.SPPeoplePicker;
+__export(require("./dtStrings"));
+__export(require("./page"));
 //# sourceMappingURL=index.js.map

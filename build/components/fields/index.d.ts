@@ -1,3 +1,4 @@
+export { BaseField } from "./baseField";
 import { FieldAttachments } from "./fieldAttachments";
 import { FieldBoolean } from "./fieldBoolean";
 import { FieldChoice } from "./fieldChoice";

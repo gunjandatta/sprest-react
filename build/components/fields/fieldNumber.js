@@ -22,7 +22,7 @@ var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var definitions_1 = require("../../definitions");
-var common_1 = require("../../common");
+var _1 = require(".");
 /**
  * Number Field
  */
@@ -83,6 +83,6 @@ var FieldNumber = (function (_super) {
         return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "number" })));
     };
     return FieldNumber;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldNumber = FieldNumber;
 //# sourceMappingURL=fieldNumber.js.map

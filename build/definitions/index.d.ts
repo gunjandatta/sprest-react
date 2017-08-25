@@ -10,5 +10,5 @@ export * from "./fieldText";
 export * from "./fieldUrl";
 export * from "./fieldUser";
 export * from "./itemForm";
-export * from "./webpart";
-export * from "./webpartCfg";
+export * from "./wp";
+export * from "./wpCfg";

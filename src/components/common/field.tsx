@@ -1,12 +1,11 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
-import { BaseField } from "../common";
-import * as Fields from "./fields";
+import { Fields } from "..";
 
 /**
  * Field
  */
-export class Field extends BaseField {
+export class Field extends Fields.BaseField {
     // Method to render the field
     renderField(): any {
         let props: any = this.props || {};

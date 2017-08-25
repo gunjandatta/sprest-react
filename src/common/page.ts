@@ -6,7 +6,7 @@ declare var SP;
 /**
  * WebPart Information
  */
-export interface IWebPartInfo {
+export interface IWebPartInstance {
     Context: any;
     Properties: any;
     WebPart: any;
@@ -18,7 +18,7 @@ export interface IWebPartInfo {
  */
 export class Page {
     // Method to get the webpart
-    static getWebPart(wpId: string): PromiseLike<IWebPartInfo> {
+    static getWebPart(wpId: string): PromiseLike<IWebPartInstance> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the current context
@@ -41,7 +41,7 @@ export class Page {
                         Properties: wp.get_properties(),
                         WebPart: wp,
                         WebPartDefinition: wpDef
-                    } as IWebPartInfo)
+                    } as IWebPartInstance)
                 },
                 // Error
                 (...args) => {

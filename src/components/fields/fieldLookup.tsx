@@ -2,8 +2,8 @@ import * as React from "react";
 import { Promise } from "es6-promise";
 import { SPTypes, Site, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps, Spinner } from "office-ui-fabric-react";
-import { BaseField } from "../../common";
 import { IFieldLookup, IFieldLookupProps, IFieldLookupState, ILookupFieldInfo } from "../../definitions";
+import { BaseField } from ".";
 
 /**
  * Lookup Field

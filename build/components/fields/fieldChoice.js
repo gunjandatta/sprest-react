@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var common_1 = require("../../common");
+var _1 = require(".");
 /**
  * Choice field
  */
@@ -158,6 +158,6 @@ var FieldChoice = (function (_super) {
         return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "choice" })));
     };
     return FieldChoice;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldChoice = FieldChoice;
 //# sourceMappingURL=fieldChoice.js.map

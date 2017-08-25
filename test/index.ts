@@ -1,7 +1,6 @@
-import { WebPart } from "../src";
+import { WebPart, WebPartListCfg } from "../src";
 import { Configuration } from "./cfg";
 import { DemoWebpart } from "./wp";
-import { WebPartCfg } from "./wpCfg";
 declare var SP;
 
 /**
@@ -19,7 +18,7 @@ class Demo {
         new WebPart({
             cfgElementId: "wp-demoCfg",
             displayElement: DemoWebpart,
-            editElement: WebPartCfg,
+            editElement: WebPartListCfg,
             targetElementId: "wp-demo",
             helpUrl: "#"
         });

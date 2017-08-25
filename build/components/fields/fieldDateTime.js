@@ -22,6 +22,7 @@ var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../../common");
+var _1 = require(".");
 /**
  * Date Time field
  */
@@ -153,6 +154,6 @@ var FieldDateTime = (function (_super) {
             this.renderTime(props.value)));
     };
     return FieldDateTime;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldDateTime = FieldDateTime;
 //# sourceMappingURL=fieldDateTime.js.map

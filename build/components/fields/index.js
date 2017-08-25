@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var baseField_1 = require("./baseField");
+exports.BaseField = baseField_1.BaseField;
 var fieldAttachments_1 = require("./fieldAttachments");
 exports.FieldAttachments = fieldAttachments_1.FieldAttachments;
 var fieldBoolean_1 = require("./fieldBoolean");

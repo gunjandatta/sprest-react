@@ -21,7 +21,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var common_1 = require("../../common");
+var __1 = require("..");
+var _1 = require(".");
 /**
  * User Field
  */
@@ -40,7 +41,7 @@ var FieldUser = (function (_super) {
             // Call the change event
             _this.props.onChange ? _this.props.onChange(personas) : null;
             // Update the field value
-            _this.updateValue(common_1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple));
+            _this.updateValue(__1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple));
         };
         // The field initialized event
         _this.onFieldInit = function (field, state) {
@@ -109,9 +110,9 @@ var FieldUser = (function (_super) {
         // Render the component
         return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(common_1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null, props: props, ref: "user" })));
+            React.createElement(__1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null, props: props, ref: "user" })));
     };
     return FieldUser;
-}(common_1.BaseField));
+}(_1.BaseField));
 exports.FieldUser = FieldUser;
 //# sourceMappingURL=fieldUser.js.map

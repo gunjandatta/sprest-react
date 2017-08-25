@@ -78,6 +78,25 @@ The item form component requires an array of field information items and the lis
 />
 ```
 
+#### Panel
+The panel extends the "Panel" component from the Office Fabric React framework, and adds the following methods:
+* hide - Hides the panel.
+* show - Shows the panel.
+```
+<Panel ref="panel" />
+
+Code:
+hidePanel = () => {
+    // Hide the panel
+    (this.refs["panel"] as Panel).hide();
+}
+
+showPanel = () => {
+    // Show the panel
+    (this.refs["panel"] as Panel).show();
+}
+
+```
 
 #### SharePoint People Picker
 The people picker component will currently search the user information list. This will be enhanced to include a "Search Global" to allow the user to search all role providers.

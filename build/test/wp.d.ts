@@ -20,6 +20,10 @@ export interface State {
  * Demo WebPart
  */
 export declare class DemoWebpart extends React.Component<Props, State> {
+    private _itemForm;
+    private _list;
+    private _message;
+    private _panel;
     /**
      * Constructor
      */

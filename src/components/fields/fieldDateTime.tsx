@@ -13,6 +13,8 @@ import { BaseField } from ".";
  * Date Time field
  */
 export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
+    private _datePicker: DatePicker = null;
+
     /**
      * Public Interface
      */
@@ -46,7 +48,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         // Render the component
         return (
             <div className={this.props.className}>
-                <DatePicker {...props} ref="date" />
+                <DatePicker {...props} ref={datePicker => { this._datePicker = datePicker; }} />
                 {this.renderTime(props.value)}
             </div>
         );
@@ -85,7 +87,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         let minutes = parseInt(time[1]);
 
         // Update the selected date
-        let date = (this.refs["date"] as DatePicker).state.selectedDate;
+        let date = this._datePicker.state.selectedDate;
         date.setHours(hours);
         date.setMinutes(minutes);
 
@@ -157,7 +159,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
             // Return the time
             return (
-                <Dropdown {...props} ref="time" />
+                <Dropdown {...props} />
             );
         }
 

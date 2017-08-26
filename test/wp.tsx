@@ -25,6 +25,11 @@ export interface State {
  * Demo WebPart
  */
 export class DemoWebpart extends React.Component<Props, State> {
+    private _itemForm: ItemForm = null;
+    private _list: TestList = null;
+    private _message: HTMLSpanElement = null;
+    private _panel: Panel = null;
+
     /**
      * Constructor
      */
@@ -66,17 +71,17 @@ export class DemoWebpart extends React.Component<Props, State> {
                 <TestList
                     items={this.state.items}
                     viewItem={this.viewItem}
-                    ref="list"
+                    ref={list => { this._list = list; }}
                 />
                 <Panel
                     isLightDismiss={true}
                     headerText="Test Item Form"
                     onRenderFooterContent={this.renderFooter}
-                    ref="panel">
+                    ref={panel => { this._panel = panel; }}>
                     <div className="ms-Grid">
                         <div className="ms-Grid-row">
                             <div className="ms-Grid-col ms-md12">
-                                <span className="ms-fontSize-l" ref="message"></span>
+                                <span className="ms-fontSize-l" ref={message => { this._message = message; }}></span>
                             </div>
                         </div>
                     </div>
@@ -100,7 +105,7 @@ export class DemoWebpart extends React.Component<Props, State> {
                         ]}
                         item={this.state.item}
                         listName={this.props.cfg.ListName}
-                        ref="itemForm"
+                        ref={itemForm => { this._itemForm = itemForm; }}
                     />
                 </Panel>
             </div>
@@ -119,7 +124,7 @@ export class DemoWebpart extends React.Component<Props, State> {
         // Update the state
         this.setState({ item: {} as ITestItem }, () => {
             // Show the item form
-            (this.refs["panel"] as Panel).show();
+            this._panel.show();
         });
     }
 
@@ -145,12 +150,10 @@ export class DemoWebpart extends React.Component<Props, State> {
 
     // Method to save the item
     private save = () => {
-        let itemForm: ItemForm = this.refs["itemForm"] as ItemForm;
-
         // Save the item
-        itemForm.save<ITestItem>().then(item => {
+        this._itemForm.save<ITestItem>().then(item => {
             // Update the message
-            (this.refs["message"] as HTMLSpanElement).innerHTML =
+            this._message.innerHTML =
                 item.existsFl ? "The item was saved successfully." : "Error: " + item.response;
         });
     }
@@ -160,7 +163,7 @@ export class DemoWebpart extends React.Component<Props, State> {
         // Update the state
         this.setState({ item }, () => {
             // Show the item form
-            (this.refs["panel"] as Panel).show();
+            this._panel.show();
         });
     }
 }

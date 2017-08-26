@@ -5,6 +5,8 @@ import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } f
  * Web Part Configuration
  */
 export declare abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
+    private _errorMessage;
+    private _panel;
     /**
      * Constructor
      */

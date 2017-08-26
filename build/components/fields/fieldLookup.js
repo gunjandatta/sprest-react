@@ -215,7 +215,7 @@ var FieldLookup = (function (_super) {
             props.defaultSelectedKey = this.state.value;
         }
         // Return the component
-        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "lookup" })));
+        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
     };
     return FieldLookup;
 }(_1.BaseField));

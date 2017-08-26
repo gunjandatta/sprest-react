@@ -49,8 +49,8 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Return the component
         return (
             <div className={this.props.className}>
-                <TextField {...urlProps as any} ref="url" />
-                <TextField {...descProps as any} ref="description" />
+                <TextField {...urlProps as any} />
+                <TextField {...descProps as any} />
             </div>
         );
     }

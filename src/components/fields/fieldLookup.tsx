@@ -86,7 +86,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
 
         // Return the component
         return (
-            <Dropdown {...props} ref="lookup" />
+            <Dropdown {...props} />
         );
     }
 

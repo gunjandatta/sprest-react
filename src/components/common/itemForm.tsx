@@ -12,6 +12,8 @@ import { Field, Fields } from "..";
  * Item Form WebPart
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
+    private _attachmentField = null;
+    private _fields: Array<Field> = [];
     private _list: Types.IListResult = null;
 
     /**
@@ -123,57 +125,51 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         let formValues: any = {};
 
         // Parse the references
-        for (let fieldName in this.refs) {
-            let ref = this.refs[fieldName];
+        for (let i = 0; i < this._fields.length; i++) {
+            let field = this._fields[i];
+            let fieldName = field.state.fieldInfo.name;
 
-            // Skip the attachments
-            if (fieldName == "attachments") { continue; }
-
-            // See if this is a field
-            if (ref instanceof Field) {
-                let field = ref as Field;
-
-                // See if this is a lookup or user field
-                if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
-                    field.state.fieldInfo.type == SPTypes.FieldType.User) {
-                    // Ensure the field name is the "Id" field
-                    fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
-                }
-
-                // Get the field value
-                let fieldValue: any = (ref as Field).state.value;
-                if (fieldValue) {
-                    // See if this is a multi-value field
-                    if (fieldValue.results) {
-                        let results = [];
-
-                        // Parse the results
-                        for (let i = 0; i < fieldValue.results.length; i++) {
-                            let lookupValue = fieldValue.results[i];
-
-                            // Add the lookup id if it exists
-                            results.push(lookupValue.ID || lookupValue);
-                        }
-
-                        // Set the field value
-                        fieldValue = { results };
-                    }
-                    // See if this is a lookup or user field
-                    else if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
-                        field.state.fieldInfo.type == SPTypes.FieldType.User) {
-                        // Clear the value if it doesn't exist
-                        fieldValue = fieldValue > 0 ? fieldValue : null;
-                    }
-                }
-                // Else, see if this is a multi-choice field
-                else if (field.state.fieldInfo.type == SPTypes.FieldType.MultiChoice) {
-                    // Default the value
-                    fieldValue = { results: [] };
-                }
-
-                // Set the field value
-                formValues[fieldName] = fieldValue;
+            // See if this is a lookup or user field
+            if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
+                field.state.fieldInfo.type == SPTypes.FieldType.User) {
+                // Ensure the field name is the "Id" field
+                fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
+
+            // Get the field value
+            let fieldValue: any = field.state.value;
+            if (fieldValue) {
+                // See if this is a multi-value field
+                if (fieldValue.results) {
+                    let results = [];
+
+                    // Parse the results
+                    for (let i = 0; i < fieldValue.results.length; i++) {
+                        let lookupValue = fieldValue.results[i];
+
+                        // Add the lookup id if it exists
+                        results.push(lookupValue.ID || lookupValue);
+                    }
+
+                    // Set the field value
+                    fieldValue = { results };
+                }
+                // See if this is a lookup or user field
+                else if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
+                    field.state.fieldInfo.type == SPTypes.FieldType.User) {
+                    // Clear the value if it doesn't exist
+                    fieldValue = fieldValue > 0 ? fieldValue : null;
+                }
+            }
+            // Else, see if this is a multi-choice field
+            // TODO: Is this check still needed?
+            else if (field.state.fieldInfo.type == SPTypes.FieldType.MultiChoice) {
+                // Default the value
+                fieldValue = { results: [] };
+            }
+
+            // Set the field value
+            formValues[fieldName] = fieldValue;
         }
 
         // Return the form values
@@ -187,20 +183,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Parse the fields
         for (let i = 0; i < this.props.fields.length; i++) {
-            let field = this.props.fields[i];
+            let fieldInfo = this.props.fields[i];
 
             // Add the form field, based on the name
-            switch (field.name) {
+            switch (fieldInfo.name) {
                 // Attachment Field
                 case "Attachments":
                     formFields.push(
-                        <div className="ms-Grid-row" key={"row_" + field.name}>
+                        <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                             <div className="ms-Grid-col-md12">
                                 <Fields.FieldAttachments
                                     files={item.AttachmentFiles}
-                                    key={field.name}
+                                    key={fieldInfo.name}
                                     listName={this.props.listName}
-                                    ref="attachments"
+                                    ref={field => { this._attachmentField = field; }}
                                 />
                             </div>
                         </div>
@@ -209,17 +205,17 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 // Default
                 default:
                     formFields.push(
-                        <div className="ms-Grid-row" key={"row_" + field.name}>
+                        <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                             <div className="ms-Grid-col ms-md12">
                                 <Field
                                     controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
-                                    defaultValue={item[field.name]}
+                                    defaultValue={item[fieldInfo.name]}
                                     listName={this.props.listName}
-                                    key={field.name}
-                                    name={field.name}
-                                    onChange={field.onChange}
-                                    onRender={field.onRender}
-                                    ref={field.name}
+                                    key={fieldInfo.name}
+                                    name={fieldInfo.name}
+                                    onChange={fieldInfo.onChange}
+                                    onRender={fieldInfo.onRender}
+                                    ref={field => { this._fields.push(field); }}
                                 />
                             </div>
                         </div>
@@ -237,10 +233,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if attachments exist
-            let attachments = this.refs["attachments"] as Fields.FieldAttachments;
-            if (attachments) {
+            if (this._attachmentField) {
                 // Save the attachments
-                attachments.save(itemId).then(() => {
+                this._attachmentField.save(itemId).then(() => {
                     // Resolve the promise
                     resolve(itemId);
                 });

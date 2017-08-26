@@ -80,7 +80,7 @@ var FieldNumber = (function (_super) {
         props.value = this.getValue();
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
         // Return the component
-        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "number" })));
+        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
     };
     return FieldNumber;
 }(_1.BaseField));

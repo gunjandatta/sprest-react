@@ -9,6 +9,9 @@ declare var SP;
  * Web Part Configuration
  */
 export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
+    private _errorMessage: HTMLDivElement = null;
+    private _panel: Panel = null;
+
     /**
      * Constructor
      */
@@ -35,11 +38,11 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
         return (
             <div>
                 <PrimaryButton text="Edit Configuration" onClick={this.show} />
-                <Panel headerText="Configuration" ref="panel">
-                    <div ref="errorMessage" />
+                <Panel headerText="Configuration" ref={panel => { this._panel = panel; }}>
+                    <div ref={errorMessage => { this._errorMessage = errorMessage; }} />
                     {this.onRenderContents(this.state.cfg)}
                 </Panel>
-            </div>
+            </div >
         )
     }
 
@@ -50,12 +53,12 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
     // Method to save the webpart configuration
     protected saveConfiguration = (wpCfg: any) => {
         // Clear the error message
-        (this.refs["errorMessage"] as HTMLDivElement).innerText = "";
+        this._errorMessage.innerText = "";
 
         // Update the webpart content elements
         if (this.updateWebPartContentElements(this.props.cfg.WebPartId, wpCfg)) {
             // Close the panel
-            (this.refs["panel"] as Panel).hide();
+            this._panel.hide();
             return;
         }
 
@@ -92,7 +95,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
                     // Error
                     (...args) => {
                         // Set the error message
-                        (this.refs["errorMessage"] as HTMLDivElement).innerText = args[1].get_message();
+                        this._errorMessage.innerText = args[1].get_message();
                     }
                 );
             }
@@ -105,7 +108,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
         ev.preventDefault();
 
         // Show the panel
-        (this.refs["panel"] as Panel).show();
+        this._panel.show();
     }
 
     // Method to update the webpart content elements

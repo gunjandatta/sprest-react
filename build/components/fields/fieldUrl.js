@@ -92,8 +92,8 @@ var FieldUrl = (function (_super) {
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
         // Return the component
         return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps, { ref: "url" })),
-            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps, { ref: "description" }))));
+            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps)),
+            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps))));
     };
     return FieldUrl;
 }(_1.BaseField));

@@ -62,8 +62,8 @@ var FieldBoolean = (function (_super) {
         props.onChange = this.onChange;
         // Render the component
         return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.Label, { ref: "label" }, props.label || this.state.label),
-            React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props, { ref: "checkbox" }))));
+            React.createElement(office_ui_fabric_react_1.Label, null, props.label || this.state.label),
+            React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props))));
     };
     return FieldBoolean;
 }(_1.BaseField));

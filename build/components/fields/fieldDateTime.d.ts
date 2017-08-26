@@ -5,6 +5,7 @@ import { BaseField } from ".";
  * Date Time field
  */
 export declare class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
+    private _datePicker;
     /**
      * Public Interface
      */

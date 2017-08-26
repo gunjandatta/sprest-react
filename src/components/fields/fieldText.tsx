@@ -41,7 +41,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
 
         // Return the component
         return (
-            <TextField {...props as any} ref="text" />
+            <TextField {...props as any} />
         );
     }
 

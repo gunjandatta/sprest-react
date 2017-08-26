@@ -24,17 +24,19 @@ var WebPartConfigurationPanel = (function (_super) {
      */
     function WebPartConfigurationPanel(props) {
         var _this = _super.call(this, props) || this;
+        _this._errorMessage = null;
+        _this._panel = null;
         /**
          * Methods
          */
         // Method to save the webpart configuration
         _this.saveConfiguration = function (wpCfg) {
             // Clear the error message
-            _this.refs["errorMessage"].innerText = "";
+            _this._errorMessage.innerText = "";
             // Update the webpart content elements
             if (_this.updateWebPartContentElements(_this.props.cfg.WebPartId, wpCfg)) {
                 // Close the panel
-                _this.refs["panel"].hide();
+                _this._panel.hide();
                 return;
             }
             // Get the target webpart
@@ -70,7 +72,7 @@ var WebPartConfigurationPanel = (function (_super) {
                             args[_i] = arguments[_i];
                         }
                         // Set the error message
-                        _this.refs["errorMessage"].innerText = args[1].get_message();
+                        _this._errorMessage.innerText = args[1].get_message();
                     });
                 }
             });
@@ -80,7 +82,7 @@ var WebPartConfigurationPanel = (function (_super) {
             // Prevent postback
             ev.preventDefault();
             // Show the panel
-            _this.refs["panel"].show();
+            _this._panel.show();
         };
         // Method to update the webpart content elements
         _this.updateWebPartContentElements = function (wpId, wpCfg) {
@@ -155,10 +157,11 @@ var WebPartConfigurationPanel = (function (_super) {
      */
     // Method to render the panel
     WebPartConfigurationPanel.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
-            React.createElement(__1.Panel, { headerText: "Configuration", ref: "panel" },
-                React.createElement("div", { ref: "errorMessage" }),
+            React.createElement(__1.Panel, { headerText: "Configuration", ref: function (panel) { _this._panel = panel; } },
+                React.createElement("div", { ref: function (errorMessage) { _this._errorMessage = errorMessage; } }),
                 this.onRenderContents(this.state.cfg))));
     };
     return WebPartConfigurationPanel;

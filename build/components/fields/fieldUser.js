@@ -110,7 +110,7 @@ var FieldUser = (function (_super) {
         // Render the component
         return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(__1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null, props: props, ref: "user" })));
+            React.createElement(__1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null, props: props })));
     };
     return FieldUser;
 }(_1.BaseField));

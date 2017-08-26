@@ -39,7 +39,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
 
         // Return the component
         return (
-            <TextField {...props as any} ref="number" />
+            <TextField {...props as any} />
         );
     }
 

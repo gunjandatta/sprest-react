@@ -29,10 +29,8 @@ var _1 = require(".");
 var FieldDateTime = (function (_super) {
     __extends(FieldDateTime, _super);
     function FieldDateTime() {
-        /**
-         * Public Interface
-         */
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._datePicker = null;
         /**
          * Events
          */
@@ -60,7 +58,7 @@ var FieldDateTime = (function (_super) {
             var hours = parseInt(time[0]);
             var minutes = parseInt(time[1]);
             // Update the selected date
-            var date = _this.refs["date"].state.selectedDate;
+            var date = _this._datePicker.state.selectedDate;
             date.setHours(hours);
             date.setMinutes(minutes);
             // Call the change event
@@ -120,15 +118,19 @@ var FieldDateTime = (function (_super) {
                 props.placeHolder = props.placeHolder || "Time";
                 props.selectedKey = selectedHour + "|" + selectedMin;
                 // Return the time
-                return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "time" })));
+                return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
             }
             // Render nothing
             return null;
         };
         return _this;
     }
+    /**
+     * Public Interface
+     */
     // Render the field
     FieldDateTime.prototype.renderField = function () {
+        var _this = this;
         // See if a custom render method exists
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
@@ -150,7 +152,7 @@ var FieldDateTime = (function (_super) {
         props.value = this.getValue();
         // Render the component
         return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { ref: "date" })),
+            React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { ref: function (datePicker) { _this._datePicker = datePicker; } })),
             this.renderTime(props.value)));
     };
     return FieldDateTime;

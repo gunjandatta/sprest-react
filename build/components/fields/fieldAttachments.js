@@ -25,6 +25,7 @@ var FieldAttachments = (function (_super) {
      */
     function FieldAttachments(props) {
         var _this = _super.call(this, props) || this;
+        _this._file = null;
         // Method to save the attachments to the item
         _this.save = function (itemId) {
             // Return a promise
@@ -131,7 +132,7 @@ var FieldAttachments = (function (_super) {
             // Prevent postback
             ev.preventDefault();
             // Show the file dialog
-            _this.refs["file"].click();
+            _this._file.click();
         };
         /**
          * Methods
@@ -250,6 +251,7 @@ var FieldAttachments = (function (_super) {
      */
     // Method to render the component
     FieldAttachments.prototype.render = function () {
+        var _this = this;
         // See if this is the display mode
         if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
             // Render the attachments
@@ -264,7 +266,7 @@ var FieldAttachments = (function (_super) {
                     React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
             this.state.errorMessage == "" ? null :
                 React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage),
-            React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: "file" })));
+            React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
     };
     return FieldAttachments;
 }(React.Component));

@@ -26,6 +26,7 @@ export interface IWebPartListCfgState extends IWebPartConfigurationState {
  * WebPart List Configuration
  */
 export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
+    private _webUrl;
     /**
      * Constructor
      */

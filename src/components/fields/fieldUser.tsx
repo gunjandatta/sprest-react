@@ -71,7 +71,6 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
                     allowMultiple={this.state.fieldInfo.allowMultiple}
                     fieldValue={this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null}
                     props={props}
-                    ref="user"
                 />
             </div>
         );

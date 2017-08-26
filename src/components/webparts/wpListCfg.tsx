@@ -31,6 +31,8 @@ export interface IWebPartListCfgState extends IWebPartConfigurationState {
  * WebPart List Configuration
  */
 export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
+    private _webUrl: TextField = null;
+
     /**
      * Constructor
      */
@@ -85,7 +87,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
             <div>
                 <TextField
                     label="Relative Web Url:"
-                    ref="webUrl"
+                    ref={webUrl => { this._webUrl = webUrl; }}
                     value={cfg ? cfg.WebUrl : ""}
                 />
                 <PrimaryButton text="Refresh" onClick={this.onRefresh} />
@@ -107,7 +109,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
 
         // Update the configuration
         let cfg = this.props.cfg;
-        cfg.WebUrl = (this.refs["webUrl"] as TextField).state.value;
+        cfg.WebUrl = this._webUrl.state.value;
 
         // Load the lists
         this.loadLists(cfg);

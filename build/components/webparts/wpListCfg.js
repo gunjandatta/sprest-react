@@ -24,6 +24,7 @@ var WebPartListCfg = (function (_super) {
      */
     function WebPartListCfg(props) {
         var _this = _super.call(this, props) || this;
+        _this._webUrl = null;
         /**
          * Methods
          */
@@ -57,7 +58,7 @@ var WebPartListCfg = (function (_super) {
         // Method to render the panel content
         _this.onRenderContents = function (cfg) {
             return (React.createElement("div", null,
-                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: "webUrl", value: cfg ? cfg.WebUrl : "" }),
+                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: function (webUrl) { _this._webUrl = webUrl; }, value: cfg ? cfg.WebUrl : "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Refresh", onClick: _this.onRefresh }),
                 React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, options: _this.state.lists, selectedKey: cfg ? cfg.ListName : "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Save", onClick: _this.onSave })));
@@ -68,7 +69,7 @@ var WebPartListCfg = (function (_super) {
             ev.preventDefault();
             // Update the configuration
             var cfg = _this.props.cfg;
-            cfg.WebUrl = _this.refs["webUrl"].state.value;
+            cfg.WebUrl = _this._webUrl.state.value;
             // Load the lists
             _this.loadLists(cfg);
         };

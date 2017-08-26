@@ -31,8 +31,8 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
         // Render the component
         return (
             <div className={this.props.className}>
-                <Label ref="label">{props.label || this.state.label}</Label>
-                <Checkbox {...props as any} ref="checkbox" />
+                <Label>{props.label || this.state.label}</Label>
+                <Checkbox {...props as any} />
             </div>
         );
     }

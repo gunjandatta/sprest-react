@@ -14,6 +14,8 @@ import "../../../sass/fieldAttachments.scss";
  * Attachments field
  */
 export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IFieldAttachmentsState> implements IFieldAttachment {
+    private _file: HTMLInputElement = null;
+
     /**
      * Constructor
      */
@@ -58,7 +60,12 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                     this.state.errorMessage == "" ? null :
                         <span className="ms-fontSize-m ms-fontColor-redDark">{this.state.errorMessage}</span>
                 }
-                <input type="file" hidden={true} onChange={this.addAttachment} ref="file" />
+                <input
+                    type="file"
+                    hidden={true}
+                    onChange={this.addAttachment}
+                    ref={file => { this._file = file; }}
+                />
             </div>
         );
     }
@@ -187,7 +194,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         ev.preventDefault();
 
         // Show the file dialog
-        (this.refs["file"] as HTMLInputElement).click();
+        this._file.click();
     }
 
     /**

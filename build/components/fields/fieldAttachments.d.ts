@@ -6,6 +6,7 @@ import "../../../sass/fieldAttachments.scss";
  * Attachments field
  */
 export declare class FieldAttachments extends React.Component<IFieldAttachmentsProps, IFieldAttachmentsState> implements IFieldAttachment {
+    private _file;
     /**
      * Constructor
      */

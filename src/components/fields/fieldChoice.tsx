@@ -57,7 +57,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
 
         // Return the dropdown
         return (
-            <Dropdown {...props} ref="choice" />
+            <Dropdown {...props} />
         );
     }
 

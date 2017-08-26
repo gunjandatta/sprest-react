@@ -79,7 +79,7 @@ var FieldText = (function (_super) {
         props.value = this.getFieldValue();
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
         // Return the component
-        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props, { ref: "text" })));
+        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
     };
     return FieldText;
 }(_1.BaseField));

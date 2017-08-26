@@ -83,17 +83,16 @@ The panel extends the "Panel" component from the Office Fabric React framework, 
 * hide - Hides the panel.
 * show - Shows the panel.
 ```
-<Panel ref="panel" />
+<Panel ref={panel => { this._panel = panel; }} />
 
-Code:
 hidePanel = () => {
     // Hide the panel
-    (this.refs["panel"] as Panel).hide();
+    this._panel.hide();
 }
 
 showPanel = () => {
     // Show the panel
-    (this.refs["panel"] as Panel).show();
+    this._panel.show();
 }
 
 ```

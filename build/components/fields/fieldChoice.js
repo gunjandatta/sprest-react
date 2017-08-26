@@ -155,7 +155,7 @@ var FieldChoice = (function (_super) {
             props.defaultSelectedKey = this.state.value;
         }
         // Return the dropdown
-        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props, { ref: "choice" })));
+        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
     };
     return FieldChoice;
 }(_1.BaseField));

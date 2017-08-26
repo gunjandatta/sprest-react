@@ -24,6 +24,8 @@ var ItemForm = (function (_super) {
      */
     function ItemForm(props) {
         var _this = _super.call(this, props) || this;
+        _this._attachmentField = null;
+        _this._fields = [];
         _this._list = null;
         /**
          * Methods
@@ -89,20 +91,20 @@ var ItemForm = (function (_super) {
             var item = _this.state.item;
             // Parse the fields
             for (var i = 0; i < _this.props.fields.length; i++) {
-                var field = _this.props.fields[i];
+                var fieldInfo = _this.props.fields[i];
                 // Add the form field, based on the name
-                switch (field.name) {
+                switch (fieldInfo.name) {
                     // Attachment Field
                     case "Attachments":
-                        formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
+                        formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                             React.createElement("div", { className: "ms-Grid-col-md12" },
-                                React.createElement(__1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: field.name, listName: _this.props.listName, ref: "attachments" }))));
+                                React.createElement(__1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: fieldInfo.name, listName: _this.props.listName, ref: function (field) { _this._attachmentField = field; } }))));
                         break;
                     // Default
                     default:
-                        formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + field.name },
+                        formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                             React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                                React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[field.name], listName: _this.props.listName, key: field.name, name: field.name, onChange: field.onChange, onRender: field.onRender, ref: field.name }))));
+                                React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { _this._fields.push(field); } }))));
                         break;
                 }
             }
@@ -114,10 +116,9 @@ var ItemForm = (function (_super) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
                 // See if attachments exist
-                var attachments = _this.refs["attachments"];
-                if (attachments) {
+                if (_this._attachmentField) {
                     // Save the attachments
-                    attachments.save(itemId).then(function () {
+                    _this._attachmentField.save(itemId).then(function () {
                         // Resolve the promise
                         resolve(itemId);
                     });
@@ -184,49 +185,42 @@ var ItemForm = (function (_super) {
     ItemForm.prototype.getValues = function () {
         var formValues = {};
         // Parse the references
-        for (var fieldName in this.refs) {
-            var ref = this.refs[fieldName];
-            // Skip the attachments
-            if (fieldName == "attachments") {
-                continue;
+        for (var i = 0; i < this._fields.length; i++) {
+            var field = this._fields[i];
+            var fieldName = field.state.fieldInfo.name;
+            // See if this is a lookup or user field
+            if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
+                // Ensure the field name is the "Id" field
+                fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
-            // See if this is a field
-            if (ref instanceof __1.Field) {
-                var field = ref;
-                // See if this is a lookup or user field
-                if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+            // Get the field value
+            var fieldValue = field.state.value;
+            if (fieldValue) {
+                // See if this is a multi-value field
+                if (fieldValue.results) {
+                    var results = [];
+                    // Parse the results
+                    for (var i_1 = 0; i_1 < fieldValue.results.length; i_1++) {
+                        var lookupValue = fieldValue.results[i_1];
+                        // Add the lookup id if it exists
+                        results.push(lookupValue.ID || lookupValue);
+                    }
+                    // Set the field value
+                    fieldValue = { results: results };
+                }
+                else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
                     field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
-                    // Ensure the field name is the "Id" field
-                    fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
+                    // Clear the value if it doesn't exist
+                    fieldValue = fieldValue > 0 ? fieldValue : null;
                 }
-                // Get the field value
-                var fieldValue = ref.state.value;
-                if (fieldValue) {
-                    // See if this is a multi-value field
-                    if (fieldValue.results) {
-                        var results = [];
-                        // Parse the results
-                        for (var i = 0; i < fieldValue.results.length; i++) {
-                            var lookupValue = fieldValue.results[i];
-                            // Add the lookup id if it exists
-                            results.push(lookupValue.ID || lookupValue);
-                        }
-                        // Set the field value
-                        fieldValue = { results: results };
-                    }
-                    else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
-                        field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
-                        // Clear the value if it doesn't exist
-                        fieldValue = fieldValue > 0 ? fieldValue : null;
-                    }
-                }
-                else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.MultiChoice) {
-                    // Default the value
-                    fieldValue = { results: [] };
-                }
-                // Set the field value
-                formValues[fieldName] = fieldValue;
             }
+            else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.MultiChoice) {
+                // Default the value
+                fieldValue = { results: [] };
+            }
+            // Set the field value
+            formValues[fieldName] = fieldValue;
         }
         // Return the form values
         return formValues;

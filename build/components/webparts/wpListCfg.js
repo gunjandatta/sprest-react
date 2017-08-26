@@ -44,7 +44,7 @@ var WebPartListCfg = (function (_super) {
                     var list = lists.results[i];
                     // Add the option
                     options.push({
-                        key: list.Id,
+                        key: list.Title,
                         text: list.Title
                     });
                 }

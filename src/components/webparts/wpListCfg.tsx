@@ -68,7 +68,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
 
                     // Add the option
                     options.push({
-                        key: list.Id,
+                        key: list.Title,
                         text: list.Title
                     })
                 }

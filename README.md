@@ -24,6 +24,7 @@ This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sp
 * Date
 * Date/Time
 * Lookup
+* Managed Metadata (In Dev)
 * Multi-Choice
 * Multi-User
 * Note (Plain Text)
@@ -64,6 +65,7 @@ The item form component requires an array of field information items and the lis
         { name: "TestDate" },
         { name: "TestDateTime" },
         { name: "TestLookup" },
+        { name: "TestManagedMetadata" },
         { name: "TestMultiChoice" },
         { name: "TestMultiLookup" },
         { name: "TestMultiUser" },

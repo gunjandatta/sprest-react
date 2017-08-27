@@ -10,7 +10,6 @@ export interface ILookupFieldInfo extends IBaseFieldInfo {
     allowMultipleValues: boolean;
 
     /** The lookup items. */
-    // Note - Update to use Types.ComplexTypes.FieldMultiLookupValue after gd-sprest v1.9.1.
     items: Array<Types.IListItemQueryResult>;
 
     /** The lookup field name. */

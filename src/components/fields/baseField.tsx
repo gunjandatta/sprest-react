@@ -118,7 +118,6 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
                     state.label = field.title + ":";
                     state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
 
-
                     // Call the on loaded event
                     this.onFieldLoaded ? this.onFieldLoaded() : null;
 
@@ -145,6 +144,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
                 state.fieldInfo.required = field.Required ? true : false;
                 state.fieldInfo.title = field.Title;
                 state.fieldInfo.type = field.FieldTypeKind as number;
+                state.fieldInfo.typeAsString = field.TypeAsString;
                 state.initFl = true;
                 state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
                 state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;

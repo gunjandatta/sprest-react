@@ -73,7 +73,15 @@ var Field = (function (_super) {
                 return React.createElement(__1.Fields.FieldUser, __assign({}, props, { onChange: this.onChange }));
             // Default
             default:
-                return (React.createElement("div", null, this.state.value));
+                // Check the type as string value
+                switch (fieldInfo.typeAsString) {
+                    // Managed Metadata
+                    case "TaxonomyFieldType":
+                        return React.createElement(__1.Fields.FieldManagedMetadata, __assign({}, props, { onChange: this.onChange }));
+                    // Default
+                    default:
+                        return (React.createElement("div", null, this.state.value));
+                }
         }
     };
     return Field;

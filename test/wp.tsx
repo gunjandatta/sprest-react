@@ -94,6 +94,7 @@ export class DemoWebpart extends React.Component<Props, State> {
                             { name: "TestDate" },
                             { name: "TestDateTime" },
                             { name: "TestLookup" },
+                            { name: "TestManagedMetadata" },
                             { name: "TestMultiChoice" },
                             { name: "TestMultiLookup" },
                             { name: "TestMultiUser" },

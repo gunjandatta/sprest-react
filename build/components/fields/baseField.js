@@ -102,6 +102,7 @@ var BaseField = (function (_super) {
                 state.fieldInfo.required = field.Required ? true : false;
                 state.fieldInfo.title = field.Title;
                 state.fieldInfo.type = field.FieldTypeKind;
+                state.fieldInfo.typeAsString = field.TypeAsString;
                 state.initFl = true;
                 state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
                 state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;

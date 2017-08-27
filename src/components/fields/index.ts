@@ -4,6 +4,7 @@ import { FieldBoolean } from "./fieldBoolean";
 import { FieldChoice } from "./fieldChoice";
 import { FieldDateTime } from "./fieldDateTime";
 import { FieldLookup } from "./fieldLookup"
+import { FieldManagedMetadata } from "./fieldManagedMetadata";
 import { FieldNumber } from "./fieldNumber"
 import { FieldText } from "./fieldText";
 import { FieldUrl } from "./fieldUrl";
@@ -15,6 +16,7 @@ export {
     FieldChoice,
     FieldDateTime,
     FieldLookup,
+    FieldManagedMetadata,
     FieldNumber,
     FieldText,
     FieldUrl,

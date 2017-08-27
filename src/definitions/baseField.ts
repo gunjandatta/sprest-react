@@ -25,6 +25,9 @@ export interface IBaseFieldInfo {
     /** The field type. */
     type?: number;
 
+    /** The field type as a string. */
+    typeAsString?: string;
+
     /** The relative web url containing the list. */
     webUrl?: string;
 }

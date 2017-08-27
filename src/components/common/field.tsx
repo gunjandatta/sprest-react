@@ -42,9 +42,17 @@ export class Field extends Fields.BaseField {
                 return <Fields.FieldUser {...props} onChange={this.onChange} />;
             // Default
             default:
-                return (
-                    <div>{this.state.value}</div>
-                );
+                // Check the type as string value
+                switch (fieldInfo.typeAsString) {
+                    // Managed Metadata
+                    case "TaxonomyFieldType":
+                        return <Fields.FieldManagedMetadata {...props} onChange={this.onChange} />;
+                    // Default
+                    default:
+                        return (
+                            <div>{this.state.value}</div>
+                        );
+                }
         }
     }
 

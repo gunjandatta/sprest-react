@@ -165,9 +165,6 @@ var WebPartConfigurationPanel = (function (_super) {
         };
         return _this;
     }
-    /**
-     * Public Interface
-     */
     // Method to render the panel
     WebPartConfigurationPanel.prototype.render = function () {
         var _this = this;

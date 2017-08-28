@@ -47,10 +47,6 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps =
     // The render header event
     onRenderHeader = () => { }
 
-    /**
-     * Public Interface
-     */
-
     // Method to render the panel
     render() {
         return (

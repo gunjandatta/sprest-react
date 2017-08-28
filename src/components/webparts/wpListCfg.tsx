@@ -64,6 +64,44 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     // The lists loaded event
     onListsLoaded = (newState: State) => { }
 
+    // The refresh button click event
+    onRefresh = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        // Prevent postback
+        ev.preventDefault();
+
+        // Update the configuration
+        let cfg = this.props.cfg;
+        cfg.WebUrl = this._webUrl.state.value;
+
+        // Load the lists
+        this.loadLists(cfg);
+    }
+
+    // The render contents event
+    onRenderContents = (cfg: IWebPartListCfg) => {
+        return (
+            <div>
+                <TextField
+                    label="Relative Web Url:"
+                    ref={webUrl => { this._webUrl = webUrl; }}
+                    value={cfg ? cfg.WebUrl : ""}
+                />
+                <PrimaryButton
+                    onClick={this.onRefresh}
+                    ref={btn => { this._refreshButton = btn; }}
+                    text="Refresh"
+                />
+                <Dropdown
+                    label="List:"
+                    onChanged={this.updateListName}
+                    ref={ddl => { this._listDropdown = ddl; }}
+                    options={this.state.lists}
+                    selectedKey={cfg ? cfg.ListName : ""}
+                />
+            </div>
+        );
+    }
+
     // Render the save button
     onRenderFooter = () => {
         return (
@@ -73,6 +111,18 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                 text="Save"
             />
         );
+    }
+
+    // The save button click event
+    onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        // Prevent postback
+        ev.preventDefault();
+
+        // Get the configuration
+        let cfg = this.state.cfg;
+
+        // Save the webpart configuration
+        this.saveConfiguration(cfg);
     }
 
     /**
@@ -115,56 +165,6 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                 // Set the state
                 this.setState(newState);
             });
-    }
-
-    // The render contents event
-    onRenderContents = (cfg: IWebPartListCfg) => {
-        return (
-            <div>
-                <TextField
-                    label="Relative Web Url:"
-                    ref={webUrl => { this._webUrl = webUrl; }}
-                    value={cfg ? cfg.WebUrl : ""}
-                />
-                <PrimaryButton
-                    onClick={this.onRefresh}
-                    ref={btn => { this._refreshButton = btn; }}
-                    text="Refresh"
-                />
-                <Dropdown
-                    label="List:"
-                    onChanged={this.updateListName}
-                    ref={ddl => { this._listDropdown = ddl; }}
-                    options={this.state.lists}
-                    selectedKey={cfg ? cfg.ListName : ""}
-                />
-            </div>
-        );
-    }
-
-    // The refresh button click event
-    private onRefresh = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        // Prevent postback
-        ev.preventDefault();
-
-        // Update the configuration
-        let cfg = this.props.cfg;
-        cfg.WebUrl = this._webUrl.state.value;
-
-        // Load the lists
-        this.loadLists(cfg);
-    }
-
-    // The save button click event
-    private onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        // Prevent postback
-        ev.preventDefault();
-
-        // Get the configuration
-        let cfg = this.state.cfg;
-
-        // Save the webpart configuration
-        this.saveConfiguration(cfg);
     }
 
     // Method to update the list name

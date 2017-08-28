@@ -27,9 +27,6 @@ export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCf
      */
     onRenderFooter: () => void;
     onRenderHeader: () => void;
-    /**
-     * Public Interface
-     */
     render(): JSX.Element;
     /**
      * Methods

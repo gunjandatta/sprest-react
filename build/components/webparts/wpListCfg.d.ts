@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import * as React from "react";
 import { Types } from "gd-sprest";
 import { Dropdown, IDropdownOption } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../..";
@@ -42,13 +43,13 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
      */
     onListChanged: (state: State, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: State) => void;
+    onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
     onRenderFooter: () => JSX.Element;
+    onSave: (ev: React.MouseEvent<HTMLButtonElement>) => void;
     /**
      * Methods
      */
     private loadLists;
-    onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
-    private onRefresh;
-    private onSave;
     private updateListName;
 }

@@ -27,11 +27,11 @@ export interface IWebPartListCfgState extends IWebPartCfgState {
 /**
  * WebPart List Configuration
  */
-export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
+export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> {
     /**
      * Constructor
      */
-    constructor(props: IWebPartListCfgProps);
+    constructor(props: Props);
     /**
      * Global Variables
      */
@@ -40,8 +40,8 @@ export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartLi
     /**
      * Events
      */
-    onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
-    onListsLoaded: (newState: IWebPartListCfgState) => void;
+    onListChanged: (state: State, option?: IDropdownOption, idx?: number) => void;
+    onListsLoaded: (newState: State) => void;
     onRenderFooter: () => JSX.Element;
     /**
      * Methods

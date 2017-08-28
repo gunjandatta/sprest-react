@@ -31,11 +31,11 @@ export interface IWebPartListCfgState extends IWebPartCfgState {
 /**
  * WebPart List Configuration
  */
-export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
+export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> {
     /**
      * Constructor
      */
-    constructor(props: IWebPartListCfgProps) {
+    constructor(props: Props) {
         super(props);
 
         // Set the query
@@ -59,10 +59,10 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
      */
 
     // The list change event
-    onListChanged = (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => { }
+    onListChanged = (state: State, option?: IDropdownOption, idx?: number) => { }
 
     // The lists loaded event
-    onListsLoaded = (newState: IWebPartListCfgState) => { }
+    onListsLoaded = (newState: State) => { }
 
     // Render the save button
     onRenderFooter = () => {
@@ -107,7 +107,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
                     cfg,
                     lists: lists.results,
                     options
-                } as IWebPartListCfgState;
+                } as State;
 
                 // Call the on lists loaded method
                 this.onListsLoaded(newState);

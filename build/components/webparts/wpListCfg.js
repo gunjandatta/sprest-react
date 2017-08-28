@@ -51,6 +51,14 @@ var WebPartListCfg = (function (_super) {
         };
         // The render contents event
         _this.onRenderContents = function (cfg) {
+            // See if the options exists
+            if (_this.state.lists == null) {
+                // Load the lists
+                _this.loadLists(cfg);
+                // Return a loading indicator
+                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the lists..." }));
+            }
+            // Render the component
             return (React.createElement("div", null,
                 React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: function (webUrl) { _this._webUrl = webUrl; }, value: cfg ? cfg.WebUrl : "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" }),
@@ -116,8 +124,6 @@ var WebPartListCfg = (function (_super) {
             OrderBy: ["Title"],
             Top: 500
         };
-        // Load the lists
-        _this.loadLists(props.cfg);
         return _this;
     }
     return WebPartListCfg;

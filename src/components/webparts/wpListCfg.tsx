@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Web, SPTypes, Types } from "gd-sprest";
-import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
+import { Dropdown, IDropdownOption, PrimaryButton, TextField, Spinner } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../..";
 import { WebPartConfigurationPanel } from ".";
 
@@ -43,9 +43,6 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
             OrderBy: ["Title"],
             Top: 500
         };
-
-        // Load the lists
-        this.loadLists(props.cfg);
     }
 
     /**
@@ -82,6 +79,18 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
 
     // The render contents event
     onRenderContents = (cfg: IWebPartListCfg) => {
+        // See if the options exists
+        if (this.state.lists == null) {
+            // Load the lists
+            this.loadLists(cfg);
+
+            // Return a loading indicator
+            return (
+                <Spinner label="Loading the lists..." />
+            );
+        }
+
+        // Render the component
         return (
             <div>
                 <TextField

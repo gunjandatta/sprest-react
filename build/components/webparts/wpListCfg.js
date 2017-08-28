@@ -54,7 +54,7 @@ var WebPartListCfg = (function (_super) {
             return (React.createElement("div", null,
                 React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: function (webUrl) { _this._webUrl = webUrl; }, value: cfg ? cfg.WebUrl : "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" }),
-                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.lists, selectedKey: cfg ? cfg.ListName : "" })));
+                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: cfg ? cfg.ListName : "" })));
         };
         // Render the save button
         _this.onRenderFooter = function () {

@@ -98,7 +98,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                     label="List:"
                     onChanged={this.updateListName}
                     ref={ddl => { this._listDropdown = ddl; }}
-                    options={this.state.lists}
+                    options={this.state.options}
                     selectedKey={cfg ? cfg.ListName : ""}
                 />
             </div>
@@ -152,7 +152,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                     options.push({
                         key: list.Title,
                         text: list.Title
-                    })
+                    });
                 }
 
                 // Set the new state

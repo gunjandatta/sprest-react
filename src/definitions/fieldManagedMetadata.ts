@@ -26,6 +26,9 @@ export interface IManagedMetadataFieldInfo extends IBaseFieldInfo {
 
     /** The term store id. */
     termStoreId: string;
+
+    /** The value field. */
+    valueField?: string;
 }
 
 /**

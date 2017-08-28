@@ -3,7 +3,7 @@ import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
 import {
     IBaseFieldInfo,
-    IFieldUserState,
+    IManagedMetadataFieldInfo,
     IItemFormField, IItemFormProps, IItemFormState
 } from "../../definitions";
 import { Field, Fields } from "..";
@@ -127,17 +127,17 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Parse the references
         for (let i = 0; i < this._fields.length; i++) {
             let field = this._fields[i];
-            let fieldName = field.state.fieldInfo.name;
+            let fieldName = field.Info.name;
 
             // See if this is a lookup or user field
-            if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
-                field.state.fieldInfo.type == SPTypes.FieldType.User) {
+            if (field.Info.type == SPTypes.FieldType.Lookup ||
+                field.Info.type == SPTypes.FieldType.User) {
                 // Ensure the field name is the "Id" field
                 fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
 
             // Get the field value
-            let fieldValue: any = field.state.value;
+            let fieldValue: any = field.Value;
             if (fieldValue) {
                 // See if this is a multi-value field
                 if (fieldValue.results) {
@@ -145,25 +145,40 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
                     // Parse the results
                     for (let i = 0; i < fieldValue.results.length; i++) {
-                        let lookupValue = fieldValue.results[i];
+                        let result = fieldValue.results[i];
 
-                        // Add the lookup id if it exists
-                        results.push(lookupValue.ID || lookupValue);
+                        // See if this is a taxonomy field with multiple values
+                        if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                            // Add the term
+                            results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
+                        } else {
+                            // Add the lookup id if it exists
+                            results.push(result.ID || result);
+                        }
                     }
 
-                    // Set the field value
-                    fieldValue = { results };
+                    // See if this is a taxonomy field with multiple values
+                    if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                        // Set the hidden field name
+                        formValues[(field.Info as IManagedMetadataFieldInfo).valueField] = results.join(";#");
+
+                        // Continue the loop
+                        continue;
+                    } else {
+                        // Set the field value
+                        fieldValue = { results };
+                    }
                 }
                 // See if this is a lookup or user field
-                else if (field.state.fieldInfo.type == SPTypes.FieldType.Lookup ||
-                    field.state.fieldInfo.type == SPTypes.FieldType.User) {
+                else if (field.Info.type == SPTypes.FieldType.Lookup ||
+                    field.Info.type == SPTypes.FieldType.User) {
                     // Clear the value if it doesn't exist
                     fieldValue = fieldValue > 0 ? fieldValue : null;
                 }
             }
             // Else, see if this is a multi-choice field
             // TODO: Is this check still needed?
-            else if (field.state.fieldInfo.type == SPTypes.FieldType.MultiChoice) {
+            else if (field.Info.type == SPTypes.FieldType.MultiChoice) {
                 // Default the value
                 fieldValue = { results: [] };
             }

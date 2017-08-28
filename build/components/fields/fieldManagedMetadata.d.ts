@@ -18,6 +18,7 @@ export declare class FieldManagedMetadata extends BaseField<IFieldManagedMetadat
     /**
      * Methods
      */
+    private loadValueField;
     private loadTerms;
     private toOptions;
 }

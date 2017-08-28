@@ -76,8 +76,16 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
 
         // See if this is a multi-choice
         if (props.multiSelect) {
+            let keys = [];
+
+            // Parse the results
+            for (let i = 0; i < this.state.value.results.length; i++) {
+                // Add the key
+                keys.push(this.state.value.results[i].TermGuid);
+            }
+
             // Set the selected keys
-            props.defaultSelectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = keys;
         } else {
             // Set the selected key
             props.defaultSelectedKey = this.state.value ? this.state.value.TermGuid : null;
@@ -104,7 +112,11 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
 
             // Append the option if it was selected
             if (option.isSelected || option.selected) {
-                fieldValue.results.push(option.key);
+                fieldValue.results.push({
+                    Label: option.data,
+                    TermGuid: option.key,
+                    WssId: -1
+                });
             } else {
                 // Parse the results
                 for (let i = 0; i < fieldValue.results.length; i++) {
@@ -115,9 +127,6 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
                     }
                 }
             }
-
-            // Add the metadata
-            fieldValue ? fieldValue.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
 
             // Update the field value
             this.updateValue(fieldValue);
@@ -148,34 +157,46 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         state.fieldInfo.termSetId = mmsField.TermSetId;
         state.fieldInfo.termStoreId = mmsField.SspId;
 
-        // Load the value field
-        this.loadTerms(state.fieldInfo).then(fieldInfo => {
-            let value = null;
+        // Load the hidden field
+        this.loadValueField(state.fieldInfo).then(fieldInfo => {
+            // Load the value field
+            this.loadTerms(state.fieldInfo).then(fieldInfo => {
+                let value = null;
 
-            // See if this is a multi-lookup field and a value exists
-            if (fieldInfo.allowMultipleValues) {
-                let results = [];
+                // See if this is a multi-lookup field and a value exists
+                if (fieldInfo.allowMultipleValues) {
+                    let results = [];
 
-                // Parse the values
-                let values = this.props.defaultValue ? this.props.defaultValue.results : [];
-                for (let i = 0; i < values.length; i++) {
+                    // Parse the values
+                    let values = this.props.defaultValue ? this.props.defaultValue.results : [];
+                    for (let i = 0; i < values.length; i++) {
+                        let result = values[i];
+                        results.push({
+                            Label: result.Label,
+                            TermGuid: result.TermGuid,
+                            WssId: result.WssId
+                        });
+                    }
+
+                    // Set the default value
+                    value = {
+                        __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                        results
+                    };
+                } else {
+                    // Set the default value
+                    value = this.props.defaultValue ? this.props.defaultValue : null;
                 }
 
-                // Set the default value
-                value = { results };
-            } else {
-                // Set the default value
-                value = this.props.defaultValue ? this.props.defaultValue : null;
-            }
+                // Add the metadata
+                value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
 
-            // Add the metadata
-            value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
-
-            // Update the state
-            this.setState({
-                fieldInfo,
-                options: this.toOptions(fieldInfo.terms),
-                value
+                // Update the state
+                this.setState({
+                    fieldInfo,
+                    options: this.toOptions(fieldInfo.terms),
+                    value
+                });
             });
         });
     }
@@ -183,6 +204,41 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
     /**
      * Methods
      */
+
+    // Method to load the value field
+    private loadValueField = (fieldInfo: IManagedMetadataFieldInfo): PromiseLike<IManagedMetadataFieldInfo> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // See if we are allowing multiple values
+            if (fieldInfo.allowMultipleValues) {
+                // Get the web
+                (new Web(fieldInfo.webUrl))
+                    // Get the list
+                    .Lists(fieldInfo.listName)
+                    // Get the fields
+                    .Fields()
+                    // Get the hidden field
+                    .getByInternalNameOrTitle(fieldInfo.name + "_0")
+                    // Execute the request
+                    .execute(field => {
+                        // See if the field exists
+                        if (field.existsFl) {
+                            // Set the value field
+                            fieldInfo.valueField = field.InternalName;
+
+                            // Resolve the promise
+                            resolve(fieldInfo);
+                        } else {
+                            // Log
+                            console.log("[gd-sprest] Unable to find the hidden value field for '" + fieldInfo.name + "'.");
+                        }
+                    });
+            } else {
+                // Resolve the promise
+                resolve(fieldInfo);
+            }
+        });
+    }
 
     // Method to load the terms
     private loadTerms = (fieldInfo: IManagedMetadataFieldInfo): PromiseLike<IManagedMetadataFieldInfo> => {

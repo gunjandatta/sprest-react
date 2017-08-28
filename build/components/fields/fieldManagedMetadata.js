@@ -45,7 +45,11 @@ var FieldManagedMetadata = (function (_super) {
                 var fieldValue = _this.state.value;
                 // Append the option if it was selected
                 if (option.isSelected || option.selected) {
-                    fieldValue.results.push(option.key);
+                    fieldValue.results.push({
+                        Label: option.data,
+                        TermGuid: option.key,
+                        WssId: -1
+                    });
                 }
                 else {
                     // Parse the results
@@ -57,8 +61,6 @@ var FieldManagedMetadata = (function (_super) {
                         }
                     }
                 }
-                // Add the metadata
-                fieldValue ? fieldValue.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
                 // Update the field value
                 _this.updateValue(fieldValue);
             }
@@ -85,36 +87,79 @@ var FieldManagedMetadata = (function (_super) {
             state.fieldInfo.allowMultipleValues = mmsField.AllowMultipleValues;
             state.fieldInfo.termSetId = mmsField.TermSetId;
             state.fieldInfo.termStoreId = mmsField.SspId;
-            // Load the value field
-            _this.loadTerms(state.fieldInfo).then(function (fieldInfo) {
-                var value = null;
-                // See if this is a multi-lookup field and a value exists
-                if (fieldInfo.allowMultipleValues) {
-                    var results = [];
-                    // Parse the values
-                    var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
-                    for (var i = 0; i < values.length; i++) {
+            // Load the hidden field
+            _this.loadValueField(state.fieldInfo).then(function (fieldInfo) {
+                // Load the value field
+                _this.loadTerms(state.fieldInfo).then(function (fieldInfo) {
+                    var value = null;
+                    // See if this is a multi-lookup field and a value exists
+                    if (fieldInfo.allowMultipleValues) {
+                        var results = [];
+                        // Parse the values
+                        var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
+                        for (var i = 0; i < values.length; i++) {
+                            var result = values[i];
+                            results.push({
+                                Label: result.Label,
+                                TermGuid: result.TermGuid,
+                                WssId: result.WssId
+                            });
+                        }
+                        // Set the default value
+                        value = {
+                            __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                            results: results
+                        };
                     }
-                    // Set the default value
-                    value = { results: results };
-                }
-                else {
-                    // Set the default value
-                    value = _this.props.defaultValue ? _this.props.defaultValue : null;
-                }
-                // Add the metadata
-                value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
-                // Update the state
-                _this.setState({
-                    fieldInfo: fieldInfo,
-                    options: _this.toOptions(fieldInfo.terms),
-                    value: value
+                    else {
+                        // Set the default value
+                        value = _this.props.defaultValue ? _this.props.defaultValue : null;
+                    }
+                    // Add the metadata
+                    value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
+                    // Update the state
+                    _this.setState({
+                        fieldInfo: fieldInfo,
+                        options: _this.toOptions(fieldInfo.terms),
+                        value: value
+                    });
                 });
             });
         };
         /**
          * Methods
          */
+        // Method to load the value field
+        _this.loadValueField = function (fieldInfo) {
+            // Return a promise
+            return new es6_promise_1.Promise(function (resolve, reject) {
+                // See if we are allowing multiple values
+                if (fieldInfo.allowMultipleValues) {
+                    // Get the web
+                    (new gd_sprest_1.Web(fieldInfo.webUrl))
+                        .Lists(fieldInfo.listName)
+                        .Fields()
+                        .getByInternalNameOrTitle(fieldInfo.name + "_0")
+                        .execute(function (field) {
+                        // See if the field exists
+                        if (field.existsFl) {
+                            // Set the value field
+                            fieldInfo.valueField = field.InternalName;
+                            // Resolve the promise
+                            resolve(fieldInfo);
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest] Unable to find the hidden value field for '" + fieldInfo.name + "'.");
+                        }
+                    });
+                }
+                else {
+                    // Resolve the promise
+                    resolve(fieldInfo);
+                }
+            });
+        };
         // Method to load the terms
         _this.loadTerms = function (fieldInfo) {
             // Return a promise
@@ -239,8 +284,14 @@ var FieldManagedMetadata = (function (_super) {
         props.required = props.required || this.state.fieldInfo.required;
         // See if this is a multi-choice
         if (props.multiSelect) {
+            var keys = [];
+            // Parse the results
+            for (var i = 0; i < this.state.value.results.length; i++) {
+                // Add the key
+                keys.push(this.state.value.results[i].TermGuid);
+            }
             // Set the selected keys
-            props.defaultSelectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = keys;
         }
         else {
             // Set the selected key

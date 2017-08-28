@@ -1,11 +1,20 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
+import { IBaseFieldInfo } from "../../definitions";
 import { Fields } from "..";
 
 /**
  * Field
  */
 export class Field extends Fields.BaseField {
+    private _field: Fields.BaseField = null;
+
+    // The field information
+    get Info(): IBaseFieldInfo { return this._field.state.fieldInfo; }
+
+    // The field value
+    get Value(): any { return this._field.state.value; }
+
     // Method to render the field
     renderField(): any {
         let props: any = this.props || {};
@@ -15,38 +24,39 @@ export class Field extends Fields.BaseField {
         switch (fieldInfo.type) {
             // Boolean
             case SPTypes.FieldType.Boolean:
-                return <Fields.FieldBoolean {...props} onChange={this.onChange} />;
+                return <Fields.FieldBoolean {...props} ref={field => { this._field = field; }} />;
             // Choice
             case SPTypes.FieldType.Choice:
             case SPTypes.FieldType.MultiChoice:
-                return <Fields.FieldChoice {...props} onChange={this.onChange} />;
+                return <Fields.FieldChoice {...props} ref={field => { this._field = field; }} />;
             // Date/Time
             case SPTypes.FieldType.DateTime:
-                return <Fields.FieldDateTime {...props} onChange={this.onChange} />;
+                return <Fields.FieldDateTime {...props} ref={field => { this._field = field; }} />;
             // Lookup
             case SPTypes.FieldType.Lookup:
-                return <Fields.FieldLookup {...props} onChange={this.onChange} />;
+                return <Fields.FieldLookup {...props} ref={field => { this._field = field; }} />;
             // Number
             case SPTypes.FieldType.Currency:
             case SPTypes.FieldType.Number:
-                return <Fields.FieldNumber {...props} onChange={this.onChange} />;
+                return <Fields.FieldNumber {...props} ref={field => { this._field = field; }} />;
             // Text
             case SPTypes.FieldType.Note:
             case SPTypes.FieldType.Text:
-                return <Fields.FieldText {...props} onChange={this.onChange} />;
+                return <Fields.FieldText {...props} ref={field => { this._field = field; }} />;
             // URL
             case SPTypes.FieldType.URL:
-                return <Fields.FieldUrl {...props} onChange={this.onChange} />;
+                return <Fields.FieldUrl {...props} ref={field => { this._field = field; }} />;
             // User
             case SPTypes.FieldType.User:
-                return <Fields.FieldUser {...props} onChange={this.onChange} />;
+                return <Fields.FieldUser {...props} ref={field => { this._field = field; }} />;
             // Default
             default:
                 // Check the type as string value
                 switch (fieldInfo.typeAsString) {
                     // Managed Metadata
                     case "TaxonomyFieldType":
-                        return <Fields.FieldManagedMetadata {...props} onChange={this.onChange} />;
+                    case "TaxonomyFieldTypeMulti":
+                        return <Fields.FieldManagedMetadata {...props} ref={field => { this._field = field; }} />;
                     // Default
                     default:
                         return (
@@ -54,15 +64,5 @@ export class Field extends Fields.BaseField {
                         );
                 }
         }
-    }
-
-    /**
-     * Methods
-     */
-
-    // The on change event
-    private onChange = (value) => {
-        // Update the state
-        this.setState({ value });
     }
 }

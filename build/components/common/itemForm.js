@@ -187,35 +187,51 @@ var ItemForm = (function (_super) {
         // Parse the references
         for (var i = 0; i < this._fields.length; i++) {
             var field = this._fields[i];
-            var fieldName = field.state.fieldInfo.name;
+            var fieldName = field.Info.name;
             // See if this is a lookup or user field
-            if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
-                field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
+            if (field.Info.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                field.Info.type == gd_sprest_1.SPTypes.FieldType.User) {
                 // Ensure the field name is the "Id" field
                 fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
             // Get the field value
-            var fieldValue = field.state.value;
+            var fieldValue = field.Value;
             if (fieldValue) {
                 // See if this is a multi-value field
                 if (fieldValue.results) {
                     var results = [];
                     // Parse the results
                     for (var i_1 = 0; i_1 < fieldValue.results.length; i_1++) {
-                        var lookupValue = fieldValue.results[i_1];
-                        // Add the lookup id if it exists
-                        results.push(lookupValue.ID || lookupValue);
+                        var result = fieldValue.results[i_1];
+                        // See if this is a taxonomy field with multiple values
+                        if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                            // Add the term
+                            results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
+                        }
+                        else {
+                            // Add the lookup id if it exists
+                            results.push(result.ID || result);
+                        }
                     }
-                    // Set the field value
-                    fieldValue = { results: results };
+                    // See if this is a taxonomy field with multiple values
+                    if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                        // Set the hidden field name
+                        formValues[field.Info.valueField] = results.join(";#");
+                        // Continue the loop
+                        continue;
+                    }
+                    else {
+                        // Set the field value
+                        fieldValue = { results: results };
+                    }
                 }
-                else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
-                    field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
+                else if (field.Info.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                    field.Info.type == gd_sprest_1.SPTypes.FieldType.User) {
                     // Clear the value if it doesn't exist
                     fieldValue = fieldValue > 0 ? fieldValue : null;
                 }
             }
-            else if (field.state.fieldInfo.type == gd_sprest_1.SPTypes.FieldType.MultiChoice) {
+            else if (field.Info.type == gd_sprest_1.SPTypes.FieldType.MultiChoice) {
                 // Default the value
                 fieldValue = { results: [] };
             }

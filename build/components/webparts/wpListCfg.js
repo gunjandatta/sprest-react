@@ -24,6 +24,7 @@ var WebPartListCfg = (function (_super) {
      */
     function WebPartListCfg(props) {
         var _this = _super.call(this, props) || this;
+        _this._query = null;
         _this._listDropdown = null;
         _this._refreshButton = null;
         _this._saveButton = null;
@@ -36,10 +37,7 @@ var WebPartListCfg = (function (_super) {
             // Get the web
             (new gd_sprest_1.Web(cfg.WebUrl))
                 .Lists()
-                .query({
-                OrderBy: ["Title"],
-                Top: 500
-            })
+                .query(_this._query)
                 .execute(function (lists) {
                 var options = [];
                 // Parse the lists
@@ -51,18 +49,27 @@ var WebPartListCfg = (function (_super) {
                         text: list.Title
                     });
                 }
-                // Set the state
-                _this.setState({
+                // Set the new state
+                var newState = {
                     cfg: cfg,
-                    lists: options
-                });
+                    lists: lists.results,
+                    options: options
+                };
+                // Call the on lists loaded method
+                _this.onListsLoaded(newState);
+                // Set the state
+                _this.setState(newState);
             });
         };
-        // Method to render the panel footer content
+        // The list change event
+        _this.onListChanged = function (state, option, idx) { };
+        // The lists loaded event
+        _this.onListsLoaded = function (newState) { };
+        // The render footer event
         _this.onRenderFooter = function () { };
-        // Method to render the panel header content
+        // The render header event
         _this.onRenderHeader = function () { };
-        // Method to render the panel content
+        // The render contents event
         _this.onRenderContents = function (cfg) {
             return (React.createElement("div", null,
                 _this.onRenderHeader(),
@@ -96,8 +103,15 @@ var WebPartListCfg = (function (_super) {
             var newState = _this.state;
             // Set the list name
             newState.cfg.ListName = option.text;
+            // Call the change event
+            _this.onListChanged(newState, option, idx);
             // Update the state
             _this.setState(newState);
+        };
+        // Set the query
+        _this._query = {
+            OrderBy: ["Title"],
+            Top: 500
         };
         // Load the lists
         _this.loadLists(props.cfg);

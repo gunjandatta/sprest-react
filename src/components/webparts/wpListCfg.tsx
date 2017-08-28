@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Web, SPTypes } from "gd-sprest";
+import { Web, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../..";
 import { WebPartConfigurationPanel } from ".";
@@ -24,13 +24,15 @@ export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
  */
 export interface IWebPartListCfgState extends IWebPartConfigurationState {
     cfg: IWebPartListCfg;
-    lists: Array<IDropdownOption>;
+    lists: Array<Types.IListQueryResult>;
+    options: Array<IDropdownOption>;
 }
 
 /**
  * WebPart List Configuration
  */
 export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
+    protected _query: Types.ODataQuery = null;
     protected _listDropdown: Dropdown = null;
     protected _refreshButton: PrimaryButton = null;
     protected _saveButton: PrimaryButton = null;
@@ -41,6 +43,12 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
      */
     constructor(props: IWebPartListCfgProps) {
         super(props);
+
+        // Set the query
+        this._query = {
+            OrderBy: ["Title"],
+            Top: 500
+        };
 
         // Load the lists
         this.loadLists(props.cfg);
@@ -57,10 +65,7 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
             // Get the lists
             .Lists()
             // Set the query
-            .query({
-                OrderBy: ["Title"],
-                Top: 500
-            })
+            .query(this._query)
             // Execute the request
             .execute((lists) => {
                 let options: Array<IDropdownOption> = [];
@@ -76,21 +81,34 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
                     })
                 }
 
-                // Set the state
-                this.setState({
+                // Set the new state
+                let newState: IWebPartListCfgState = {
                     cfg,
-                    lists: options
-                });
+                    lists: lists.results,
+                    options
+                };
+
+                // Call the on lists loaded method
+                this.onListsLoaded(newState);
+
+                // Set the state
+                this.setState(newState);
             });
     }
 
-    // Method to render the panel footer content
+    // The list change event
+    onListChanged = (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => { }
+
+    // The lists loaded event
+    onListsLoaded = (newState: IWebPartListCfgState) => { }
+
+    // The render footer event
     onRenderFooter = () => { }
 
-    // Method to render the panel header content
+    // The render header event
     onRenderHeader = () => { }
 
-    // Method to render the panel content
+    // The render contents event
     onRenderContents = (cfg: IWebPartListCfg) => {
         return (
             <div>
@@ -153,6 +171,9 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
 
         // Set the list name
         newState.cfg.ListName = option.text;
+
+        // Call the change event
+        this.onListChanged(newState, option, idx);
 
         // Update the state
         this.setState(newState);

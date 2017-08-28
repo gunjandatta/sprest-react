@@ -24,6 +24,9 @@ var WebPartListCfg = (function (_super) {
      */
     function WebPartListCfg(props) {
         var _this = _super.call(this, props) || this;
+        _this._listDropdown = null;
+        _this._refreshButton = null;
+        _this._saveButton = null;
         _this._webUrl = null;
         /**
          * Methods
@@ -55,13 +58,19 @@ var WebPartListCfg = (function (_super) {
                 });
             });
         };
+        // Method to render the panel footer content
+        _this.onRenderFooter = function () { };
+        // Method to render the panel header content
+        _this.onRenderHeader = function () { };
         // Method to render the panel content
         _this.onRenderContents = function (cfg) {
             return (React.createElement("div", null,
+                _this.onRenderHeader(),
                 React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: function (webUrl) { _this._webUrl = webUrl; }, value: cfg ? cfg.WebUrl : "" }),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Refresh", onClick: _this.onRefresh }),
-                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, options: _this.state.lists, selectedKey: cfg ? cfg.ListName : "" }),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Save", onClick: _this.onSave })));
+                React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" }),
+                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.lists, selectedKey: cfg ? cfg.ListName : "" }),
+                _this.onRenderFooter(),
+                React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" })));
         };
         // The refresh button click event
         _this.onRefresh = function (ev) {

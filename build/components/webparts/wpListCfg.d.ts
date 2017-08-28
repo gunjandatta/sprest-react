@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { IDropdownOption } from "office-ui-fabric-react";
+import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../..";
 import { WebPartConfigurationPanel } from ".";
 /**
@@ -26,7 +26,10 @@ export interface IWebPartListCfgState extends IWebPartConfigurationState {
  * WebPart List Configuration
  */
 export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
-    private _webUrl;
+    protected _listDropdown: Dropdown;
+    protected _refreshButton: PrimaryButton;
+    protected _saveButton: PrimaryButton;
+    protected _webUrl: TextField;
     /**
      * Constructor
      */
@@ -35,6 +38,8 @@ export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartLi
      * Methods
      */
     private loadLists;
+    onRenderFooter: () => void;
+    onRenderHeader: () => void;
     onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
     private onRefresh;
     private onSave;

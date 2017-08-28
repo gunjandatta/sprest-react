@@ -31,7 +31,10 @@ export interface IWebPartListCfgState extends IWebPartConfigurationState {
  * WebPart List Configuration
  */
 export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
-    private _webUrl: TextField = null;
+    protected _listDropdown: Dropdown = null;
+    protected _refreshButton: PrimaryButton = null;
+    protected _saveButton: PrimaryButton = null;
+    protected _webUrl: TextField = null;
 
     /**
      * Constructor
@@ -81,23 +84,40 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
             });
     }
 
+    // Method to render the panel footer content
+    onRenderFooter = () => { }
+
+    // Method to render the panel header content
+    onRenderHeader = () => { }
+
     // Method to render the panel content
     onRenderContents = (cfg: IWebPartListCfg) => {
         return (
             <div>
+                {this.onRenderHeader()}
                 <TextField
                     label="Relative Web Url:"
                     ref={webUrl => { this._webUrl = webUrl; }}
                     value={cfg ? cfg.WebUrl : ""}
                 />
-                <PrimaryButton text="Refresh" onClick={this.onRefresh} />
+                <PrimaryButton
+                    onClick={this.onRefresh}
+                    ref={btn => { this._refreshButton = btn; }}
+                    text="Refresh"
+                />
                 <Dropdown
                     label="List:"
                     onChanged={this.updateListName}
+                    ref={ddl => { this._listDropdown = ddl; }}
                     options={this.state.lists}
                     selectedKey={cfg ? cfg.ListName : ""}
                 />
-                <PrimaryButton text="Save" onClick={this.onSave} />
+                {this.onRenderFooter()}
+                <PrimaryButton
+                    onClick={this.onSave}
+                    ref={btn => { this._refreshButton = btn; }}
+                    text="Save"
+                />
             </div>
         );
     }

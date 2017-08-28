@@ -29,9 +29,6 @@ var WebPartConfigurationPanel = (function (_super) {
          */
         _this._errorMessage = null;
         _this._panel = null;
-        _this._refreshButton = null;
-        _this._saveButton = null;
-        _this._webUrl = null;
         /**
          * Events
          */

@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { Dropdown, IDropdownOption } from "office-ui-fabric-react";
+import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../..";
 import { WebPartConfigurationPanel } from ".";
 /**
@@ -38,6 +38,9 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
      */
     protected _query: Types.ODataQuery;
     protected _listDropdown: Dropdown;
+    protected _refreshButton: PrimaryButton;
+    protected _saveButton: PrimaryButton;
+    protected _webUrl: TextField;
     /**
      * Events
      */

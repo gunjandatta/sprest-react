@@ -1,6 +1,5 @@
 /// <reference types="react" />
 import * as React from "react";
-import { PrimaryButton, TextField } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
 /**
  * Web Part Configuration
@@ -15,9 +14,6 @@ export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCf
      */
     private _errorMessage;
     private _panel;
-    protected _refreshButton: PrimaryButton;
-    protected _saveButton: PrimaryButton;
-    protected _webUrl: TextField;
     /**
      * Required Methods
      */

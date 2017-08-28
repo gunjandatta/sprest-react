@@ -53,6 +53,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      */
     protected _query: Types.ODataQuery = null;
     protected _listDropdown: Dropdown = null;
+    protected _refreshButton: PrimaryButton = null;
+    protected _saveButton: PrimaryButton = null;
+    protected _webUrl: TextField = null;
 
     /**
      * Events

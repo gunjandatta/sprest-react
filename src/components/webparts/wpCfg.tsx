@@ -27,9 +27,6 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps =
      */
     private _errorMessage: HTMLDivElement = null;
     private _panel: Panel = null;
-    protected _refreshButton: PrimaryButton = null;
-    protected _saveButton: PrimaryButton = null;
-    protected _webUrl: TextField = null;
 
 
     /**

@@ -29,6 +29,9 @@ var WebPartListCfg = (function (_super) {
          */
         _this._query = null;
         _this._listDropdown = null;
+        _this._refreshButton = null;
+        _this._saveButton = null;
+        _this._webUrl = null;
         /**
          * Events
          */

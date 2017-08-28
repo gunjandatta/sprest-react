@@ -24,7 +24,7 @@ This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sp
 * Date
 * Date/Time
 * Lookup
-* Managed Metadata (In Dev)
+* Managed Metadata
 * Multi-Choice
 * Multi-User
 * Note (Plain Text)

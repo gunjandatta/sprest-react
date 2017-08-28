@@ -1,17 +1,15 @@
 import * as React from "react";
-import { PrimaryButton } from "office-ui-fabric-react";
+import { Types } from "gd-sprest";
+import { Dropdown, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { Page } from "../../common";
-import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../../definitions";
+import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
 import { Panel } from '..';
 declare var SP;
 
 /**
  * Web Part Configuration
  */
-export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
-    private _errorMessage: HTMLDivElement = null;
-    private _panel: Panel = null;
-
+export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> {
     /**
      * Constructor
      */
@@ -25,9 +23,29 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
     }
 
     /**
+     * Global Variables
+     */
+    private _errorMessage: HTMLDivElement = null;
+    private _panel: Panel = null;
+    protected _refreshButton: PrimaryButton = null;
+    protected _saveButton: PrimaryButton = null;
+    protected _webUrl: TextField = null;
+
+
+    /**
      * Required Methods
      */
     abstract onRenderContents: (cfg: IWebPartCfg) => any;
+
+    /**
+     * Events
+     */
+
+    // The render footer event
+    onRenderFooter = () => { }
+
+    // The render header event
+    onRenderHeader = () => { }
 
     /**
      * Public Interface
@@ -40,7 +58,9 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurat
                 <PrimaryButton text="Edit Configuration" onClick={this.show} />
                 <Panel headerText="Configuration" ref={panel => { this._panel = panel; }}>
                     <div ref={errorMessage => { this._errorMessage = errorMessage; }} />
+                    {this.onRenderHeader()}
                     {this.onRenderContents(this.state.cfg)}
+                    {this.onRenderFooter()}
                 </Panel>
             </div >
         )

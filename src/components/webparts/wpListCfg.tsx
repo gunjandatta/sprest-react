@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Web, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
-import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../..";
+import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../..";
 import { WebPartConfigurationPanel } from ".";
 
 /**
@@ -15,29 +15,23 @@ export interface IWebPartListCfg extends IWebPartCfg {
 /**
  * Properties
  */
-export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
+export interface IWebPartListCfgProps extends IWebPartCfgProps {
     cfg: IWebPartListCfg;
 }
 
 /**
  * State
  */
-export interface IWebPartListCfgState extends IWebPartConfigurationState {
+export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
-    lists: Array<Types.IListQueryResult>;
-    options: Array<IDropdownOption>;
+    lists?: Array<Types.IListQueryResult>;
+    options?: Array<IDropdownOption>;
 }
 
 /**
  * WebPart List Configuration
  */
 export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
-    protected _query: Types.ODataQuery = null;
-    protected _listDropdown: Dropdown = null;
-    protected _refreshButton: PrimaryButton = null;
-    protected _saveButton: PrimaryButton = null;
-    protected _webUrl: TextField = null;
-
     /**
      * Constructor
      */
@@ -52,6 +46,33 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
 
         // Load the lists
         this.loadLists(props.cfg);
+    }
+
+    /**
+     * Global Variables
+     */
+    protected _query: Types.ODataQuery = null;
+    protected _listDropdown: Dropdown = null;
+
+    /**
+     * Events
+     */
+
+    // The list change event
+    onListChanged = (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => { }
+
+    // The lists loaded event
+    onListsLoaded = (newState: IWebPartListCfgState) => { }
+
+    // Render the save button
+    onRenderFooter = () => {
+        return (
+            <PrimaryButton
+                onClick={this.onSave}
+                ref={btn => { this._refreshButton = btn; }}
+                text="Save"
+            />
+        );
     }
 
     /**
@@ -82,11 +103,11 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
                 }
 
                 // Set the new state
-                let newState: IWebPartListCfgState = {
+                let newState = {
                     cfg,
                     lists: lists.results,
                     options
-                };
+                } as IWebPartListCfgState;
 
                 // Call the on lists loaded method
                 this.onListsLoaded(newState);
@@ -96,23 +117,10 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
             });
     }
 
-    // The list change event
-    onListChanged = (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => { }
-
-    // The lists loaded event
-    onListsLoaded = (newState: IWebPartListCfgState) => { }
-
-    // The render footer event
-    onRenderFooter = () => { }
-
-    // The render header event
-    onRenderHeader = () => { }
-
     // The render contents event
     onRenderContents = (cfg: IWebPartListCfg) => {
         return (
             <div>
-                {this.onRenderHeader()}
                 <TextField
                     label="Relative Web Url:"
                     ref={webUrl => { this._webUrl = webUrl; }}
@@ -129,12 +137,6 @@ export class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgPro
                     ref={ddl => { this._listDropdown = ddl; }}
                     options={this.state.lists}
                     selectedKey={cfg ? cfg.ListName : ""}
-                />
-                {this.onRenderFooter()}
-                <PrimaryButton
-                    onClick={this.onSave}
-                    ref={btn => { this._refreshButton = btn; }}
-                    text="Save"
                 />
             </div>
         );

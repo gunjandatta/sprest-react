@@ -2,13 +2,13 @@ import { IWebPartCfg } from ".";
 /**
  * Web Part Configuration Properties
  */
-export interface IWebPartConfigurationProps {
+export interface IWebPartCfgProps {
     cfg?: IWebPartCfg;
     cfgElementId: string;
 }
 /**
  * Web Part Configuration State
  */
-export interface IWebPartConfigurationState {
+export interface IWebPartCfgState {
     cfg?: IWebPartCfg;
 }

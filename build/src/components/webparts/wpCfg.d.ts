@@ -1,20 +1,32 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../../definitions";
+import { PrimaryButton, TextField } from "office-ui-fabric-react";
+import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
 /**
  * Web Part Configuration
  */
-export declare abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
-    private _errorMessage;
-    private _panel;
+export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> {
     /**
      * Constructor
      */
     constructor(props: Props);
     /**
+     * Global Variables
+     */
+    private _errorMessage;
+    private _panel;
+    protected _refreshButton: PrimaryButton;
+    protected _saveButton: PrimaryButton;
+    protected _webUrl: TextField;
+    /**
      * Required Methods
      */
     abstract onRenderContents: (cfg: IWebPartCfg) => any;
+    /**
+     * Events
+     */
+    onRenderFooter: () => void;
+    onRenderHeader: () => void;
     /**
      * Public Interface
      */

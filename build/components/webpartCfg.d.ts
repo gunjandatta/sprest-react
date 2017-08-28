@@ -1,10 +1,10 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../definitions";
+import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../definitions";
 /**
  * Web Part Configuration
  */
-export declare abstract class WebPartConfigurationPanel<Props extends IWebPartConfigurationProps = IWebPartConfigurationProps, State extends IWebPartConfigurationState = IWebPartConfigurationState> extends React.Component<Props, State> {
+export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> {
     private _errorMessage;
     private _panel;
     /**

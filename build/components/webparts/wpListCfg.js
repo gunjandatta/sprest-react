@@ -24,11 +24,22 @@ var WebPartListCfg = (function (_super) {
      */
     function WebPartListCfg(props) {
         var _this = _super.call(this, props) || this;
+        /**
+         * Global Variables
+         */
         _this._query = null;
         _this._listDropdown = null;
-        _this._refreshButton = null;
-        _this._saveButton = null;
-        _this._webUrl = null;
+        /**
+         * Events
+         */
+        // The list change event
+        _this.onListChanged = function (state, option, idx) { };
+        // The lists loaded event
+        _this.onListsLoaded = function (newState) { };
+        // Render the save button
+        _this.onRenderFooter = function () {
+            return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
+        };
         /**
          * Methods
          */
@@ -61,23 +72,12 @@ var WebPartListCfg = (function (_super) {
                 _this.setState(newState);
             });
         };
-        // The list change event
-        _this.onListChanged = function (state, option, idx) { };
-        // The lists loaded event
-        _this.onListsLoaded = function (newState) { };
-        // The render footer event
-        _this.onRenderFooter = function () { };
-        // The render header event
-        _this.onRenderHeader = function () { };
         // The render contents event
         _this.onRenderContents = function (cfg) {
             return (React.createElement("div", null,
-                _this.onRenderHeader(),
                 React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: function (webUrl) { _this._webUrl = webUrl; }, value: cfg ? cfg.WebUrl : "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" }),
-                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.lists, selectedKey: cfg ? cfg.ListName : "" }),
-                _this.onRenderFooter(),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" })));
+                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.lists, selectedKey: cfg ? cfg.ListName : "" })));
         };
         // The refresh button click event
         _this.onRefresh = function (ev) {

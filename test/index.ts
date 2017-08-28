@@ -2,7 +2,6 @@ import { WebPart, WebPartListCfg } from "../src";
 import { Configuration } from "./cfg";
 import { DemoWebpart } from "./wp";
 declare var SP;
-
 /**
  * SP-REST React Demo
  */

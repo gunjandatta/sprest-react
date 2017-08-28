@@ -24,8 +24,21 @@ var WebPartConfigurationPanel = (function (_super) {
      */
     function WebPartConfigurationPanel(props) {
         var _this = _super.call(this, props) || this;
+        /**
+         * Global Variables
+         */
         _this._errorMessage = null;
         _this._panel = null;
+        _this._refreshButton = null;
+        _this._saveButton = null;
+        _this._webUrl = null;
+        /**
+         * Events
+         */
+        // The render footer event
+        _this.onRenderFooter = function () { };
+        // The render header event
+        _this.onRenderHeader = function () { };
         /**
          * Methods
          */
@@ -162,7 +175,9 @@ var WebPartConfigurationPanel = (function (_super) {
             React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
             React.createElement(__1.Panel, { headerText: "Configuration", ref: function (panel) { _this._panel = panel; } },
                 React.createElement("div", { ref: function (errorMessage) { _this._errorMessage = errorMessage; } }),
-                this.onRenderContents(this.state.cfg))));
+                this.onRenderHeader(),
+                this.onRenderContents(this.state.cfg),
+                this.onRenderFooter())));
     };
     return WebPartConfigurationPanel;
 }(React.Component));

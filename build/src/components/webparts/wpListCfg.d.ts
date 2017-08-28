@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { Types } from "gd-sprest";
-import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
-import { IWebPartCfg, IWebPartConfigurationProps, IWebPartConfigurationState } from "../..";
+import { Dropdown, IDropdownOption } from "office-ui-fabric-react";
+import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../..";
 import { WebPartConfigurationPanel } from ".";
 /**
  * List Configuration
@@ -13,38 +13,40 @@ export interface IWebPartListCfg extends IWebPartCfg {
 /**
  * Properties
  */
-export interface IWebPartListCfgProps extends IWebPartConfigurationProps {
+export interface IWebPartListCfgProps extends IWebPartCfgProps {
     cfg: IWebPartListCfg;
 }
 /**
  * State
  */
-export interface IWebPartListCfgState extends IWebPartConfigurationState {
+export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
-    lists: Array<Types.IListQueryResult>;
-    options: Array<IDropdownOption>;
+    lists?: Array<Types.IListQueryResult>;
+    options?: Array<IDropdownOption>;
 }
 /**
  * WebPart List Configuration
  */
 export declare class WebPartListCfg extends WebPartConfigurationPanel<IWebPartListCfgProps, IWebPartListCfgState> {
-    protected _query: Types.ODataQuery;
-    protected _listDropdown: Dropdown;
-    protected _refreshButton: PrimaryButton;
-    protected _saveButton: PrimaryButton;
-    protected _webUrl: TextField;
     /**
      * Constructor
      */
     constructor(props: IWebPartListCfgProps);
     /**
+     * Global Variables
+     */
+    protected _query: Types.ODataQuery;
+    protected _listDropdown: Dropdown;
+    /**
+     * Events
+     */
+    onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
+    onListsLoaded: (newState: IWebPartListCfgState) => void;
+    onRenderFooter: () => JSX.Element;
+    /**
      * Methods
      */
     private loadLists;
-    onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
-    onListsLoaded: (newState: IWebPartListCfgState) => void;
-    onRenderFooter: () => void;
-    onRenderHeader: () => void;
     onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
     private onRefresh;
     private onSave;

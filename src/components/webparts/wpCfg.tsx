@@ -32,17 +32,17 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps =
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => any;
+    abstract onRenderContents: (cfg: IWebPartCfg) => JSX.Element;
 
     /**
      * Events
      */
 
     // The render footer event
-    onRenderFooter = () => { }
+    onRenderFooter = (): JSX.Element => { return <div />; }
 
     // The render header event
-    onRenderHeader = () => { }
+    onRenderHeader = (): JSX.Element => { return <div />; }
 
     // Method to render the panel
     render() {

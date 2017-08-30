@@ -34,7 +34,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
      */
 
     // The render container event
-    onRenderContainer = (items: Array<IWebPartSearchItem>) => {
+    onRenderContainer = (items: Array<IWebPartSearchItem>): JSX.Element => {
         let elItems = [];
 
         // Parse the items
@@ -51,11 +51,11 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         }
 
         // Render the item elements
-        return elItems;
+        return <div>{elItems}</div>;
     }
 
     // The render item event
-    onRenderItem = (item: IWebPartSearchItem): any => { }
+    onRenderItem = (item: IWebPartSearchItem): JSX.Element => { return <div /> }
 
     // Render the component
     render() {

@@ -45,10 +45,10 @@ var WebPartSearch = (function (_super) {
                 }
             }
             // Render the item elements
-            return elItems;
+            return React.createElement("div", null, elItems);
         };
         // The render item event
-        _this.onRenderItem = function (item) { };
+        _this.onRenderItem = function (item) { return React.createElement("div", null); };
         /**
          * Methods
          */

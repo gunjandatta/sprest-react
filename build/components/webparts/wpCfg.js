@@ -33,9 +33,9 @@ var WebPartConfigurationPanel = (function (_super) {
          * Events
          */
         // The render footer event
-        _this.onRenderFooter = function () { };
+        _this.onRenderFooter = function () { return React.createElement("div", null); };
         // The render header event
-        _this.onRenderHeader = function () { };
+        _this.onRenderHeader = function () { return React.createElement("div", null); };
         /**
          * Methods
          */

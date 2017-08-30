@@ -17,12 +17,12 @@ export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCf
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => any;
+    abstract onRenderContents: (cfg: IWebPartCfg) => JSX.Element;
     /**
      * Events
      */
-    onRenderFooter: () => void;
-    onRenderHeader: () => void;
+    onRenderFooter: () => JSX.Element;
+    onRenderHeader: () => JSX.Element;
     render(): JSX.Element;
     /**
      * Methods

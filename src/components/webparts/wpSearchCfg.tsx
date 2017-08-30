@@ -185,6 +185,13 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
             }
         }
 
+        // Sort the fields
+        cfg.Fields = cfg.Fields.sort((a, b) => {
+            if (a.Title < b.Title) { return -1; }
+            if (a.Title > b.Title) { return 1; }
+            return 0;
+        });
+
         // Update the state
         this.setState({ cfg });
     }

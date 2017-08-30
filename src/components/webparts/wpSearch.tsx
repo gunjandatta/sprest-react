@@ -149,6 +149,13 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             }
         }
 
+        // Sort the search terms
+        searchTerms.sort((a, b) => {
+            if (a.name < b.name) { return -1; }
+            if (a.name > b.name) { return 1; }
+            return 0;
+        });
+
         // Update the state
         this.setState({
             items: items.results,

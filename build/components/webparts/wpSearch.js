@@ -102,6 +102,16 @@ var WebPartSearch = (function (_super) {
                     }
                 }
             }
+            // Sort the search terms
+            searchTerms.sort(function (a, b) {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
             // Update the state
             _this.setState({
                 items: items.results,

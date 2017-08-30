@@ -162,6 +162,16 @@ var WebPartSearchCfg = (function (_super) {
                     }
                 }
             }
+            // Sort the fields
+            cfg.Fields = cfg.Fields.sort(function (a, b) {
+                if (a.Title < b.Title) {
+                    return -1;
+                }
+                if (a.Title > b.Title) {
+                    return 1;
+                }
+                return 0;
+            });
             // Update the state
             _this.setState({ cfg: cfg });
         };

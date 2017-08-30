@@ -37,7 +37,6 @@ This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sp
 * onChange(value) - The change event for the field.
 * onRender(fieldInfo) - Override the component render method.
 
-
 ## Code Examples
 #### Field
 The field component requires the list name and internal field name properties to be set. A query will be made to SharePoint and will render based on its properties.

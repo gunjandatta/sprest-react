@@ -1,32 +1,8 @@
 import * as React from "react";
 import { Web, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField, Spinner } from "office-ui-fabric-react";
-import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../..";
+import { IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../../definitions";
 import { WebPartConfigurationPanel } from ".";
-
-/**
- * List Configuration
- */
-export interface IWebPartListCfg extends IWebPartCfg {
-    ListName: string;
-    WebUrl: string;
-}
-
-/**
- * Properties
- */
-export interface IWebPartListCfgProps extends IWebPartCfgProps {
-    cfg: IWebPartListCfg;
-}
-
-/**
- * State
- */
-export interface IWebPartListCfgState extends IWebPartCfgState {
-    cfg: IWebPartListCfg;
-    lists?: Array<Types.IListQueryResult>;
-    options?: Array<IDropdownOption>;
-}
 
 /**
  * WebPart List Configuration

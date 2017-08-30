@@ -1,14 +1,24 @@
+import { Types } from "gd-sprest";
+import { IDropdownOption } from "office-ui-fabric-react";
 import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from ".";
 /**
- * List Web Part Configuration Properties
+ * List Configuration
  */
-export interface IWebPartListCfgProps extends IWebPartCfgProps {
-    cfg?: IWebPartCfg;
-    cfgElementId: string;
+export interface IWebPartListCfg extends IWebPartCfg {
+    ListName: string;
+    WebUrl: string;
 }
 /**
- * List Web Part Configuration State
+ * List Configuration Properties
+ */
+export interface IWebPartListCfgProps extends IWebPartCfgProps {
+    cfg: IWebPartListCfg;
+}
+/**
+ * List Configuration State
  */
 export interface IWebPartListCfgState extends IWebPartCfgState {
-    cfg?: IWebPartCfg;
+    cfg: IWebPartListCfg;
+    lists?: Array<Types.IListQueryResult>;
+    options?: Array<IDropdownOption>;
 }

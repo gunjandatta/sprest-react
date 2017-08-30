@@ -31,18 +31,14 @@ export interface IWebPartSearchCfgState extends IWebPartListCfgState {
 /**
  * Search Properties
  */
-export interface IWebPartSearchProps extends IWebPartListCfgProps {
+export interface IWebPartSearchProps {
     cfg: IWebPartSearchCfg;
     className?: string;
-    searchTerms?: Array<ITag>;
-    selectedTags?: Array<ITag>;
-    tagMapper?: object;
 }
 /**
  * Search State
  */
-export interface IWebPartSearchState extends IWebPartListCfgState {
-    cfg: IWebPartSearchCfg;
+export interface IWebPartSearchState {
     items?: Array<IWebPartSearchItem>;
     searchTerms?: Array<ITag>;
     selectedTags?: Array<ITag>;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ContextInfo, SPTypes, Types, Web } from "gd-sprest";
+import { SPTypes, Types, Web } from "gd-sprest";
 import { Link, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
 import { WebPartListCfg } from ".";
@@ -13,6 +13,14 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
      */
     constructor(props: Props) {
         super(props);
+
+        // Set the state
+        this.state = {
+            items: null,
+            searchTerms: [],
+            selectedTags: [],
+            tagMapper: {}
+        } as State;
 
         // Set the query
         this._query = {
@@ -59,7 +67,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
     // Render the component
     render() {
-        // Ensure the items exist
+        // Ensure the component has been initialized
         if (this.state.items == null) {
             // Load the items
             this.load();
@@ -143,10 +151,11 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
         // Update the state
         this.setState({
-            items: items.results as any,
+            items: items.results,
             searchTerms,
+            selectedTags: [],
             tagMapper
-        });
+        } as IWebPartSearchState);
     }
 
     // Method to get the items

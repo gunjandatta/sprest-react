@@ -106,6 +106,7 @@ var WebPartSearch = (function (_super) {
             _this.setState({
                 items: items.results,
                 searchTerms: searchTerms,
+                selectedTags: [],
                 tagMapper: tagMapper
             });
         };
@@ -200,6 +201,13 @@ var WebPartSearch = (function (_super) {
                 selectedTags: tags
             });
         };
+        // Set the state
+        _this.state = {
+            items: null,
+            searchTerms: [],
+            selectedTags: [],
+            tagMapper: {}
+        };
         // Set the query
         _this._query = {
             Expand: [],
@@ -211,7 +219,7 @@ var WebPartSearch = (function (_super) {
     }
     // Render the component
     WebPartSearch.prototype.render = function () {
-        // Ensure the items exist
+        // Ensure the component has been initialized
         if (this.state.items == null) {
             // Load the items
             this.load();

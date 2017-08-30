@@ -17,6 +17,7 @@ export declare class WebPartSearch<Props extends IWebPartSearchProps = IWebPartS
     /**
      * Events
      */
+    onRenderContainer: (items: IWebPartSearchItem[]) => any[];
     onRenderItem: (item: IWebPartSearchItem) => any;
     render(): JSX.Element;
     /**

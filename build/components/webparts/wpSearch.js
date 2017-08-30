@@ -30,6 +30,23 @@ var WebPartSearch = (function (_super) {
         /**
          * Events
          */
+        // The render container event
+        _this.onRenderContainer = function (items) {
+            var elItems = [];
+            // Parse the items
+            for (var i = 0; i < items.length; i++) {
+                // Render the item
+                var elItem = _this.onRenderItem(items[i]);
+                if (elItem) {
+                    // Set the unique key
+                    elItem.key = "item_" + i;
+                    // Add the item element
+                    elItems.push(elItem);
+                }
+            }
+            // Render the item elements
+            return elItems;
+        };
         // The render item event
         _this.onRenderItem = function (item) { };
         /**
@@ -201,21 +218,10 @@ var WebPartSearch = (function (_super) {
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
         }
-        // Get the items to render
-        var elItems = this.getItems();
-        for (var i = 0; i < this.state.items.length; i++) {
-            // Render the item
-            var elItem = this.onRenderItem(this.state.items[i]);
-            if (elItem) {
-                // Set the unique key
-                elItem.key = "item_" + i;
-                elItems.push(elItem);
-            }
-        }
         // Return the items
         return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions }),
-            elItems));
+            this.onRenderContainer(this.getItems())));
     };
     return WebPartSearch;
 }(React.Component));

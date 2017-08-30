@@ -33,6 +33,27 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
      * Events
      */
 
+    // The render container event
+    onRenderContainer = (items: Array<IWebPartSearchItem>) => {
+        let elItems = [];
+
+        // Parse the items
+        for (let i = 0; i < items.length; i++) {
+            // Render the item
+            let elItem = this.onRenderItem(items[i]);
+            if (elItem) {
+                // Set the unique key
+                elItem.key = "item_" + i;
+
+                // Add the item element
+                elItems.push(elItem);
+            }
+        }
+
+        // Render the item elements
+        return elItems;
+    }
+
     // The render item event
     onRenderItem = (item: IWebPartSearchItem): any => { }
 
@@ -49,18 +70,6 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             );
         }
 
-        // Get the items to render
-        let elItems = this.getItems();
-        for (let i = 0; i < this.state.items.length; i++) {
-            // Render the item
-            let elItem = this.onRenderItem(this.state.items[i]);
-            if (elItem) {
-                // Set the unique key
-                elItem.key = "item_" + i;
-                elItems.push(elItem);
-            }
-        }
-
         // Return the items
         return (
             <div className={this.props.className}>
@@ -68,7 +77,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     onChange={this.updateSelectedTags}
                     onResolveSuggestions={this.onResolveSuggestions}
                 />
-                {elItems}
+                {this.onRenderContainer(this.getItems())}
             </div>
         );
     }

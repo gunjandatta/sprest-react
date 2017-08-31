@@ -25,7 +25,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Set the query
         this._query = {
             Expand: [],
-            GetAllItems: true,
+            GetAllItems: false,
             OrderBy: ["Title"],
             Select: [],
             Top: 500

@@ -27,6 +27,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             Expand: [],
             GetAllItems: true,
             OrderBy: ["Title"],
+            Select: [],
             Top: 500
         };
     }
@@ -115,6 +116,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                 for (let k = 0; k < fieldValues.length; k++) {
                     fieldValue = fieldValues[k];
+
+                    // Ensure the field value exists
+                    if (fieldValue == null || fieldValue == "") { continue; }
 
                     // Update the field value based on the type
                     switch (field.FieldTypeKind) {

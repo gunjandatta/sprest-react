@@ -71,6 +71,10 @@ var WebPartSearch = (function (_super) {
                     var fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                     for (var k = 0; k < fieldValues.length; k++) {
                         fieldValue = fieldValues[k];
+                        // Ensure the field value exists
+                        if (fieldValue == null || fieldValue == "") {
+                            continue;
+                        }
                         // Update the field value based on the type
                         switch (field.FieldTypeKind) {
                             case gd_sprest_1.SPTypes.FieldType.Choice:
@@ -223,6 +227,7 @@ var WebPartSearch = (function (_super) {
             Expand: [],
             GetAllItems: true,
             OrderBy: ["Title"],
+            Select: [],
             Top: 500
         };
         return _this;

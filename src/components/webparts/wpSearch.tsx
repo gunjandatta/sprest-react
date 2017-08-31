@@ -110,15 +110,12 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 let fieldValue = item[field.InternalName];
 
                 // Ensure the field value exists
-                if (fieldValue == null) { continue; }
+                if (fieldValue == null || fieldValue == "") { continue; }
 
                 // Parse the field values
                 let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                 for (let k = 0; k < fieldValues.length; k++) {
                     fieldValue = fieldValues[k];
-
-                    // Ensure the field value exists
-                    if (fieldValue == null || fieldValue == "") { continue; }
 
                     // Update the field value based on the type
                     switch (field.FieldTypeKind) {
@@ -134,6 +131,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                             fieldValue = fieldValue.split("|")[0];
                             break;
                     }
+
+                    // Ensure the field value exists
+                    if (fieldValue == null || fieldValue == "") { continue; }
 
                     // Add the index
                     if (tagMapper[fieldValue] == null) {

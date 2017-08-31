@@ -64,17 +64,13 @@ var WebPartSearch = (function (_super) {
                     var field = _this.props.cfg.Fields[j];
                     var fieldValue = item[field.InternalName];
                     // Ensure the field value exists
-                    if (fieldValue == null) {
+                    if (fieldValue == null || fieldValue == "") {
                         continue;
                     }
                     // Parse the field values
                     var fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                     for (var k = 0; k < fieldValues.length; k++) {
                         fieldValue = fieldValues[k];
-                        // Ensure the field value exists
-                        if (fieldValue == null || fieldValue == "") {
-                            continue;
-                        }
                         // Update the field value based on the type
                         switch (field.FieldTypeKind) {
                             case gd_sprest_1.SPTypes.FieldType.Choice:
@@ -88,6 +84,10 @@ var WebPartSearch = (function (_super) {
                                 // This is a managed metadata field
                                 fieldValue = fieldValue.split("|")[0];
                                 break;
+                        }
+                        // Ensure the field value exists
+                        if (fieldValue == null || fieldValue == "") {
+                            continue;
                         }
                         // Add the index
                         if (tagMapper[fieldValue] == null) {

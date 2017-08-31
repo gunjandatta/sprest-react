@@ -106,11 +106,8 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         // Prevent postback
         ev.preventDefault();
 
-        // Get the configuration
-        let cfg = this.state.cfg;
-
         // Save the webpart configuration
-        this.saveConfiguration(cfg);
+        this.saveConfiguration(this.state.cfg);
     }
 
     /**

@@ -72,10 +72,8 @@ var WebPartListCfg = (function (_super) {
         _this.onSave = function (ev) {
             // Prevent postback
             ev.preventDefault();
-            // Get the configuration
-            var cfg = _this.state.cfg;
             // Save the webpart configuration
-            _this.saveConfiguration(cfg);
+            _this.saveConfiguration(_this.state.cfg);
         };
         /**
          * Methods

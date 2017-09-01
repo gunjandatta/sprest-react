@@ -51,9 +51,6 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             // Render the item
             let elItem = this.onRenderItem(items[i]);
             if (elItem) {
-                // Set the unique key
-                elItem.key = "item_" + i;
-
                 // Add the item element
                 elItems.push(elItem);
             }

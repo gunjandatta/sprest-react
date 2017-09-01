@@ -38,8 +38,6 @@ var WebPartSearch = (function (_super) {
                 // Render the item
                 var elItem = _this.onRenderItem(items[i]);
                 if (elItem) {
-                    // Set the unique key
-                    elItem.key = "item_" + i;
                     // Add the item element
                     elItems.push(elItem);
                 }
@@ -225,7 +223,7 @@ var WebPartSearch = (function (_super) {
         // Set the query
         _this._query = {
             Expand: [],
-            GetAllItems: true,
+            GetAllItems: false,
             OrderBy: ["Title"],
             Select: [],
             Top: 500

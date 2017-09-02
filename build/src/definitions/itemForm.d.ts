@@ -28,7 +28,7 @@ export interface IItemFormProps {
     /** The list display name. */
     listName: string;
     /** Flag to display the attachments. */
-    showAttachments: boolean;
+    showAttachments?: boolean;
     /** The relative web url containing the list. */
     webUrl?: string;
 }

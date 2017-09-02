@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
+import { Spinner } from "office-ui-fabric-react";
 import {
     IBaseFieldInfo,
     IManagedMetadataFieldInfo,
@@ -24,12 +25,25 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Set the state
         this.state = {
+            fields: props.fields,
             item: props.item || {}
         };
     }
 
     // Render the component
     render() {
+        // See if the fields have been defined
+        if (this.state.fields == null) {
+            // Load the default fields
+            this.loadDefaultFields();
+
+            // Return a spinner
+            return (
+                <Spinner label="Loading the fields..." />
+            );
+        }
+
+        // Render the fields
         return (
             <div className={"ms-Grid " + this.props.className}>
                 {this.renderFields()}
@@ -65,8 +79,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             } as Types.ODataQuery;
 
             // Parse the fields
-            for (let i = 0; i < this.props.fields.length; i++) {
-                let field = this.props.fields[i];
+            for (let i = 0; i < this.state.fields.length; i++) {
+                let field = this.state.fields[i];
 
                 // See if this is the attachments field
                 if (field.name == "Attachments") {
@@ -191,52 +205,89 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         return formValues;
     }
 
+    // Method to load the fields
+    private loadDefaultFields = () => {
+        // Load the web
+        (new Web(this.props.webUrl))
+            // Load the list
+            .Lists(this.props.listName)
+            // Get the content types
+            .ContentTypes()
+            // Query the content types
+            .query({
+                Expand: ["FieldLinks"]
+            })
+            // Execute the request
+            .execute(contentTypes => {
+                // Ensure the content types exist
+                if (contentTypes.results) {
+                    let fields: Array<IItemFormField> = [];
+
+                    // Parse the default content type
+                    for (let i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
+                        let field = contentTypes.results[0].FieldLinks.results[i];
+
+                        // Skip the content type field
+                        if (field.Name == "ContentType") { continue; }
+
+                        // Skip hidden fields
+                        if (field.Hidden) { continue; }
+
+                        // Add the field
+                        fields.push({ name: field.Name });
+                    }
+
+                    // Update the state
+                    this.setState({ fields });
+                } else {
+                    console.log("[gd-sprest] Error getting default fields.");
+                    console.log("[gd-sprest] " + contentTypes["response"]);
+                }
+            });
+    }
+
     // Method to render the fields
     private renderFields = () => {
         let formFields = [];
         let item = this.state.item;
 
-        // Parse the fields
-        for (let i = 0; i < this.props.fields.length; i++) {
-            let fieldInfo = this.props.fields[i];
+        // See if we are displaying attachments
+        if (this.props.showAttachments) {
+            formFields.push(
+                <div className="ms-Grid-row" key={"row_Attachments"}>
+                    <div className="ms-Grid-col-md12">
+                        <Fields.FieldAttachments
+                            files={item.AttachmentFiles}
+                            key={"Attachments"}
+                            listName={this.props.listName}
+                            ref={field => { this._attachmentField = field; }}
+                        />
+                    </div>
+                </div>
+            );
+        }
 
-            // Add the form field, based on the name
-            switch (fieldInfo.name) {
-                // Attachment Field
-                case "Attachments":
-                    formFields.push(
-                        <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
-                            <div className="ms-Grid-col-md12">
-                                <Fields.FieldAttachments
-                                    files={item.AttachmentFiles}
-                                    key={fieldInfo.name}
-                                    listName={this.props.listName}
-                                    ref={field => { this._attachmentField = field; }}
-                                />
-                            </div>
-                        </div>
-                    );
-                    break;
-                // Default
-                default:
-                    formFields.push(
-                        <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
-                            <div className="ms-Grid-col ms-md12">
-                                <Field
-                                    controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
-                                    defaultValue={item[fieldInfo.name]}
-                                    listName={this.props.listName}
-                                    key={fieldInfo.name}
-                                    name={fieldInfo.name}
-                                    onChange={fieldInfo.onChange}
-                                    onRender={fieldInfo.onRender}
-                                    ref={field => { this._fields.push(field); }}
-                                />
-                            </div>
-                        </div>
-                    );
-                    break;
-            }
+        // Parse the fields
+        for (let i = 0; i < this.state.fields.length; i++) {
+            let fieldInfo = this.state.fields[i];
+
+            // Add the form field
+            formFields.push(
+                <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
+                    <div className="ms-Grid-col ms-md12">
+                        <Field
+                            controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
+                            defaultValue={item[fieldInfo.name]}
+                            listName={this.props.listName}
+                            key={fieldInfo.name}
+                            name={fieldInfo.name}
+                            onChange={fieldInfo.onChange}
+                            onRender={fieldInfo.onRender}
+                            ref={field => { this._fields.push(field); }}
+                        />
+                    </div>
+                </div>
+            );
         }
 
         // Return the form fields

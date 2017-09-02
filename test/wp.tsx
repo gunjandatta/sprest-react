@@ -86,27 +86,10 @@ export class DemoWebpart extends React.Component<Props, State> {
                         </div>
                     </div>
                     <ItemForm
-                        fields={[
-                            { name: "Attachments" },
-                            { name: "Title" },
-                            { name: "TestBoolean" },
-                            { name: "TestChoice" },
-                            { name: "TestDate" },
-                            { name: "TestDateTime" },
-                            { name: "TestLookup" },
-                            { name: "TestManagedMetadata" },
-                            { name: "TestMultiChoice" },
-                            { name: "TestMultiLookup" },
-                            { name: "TestMultiUser" },
-                            { name: "TestNote" },
-                            { name: "TestNumberDecimal" },
-                            { name: "TestNumberInteger" },
-                            { name: "TestUrl" },
-                            { name: "TestUser" }
-                        ]}
                         item={this.state.item}
                         listName={this.props.cfg.ListName}
                         ref={itemForm => { this._itemForm = itemForm; }}
+                        showAttachments={true}
                     />
                 </Panel>
             </div>

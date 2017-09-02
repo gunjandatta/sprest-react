@@ -20,6 +20,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
     private getItem;
     private getList;
     private getValues<IItem>();
+    private loadDefaultFields;
     private renderFields;
     private saveAttachments;
     private saveItem;

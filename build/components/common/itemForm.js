@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
+var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var __1 = require("..");
 /**
  * Item Form WebPart
@@ -39,8 +40,8 @@ var ItemForm = (function (_super) {
                     Select: ["*"]
                 };
                 // Parse the fields
-                for (var i = 0; i < _this.props.fields.length; i++) {
-                    var field = _this.props.fields[i];
+                for (var i = 0; i < _this.state.fields.length; i++) {
+                    var field = _this.state.fields[i];
                     // See if this is the attachments field
                     if (field.name == "Attachments") {
                         // Expand the attachment files
@@ -85,28 +86,59 @@ var ItemForm = (function (_super) {
                 }
             });
         };
+        // Method to load the fields
+        _this.loadDefaultFields = function () {
+            // Load the web
+            (new gd_sprest_1.Web(_this.props.webUrl))
+                .Lists(_this.props.listName)
+                .ContentTypes()
+                .query({
+                Expand: ["FieldLinks"]
+            })
+                .execute(function (contentTypes) {
+                // Ensure the content types exist
+                if (contentTypes.results) {
+                    var fields = [];
+                    // Parse the default content type
+                    for (var i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
+                        var field = contentTypes.results[0].FieldLinks.results[i];
+                        // Skip the content type field
+                        if (field.Name == "ContentType") {
+                            continue;
+                        }
+                        // Skip hidden fields
+                        if (field.Hidden) {
+                            continue;
+                        }
+                        // Add the field
+                        fields.push({ name: field.Name });
+                    }
+                    // Update the state
+                    _this.setState({ fields: fields });
+                }
+                else {
+                    console.log("[gd-sprest] Error getting default fields.");
+                    console.log("[gd-sprest] " + contentTypes["response"]);
+                }
+            });
+        };
         // Method to render the fields
         _this.renderFields = function () {
             var formFields = [];
             var item = _this.state.item;
+            // See if we are displaying attachments
+            if (_this.props.showAttachments) {
+                formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
+                    React.createElement("div", { className: "ms-Grid-col-md12" },
+                        React.createElement(__1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, ref: function (field) { _this._attachmentField = field; } }))));
+            }
             // Parse the fields
-            for (var i = 0; i < _this.props.fields.length; i++) {
-                var fieldInfo = _this.props.fields[i];
-                // Add the form field, based on the name
-                switch (fieldInfo.name) {
-                    // Attachment Field
-                    case "Attachments":
-                        formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
-                            React.createElement("div", { className: "ms-Grid-col-md12" },
-                                React.createElement(__1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: fieldInfo.name, listName: _this.props.listName, ref: function (field) { _this._attachmentField = field; } }))));
-                        break;
-                    // Default
-                    default:
-                        formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
-                            React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                                React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { _this._fields.push(field); } }))));
-                        break;
-                }
+            for (var i = 0; i < _this.state.fields.length; i++) {
+                var fieldInfo = _this.state.fields[i];
+                // Add the form field
+                formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
+                    React.createElement("div", { className: "ms-Grid-col ms-md12" },
+                        React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { _this._fields.push(field); } }))));
             }
             // Return the form fields
             return formFields;
@@ -162,12 +194,21 @@ var ItemForm = (function (_super) {
         };
         // Set the state
         _this.state = {
+            fields: props.fields,
             item: props.item || {}
         };
         return _this;
     }
     // Render the component
     ItemForm.prototype.render = function () {
+        // See if the fields have been defined
+        if (this.state.fields == null) {
+            // Load the default fields
+            this.loadDefaultFields();
+            // Return a spinner
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the fields..." }));
+        }
+        // Render the fields
         return (React.createElement("div", { className: "ms-Grid " + this.props.className }, this.renderFields()));
     };
     // Method to save the item form

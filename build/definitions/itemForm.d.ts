@@ -22,11 +22,13 @@ export interface IItemFormProps {
     /** The form control mode. */
     controlMode?: number | Types.SPTypes.ControlMode;
     /** The form fields. */
-    fields: Array<IItemFormField>;
+    fields?: Array<IItemFormField>;
     /** The existing item. */
     item?: any;
     /** The list display name. */
     listName: string;
+    /** Flag to display the attachments. */
+    showAttachments: boolean;
     /** The relative web url containing the list. */
     webUrl?: string;
 }
@@ -34,5 +36,8 @@ export interface IItemFormProps {
  * State
  */
 export interface IItemFormState {
+    /** The form fields. */
+    fields?: Array<IItemFormField>;
+    /** The existing item. */
     item?: any;
 }

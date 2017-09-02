@@ -46,7 +46,7 @@ The field component requires the list name and internal field name properties to
 
 
 #### Item Form
-The item form component requires an array of field information items and the list name to be set. The field information element allows you to specify:
+The item form component requires the list name to be set. By default, the fields will be loaded from the default content type. An optional array of field information can be provided. The field information element allows you to specify:
 * controlMode
     * Display - Displays the field value.
     * Edit - Does not default the value to the field's default value defined in SharePoint.
@@ -56,26 +56,9 @@ The item form component requires an array of field information items and the lis
 * onRender(fieldInfo) - Override the component render method.
 ```
 <ItemForm
-    fields={[
-        { name: "Attachments" },
-        { name: "Title" },
-        { name: "TestBoolean" },
-        { name: "TestChoice" },
-        { name: "TestDate" },
-        { name: "TestDateTime" },
-        { name: "TestLookup" },
-        { name: "TestManagedMetadata" },
-        { name: "TestMultiChoice" },
-        { name: "TestMultiLookup" },
-        { name: "TestMultiUser" },
-        { name: "TestNote" },
-        { name: "TestNumberDecimal" },
-        { name: "TestNumberInteger" },
-        { name: "TestUrl" },
-        { name: "TestUser" }
-    ]}
     item={this.state.item}
     listName={this.props.cfg.ListName}
+    showAttachments={true}
 />
 ```
 
@@ -86,16 +69,11 @@ The panel extends the "Panel" component from the Office Fabric React framework, 
 ```
 <Panel ref={panel => { this._panel = panel; }} />
 
-hidePanel = () => {
-    // Hide the panel
-    this._panel.hide();
-}
+// Hide the panel
+hidePanel = () => { this._panel.hide(); }
 
-showPanel = () => {
-    // Show the panel
-    this._panel.show();
-}
-
+// Show the panel
+showPanel = () => { this._panel.show(); }
 ```
 
 #### SharePoint People Picker

@@ -8,6 +8,7 @@ This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sp
 * [SharePoint 2013 Modern WebPart](http://dattabase.com/sharepoint-2013-modern-webpart)
 * [SharePoint 2013/Online REST Framework](https://gunjandatta.github.io/sprest)
 * [SharePoint 2013 Project Deployment](http://dattabase.com/sharepoint-2013-project-deployment/)
+* [WebPart Examples](https://github.com/gunjandatta/sprest-webparts)
 
 ## Components
 * Field

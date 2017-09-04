@@ -79,6 +79,7 @@ var FieldUrl = (function (_super) {
         // Update the url properties
         var urlProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
+        urlProps.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
         urlProps.onChanged = this.onUrlChanged;
@@ -86,6 +87,7 @@ var FieldUrl = (function (_super) {
         // Update the description properties
         var descProps = this.props.descProps || {};
         descProps.defaultValue = defaultValue ? defaultValue.Description : "";
+        descProps.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;

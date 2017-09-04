@@ -250,31 +250,10 @@ var FieldManagedMetadata = (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // See if a value exists
-            if (this.props.defaultValue) {
-                // See if this field allows multiple values
-                if (this.state.fieldInfo.allowMultipleValues) {
-                    var values = [];
-                    // Parse the results
-                    for (var i = 0; i < this.props.defaultValue.results.length; i++) {
-                        var result = this.props.defaultValue.results[i];
-                        // Add the value
-                        values.push(result);
-                    }
-                    // Render the field value
-                    return (React.createElement("div", { className: this.props.className }, values.join(", ")));
-                }
-                // Render the field value
-                return (React.createElement("div", { className: this.props.className }, this.props.defaultValue));
-            }
-            // Render nothing
-            return (React.createElement("div", { className: this.props.className }));
-        }
         // Update the properties
         var props = this.props.props || {};
         props.className = this.props.className;
+        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;

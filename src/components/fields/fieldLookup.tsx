@@ -28,45 +28,10 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
             return this.props.onRender(this.state.fieldInfo);
         }
 
-        // See if this is the display mode
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
-            // See if a value exists
-            if (this.props.defaultValue) {
-                let field = this.state.fieldInfo.lookupFieldName;
-
-                // See if this is a multi-lookup field
-                if (this.state.fieldInfo.allowMultipleValues) {
-                    let values = [];
-
-                    // Parse the results
-                    for (let i = 0; i < this.props.defaultValue.results.length; i++) {
-                        let result = this.props.defaultValue.results[i];
-
-                        // Add the value
-                        values.push(result[field]);
-                    }
-
-                    // Render the multi-lookup field
-                    return (
-                        <div className={this.props.className}>{values.join(", ")}</div>
-                    );
-                }
-
-                // Return the selected lookup
-                return (
-                    <div className={this.props.className}>{this.props.defaultValue[field]}</div>
-                );
-            }
-
-            // Return nothing
-            return (
-                <div className={this.props.className}></div>
-            );
-        }
-
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
         props.className = this.props.className;
+        props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;

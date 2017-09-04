@@ -62,14 +62,10 @@ var FieldText = (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Return the value
-            return (React.createElement("div", { className: this.props.className }, this.getFieldValue() || ""));
-        }
         // Update the properties
         var props = this.props.props || {};
         props.className = this.props.className;
+        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;

@@ -79,33 +79,12 @@ var FieldUser = (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Ensure a value exists
-            if (this.props.defaultValue) {
-                // See if this is a multi-user field
-                if (this.state.fieldInfo.allowMultiple && this.props.defaultValue.results) {
-                    var users = [];
-                    // Parse the results
-                    for (var i = 0; i < this.props.defaultValue.results.length; i++) {
-                        var user = this.props.defaultValue.results[i];
-                        // Add the user
-                        users.push(user.Title || "");
-                    }
-                    // Return the value
-                    return (React.createElement("div", { className: this.props.className }, users.join(", ")));
-                }
-                // Return the selected user
-                return (React.createElement("div", { className: this.props.className }, this.props.defaultValue.Title || ""));
-            }
-            // Return nothing
-            return (React.createElement("div", { className: this.props.className }));
-        }
         // Update the label properties
         var lblProps = this.props.lblProps || {};
         lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
         // Set the picker props
         var props = this.props.pickerProps || {};
+        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
         props.onChange = this.onChange;
         // Render the component
         return (React.createElement("div", { className: this.props.className },

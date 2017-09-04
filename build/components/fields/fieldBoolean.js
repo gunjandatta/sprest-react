@@ -51,15 +51,17 @@ var FieldBoolean = (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Return the value
-            return (React.createElement("div", { className: this.props.className }, this.getValue() ? "Yes" : "No"));
-        }
         // Update the checkbox properties
         var props = this.props.props || {};
         props.checked = this.getValue();
         props.onChange = this.onChange;
+        // See if this is the display mode
+        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            // Return the value
+            return (React.createElement("div", { className: this.props.className },
+                React.createElement(office_ui_fabric_react_1.Label, null, props.label || this.state.label),
+                React.createElement("div", null, this.getValue() ? "Yes" : "No")));
+        }
         // Render the component
         return (React.createElement("div", { className: this.props.className },
             React.createElement(office_ui_fabric_react_1.Label, null, props.label || this.state.label),

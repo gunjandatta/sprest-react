@@ -15,18 +15,21 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
             return this.props.onRender(this.state.fieldInfo);
         }
 
-        // See if this is the display mode
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
-            // Return the value
-            return (
-                <div className={this.props.className}>{this.getValue() ? "Yes" : "No"}</div>
-            );
-        }
-
         // Update the checkbox properties
         let props: ICheckboxProps = this.props.props || {};
         props.checked = this.getValue();
         props.onChange = this.onChange;
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            return (
+                <div className={this.props.className}>
+                    <Label>{props.label || this.state.label}</Label>
+                    <div>{this.getValue() ? "Yes" : "No"}</div>
+                </div>
+            );
+        }
 
         // Render the component
         return (

@@ -26,17 +26,9 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
             return this.props.onRender(this.state.fieldInfo);
         }
 
-        // See if this is the display mode
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
-            // Return the value
-            let value: Date = this.getValue();
-            return (
-                <div className={this.props.className}>{value ? (this.state.fieldInfo.showTime ? value.toLocaleString() : value.toLocaleDateString()) : ""}</div>
-            );
-        }
-
         // Update the date picker properties
         let props: IDatePickerProps = this.props.dtProps || {};
+        props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
         props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : DayOfWeek.Sunday;
         props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : this.state.fieldInfo.required;
         props.label = this.state.label;
@@ -153,6 +145,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
             }
 
             // Update the properties
+            props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
             props.onChanged = this.onTimeChanged;
             props.placeHolder = props.placeHolder || "Time";
             props.selectedKey = selectedHour + "|" + selectedMin;

@@ -125,19 +125,10 @@ var FieldChoice = (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);
         }
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // See if this is a multi-choice field
-            if (this.state.fieldInfo.multiChoice) {
-                // Render the multi-choice field
-                return (React.createElement("div", { className: this.props.className }, this.state.value.results.join(", ")));
-            }
-            // Return the selected choice
-            return (React.createElement("div", { className: this.props.className }, this.state.value || ""));
-        }
         // Update the properties
         var props = this.props.props || {};
         props.className = this.props.className;
+        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label || this.state.label;

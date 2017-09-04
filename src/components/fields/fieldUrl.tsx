@@ -33,6 +33,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
+        urlProps.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.label;
         urlProps.onChanged = this.onUrlChanged;
@@ -41,6 +42,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Update the description properties
         let descProps: ITextFieldProps = this.props.descProps || {};
         descProps.defaultValue = defaultValue ? defaultValue.Description : "";
+        descProps.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;

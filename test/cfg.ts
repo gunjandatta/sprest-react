@@ -104,8 +104,8 @@ export const Configuration = new Helper.SPConfig({
 
     WebPartCfg: [
         {
-            FileName: "sprest-react-demo.webpart",
-            Group: "Demo",
+            FileName: "wp_test.webpart",
+            Group: "Dattabase",
             XML:
             `<?xml version="1.0" encoding="utf-8"?>
 <webParts>
@@ -116,14 +116,14 @@ export const Configuration = new Helper.SPConfig({
         </metaData>
         <data>
             <properties>
-                <property name="Title" type="string">SPREST React Demo</property>
-                <property name="Description" type="string">Demo webpart for the SP-REST React project.</property>
-                <property name="ChromeType" type="chrometype">None</property>
+                <property name="Title" type="string">Test List Item Form</property>
+                <property name="Description" type="string">A test for the gd-sprest-react library.</property>
+                <property name="ChromeType" type="chrometype">TitleOnly</property>
                 <property name="Content" type="string">
-                    &lt;script type="text/javascript" src="/sites/dev/siteassets/sprest-react/demo.js"&gt;&lt;/script&gt;
-                    &lt;div id="wp-demo"&gt;&lt;/div&gt;
-                    &lt;div id="wp-demoCfg" style="display:none"&gt;&lt;/div&gt;
-                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo(); }, 'demo.js');&lt;/script&gt;
+                    &lt;script type="text/javascript" src="/sites/dev/siteassets/sprest-react/webparts.js"&gt;&lt;/script&gt;
+                    &lt;div id="wp-list"&gt;&lt;/div&gt;
+                    &lt;div id="wp-listCfg" style="display:none"&gt;&lt;/div&gt;
+                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new DemoWebParts.List(); }, 'webparts.js');&lt;/script&gt;
                 </property>
             </properties>
         </data>

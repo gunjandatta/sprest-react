@@ -1,6 +1,6 @@
 import { Types } from "gd-sprest";
 import { ITag } from "office-ui-fabric-react";
-import { IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from ".";
+import { IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState, IWebPartListItem, IWebPartListProps, IWebPartListState } from ".";
 /**
  * Search Configuration
  */
@@ -10,7 +10,7 @@ export interface IWebPartSearchCfg extends IWebPartListCfg {
 /**
  * Search Item
  */
-export interface IWebPartSearchItem extends Types.IListItemQueryResult {
+export interface IWebPartSearchItem extends IWebPartListItem {
     DocIcon: string;
     FileRef: string;
     LinkFilename: string;
@@ -31,14 +31,13 @@ export interface IWebPartSearchCfgState extends IWebPartListCfgState {
 /**
  * Search Properties
  */
-export interface IWebPartSearchProps {
+export interface IWebPartSearchProps extends IWebPartListProps {
     cfg: IWebPartSearchCfg;
-    className?: string;
 }
 /**
  * Search State
  */
-export interface IWebPartSearchState {
+export interface IWebPartSearchState extends IWebPartListState {
     items?: Array<IWebPartSearchItem>;
     searchTerms?: Array<ITag>;
     selectedTags?: Array<ITag>;

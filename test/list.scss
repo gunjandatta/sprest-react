@@ -1,0 +1,35 @@
+@import "~office-ui-fabric-react/dist/sass/Fabric";
+
+#wp-list {
+    // The empty list message
+    .empty-list {
+        @include ms-fontSize-l;
+    }
+
+    // The list
+    .list {
+        @include ms-Grid;
+
+        // The list row
+        .list-row {
+            @include ms-Grid-row;
+
+            // The list item column
+            .list-col {
+                @include ms-Grid-col;
+                @include ms-md2;
+            }
+
+            // The list item button column
+            .list-col-button {
+                @include ms-Grid-col;
+                @include ms-md1;
+            }
+        }
+    }
+
+    // The save button
+    .save-button {
+        @include ms-textAlign(right);
+    }
+}

@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var _1 = require(".");
 /**
  * WebPart Search
  */
@@ -24,82 +25,61 @@ var WebPartSearch = (function (_super) {
     function WebPartSearch(props) {
         var _this = _super.call(this, props) || this;
         /**
-         * Global Variables
-         */
-        _this._query = null;
-        /**
-         * Events
-         */
-        // The render container event
-        _this.onRenderContainer = function (items) {
-            var elItems = [];
-            // Parse the items
-            for (var i = 0; i < items.length; i++) {
-                // Render the item
-                var elItem = _this.onRenderItem(items[i]);
-                if (elItem) {
-                    // Add the item element
-                    elItems.push(elItem);
-                }
-            }
-            // Render the item elements
-            return React.createElement("div", null, elItems);
-        };
-        // The render item event
-        _this.onRenderItem = function (item) { return React.createElement("div", null); };
-        /**
          * Methods
          */
         // Method to generate the mapper
         _this.generateMapper = function (items) {
             var searchTerms = [];
             var tagMapper = {};
-            // Parse the items
-            for (var i = 0; i < items.results.length; i++) {
-                var item = items.results[i];
-                // Parse the searchable fields
-                for (var j = 0; j < _this.props.cfg.Fields.length; j++) {
-                    var field = _this.props.cfg.Fields[j];
-                    var fieldValue = item[field.InternalName];
-                    // Ensure the field value exists
-                    if (fieldValue == null || fieldValue == "") {
-                        continue;
-                    }
-                    // Parse the field values
-                    var fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
-                    for (var k = 0; k < fieldValues.length; k++) {
-                        fieldValue = fieldValues[k];
-                        // Update the field value based on the type
-                        switch (field.FieldTypeKind) {
-                            case gd_sprest_1.SPTypes.FieldType.Choice:
-                            case gd_sprest_1.SPTypes.FieldType.MultiChoice:
-                                break;
-                            case gd_sprest_1.SPTypes.FieldType.Lookup:
-                                // Update the field value
-                                fieldValue = item[field.InternalName][field.LookupField];
-                                break;
-                            default:
-                                // This is a managed metadata field
-                                fieldValue = fieldValue.split("|")[0];
-                                break;
-                        }
+            // Ensure the fields exist
+            if (_this.props.cfg.Fields) {
+                // Parse the items
+                for (var i = 0; i < items.results.length; i++) {
+                    var item = items.results[i];
+                    // Parse the searchable fields
+                    for (var j = 0; j < _this.props.cfg.Fields.length; j++) {
+                        var field = _this.props.cfg.Fields[j];
+                        var fieldValue = item[field.InternalName];
                         // Ensure the field value exists
                         if (fieldValue == null || fieldValue == "") {
                             continue;
                         }
-                        // Add the index
-                        if (tagMapper[fieldValue] == null) {
-                            // Add the value
-                            tagMapper[fieldValue] = [item];
-                            // Add the search term
-                            searchTerms.push({
-                                key: fieldValue.toLowerCase(),
-                                name: fieldValue
-                            });
-                        }
-                        else {
-                            // Add the value
-                            tagMapper[fieldValue].push(item);
+                        // Parse the field values
+                        var fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
+                        for (var k = 0; k < fieldValues.length; k++) {
+                            fieldValue = fieldValues[k];
+                            // Update the field value based on the type
+                            switch (field.FieldTypeKind) {
+                                case gd_sprest_1.SPTypes.FieldType.Choice:
+                                case gd_sprest_1.SPTypes.FieldType.MultiChoice:
+                                    break;
+                                case gd_sprest_1.SPTypes.FieldType.Lookup:
+                                    // Update the field value
+                                    fieldValue = item[field.InternalName][field.LookupField];
+                                    break;
+                                default:
+                                    // This is a managed metadata field
+                                    fieldValue = fieldValue.split("|")[0];
+                                    break;
+                            }
+                            // Ensure the field value exists
+                            if (fieldValue == null || fieldValue == "") {
+                                continue;
+                            }
+                            // Add the index
+                            if (tagMapper[fieldValue] == null) {
+                                // Add the value
+                                tagMapper[fieldValue] = [item];
+                                // Add the search term
+                                searchTerms.push({
+                                    key: fieldValue.toLowerCase(),
+                                    name: fieldValue
+                                });
+                            }
+                            else {
+                                // Add the value
+                                tagMapper[fieldValue].push(item);
+                            }
                         }
                     }
                 }
@@ -157,20 +137,23 @@ var WebPartSearch = (function (_super) {
         };
         // Method to load the documents
         _this.load = function () {
-            // Parse the search fields
-            for (var i = 0; i < _this.props.cfg.Fields.length; i++) {
-                var field = _this.props.cfg.Fields[i];
-                // Add the field, based on the type
-                switch (field.FieldTypeKind) {
-                    case gd_sprest_1.SPTypes.FieldType.Lookup:
-                        // Select the lookup field value
-                        _this._query.Expand.push(field.InternalName);
-                        _this._query.Select.push(field.InternalName + "/" + field.LookupField);
-                        break;
-                    default:
-                        // Select the field
-                        _this._query.Select.push(field.InternalName);
-                        break;
+            // Ensure fields exist
+            if (_this.props.cfg.Fields) {
+                // Parse the search fields
+                for (var i = 0; i < _this.props.cfg.Fields.length; i++) {
+                    var field = _this.props.cfg.Fields[i];
+                    // Add the field, based on the type
+                    switch (field.FieldTypeKind) {
+                        case gd_sprest_1.SPTypes.FieldType.Lookup:
+                            // Select the lookup field value
+                            _this._query.Expand.push(field.InternalName);
+                            _this._query.Select.push(field.InternalName + "/" + field.LookupField);
+                            break;
+                        default:
+                            // Select the field
+                            _this._query.Select.push(field.InternalName);
+                            break;
+                    }
                 }
             }
             // Load the documents
@@ -245,6 +228,6 @@ var WebPartSearch = (function (_super) {
             this.onRenderContainer(this.getItems())));
     };
     return WebPartSearch;
-}(React.Component));
+}(_1.WebPartList));
 exports.WebPartSearch = WebPartSearch;
 //# sourceMappingURL=wpSearch.js.map

@@ -1,6 +1,7 @@
-import { WebPart, WebPartListCfg } from "../src";
+import { WebPart, WebPartSearchCfg } from "../src";
 import { Configuration } from "./cfg";
-import { DemoWebpart } from "./wp";
+import { ListWebpart } from "./wp";
+import "./list.scss";
 declare var SP;
 /**
  * SP-REST React Demo
@@ -15,11 +16,10 @@ class Demo {
     constructor() {
         // Create an instance of the webpart
         new WebPart({
-            cfgElementId: "wp-demoCfg",
-            displayElement: DemoWebpart,
-            editElement: WebPartListCfg,
-            targetElementId: "wp-demo",
-            helpUrl: "#"
+            cfgElementId: "wp-listCfg",
+            displayElement: ListWebpart,
+            editElement: WebPartSearchCfg,
+            targetElementId: "wp-list",
         });
     }
 }

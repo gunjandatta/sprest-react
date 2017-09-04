@@ -2,12 +2,12 @@ import * as React from "react";
 import { SPTypes, Types, Web } from "gd-sprest";
 import { Link, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
-import { WebPartListCfg } from ".";
+import { WebPartList, WebPartListCfg } from ".";
 
 /**
  * WebPart Search
  */
-export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends React.Component<Props, State> {
+export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends WebPartList<Props, State> {
     /**
      * Constructor
      */
@@ -31,37 +31,6 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             Top: 500
         };
     }
-
-    /**
-     * Global Variables
-     */
-
-    protected _query: Types.ODataQuery = null;
-
-    /**
-     * Events
-     */
-
-    // The render container event
-    onRenderContainer = (items: Array<IWebPartSearchItem>): JSX.Element => {
-        let elItems = [];
-
-        // Parse the items
-        for (let i = 0; i < items.length; i++) {
-            // Render the item
-            let elItem = this.onRenderItem(items[i]);
-            if (elItem) {
-                // Add the item element
-                elItems.push(elItem);
-            }
-        }
-
-        // Render the item elements
-        return <div>{elItems}</div>;
-    }
-
-    // The render item event
-    onRenderItem = (item: IWebPartSearchItem): JSX.Element => { return <div /> }
 
     // Render the component
     render() {
@@ -97,54 +66,57 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         let searchTerms: Array<ITag> = [];
         let tagMapper = {};
 
-        // Parse the items
-        for (let i = 0; i < items.results.length; i++) {
-            let item = items.results[i];
+        // Ensure the fields exist
+        if (this.props.cfg.Fields) {
+            // Parse the items
+            for (let i = 0; i < items.results.length; i++) {
+                let item = items.results[i];
 
-            // Parse the searchable fields
-            for (let j = 0; j < this.props.cfg.Fields.length; j++) {
-                let field = this.props.cfg.Fields[j];
-                let fieldValue = item[field.InternalName];
-
-                // Ensure the field value exists
-                if (fieldValue == null || fieldValue == "") { continue; }
-
-                // Parse the field values
-                let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
-                for (let k = 0; k < fieldValues.length; k++) {
-                    fieldValue = fieldValues[k];
-
-                    // Update the field value based on the type
-                    switch (field.FieldTypeKind) {
-                        case SPTypes.FieldType.Choice:
-                        case SPTypes.FieldType.MultiChoice:
-                            break;
-                        case SPTypes.FieldType.Lookup:
-                            // Update the field value
-                            fieldValue = item[field.InternalName][(field as Types.IFieldLookup).LookupField];
-                            break;
-                        default:
-                            // This is a managed metadata field
-                            fieldValue = fieldValue.split("|")[0];
-                            break;
-                    }
+                // Parse the searchable fields
+                for (let j = 0; j < this.props.cfg.Fields.length; j++) {
+                    let field = this.props.cfg.Fields[j];
+                    let fieldValue = item[field.InternalName];
 
                     // Ensure the field value exists
                     if (fieldValue == null || fieldValue == "") { continue; }
 
-                    // Add the index
-                    if (tagMapper[fieldValue] == null) {
-                        // Add the value
-                        tagMapper[fieldValue] = [item];
+                    // Parse the field values
+                    let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
+                    for (let k = 0; k < fieldValues.length; k++) {
+                        fieldValue = fieldValues[k];
 
-                        // Add the search term
-                        searchTerms.push({
-                            key: fieldValue.toLowerCase(),
-                            name: fieldValue
-                        });
-                    } else {
-                        // Add the value
-                        tagMapper[fieldValue].push(item);
+                        // Update the field value based on the type
+                        switch (field.FieldTypeKind) {
+                            case SPTypes.FieldType.Choice:
+                            case SPTypes.FieldType.MultiChoice:
+                                break;
+                            case SPTypes.FieldType.Lookup:
+                                // Update the field value
+                                fieldValue = item[field.InternalName][(field as Types.IFieldLookup).LookupField];
+                                break;
+                            default:
+                                // This is a managed metadata field
+                                fieldValue = fieldValue.split("|")[0];
+                                break;
+                        }
+
+                        // Ensure the field value exists
+                        if (fieldValue == null || fieldValue == "") { continue; }
+
+                        // Add the index
+                        if (tagMapper[fieldValue] == null) {
+                            // Add the value
+                            tagMapper[fieldValue] = [item];
+
+                            // Add the search term
+                            searchTerms.push({
+                                key: fieldValue.toLowerCase(),
+                                name: fieldValue
+                            });
+                        } else {
+                            // Add the value
+                            tagMapper[fieldValue].push(item);
+                        }
                     }
                 }
             }
@@ -208,22 +180,25 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     }
 
     // Method to load the documents
-    private load = () => {
-        // Parse the search fields
-        for (let i = 0; i < this.props.cfg.Fields.length; i++) {
-            let field = this.props.cfg.Fields[i];
+    protected load = () => {
+        // Ensure fields exist
+        if (this.props.cfg.Fields) {
+            // Parse the search fields
+            for (let i = 0; i < this.props.cfg.Fields.length; i++) {
+                let field = this.props.cfg.Fields[i];
 
-            // Add the field, based on the type
-            switch (field.FieldTypeKind) {
-                case SPTypes.FieldType.Lookup:
-                    // Select the lookup field value
-                    this._query.Expand.push(field.InternalName);
-                    this._query.Select.push(field.InternalName + "/" + (field as Types.IFieldLookup).LookupField);
-                    break;
-                default:
-                    // Select the field
-                    this._query.Select.push(field.InternalName);
-                    break;
+                // Add the field, based on the type
+                switch (field.FieldTypeKind) {
+                    case SPTypes.FieldType.Lookup:
+                        // Select the lookup field value
+                        this._query.Expand.push(field.InternalName);
+                        this._query.Select.push(field.InternalName + "/" + (field as Types.IFieldLookup).LookupField);
+                        break;
+                    default:
+                        // Select the field
+                        this._query.Select.push(field.InternalName);
+                        break;
+                }
             }
         }
 

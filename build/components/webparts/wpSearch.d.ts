@@ -1,31 +1,21 @@
 /// <reference types="react" />
-import * as React from "react";
-import { Types } from "gd-sprest";
-import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
+import { IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
+import { WebPartList } from ".";
 /**
  * WebPart Search
  */
-export declare class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends React.Component<Props, State> {
+export declare class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends WebPartList<Props, State> {
     /**
      * Constructor
      */
     constructor(props: Props);
-    /**
-     * Global Variables
-     */
-    protected _query: Types.ODataQuery;
-    /**
-     * Events
-     */
-    onRenderContainer: (items: IWebPartSearchItem[]) => JSX.Element;
-    onRenderItem: (item: IWebPartSearchItem) => JSX.Element;
     render(): JSX.Element;
     /**
      * Methods
      */
     private generateMapper;
     private getItems;
-    private load;
+    protected load: () => void;
     private onResolveSuggestions;
     private updateSelectedTags;
 }

@@ -104,6 +104,7 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
                     case SPTypes.FieldType.MultiChoice:
                     case SPTypes.FieldType.Lookup:
                     case SPTypes.FieldType.Text:
+                    case SPTypes.FieldType.URL:
                         break;
                     default:
                         // Allow managed metadata fields

@@ -88,6 +88,7 @@ var WebPartSearchCfg = (function (_super) {
                         case gd_sprest_1.SPTypes.FieldType.MultiChoice:
                         case gd_sprest_1.SPTypes.FieldType.Lookup:
                         case gd_sprest_1.SPTypes.FieldType.Text:
+                        case gd_sprest_1.SPTypes.FieldType.URL:
                             break;
                         default:
                             // Allow managed metadata fields

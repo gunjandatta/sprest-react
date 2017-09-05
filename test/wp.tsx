@@ -23,7 +23,7 @@ export interface IListItem extends Types.IListItemQueryResult {
     TestNote?: string;
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
-    TestUrl?: string;
+    TestUrl?: Types.ComplexTypes.FieldUrlValue;
     TestUser?: Types.ComplexTypes.FieldUserValue;
     TestUserId?: string | number;
     Title?: string;
@@ -118,7 +118,7 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
                     {item.TestDate ? item.TestDate : ""}
                 </div>
                 <div className="list-col">
-                    {item.TestUrl ? item.TestUrl : ""}
+                    {item.TestUrl ? item.TestUrl.Description : ""}
                 </div>
                 <div className="list-col">
                     {item.TestUser ? item.TestUser.Title : ""}

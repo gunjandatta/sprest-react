@@ -57,6 +57,10 @@ var WebPartSearch = (function (_super) {
                                     // Update the field value
                                     fieldValue = item[field.InternalName][field.LookupField];
                                     break;
+                                case gd_sprest_1.SPTypes.FieldType.URL:
+                                    // Update the field value
+                                    fieldValue = item[field.InternalName].Description;
+                                    break;
                                 default:
                                     // This is a managed metadata field
                                     fieldValue = fieldValue.split("|")[0];

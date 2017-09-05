@@ -22,7 +22,7 @@ export interface IListItem extends Types.IListItemQueryResult {
     TestNote?: string;
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
-    TestUrl?: string;
+    TestUrl?: Types.ComplexTypes.FieldUrlValue;
     TestUser?: Types.ComplexTypes.FieldUserValue;
     TestUserId?: string | number;
     Title?: string;

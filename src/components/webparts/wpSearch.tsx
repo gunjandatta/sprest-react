@@ -94,6 +94,10 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                                 // Update the field value
                                 fieldValue = item[field.InternalName][(field as Types.IFieldLookup).LookupField];
                                 break;
+                            case SPTypes.FieldType.URL:
+                                // Update the field value
+                                fieldValue = (item[field.InternalName] as Types.ComplexTypes.FieldUrlValue).Description;
+                                break;
                             default:
                                 // This is a managed metadata field
                                 fieldValue = fieldValue.split("|")[0];

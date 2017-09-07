@@ -9,7 +9,7 @@ export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLook
     /**
      * Public Interface
      */
-    renderField(): void | JSX.Element;
+    renderField: () => JSX.Element;
     /**
      * Events
      */

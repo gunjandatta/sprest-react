@@ -8,7 +8,7 @@ export declare class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> 
     /**
      * Public Interface
      */
-    renderField(): void | JSX.Element;
+    renderField: () => JSX.Element;
     /**
      * Events
      */

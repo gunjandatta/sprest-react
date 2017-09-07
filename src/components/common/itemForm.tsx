@@ -141,7 +141,10 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Parse the references
         for (let i = 0; i < this._fields.length; i++) {
             let field = this._fields[i];
-            let fieldName = field.Info.name;
+            let fieldName = field.Info ? field.Info.name : null;
+            
+            // Ensure the field exists
+            if(fieldName == null) { continue; }
 
             // See if this is a lookup or user field
             if (field.Info.type == SPTypes.FieldType.Lookup ||

@@ -15,7 +15,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      */
 
     // Render the field
-    renderField() {
+    renderField = () => {
         // Ensure the options exist
         if (this.state.options == null) {
             // Render a loading indicator

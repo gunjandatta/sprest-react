@@ -32,6 +32,27 @@ var FieldText = /** @class */ (function (_super) {
          * Public Interface
          */
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Method to render the component
+        _this.renderField = function () {
+            // See if a custom render method exists
+            if (_this.props.onRender) {
+                return _this.props.onRender(_this.state.fieldInfo);
+            }
+            // Update the properties
+            var props = _this.props.props || {};
+            props.className = _this.props.className;
+            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
+            props.label = props.label || _this.state.label;
+            props.multiline = typeof (props.label) === "boolean" ? props.label : _this.state.fieldInfo.multiline;
+            props.onChanged = _this.onChange;
+            props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
+            props.rows = props.rows ? props.rows : _this.state.fieldInfo.rows;
+            props.value = _this.getFieldValue();
+            props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
+            // Return the component
+            return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
+        };
         /**
          * Events
          */
@@ -56,27 +77,6 @@ var FieldText = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Method to render the component
-    FieldText.prototype.renderField = function () {
-        // See if a custom render method exists
-        if (this.props.onRender) {
-            return this.props.onRender(this.state.fieldInfo);
-        }
-        // Update the properties
-        var props = this.props.props || {};
-        props.className = this.props.className;
-        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.label = props.label || this.state.label;
-        props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
-        props.onChanged = this.onChange;
-        props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
-        props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
-        props.value = this.getFieldValue();
-        props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
-        // Return the component
-        return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
-    };
     return FieldText;
 }(_1.BaseField));
 exports.FieldText = FieldText;

@@ -16,7 +16,7 @@ export class Field extends Fields.BaseField {
     get Value(): any { return this._field.state.value; }
 
     // Method to render the field
-    renderField(): any {
+    renderField = () => {
         let props: any = this.props || {};
         let fieldInfo = this.state.fieldInfo;
 
@@ -60,7 +60,7 @@ export class Field extends Fields.BaseField {
                     // Default
                     default:
                         return (
-                            <div>{this.state.value}</div>
+                            <Fields.BaseField {...props} ref={field => { this._field = field; }} />
                         );
                 }
         }

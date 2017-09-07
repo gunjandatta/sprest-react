@@ -29,6 +29,28 @@ var FieldBoolean = /** @class */ (function (_super) {
     __extends(FieldBoolean, _super);
     function FieldBoolean() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Render the field
+        _this.renderField = function () {
+            // See if a custom render method exists
+            if (_this.props.onRender) {
+                return _this.props.onRender(_this.state.fieldInfo);
+            }
+            // Update the checkbox properties
+            var props = _this.props.props || {};
+            props.checked = _this.getValue();
+            props.onChange = _this.onChange;
+            // See if this is the display mode
+            if (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+                // Return the value
+                return (React.createElement("div", { className: _this.props.className },
+                    React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.label),
+                    React.createElement("div", null, _this.getValue() ? "Yes" : "No")));
+            }
+            // Render the component
+            return (React.createElement("div", { className: _this.props.className },
+                React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.label),
+                React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props))));
+        };
         // Method to get the value
         _this.getValue = function () {
             // Get the field value
@@ -45,28 +67,6 @@ var FieldBoolean = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Render the field
-    FieldBoolean.prototype.renderField = function () {
-        // See if a custom render method exists
-        if (this.props.onRender) {
-            return this.props.onRender(this.state.fieldInfo);
-        }
-        // Update the checkbox properties
-        var props = this.props.props || {};
-        props.checked = this.getValue();
-        props.onChange = this.onChange;
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Return the value
-            return (React.createElement("div", { className: this.props.className },
-                React.createElement(office_ui_fabric_react_1.Label, null, props.label || this.state.label),
-                React.createElement("div", null, this.getValue() ? "Yes" : "No")));
-        }
-        // Render the component
-        return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.Label, null, props.label || this.state.label),
-            React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props))));
-    };
     return FieldBoolean;
 }(_1.BaseField));
 exports.FieldBoolean = FieldBoolean;

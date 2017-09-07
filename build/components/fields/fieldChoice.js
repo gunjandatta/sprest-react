@@ -32,6 +32,35 @@ var FieldChoice = /** @class */ (function (_super) {
          * Public Interface
          */
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Render the field
+        _this.renderField = function () {
+            // See if a custom render method exists
+            if (_this.props.onRender) {
+                return _this.props.onRender(_this.state.fieldInfo);
+            }
+            // Update the properties
+            var props = _this.props.props || {};
+            props.className = _this.props.className;
+            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
+            props.errorMessage = _this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
+            props.label = props.label || _this.state.label;
+            props.multiSelect = _this.state.fieldInfo.multiChoice;
+            props.onChanged = _this.onChanged;
+            props.options = _this.state.options;
+            props.required = props.required || _this.state.fieldInfo.required;
+            // See if this is a multi-choice
+            if (props.multiSelect) {
+                // Set the selected keys
+                props.defaultSelectedKeys = _this.state.value.results;
+            }
+            else {
+                // Set the selected key
+                props.defaultSelectedKey = _this.state.value;
+            }
+            // Return the dropdown
+            return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+        };
         /**
          * Events
          */
@@ -119,35 +148,6 @@ var FieldChoice = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Render the field
-    FieldChoice.prototype.renderField = function () {
-        // See if a custom render method exists
-        if (this.props.onRender) {
-            return this.props.onRender(this.state.fieldInfo);
-        }
-        // Update the properties
-        var props = this.props.props || {};
-        props.className = this.props.className;
-        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
-        props.label = props.label || this.state.label;
-        props.multiSelect = this.state.fieldInfo.multiChoice;
-        props.onChanged = this.onChanged;
-        props.options = this.state.options;
-        props.required = props.required || this.state.fieldInfo.required;
-        // See if this is a multi-choice
-        if (props.multiSelect) {
-            // Set the selected keys
-            props.defaultSelectedKeys = this.state.value.results;
-        }
-        else {
-            // Set the selected key
-            props.defaultSelectedKey = this.state.value;
-        }
-        // Return the dropdown
-        return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
-    };
     return FieldChoice;
 }(_1.BaseField));
 exports.FieldChoice = FieldChoice;

@@ -15,7 +15,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      */
 
     // Method to render the field
-    renderField() {
+    renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);

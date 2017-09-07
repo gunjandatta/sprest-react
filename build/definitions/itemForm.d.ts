@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Types } from "gd-sprest";
 import { IBaseFieldInfo } from ".";
 /**
@@ -11,7 +12,7 @@ export interface IItemFormField {
     /** The on change event */
     onChange?: (value: any) => void;
     /** The on render method */
-    onRender?: (fieldInfo: IBaseFieldInfo) => void;
+    onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
 }
 /**
  * Properties

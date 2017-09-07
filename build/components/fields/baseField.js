@@ -28,6 +28,9 @@ var BaseField = /** @class */ (function (_super) {
          */
         // Session Key
         _this._sessionKey = "gd-sprest";
+        /**
+         * Public Interface
+         */
         // Method to get the field value
         _this.getFieldValue = function () { return _this.state.value || _this.state.fieldInfo.defaultValue || ""; };
         // Event triggered after the field information is retrieved from SharePoint.
@@ -43,6 +46,16 @@ var BaseField = /** @class */ (function (_super) {
                 showErrorMessage: _this.state.fieldInfo.required ? (value ? false : true) : false,
                 value: value
             });
+        };
+        // Method to render the field
+        _this.renderField = function () {
+            // See if we are displaying the field
+            if (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+                // Render the field name and value
+                return (React.createElement(office_ui_fabric_react_1.Label, null, _this.state.fieldInfo.title + ": " + _this.state.value));
+            }
+            // Render nothing
+            return null;
         };
         /**
          * Methods

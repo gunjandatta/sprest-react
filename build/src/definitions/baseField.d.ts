@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Types } from "gd-sprest";
 /**
  * Base Field Information
@@ -33,7 +34,7 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
     /** The on change event */
     onChange?: (value: any) => void;
     /** The on render method */
-    onRender?: (fieldInfo: IBaseFieldInfo) => void;
+    onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
     /** Flag to show a loading indicator. The default value is true. */
     showLoadingFl?: boolean;
 }
@@ -60,7 +61,7 @@ export interface IBaseField<Props extends IBaseFieldProps, State extends IBaseFi
     /**
      * The render field event.
      */
-    renderField(): any;
+    renderField: () => JSX.Element;
     /**
      * Method to get the field value.
      */

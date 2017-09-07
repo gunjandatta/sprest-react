@@ -9,7 +9,7 @@ export declare class FieldDateTime extends BaseField<IFieldDateTimeProps, IField
     /**
      * Public Interface
      */
-    renderField(): void | JSX.Element;
+    renderField: () => JSX.Element;
     /**
      * Events
      */

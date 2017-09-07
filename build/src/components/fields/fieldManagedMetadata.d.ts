@@ -9,7 +9,7 @@ export declare class FieldManagedMetadata extends BaseField<IFieldManagedMetadat
     /**
      * Public Interface
      */
-    renderField(): void | JSX.Element;
+    renderField: () => JSX.Element;
     /**
      * Events
      */

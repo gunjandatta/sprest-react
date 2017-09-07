@@ -15,7 +15,7 @@ export interface IItemFormField {
     onChange?: (value: any) => void;
 
     /** The on render method */
-    onRender?: (fieldInfo: IBaseFieldInfo) => void;
+    onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
 }
 
 /**

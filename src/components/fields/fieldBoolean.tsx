@@ -9,7 +9,7 @@ import { BaseField } from ".";
  */
 export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean {
     // Render the field
-    renderField() {
+    renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
             return this.props.onRender(this.state.fieldInfo);

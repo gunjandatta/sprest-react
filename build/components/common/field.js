@@ -29,6 +29,53 @@ var Field = /** @class */ (function (_super) {
     function Field() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._field = null;
+        // Method to render the field
+        _this.renderField = function () {
+            var props = _this.props || {};
+            var fieldInfo = _this.state.fieldInfo;
+            // Return the field component, based on the type
+            switch (fieldInfo.type) {
+                // Boolean
+                case gd_sprest_1.SPTypes.FieldType.Boolean:
+                    return React.createElement(__1.Fields.FieldBoolean, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // Choice
+                case gd_sprest_1.SPTypes.FieldType.Choice:
+                case gd_sprest_1.SPTypes.FieldType.MultiChoice:
+                    return React.createElement(__1.Fields.FieldChoice, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // Date/Time
+                case gd_sprest_1.SPTypes.FieldType.DateTime:
+                    return React.createElement(__1.Fields.FieldDateTime, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // Lookup
+                case gd_sprest_1.SPTypes.FieldType.Lookup:
+                    return React.createElement(__1.Fields.FieldLookup, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // Number
+                case gd_sprest_1.SPTypes.FieldType.Currency:
+                case gd_sprest_1.SPTypes.FieldType.Number:
+                    return React.createElement(__1.Fields.FieldNumber, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // Text
+                case gd_sprest_1.SPTypes.FieldType.Note:
+                case gd_sprest_1.SPTypes.FieldType.Text:
+                    return React.createElement(__1.Fields.FieldText, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // URL
+                case gd_sprest_1.SPTypes.FieldType.URL:
+                    return React.createElement(__1.Fields.FieldUrl, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // User
+                case gd_sprest_1.SPTypes.FieldType.User:
+                    return React.createElement(__1.Fields.FieldUser, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                // Default
+                default:
+                    // Check the type as string value
+                    switch (fieldInfo.typeAsString) {
+                        // Managed Metadata
+                        case "TaxonomyFieldType":
+                        case "TaxonomyFieldTypeMulti":
+                            return React.createElement(__1.Fields.FieldManagedMetadata, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                        // Default
+                        default:
+                            return (React.createElement(__1.Fields.BaseField, __assign({}, props, { ref: function (field) { _this._field = field; } })));
+                    }
+            }
+        };
         return _this;
     }
     Object.defineProperty(Field.prototype, "Info", {
@@ -43,54 +90,6 @@ var Field = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    // Method to render the field
-    Field.prototype.renderField = function () {
-        var _this = this;
-        var props = this.props || {};
-        var fieldInfo = this.state.fieldInfo;
-        // Return the field component, based on the type
-        switch (fieldInfo.type) {
-            // Boolean
-            case gd_sprest_1.SPTypes.FieldType.Boolean:
-                return React.createElement(__1.Fields.FieldBoolean, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // Choice
-            case gd_sprest_1.SPTypes.FieldType.Choice:
-            case gd_sprest_1.SPTypes.FieldType.MultiChoice:
-                return React.createElement(__1.Fields.FieldChoice, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // Date/Time
-            case gd_sprest_1.SPTypes.FieldType.DateTime:
-                return React.createElement(__1.Fields.FieldDateTime, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // Lookup
-            case gd_sprest_1.SPTypes.FieldType.Lookup:
-                return React.createElement(__1.Fields.FieldLookup, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // Number
-            case gd_sprest_1.SPTypes.FieldType.Currency:
-            case gd_sprest_1.SPTypes.FieldType.Number:
-                return React.createElement(__1.Fields.FieldNumber, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // Text
-            case gd_sprest_1.SPTypes.FieldType.Note:
-            case gd_sprest_1.SPTypes.FieldType.Text:
-                return React.createElement(__1.Fields.FieldText, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // URL
-            case gd_sprest_1.SPTypes.FieldType.URL:
-                return React.createElement(__1.Fields.FieldUrl, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // User
-            case gd_sprest_1.SPTypes.FieldType.User:
-                return React.createElement(__1.Fields.FieldUser, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-            // Default
-            default:
-                // Check the type as string value
-                switch (fieldInfo.typeAsString) {
-                    // Managed Metadata
-                    case "TaxonomyFieldType":
-                    case "TaxonomyFieldTypeMulti":
-                        return React.createElement(__1.Fields.FieldManagedMetadata, __assign({}, props, { ref: function (field) { _this._field = field; } }));
-                    // Default
-                    default:
-                        return (React.createElement("div", null, this.state.value));
-                }
-        }
-    };
     return Field;
 }(__1.Fields.BaseField));
 exports.Field = Field;

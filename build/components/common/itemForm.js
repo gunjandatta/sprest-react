@@ -229,8 +229,8 @@ var ItemForm = /** @class */ (function (_super) {
         for (var i = 0; i < this._fields.length; i++) {
             var field = this._fields[i];
             var fieldName = field.Info ? field.Info.name : null;
-            // Ensure the field name exists
-            if (fieldName) {
+            // Ensure the field exists
+            if (fieldName == null) {
                 continue;
             }
             // See if this is a lookup or user field

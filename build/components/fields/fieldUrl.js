@@ -32,6 +32,40 @@ var FieldUrl = /** @class */ (function (_super) {
          * Public Interface
          */
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Method to render the component
+        _this.renderField = function () {
+            // See if a custom render method exists
+            if (_this.props.onRender) {
+                return _this.props.onRender(_this.state.fieldInfo);
+            }
+            // Get the default value
+            var defaultValue = _this.getFieldValue();
+            // See if this is the display mode
+            if (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+                // Return the value
+                return (React.createElement("a", { href: defaultValue.Url, className: _this.props.className }, defaultValue ? defaultValue.Description || defaultValue.Url : ""));
+            }
+            // Update the url properties
+            var urlProps = _this.props.urlProps || {};
+            urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
+            urlProps.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
+            urlProps.label = urlProps.label || _this.state.label;
+            urlProps.onChanged = _this.onUrlChanged;
+            urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : _this.state.fieldInfo.required;
+            // Update the description properties
+            var descProps = _this.props.descProps || {};
+            descProps.defaultValue = defaultValue ? defaultValue.Description : "";
+            descProps.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : _this.state.fieldInfo.errorMessage;
+            descProps.errorMessage = _this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
+            descProps.onChanged = _this.onDescChanged;
+            descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
+            // Return the component
+            return (React.createElement("div", { className: _this.props.className },
+                React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps)),
+                React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps))));
+        };
         /**
          * Events
          */
@@ -63,40 +97,6 @@ var FieldUrl = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Method to render the component
-    FieldUrl.prototype.renderField = function () {
-        // See if a custom render method exists
-        if (this.props.onRender) {
-            return this.props.onRender(this.state.fieldInfo);
-        }
-        // Get the default value
-        var defaultValue = this.getFieldValue();
-        // See if this is the display mode
-        if (this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Return the value
-            return (React.createElement("a", { href: defaultValue.Url, className: this.props.className }, defaultValue ? defaultValue.Description || defaultValue.Url : ""));
-        }
-        // Update the url properties
-        var urlProps = this.props.urlProps || {};
-        urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
-        urlProps.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-        urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
-        urlProps.label = urlProps.label || this.state.label;
-        urlProps.onChanged = this.onUrlChanged;
-        urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
-        // Update the description properties
-        var descProps = this.props.descProps || {};
-        descProps.defaultValue = defaultValue ? defaultValue.Description : "";
-        descProps.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
-        descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
-        descProps.onChanged = this.onDescChanged;
-        descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
-        // Return the component
-        return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps)),
-            React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps))));
-    };
     return FieldUrl;
 }(_1.BaseField));
 exports.FieldUrl = FieldUrl;

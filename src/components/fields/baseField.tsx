@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Types, Web } from "gd-sprest";
-import { Spinner, SpinnerSize } from "office-ui-fabric-react";
+import { SPTypes, Types, Web } from "gd-sprest";
+import { Label, Spinner, SpinnerSize } from "office-ui-fabric-react";
 import { IBaseField, IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "../../definitions";
 
 /**
@@ -27,9 +27,6 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     /**
      * Public Interface
      */
-
-    // Required method
-    abstract renderField(): any;
 
     // Method to get the field value
     getFieldValue = () => { return this.state.value || this.state.fieldInfo.defaultValue || ""; }
@@ -73,6 +70,20 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         }
 
         // Show nothing by default
+        return null;
+    }
+
+    // Method to render the field
+    renderField = () => {
+        // See if we are displaying the field
+        if(this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Render the field name and value
+            return (
+                <Label>{this.state.fieldInfo.title + ": " + this.state.value}</Label>
+            );
+        }
+
+        // Render nothing
         return null;
     }
 

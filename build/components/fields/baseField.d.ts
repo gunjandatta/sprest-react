@@ -16,12 +16,12 @@ export declare abstract class BaseField<Props extends IBaseFieldProps = IBaseFie
     /**
      * Public Interface
      */
-    abstract renderField(): any;
     getFieldValue: () => any;
     onFieldInit: (field: any, state: State) => void;
     onFieldLoaded: () => void;
     updateValue: (value: any) => void;
-    render(): any;
+    render(): JSX.Element;
+    renderField: () => JSX.Element;
     /**
      * Methods
      */

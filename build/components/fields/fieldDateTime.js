@@ -32,6 +32,30 @@ var FieldDateTime = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._datePicker = null;
         /**
+         * Public Interface
+         */
+        // Render the field
+        _this.renderField = function () {
+            // See if a custom render method exists
+            if (_this.props.onRender) {
+                return _this.props.onRender(_this.state.fieldInfo);
+            }
+            // Update the date picker properties
+            var props = _this.props.dtProps || {};
+            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;
+            props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : _this.state.fieldInfo.required;
+            props.label = _this.state.label;
+            props.onSelectDate = _this.state.fieldInfo.showTime ? _this.onDateChanged : _this.updateValue;
+            props.placeholder = props.placeholder || "Date";
+            props.strings = props.strings || common_1.DatePickerStrings;
+            props.value = _this.getValue();
+            // Render the component
+            return (React.createElement("div", { className: _this.props.className },
+                React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { ref: function (datePicker) { _this._datePicker = datePicker; } })),
+                _this.renderTime(props.value)));
+        };
+        /**
          * Events
          */
         // The field initialized event
@@ -126,31 +150,6 @@ var FieldDateTime = /** @class */ (function (_super) {
         };
         return _this;
     }
-    /**
-     * Public Interface
-     */
-    // Render the field
-    FieldDateTime.prototype.renderField = function () {
-        var _this = this;
-        // See if a custom render method exists
-        if (this.props.onRender) {
-            return this.props.onRender(this.state.fieldInfo);
-        }
-        // Update the date picker properties
-        var props = this.props.dtProps || {};
-        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-        props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;
-        props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : this.state.fieldInfo.required;
-        props.label = this.state.label;
-        props.onSelectDate = this.state.fieldInfo.showTime ? this.onDateChanged : this.updateValue;
-        props.placeholder = props.placeholder || "Date";
-        props.strings = props.strings || common_1.DatePickerStrings;
-        props.value = this.getValue();
-        // Render the component
-        return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { ref: function (datePicker) { _this._datePicker = datePicker; } })),
-            this.renderTime(props.value)));
-    };
     return FieldDateTime;
 }(_1.BaseField));
 exports.FieldDateTime = FieldDateTime;

@@ -14,7 +14,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      */
 
     // Render the field
-    renderField() {
+    renderField = () => {
         // Ensure the options exist
         if (this.state.options == null) {
             // Render a loading indicator

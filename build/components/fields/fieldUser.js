@@ -33,6 +33,24 @@ var FieldUser = /** @class */ (function (_super) {
          * Public Interface
          */
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Method to render the field
+        _this.renderField = function () {
+            // See if a custom render method exists
+            if (_this.props.onRender) {
+                return _this.props.onRender(_this.state.fieldInfo);
+            }
+            // Update the label properties
+            var lblProps = _this.props.lblProps || {};
+            lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : _this.state.fieldInfo.required;
+            // Set the picker props
+            var props = _this.props.pickerProps || {};
+            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.onChange = _this.onChange;
+            // Render the component
+            return (React.createElement("div", { className: _this.props.className },
+                React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.label),
+                React.createElement(__1.SPPeoplePicker, { allowMultiple: _this.state.fieldInfo.allowMultiple, fieldValue: _this.props.defaultValue ? _this.props.defaultValue.results || [_this.props.defaultValue] : null, props: props })));
+        };
         /**
          * Events
          */
@@ -73,24 +91,6 @@ var FieldUser = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Method to render the field
-    FieldUser.prototype.renderField = function () {
-        // See if a custom render method exists
-        if (this.props.onRender) {
-            return this.props.onRender(this.state.fieldInfo);
-        }
-        // Update the label properties
-        var lblProps = this.props.lblProps || {};
-        lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : this.state.fieldInfo.required;
-        // Set the picker props
-        var props = this.props.pickerProps || {};
-        props.disabled = this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-        props.onChange = this.onChange;
-        // Render the component
-        return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || this.state.label),
-            React.createElement(__1.SPPeoplePicker, { allowMultiple: this.state.fieldInfo.allowMultiple, fieldValue: this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null, props: props })));
-    };
     return FieldUser;
 }(_1.BaseField));
 exports.FieldUser = FieldUser;

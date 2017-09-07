@@ -25,7 +25,7 @@ var _1 = require(".");
 /**
  * Boolean field
  */
-var FieldBoolean = (function (_super) {
+var FieldBoolean = /** @class */ (function (_super) {
     __extends(FieldBoolean, _super);
     function FieldBoolean() {
         var _this = _super !== null && _super.apply(this, arguments) || this;

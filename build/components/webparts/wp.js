@@ -6,7 +6,7 @@ var common_1 = require("../../common");
 /**
  * Web Part
  */
-var WebPart = (function () {
+var WebPart = /** @class */ (function () {
     /**
      * Constructor
      */

@@ -25,7 +25,7 @@ var _1 = require(".");
 /**
  * URL Field
  */
-var FieldUrl = (function (_super) {
+var FieldUrl = /** @class */ (function (_super) {
     __extends(FieldUrl, _super);
     function FieldUrl() {
         /**

@@ -26,7 +26,7 @@ var _1 = require(".");
 /**
  * User Field
  */
-var FieldUser = (function (_super) {
+var FieldUser = /** @class */ (function (_super) {
     __extends(FieldUser, _super);
     function FieldUser() {
         /**

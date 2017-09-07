@@ -23,7 +23,7 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
  * Base Panel
  */
-var BasePanel = (function (_super) {
+var BasePanel = /** @class */ (function (_super) {
     __extends(BasePanel, _super);
     /**
      * Constructor

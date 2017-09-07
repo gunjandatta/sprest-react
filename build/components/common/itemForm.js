@@ -18,7 +18,7 @@ var __1 = require("..");
 /**
  * Item Form WebPart
  */
-var ItemForm = (function (_super) {
+var ItemForm = /** @class */ (function (_super) {
     __extends(ItemForm, _super);
     /**
      * Constructor
@@ -228,7 +228,11 @@ var ItemForm = (function (_super) {
         // Parse the references
         for (var i = 0; i < this._fields.length; i++) {
             var field = this._fields[i];
-            var fieldName = field.Info.name;
+            var fieldName = field.Info ? field.Info.name : null;
+            // Ensure the field name exists
+            if (fieldName) {
+                continue;
+            }
             // See if this is a lookup or user field
             if (field.Info.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
                 field.Info.type == gd_sprest_1.SPTypes.FieldType.User) {

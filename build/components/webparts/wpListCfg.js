@@ -17,7 +17,7 @@ var _1 = require(".");
 /**
  * WebPart List Configuration
  */
-var WebPartListCfg = (function (_super) {
+var WebPartListCfg = /** @class */ (function (_super) {
     __extends(WebPartListCfg, _super);
     /**
      * Constructor

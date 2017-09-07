@@ -25,7 +25,7 @@ var _1 = require(".");
 /**
  * Choice field
  */
-var FieldChoice = (function (_super) {
+var FieldChoice = /** @class */ (function (_super) {
     __extends(FieldChoice, _super);
     function FieldChoice() {
         /**

@@ -24,7 +24,7 @@ var __1 = require("..");
 /**
  * Field
  */
-var Field = (function (_super) {
+var Field = /** @class */ (function (_super) {
     __extends(Field, _super);
     function Field() {
         var _this = _super !== null && _super.apply(this, arguments) || this;

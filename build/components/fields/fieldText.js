@@ -25,7 +25,7 @@ var _1 = require(".");
 /**
  * Text Field
  */
-var FieldText = (function (_super) {
+var FieldText = /** @class */ (function (_super) {
     __extends(FieldText, _super);
     function FieldText() {
         /**

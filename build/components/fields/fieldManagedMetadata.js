@@ -26,7 +26,7 @@ var _1 = require(".");
 /**
  * Managed Metadata Field
  */
-var FieldManagedMetadata = (function (_super) {
+var FieldManagedMetadata = /** @class */ (function (_super) {
     __extends(FieldManagedMetadata, _super);
     function FieldManagedMetadata() {
         /**

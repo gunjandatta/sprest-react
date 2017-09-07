@@ -26,7 +26,7 @@ var _1 = require(".");
 /**
  * Lookup Field
  */
-var FieldLookup = (function (_super) {
+var FieldLookup = /** @class */ (function (_super) {
     __extends(FieldLookup, _super);
     function FieldLookup() {
         /**

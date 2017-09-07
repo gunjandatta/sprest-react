@@ -26,7 +26,7 @@ var _1 = require(".");
 /**
  * Date Time field
  */
-var FieldDateTime = (function (_super) {
+var FieldDateTime = /** @class */ (function (_super) {
     __extends(FieldDateTime, _super);
     function FieldDateTime() {
         var _this = _super !== null && _super.apply(this, arguments) || this;

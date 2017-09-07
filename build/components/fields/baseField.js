@@ -16,7 +16,7 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
  * Base Field
  */
-var BaseField = (function (_super) {
+var BaseField = /** @class */ (function (_super) {
     __extends(BaseField, _super);
     /**
      * Constructor

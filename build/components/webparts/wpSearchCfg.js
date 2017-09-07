@@ -17,7 +17,7 @@ var _1 = require(".");
 /**
  * WebPart Search Configuration
  */
-var WebPartSearchCfg = (function (_super) {
+var WebPartSearchCfg = /** @class */ (function (_super) {
     __extends(WebPartSearchCfg, _super);
     /**
      * Constructor

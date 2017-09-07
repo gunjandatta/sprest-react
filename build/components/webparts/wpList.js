@@ -16,7 +16,7 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
  * WebPart List
  */
-var WebPartList = (function (_super) {
+var WebPartList = /** @class */ (function (_super) {
     __extends(WebPartList, _super);
     /**
      * Constructor

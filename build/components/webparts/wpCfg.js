@@ -17,7 +17,7 @@ var __1 = require("..");
 /**
  * Web Part Configuration
  */
-var WebPartConfigurationPanel = (function (_super) {
+var WebPartConfigurationPanel = /** @class */ (function (_super) {
     __extends(WebPartConfigurationPanel, _super);
     /**
      * Constructor

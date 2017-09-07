@@ -18,7 +18,7 @@ require("../../../sass/fieldAttachments.scss");
 /**
  * Attachments field
  */
-var FieldAttachments = (function (_super) {
+var FieldAttachments = /** @class */ (function (_super) {
     __extends(FieldAttachments, _super);
     /**
      * Constructor

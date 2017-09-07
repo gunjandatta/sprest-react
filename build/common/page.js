@@ -5,7 +5,7 @@ var es6_promise_1 = require("es6-promise");
 /**
  * Page Common Methods
  */
-var Page = (function () {
+var Page = /** @class */ (function () {
     function Page() {
     }
     // Method to get the webpart

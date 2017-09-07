@@ -25,7 +25,7 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
  * SharePoint People Picker
  */
-var SPPeoplePicker = (function (_super) {
+var SPPeoplePicker = /** @class */ (function (_super) {
     __extends(SPPeoplePicker, _super);
     /**
      * Constructor

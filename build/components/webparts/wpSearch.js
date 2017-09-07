@@ -17,7 +17,7 @@ var _1 = require(".");
 /**
  * WebPart Search
  */
-var WebPartSearch = (function (_super) {
+var WebPartSearch = /** @class */ (function (_super) {
     __extends(WebPartSearch, _super);
     /**
      * Constructor

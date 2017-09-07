@@ -20,4 +20,5 @@ export declare class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWe
      * Methods
      */
     private updateFields;
+    private updatePickerFlag;
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { PrimaryButton, TagPicker, ITag } from "office-ui-fabric-react";
+import { Checkbox, PrimaryButton, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchCfgProps, IWebPartSearchCfgState } from "../../definitions";
 import { WebPartListCfg } from ".";
 
@@ -50,11 +50,11 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
     onRenderFooter = () => {
         let tags: Array<ITag> = [];
 
-        // Parse the existing configuration
-        if (this.props.cfg && this.props.cfg.Fields) {
+        // See if the lists and configuration fields exists
+        if (this.state.lists && this.state.cfg.Fields) {
             // Parse the fields
-            for (let i = 0; i < this.props.cfg.Fields.length; i++) {
-                let field = this.props.cfg.Fields[i];
+            for (let i = 0; i < this.state.cfg.Fields.length; i++) {
+                let field = this.state.cfg.Fields[i];
 
                 // Add the tag
                 tags.push({
@@ -62,27 +62,35 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
                     name: field.Title + " [" + field.InternalName + "]",
                 });
             }
+
+            // Return the footer
+            return (
+                <div>
+                    <Checkbox
+                        defaultChecked={this.state.cfg.TagPickerFl ? true : false}
+                        label="Use Tag Picker"
+                        onChange={this.updatePickerFlag}
+                    />
+                    <label className="ms-Label ms-fontSize-m">Searchable Fields:</label>
+                    <TagPicker
+                        defaultSelectedItems={tags}
+                        onChange={this.updateFields}
+                        onResolveSuggestions={this.onResolveSuggestions}
+                        pickerSuggestionsProps={{
+                            noResultsFoundText: "No fields found.",
+                            suggestionsHeaderText: "Searchable Fields"
+                        }}
+                    />
+                    <PrimaryButton
+                        onClick={this.onSave}
+                        text="Save"
+                    />
+                </div>
+            );
         }
 
-        // Return the footer
-        return (
-            <div>
-                <label className="ms-Label ms-fontSize-m">Searchable Fields:</label>
-                <TagPicker
-                    defaultSelectedItems={tags}
-                    onChange={this.updateFields}
-                    onResolveSuggestions={this.onResolveSuggestions}
-                    pickerSuggestionsProps={{
-                        noResultsFoundText: "No fields found.",
-                        suggestionsHeaderText: "Searchable Fields"
-                    }}
-                />
-                <PrimaryButton
-                    onClick={this.onSave}
-                    text="Save"
-                />
-            </div>
-        );
+        // Render nothing
+        return null;
     }
 
     // Method to resolve suggestions event
@@ -192,6 +200,17 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
             if (a.Title > b.Title) { return 1; }
             return 0;
         });
+
+        // Update the state
+        this.setState({ cfg });
+    }
+
+    // Method to update the
+    private updatePickerFlag = (ev: React.MouseEvent<HTMLInputElement>, checked: boolean) => {
+        let cfg = this.state.cfg;
+
+        // Update the configuration
+        cfg.TagPickerFl = checked;
 
         // Update the state
         this.setState({ cfg });

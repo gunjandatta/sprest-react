@@ -15,7 +15,10 @@ export declare class WebPartSearch<Props extends IWebPartSearchProps = IWebPartS
      */
     private generateMapper;
     private getItems;
+    private getItemsByFilter;
+    private getItemsByTags;
     protected load: () => void;
     private onResolveSuggestions;
+    private updateSearchFilter;
     private updateSelectedTags;
 }

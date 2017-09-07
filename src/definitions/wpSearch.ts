@@ -10,6 +10,7 @@ import {
  */
 export interface IWebPartSearchCfg extends IWebPartListCfg {
     Fields: Array<Types.IFieldResult>;
+    TagPickerFl: boolean;
 }
 
 /**
@@ -47,6 +48,7 @@ export interface IWebPartSearchProps extends IWebPartListProps {
  */
 export interface IWebPartSearchState extends IWebPartListState {
     items?: Array<IWebPartSearchItem>;
+    searchFilter?: string;
     searchTerms?: Array<ITag>;
     selectedTags?: Array<ITag>;
     tagMapper?: object;

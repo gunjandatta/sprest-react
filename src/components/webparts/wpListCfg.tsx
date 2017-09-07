@@ -55,7 +55,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
 
     // The render contents event
     onRenderContents = (cfg: IWebPartListCfg) => {
-        // See if the options exists
+        // See if the lists exists
         if (this.state.lists == null) {
             // Load the lists
             this.loadLists(cfg);
@@ -92,13 +92,19 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
 
     // Render the save button
     onRenderFooter = () => {
-        return (
-            <PrimaryButton
-                onClick={this.onSave}
-                ref={btn => { this._refreshButton = btn; }}
-                text="Save"
-            />
-        );
+        // See if the lists exists
+        if (this.state.lists == null) {
+            return (
+                <PrimaryButton
+                    onClick={this.onSave}
+                    ref={btn => { this._refreshButton = btn; }}
+                    text="Save"
+                />
+            );
+        }
+
+        // Render nothing
+        return null;
     }
 
     // The save button click event

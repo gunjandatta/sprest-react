@@ -51,7 +51,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
         };
         // The render contents event
         _this.onRenderContents = function (cfg) {
-            // See if the options exists
+            // See if the lists exists
             if (_this.state.lists == null) {
                 // Load the lists
                 _this.loadLists(cfg);
@@ -66,7 +66,12 @@ var WebPartListCfg = /** @class */ (function (_super) {
         };
         // Render the save button
         _this.onRenderFooter = function () {
-            return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
+            // See if the lists exists
+            if (_this.state.lists == null) {
+                return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
+            }
+            // Render nothing
+            return null;
         };
         // The save button click event
         _this.onSave = function (ev) {

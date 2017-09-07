@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types, Web } from "gd-sprest";
-import { Link, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
+import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
 import { WebPartList, WebPartListCfg } from ".";
 
@@ -17,6 +17,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Set the state
         this.state = {
             items: null,
+            searchFilter: "",
             searchTerms: [],
             selectedTags: [],
             tagMapper: {}
@@ -48,10 +49,18 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Return the items
         return (
             <div className={this.props.className}>
-                <TagPicker
-                    onChange={this.updateSelectedTags}
-                    onResolveSuggestions={this.onResolveSuggestions}
-                />
+                {
+                    this.props.cfg.TagPickerFl ?
+                        <TagPicker
+                            onChange={this.updateSelectedTags}
+                            onResolveSuggestions={this.onResolveSuggestions}
+                        />
+                        :
+                        <SearchBox
+                            onChange={this.updateSearchFilter}
+                            onSearch={this.updateSearchFilter}
+                        />
+                }
                 {this.onRenderContainer(this.getItems())}
             </div>
         );
@@ -144,6 +153,59 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
     // Method to get the items
     private getItems = () => {
+        // Determine if we are using the picker
+        if (this.props.cfg.TagPickerFl) {
+            // Return the items by the tags
+            return this.getItemsByTags();
+        }
+
+        // Return the items by the filter
+        return this.getItemsByFilter();
+    }
+
+    // Method to get the items by filter
+    private getItemsByFilter = () => {
+        // Ensure a filter exists
+        if (this.state.searchFilter) {
+            let data = {};
+            let filterText = this.state.searchFilter.toLowerCase();
+            let items = [];
+
+            // Parse the tag names
+            for (let tagName in this.state.tagMapper) {
+                // See if this tag name contains this filter
+                if (tagName.toLowerCase().indexOf(filterText) >= 0) {
+                    let tagItems = this.state.tagMapper[tagName] as Array<IWebPartSearchItem>;
+
+                    // Parse the items for this tag
+                    for (let i = 0; i < tagItems.length; i++) {
+                        let item = tagItems[i];
+
+                        // Ensure we haven't already added this item
+                        if (data[item.Id] == null) {
+                            // Add the item
+                            data[item.Id] = item;
+                        }
+                    }
+                }
+            }
+
+            // Parse the data
+            for (let id in data) {
+                // Add the item
+                items.push(data[id]);
+            }
+
+            // Return the items
+            return items;
+        }
+
+        // Return the items
+        return this.state.items;
+    }
+
+    // Method to get the items by tags
+    private getItemsByTags = () => {
         // Ensure tags exist
         if (this.state.selectedTags.length > 0) {
             let data = {};
@@ -248,6 +310,14 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
         // Return the tags
         return tags;
+    }
+
+    // Method to update the search filter
+    private updateSearchFilter = (filter: string) => {
+        // Update the state
+        this.setState({
+            searchFilter: filter
+        });
     }
 
     // Method to update the selected tags

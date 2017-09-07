@@ -51,26 +51,29 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
         // The render footer method
         _this.onRenderFooter = function () {
             var tags = [];
-            // Parse the existing configuration
-            if (_this.props.cfg && _this.props.cfg.Fields) {
+            // See if the lists and configuration fields exists
+            if (_this.state.lists && _this.state.cfg.Fields) {
                 // Parse the fields
-                for (var i = 0; i < _this.props.cfg.Fields.length; i++) {
-                    var field = _this.props.cfg.Fields[i];
+                for (var i = 0; i < _this.state.cfg.Fields.length; i++) {
+                    var field = _this.state.cfg.Fields[i];
                     // Add the tag
                     tags.push({
                         key: field.InternalName,
                         name: field.Title + " [" + field.InternalName + "]",
                     });
                 }
+                // Return the footer
+                return (React.createElement("div", null,
+                    React.createElement(office_ui_fabric_react_1.Checkbox, { defaultChecked: _this.state.cfg.TagPickerFl ? true : false, label: "Use Tag Picker", onChange: _this.updatePickerFlag }),
+                    React.createElement("label", { className: "ms-Label ms-fontSize-m" }, "Searchable Fields:"),
+                    React.createElement(office_ui_fabric_react_1.TagPicker, { defaultSelectedItems: tags, onChange: _this.updateFields, onResolveSuggestions: _this.onResolveSuggestions, pickerSuggestionsProps: {
+                            noResultsFoundText: "No fields found.",
+                            suggestionsHeaderText: "Searchable Fields"
+                        } }),
+                    React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, text: "Save" })));
             }
-            // Return the footer
-            return (React.createElement("div", null,
-                React.createElement("label", { className: "ms-Label ms-fontSize-m" }, "Searchable Fields:"),
-                React.createElement(office_ui_fabric_react_1.TagPicker, { defaultSelectedItems: tags, onChange: _this.updateFields, onResolveSuggestions: _this.onResolveSuggestions, pickerSuggestionsProps: {
-                        noResultsFoundText: "No fields found.",
-                        suggestionsHeaderText: "Searchable Fields"
-                    } }),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, text: "Save" })));
+            // Render nothing
+            return null;
         };
         // Method to resolve suggestions event
         _this.onResolveSuggestions = function (filterText, selectedItems) {
@@ -173,6 +176,14 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
                 }
                 return 0;
             });
+            // Update the state
+            _this.setState({ cfg: cfg });
+        };
+        // Method to update the
+        _this.updatePickerFlag = function (ev, checked) {
+            var cfg = _this.state.cfg;
+            // Update the configuration
+            cfg.TagPickerFl = checked;
             // Update the state
             _this.setState({ cfg: cfg });
         };

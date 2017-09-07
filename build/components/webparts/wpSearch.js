@@ -108,6 +108,50 @@ var WebPartSearch = /** @class */ (function (_super) {
         };
         // Method to get the items
         _this.getItems = function () {
+            // Determine if we are using the picker
+            if (_this.props.cfg.TagPickerFl) {
+                // Return the items by the tags
+                return _this.getItemsByTags();
+            }
+            // Return the items by the filter
+            return _this.getItemsByFilter();
+        };
+        // Method to get the items by filter
+        _this.getItemsByFilter = function () {
+            // Ensure a filter exists
+            if (_this.state.searchFilter) {
+                var data = {};
+                var filterText = _this.state.searchFilter.toLowerCase();
+                var items = [];
+                // Parse the tag names
+                for (var tagName in _this.state.tagMapper) {
+                    // See if this tag name contains this filter
+                    if (tagName.toLowerCase().indexOf(filterText) >= 0) {
+                        var tagItems = _this.state.tagMapper[tagName];
+                        // Parse the items for this tag
+                        for (var i = 0; i < tagItems.length; i++) {
+                            var item = tagItems[i];
+                            // Ensure we haven't already added this item
+                            if (data[item.Id] == null) {
+                                // Add the item
+                                data[item.Id] = item;
+                            }
+                        }
+                    }
+                }
+                // Parse the data
+                for (var id in data) {
+                    // Add the item
+                    items.push(data[id]);
+                }
+                // Return the items
+                return items;
+            }
+            // Return the items
+            return _this.state.items;
+        };
+        // Method to get the items by tags
+        _this.getItemsByTags = function () {
             // Ensure tags exist
             if (_this.state.selectedTags.length > 0) {
                 var data = {};
@@ -193,6 +237,13 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Return the tags
             return tags;
         };
+        // Method to update the search filter
+        _this.updateSearchFilter = function (filter) {
+            // Update the state
+            _this.setState({
+                searchFilter: filter
+            });
+        };
         // Method to update the selected tags
         _this.updateSelectedTags = function (tags) {
             // Update the state
@@ -203,6 +254,7 @@ var WebPartSearch = /** @class */ (function (_super) {
         // Set the state
         _this.state = {
             items: null,
+            searchFilter: "",
             searchTerms: [],
             selectedTags: [],
             tagMapper: {}
@@ -228,7 +280,10 @@ var WebPartSearch = /** @class */ (function (_super) {
         }
         // Return the items
         return (React.createElement("div", { className: this.props.className },
-            React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions }),
+            this.props.cfg.TagPickerFl ?
+                React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions })
+                :
+                    React.createElement(office_ui_fabric_react_1.SearchBox, { onChange: this.updateSearchFilter, onSearch: this.updateSearchFilter }),
             this.onRenderContainer(this.getItems())));
     };
     return WebPartSearch;

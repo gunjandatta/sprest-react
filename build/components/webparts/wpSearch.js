@@ -31,8 +31,8 @@ var WebPartSearch = /** @class */ (function (_super) {
         _this.generateMapper = function (items) {
             var searchTerms = [];
             var tagMapper = {};
-            // Ensure the fields exist
-            if (_this.props.cfg.Fields) {
+            // Ensure the items and fields exist
+            if (items.results && _this.props.cfg.Fields) {
                 // Parse the items
                 for (var i = 0; i < items.results.length; i++) {
                     var item = items.results[i];
@@ -204,12 +204,15 @@ var WebPartSearch = /** @class */ (function (_super) {
                     }
                 }
             }
-            // Load the documents
-            (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
-                .Lists(_this.props.cfg.ListName)
-                .Items()
-                .query(_this._query)
-                .execute(_this.generateMapper);
+            // Ensure the list name exists
+            if (_this.props.cfg.ListName) {
+                // Load the documents
+                (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                    .Lists(_this.props.cfg.ListName)
+                    .Items()
+                    .query(_this._query)
+                    .execute(_this.generateMapper);
+            }
         };
         // Method to resolve the tag picker
         _this.onResolveSuggestions = function (filterText, tagList) {

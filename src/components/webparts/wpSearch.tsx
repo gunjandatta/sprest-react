@@ -75,8 +75,8 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         let searchTerms: Array<ITag> = [];
         let tagMapper = {};
 
-        // Ensure the fields exist
-        if (this.props.cfg.Fields) {
+        // Ensure the items and fields exist
+        if (items.results && this.props.cfg.Fields) {
             // Parse the items
             for (let i = 0; i < items.results.length; i++) {
                 let item = items.results[i];
@@ -268,8 +268,10 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             }
         }
 
-        // Load the documents
-        (new Web(this.props.cfg.WebUrl))
+        // Ensure the list name exists
+        if(this.props.cfg.ListName) {
+            // Load the documents
+            (new Web(this.props.cfg.WebUrl))
             // Get the list
             .Lists(this.props.cfg.ListName)
             // Get the items
@@ -278,6 +280,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
             .query(this._query)
             // Execute the request
             .execute(this.generateMapper);
+    }
     }
 
     // Method to resolve the tag picker

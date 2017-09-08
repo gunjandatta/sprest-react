@@ -52,9 +52,10 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
         _this.onRenderFooter = function () {
             var tags = [];
             // See if the lists and configuration fields exists
-            if (_this.state.lists && _this.state.cfg.Fields) {
+            if (_this.state.lists) {
+                var fields = _this.state.cfg.Fields || [];
                 // Parse the fields
-                for (var i = 0; i < _this.state.cfg.Fields.length; i++) {
+                for (var i = 0; i < fields.length; i++) {
                     var field = _this.state.cfg.Fields[i];
                     // Add the tag
                     tags.push({

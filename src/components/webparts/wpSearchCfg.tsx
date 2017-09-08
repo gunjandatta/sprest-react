@@ -51,9 +51,11 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
         let tags: Array<ITag> = [];
 
         // See if the lists and configuration fields exists
-        if (this.state.lists && this.state.cfg.Fields) {
+        if (this.state.lists) {
+            let fields = this.state.cfg.Fields || [];
+
             // Parse the fields
-            for (let i = 0; i < this.state.cfg.Fields.length; i++) {
+            for (let i = 0; i < fields.length; i++) {
                 let field = this.state.cfg.Fields[i];
 
                 // Add the tag

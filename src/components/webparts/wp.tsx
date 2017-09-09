@@ -56,51 +56,67 @@ export class WebPart {
             element: null
         }
 
-        // See if the configuration element exists
-        if (this._props.cfgElementId) {
+        // Ensure the target element id exists
+        if (this._props.targetElementId) {
+            let cfg = {} as IWebPartCfg;
+            let elTarget = null;
+
             // Get the elements
             let elements = document.querySelectorAll("#" + this._props.targetElementId);
             for (let i = 0; i < elements.length; i++) {
-                let elTarget: HTMLElement = elements[i] as any;
-                let elTargetCfg: HTMLElement = elTarget.parentElement.querySelector("#" + this._props.cfgElementId) as any;
+                let elWebPart = elements[i] as HTMLElement;
 
                 // See if we have already configured this element
-                if (elTarget.getAttribute("data-isConfigured")) { continue; }
+                if (elWebPart.getAttribute("data-isConfigured")) { continue; }
 
-                // Ensure data exists
+                // Get the webpart id
+                let wpId = Page.getWebPartId(elWebPart);
+
+                // See if the configuration element exists
+                let elTargetCfg = (this._props.cfgElementId ? elWebPart.parentElement.querySelector("#" + this._props.cfgElementId) : null) as HTMLElement;
                 if (elTargetCfg) {
                     try {
                         // Set the configuration
-                        let cfg: IWebPartCfg = elTargetCfg.innerText.trim().length == 0 ? {} : JSON.parse(elTargetCfg.innerText);
-                        let wpId = Page.getWebPartId(elTarget);
+                        let wpCfg = elTargetCfg.innerText.trim().length == 0 ? {} : JSON.parse(elTargetCfg.innerText);
 
                         // See if the webaprt id exists
-                        if (cfg.WebPartId) {
-                            // Ensure this element is for this webpart
-                            if (cfg.WebPartId == wpId) {
-                                // Set the target information
-                                targetInfo = {
-                                    cfg,
-                                    element: elTarget
-                                };
+                        if (wpCfg.WebPartId) {
+                            // See if it's for this webpart
+                            if (wpCfg.WebPartId == wpId) {
+                                // Set the configuration and target element
+                                cfg = wpCfg;
+                                elTarget = elWebPart;
+
+                                // Break from the loop
                                 break;
                             }
                         } else {
-                            // Set the webpart id
+                            // Set the configuration and target element
+                            cfg = wpCfg;
                             cfg.WebPartId = wpId;
 
-                            // Set the target information
-                            targetInfo = {
-                                cfg,
-                                element: elTarget
-                            }
+                            // Break from the loop
+                            break;
                         }
                     }
                     catch (ex) {
                         // Log
                         console.log("[gd-sprest-react] Error parsing the configuration for element '" + this._props.cfgElementId + "'.");
                     }
+                } else {
+                    // Set the configuration and target element
+                    cfg.WebPartId = wpId;
+                    elTarget = elWebPart;
+
+                    // Break from the loop
+                    break;
                 }
+            }
+
+            // Set the target information
+            targetInfo = {
+                cfg,
+                element: elTarget
             }
 
             // Ensure elements were found
@@ -109,8 +125,8 @@ export class WebPart {
                 console.log("[gd-sprest-react] Error - Unable to find elements with id '" + this._props.targetElementId + "'.")
             }
         } else {
-            // Set the element
-            targetInfo.element = document.querySelector("#" + this._props.targetElementId) as any;
+            // Log
+            console.log("[gd-sprest-react] The target element id is not defined.");
         }
 
         // Ensure the target element exists

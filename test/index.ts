@@ -1,4 +1,4 @@
-import { WebPart, WebPartSearchCfg } from "../src";
+import { WebPart, WebPartSearchCfg, WebPartTabs } from "../src";
 import { Configuration } from "./cfg";
 import { ListWebpart } from "./wp";
 import "./list.scss";
@@ -20,6 +20,13 @@ class Demo {
             displayElement: ListWebpart,
             editElement: WebPartSearchCfg,
             targetElementId: "wp-list",
+        });
+
+        // Create an instance of the webpart tabs
+        new WebPart({
+            cfgElementId: "wp-tabsCfg",
+            displayElement: WebPartTabs,
+            targetElementId: "wp-tabs"
         });
     }
 }

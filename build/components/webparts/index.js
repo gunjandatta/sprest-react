@@ -9,4 +9,5 @@ __export(require("./wpList"));
 __export(require("./wpListCfg"));
 __export(require("./wpSearch"));
 __export(require("./wpSearchCfg"));
+__export(require("./wpTabs"));
 //# sourceMappingURL=index.js.map

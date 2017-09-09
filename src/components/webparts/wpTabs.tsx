@@ -26,7 +26,7 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
 
         // Set the state
         this.state = {
-            selectedTabId: 0,
+            selectedTabId,
             webparts: this.getWebParts()
         } as State;
     }

@@ -144,7 +144,7 @@ var WebPartTabs = /** @class */ (function (_super) {
         }
         // Set the state
         _this.state = {
-            selectedTabId: 0,
+            selectedTabId: selectedTabId,
             webparts: _this.getWebParts()
         };
         return _this;

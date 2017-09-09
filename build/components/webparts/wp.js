@@ -77,6 +77,7 @@ var WebPart = /** @class */ (function () {
                                 // Set the configuration and target element
                                 cfg = wpCfg;
                                 cfg.WebPartId = wpId;
+                                elTarget = elWebPart;
                                 // Break from the loop
                                 break;
                             }

@@ -94,6 +94,7 @@ export class WebPart {
                             // Set the configuration and target element
                             cfg = wpCfg;
                             cfg.WebPartId = wpId;
+                            elTarget = elWebPart;
 
                             // Break from the loop
                             break;

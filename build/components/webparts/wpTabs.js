@@ -41,6 +41,10 @@ var WebPartTabs = /** @class */ (function (_super) {
                     if (webpart.querySelector("div[webpartid='" + _this.props.cfg.WebPartId + "']")) {
                         continue;
                     }
+                    // Skip hidden webparts
+                    if (webpart.querySelector(".ms-hide")) {
+                        continue;
+                    }
                     // See if this is within a content zone
                     if (_this._isContentZone) {
                         // Get the parent webpart box
@@ -128,6 +132,16 @@ var WebPartTabs = /** @class */ (function (_super) {
                 }
             }
         };
+        // Get the webparts
+        var webparts = _this.getWebParts();
+        // Parse the webparts
+        var selectedTabId = 0;
+        for (var selectedTabId_1 = 0; selectedTabId_1 < webparts.length; selectedTabId_1++) {
+            // Break if this webpart has a title
+            if (webparts[selectedTabId_1].querySelector(".ms-webpart-titleText")) {
+                break;
+            }
+        }
         // Set the state
         _this.state = {
             selectedTabId: 0,

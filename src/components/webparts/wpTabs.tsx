@@ -14,6 +14,16 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
     constructor(props: Props) {
         super(props);
 
+        // Get the webparts
+        let webparts = this.getWebParts();
+
+        // Parse the webparts
+        let selectedTabId = 0;
+        for (let selectedTabId = 0; selectedTabId < webparts.length; selectedTabId++) {
+            // Break if this webpart has a title
+            if (webparts[selectedTabId].querySelector(".ms-webpart-titleText")) { break; }
+        }
+
         // Set the state
         this.state = {
             selectedTabId: 0,
@@ -65,6 +75,9 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
 
                 // Skip this webpart
                 if (webpart.querySelector("div[webpartid='" + this.props.cfg.WebPartId + "']")) { continue; }
+
+                // Skip hidden webparts
+                if (webpart.querySelector(".ms-hide")) { continue; }
 
                 // See if this is within a content zone
                 if (this._isContentZone) {

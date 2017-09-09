@@ -19,16 +19,13 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
 
         // Parse the webparts
         let selectedTabId = 0;
-        for (let selectedTabId = 0; selectedTabId < webparts.length; selectedTabId++) {
+        for (selectedTabId = 0; selectedTabId < webparts.length; selectedTabId++) {
             // Break if this webpart has a title
             if (webparts[selectedTabId].querySelector(".ms-webpart-titleText")) { break; }
         }
 
         // Set the state
-        this.state = {
-            selectedTabId,
-            webparts: this.getWebParts()
-        } as State;
+        this.state = { selectedTabId, webparts } as State;
     }
 
     /**

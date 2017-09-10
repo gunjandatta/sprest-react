@@ -6,8 +6,8 @@ import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from ".";
  * List Configuration
  */
 export interface IWebPartListCfg extends IWebPartCfg {
-    ListName: string;
-    WebUrl: string;
+    ListName?: string;
+    WebUrl?: string;
 }
 
 /**

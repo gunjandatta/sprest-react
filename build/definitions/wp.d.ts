@@ -3,7 +3,7 @@
  * Web Part Configuration
  */
 export interface IWebPartCfg {
-    WebPartId: string;
+    WebPartId?: string;
 }
 /**
  * Web Part Information

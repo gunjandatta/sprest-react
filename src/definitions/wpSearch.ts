@@ -9,18 +9,19 @@ import {
  * Search Configuration
  */
 export interface IWebPartSearchCfg extends IWebPartListCfg {
-    Fields: Array<Types.IFieldResult>;
-    TagPickerFl: boolean;
+    Fields?: Array<Types.IFieldResult>;
+    TagPickerFl?: boolean;
 }
 
 /**
  * Search Item
  */
 export interface IWebPartSearchItem extends IWebPartListItem {
-    DocIcon: string;
-    FileRef: string;
-    LinkFilename: string;
+    DocIcon?: string;
+    FileRef?: string;
+    LinkFilename?: string;
 }
+
 /**
  * Search Configuration Properties
  */

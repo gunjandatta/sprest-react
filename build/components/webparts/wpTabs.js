@@ -165,9 +165,9 @@ var WebPartTabs = /** @class */ (function (_super) {
     };
     // Method to render the component
     WebPartTabs.prototype.render = function () {
-        return (React.createElement(office_ui_fabric_react_1.Pivot, { onLinkClick: this.updateSelectedTab },
+        return (React.createElement("div", { className: this.props.className },
             this.onRenderHeader(),
-            this.renderTabs(),
+            React.createElement(office_ui_fabric_react_1.Pivot, { onLinkClick: this.updateSelectedTab }, this.renderTabs()),
             this.onRenderFooter()));
     };
     return WebPartTabs;

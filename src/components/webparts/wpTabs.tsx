@@ -53,11 +53,13 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
     // Method to render the component
     render() {
         return (
-            <Pivot onLinkClick={this.updateSelectedTab}>
+            <div className={this.props.className}>
                 {this.onRenderHeader()}
-                {this.renderTabs()}
+                <Pivot onLinkClick={this.updateSelectedTab}>
+                    {this.renderTabs()}
+                </Pivot>
                 {this.onRenderFooter()}
-            </Pivot>
+            </div>
         );
     }
 

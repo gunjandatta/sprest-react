@@ -5,6 +5,7 @@ import { IWebPartCfgProps } from ".";
  * WebPart Tabs Props
  */
 export interface IWebPartTabsProps extends IWebPartCfgProps {
+    className?: string;
     onRenderTab: IRenderFunction<IPivotItemProps>;
 }
 

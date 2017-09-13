@@ -1,4 +1,9 @@
-import { IWebPartCfg } from ".";
+/**
+ * Web Part Configuration
+ */
+export interface IWebPartCfg {
+    WebPartId?: string;
+}
 
 /**
  * Web Part Configuration Properties

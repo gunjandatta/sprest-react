@@ -44,11 +44,19 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
         this.updateWebPartVisibility();
     }
 
+    // The render footer event
+    onRenderFooter = (): JSX.Element => { return <div />; }
+
+    // The render header event
+    onRenderHeader = (): JSX.Element => { return <div />; }
+
     // Method to render the component
     render() {
         return (
             <Pivot onLinkClick={this.updateSelectedTab}>
+                {this.onRenderHeader()}
                 {this.renderTabs()}
+                {this.onRenderFooter()}
             </Pivot>
         );
     }

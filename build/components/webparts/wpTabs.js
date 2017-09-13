@@ -23,6 +23,10 @@ var WebPartTabs = /** @class */ (function (_super) {
     function WebPartTabs(props) {
         var _this = _super.call(this, props) || this;
         _this._isContentZone = false;
+        // The render footer event
+        _this.onRenderFooter = function () { return React.createElement("div", null); };
+        // The render header event
+        _this.onRenderHeader = function () { return React.createElement("div", null); };
         /**
          * Methods
          */
@@ -161,7 +165,10 @@ var WebPartTabs = /** @class */ (function (_super) {
     };
     // Method to render the component
     WebPartTabs.prototype.render = function () {
-        return (React.createElement(office_ui_fabric_react_1.Pivot, { onLinkClick: this.updateSelectedTab }, this.renderTabs()));
+        return (React.createElement(office_ui_fabric_react_1.Pivot, { onLinkClick: this.updateSelectedTab },
+            this.onRenderHeader(),
+            this.renderTabs(),
+            this.onRenderFooter()));
     };
     return WebPartTabs;
 }(React.Component));

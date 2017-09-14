@@ -13,9 +13,7 @@ export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State ex
         super(props);
 
         // Set the state
-        this.state = {
-            visible: typeof (props.isOpen) === "boolean" ? props.isOpen : false
-        } as any;
+        this.state = { visible: false } as State;
     }
 
     /**
@@ -31,7 +29,7 @@ export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State ex
     // Method to render the component
     render() {
         return (
-            <Panel {...this.props} isOpen={this.state.visible} onDismiss={this.hide}>
+            <Panel {...this.props} isOpen={typeof (this.props.isOpen) === "boolean" ? this.props.isOpen : this.state.visible} onDismiss={this.hide}>
                 {this.props.children}
             </Panel>
         );

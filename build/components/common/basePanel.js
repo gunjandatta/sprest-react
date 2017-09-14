@@ -44,14 +44,12 @@ var BasePanel = /** @class */ (function (_super) {
             _this.setState({ visible: true });
         };
         // Set the state
-        _this.state = {
-            visible: typeof (props.isOpen) === "boolean" ? props.isOpen : false
-        };
+        _this.state = { visible: false };
         return _this;
     }
     // Method to render the component
     BasePanel.prototype.render = function () {
-        return (React.createElement(office_ui_fabric_react_1.Panel, __assign({}, this.props, { isOpen: this.state.visible, onDismiss: this.hide }), this.props.children));
+        return (React.createElement(office_ui_fabric_react_1.Panel, __assign({}, this.props, { isOpen: typeof (this.props.isOpen) === "boolean" ? this.props.isOpen : this.state.visible, onDismiss: this.hide }), this.props.children));
     };
     return BasePanel;
 }(React.Component));

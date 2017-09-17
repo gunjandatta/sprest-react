@@ -67,7 +67,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
         // Render the save button
         _this.onRenderFooter = function () {
             // See if the lists exists
-            if (_this.state.lists == null) {
+            if (_this.state.lists != null) {
                 return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
             }
             // Render nothing

@@ -24,9 +24,9 @@ var WebPartTabs = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this._isContentZone = false;
         // The render footer event
-        _this.onRenderFooter = function () { return React.createElement("div", null); };
+        _this.onRenderFooter = function () { return null; };
         // The render header event
-        _this.onRenderHeader = function () { return React.createElement("div", null); };
+        _this.onRenderHeader = function () { return null; };
         /**
          * Methods
          */

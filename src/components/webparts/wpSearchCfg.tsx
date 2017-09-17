@@ -51,48 +51,47 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
         let tags: Array<ITag> = [];
 
         // See if the lists and configuration fields exists
-        if (this.state.lists) {
-            let fields = this.state.cfg.Fields || [];
-
-            // Parse the fields
-            for (let i = 0; i < fields.length; i++) {
-                let field = this.state.cfg.Fields[i];
-
-                // Add the tag
-                tags.push({
-                    key: field.InternalName,
-                    name: field.Title + " [" + field.InternalName + "]",
-                });
-            }
-
-            // Return the footer
-            return (
-                <div>
-                    <Checkbox
-                        defaultChecked={this.state.cfg.TagPickerFl ? true : false}
-                        label="Use Tag Picker"
-                        onChange={this.updatePickerFlag}
-                    />
-                    <label className="ms-Label ms-fontSize-m">Searchable Fields:</label>
-                    <TagPicker
-                        defaultSelectedItems={tags}
-                        onChange={this.updateFields}
-                        onResolveSuggestions={this.onResolveSuggestions}
-                        pickerSuggestionsProps={{
-                            noResultsFoundText: "No fields found.",
-                            suggestionsHeaderText: "Searchable Fields"
-                        }}
-                    />
-                    <PrimaryButton
-                        onClick={this.onSave}
-                        text="Save"
-                    />
-                </div>
-            );
+        if (this.state.lists == null) {
+            // Render nothing
+            return null;
         }
 
-        // Render nothing
-        return null;
+        // Parse the fields
+        let fields = this.state.cfg.Fields || [];
+        for (let i = 0; i < fields.length; i++) {
+            let field = this.state.cfg.Fields[i];
+
+            // Add the tag
+            tags.push({
+                key: field.InternalName,
+                name: field.Title + " [" + field.InternalName + "]",
+            });
+        }
+
+        // Return the footer
+        return (
+            <div>
+                <Checkbox
+                    defaultChecked={this.state.cfg.TagPickerFl ? true : false}
+                    label="Use Tag Picker"
+                    onChange={this.updatePickerFlag}
+                />
+                <label className="ms-Label ms-fontSize-m">Searchable Fields:</label>
+                <TagPicker
+                    defaultSelectedItems={tags}
+                    onChange={this.updateFields}
+                    onResolveSuggestions={this.onResolveSuggestions}
+                    pickerSuggestionsProps={{
+                        noResultsFoundText: "No fields found.",
+                        suggestionsHeaderText: "Searchable Fields"
+                    }}
+                />
+                <PrimaryButton
+                    onClick={this.onSave}
+                    text="Save"
+                />
+            </div>
+        );
     }
 
     // Method to resolve suggestions event

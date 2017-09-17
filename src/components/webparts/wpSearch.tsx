@@ -269,18 +269,18 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         }
 
         // Ensure the list name exists
-        if(this.props.cfg.ListName) {
+        if (this.props.cfg.ListName) {
             // Load the documents
             (new Web(this.props.cfg.WebUrl))
-            // Get the list
-            .Lists(this.props.cfg.ListName)
-            // Get the items
-            .Items()
-            // Query the list
-            .query(this._query)
-            // Execute the request
-            .execute(this.generateMapper);
-    }
+                // Get the list
+                .Lists(this.props.cfg.ListName)
+                // Get the items
+                .Items()
+                // Query the list
+                .query(this._query)
+                // Execute the request
+                .execute(this.generateMapper);
+        }
     }
 
     // Method to resolve the tag picker

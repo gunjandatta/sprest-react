@@ -93,7 +93,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     // Render the save button
     onRenderFooter = () => {
         // See if the lists exists
-        if (this.state.lists == null) {
+        if (this.state.lists != null) {
             return (
                 <PrimaryButton
                     onClick={this.onSave}

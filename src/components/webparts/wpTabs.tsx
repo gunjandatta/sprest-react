@@ -45,10 +45,10 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
     }
 
     // The render footer event
-    onRenderFooter = (): JSX.Element => { return <div />; }
+    onRenderFooter = (): JSX.Element => { return null; }
 
     // The render header event
-    onRenderHeader = (): JSX.Element => { return <div />; }
+    onRenderHeader = (): JSX.Element => { return null; }
 
     // Method to render the component
     render() {

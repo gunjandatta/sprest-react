@@ -247,6 +247,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
     // Method to load the documents
     protected load = () => {
+        // Include the id field
+        this._query.Select.push("ID");
+        
         // Ensure fields exist
         if (this.props.cfg.Fields) {
             // Parse the search fields

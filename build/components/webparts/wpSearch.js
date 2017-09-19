@@ -185,6 +185,8 @@ var WebPartSearch = /** @class */ (function (_super) {
         };
         // Method to load the documents
         _this.load = function () {
+            // Include the id field
+            _this._query.Select.push("ID");
             // Ensure fields exist
             if (_this.props.cfg.Fields) {
                 // Parse the search fields

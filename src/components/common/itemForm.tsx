@@ -97,9 +97,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             }
 
             // Get the list
-            this.getList().then((list: Types.IListResult) => {
+            this.getList().then(() => {
                 // Get the item
-                list.Items().query(query)
+                this._list.Items().query(query)
                     // Execute the request
                     .execute(items => {
                         // Resolve the promise
@@ -333,12 +333,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 });
             } else {
                 // Get the list
-                this.getList().then((list: Types.IListResult) => {
+                this.getList().then(() => {
                     // Set the metadata type
-                    formValues["__metadata"] = { type: list.ListItemEntityTypeFullName };
+                    formValues["__metadata"] = { type: this._list.ListItemEntityTypeFullName };
 
                     // Get the items
-                    list.Items()
+                    this._list.Items()
                         // Add the item
                         .add(formValues)
                         // Execute the request

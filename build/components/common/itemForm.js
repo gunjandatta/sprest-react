@@ -54,9 +54,9 @@ var ItemForm = /** @class */ (function (_super) {
                     }
                 }
                 // Get the list
-                _this.getList().then(function (list) {
+                _this.getList().then(function () {
                     // Get the item
-                    list.Items().query(query)
+                    _this._list.Items().query(query)
                         .execute(function (items) {
                         // Resolve the promise
                         resolve(items.results ? items.results[0] : null);
@@ -178,11 +178,11 @@ var ItemForm = /** @class */ (function (_super) {
                 }
                 else {
                     // Get the list
-                    _this.getList().then(function (list) {
+                    _this.getList().then(function () {
                         // Set the metadata type
-                        formValues["__metadata"] = { type: list.ListItemEntityTypeFullName };
+                        formValues["__metadata"] = { type: _this._list.ListItemEntityTypeFullName };
                         // Get the items
-                        list.Items()
+                        _this._list.Items()
                             .add(formValues)
                             .execute(function (item) {
                             // Resolve the request

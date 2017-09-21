@@ -7,7 +7,7 @@ export interface IWebPartTabsProps extends IWebPartCfgProps {
     className?: string;
     linkFormat?: PivotLinkFormat;
     linkSize?: PivotLinkSize;
-    onRenderTab: IRenderFunction<IPivotItemProps>;
+    onRenderTab?: IRenderFunction<IPivotItemProps>;
 }
 /**
  * WebPart Tabs State

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Pivot, PivotItem } from "office-ui-fabric-react";
+import { Pivot, PivotItem, PivotLinkFormat } from "office-ui-fabric-react";
 import { IWebPartTabsProps, IWebPartTabsState } from "../../definitions";
 
 /**
@@ -55,7 +55,7 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
         return (
             <div className={this.props.className}>
                 {this.onRenderHeader()}
-                <Pivot onLinkClick={this.updateSelectedTab}>
+                <Pivot onLinkClick={this.updateSelectedTab} linkFormat={this.props.linkFormat} linkSize={this.props.linkSize}>
                     {this.renderTabs()}
                 </Pivot>
                 {this.onRenderFooter()}

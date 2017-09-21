@@ -1,4 +1,4 @@
-import { IPivotItemProps, IRenderFunction } from "office-ui-fabric-react";
+import { IPivotItemProps, IRenderFunction, PivotLinkFormat, PivotLinkSize } from "office-ui-fabric-react";
 import { IWebPartCfgProps } from ".";
 
 /**
@@ -6,6 +6,8 @@ import { IWebPartCfgProps } from ".";
  */
 export interface IWebPartTabsProps extends IWebPartCfgProps {
     className?: string;
+    linkFormat?: PivotLinkFormat;
+    linkSize?: PivotLinkSize;
     onRenderTab: IRenderFunction<IPivotItemProps>;
 }
 

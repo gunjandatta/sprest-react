@@ -115,25 +115,27 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                                 break;
                         }
 
-                        // Ensure the field value exists
-                        if (fieldValue == null || fieldValue == "") { continue; }
-
                         // Parse the results
                         let results = fieldValue.results || [fieldValue];
                         for (let i = 0; i < results.length; i++) {
+                            let result = results[i];
+
+                            // Ensure a value exists
+                            if (result == null || result == "") { continue; }
+                        
                             // Add the index
-                            if (tagMapper[fieldValue] == null) {
+                            if (tagMapper[result] == null) {
                                 // Add the value
-                                tagMapper[fieldValue] = [item];
+                                tagMapper[result] = [item];
 
                                 // Add the search term
                                 searchTerms.push({
-                                    key: fieldValue.toLowerCase(),
-                                    name: fieldValue
+                                    key: result.toLowerCase(),
+                                    name: result
                                 });
                             } else {
                                 // Add the value
-                                tagMapper[fieldValue].push(item);
+                                tagMapper[result].push(item);
                             }
                         }
                     }

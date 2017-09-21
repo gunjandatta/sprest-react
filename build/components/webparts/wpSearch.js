@@ -67,26 +67,27 @@ var WebPartSearch = /** @class */ (function (_super) {
                                     fieldValue = fieldValue.split("|")[0];
                                     break;
                             }
-                            // Ensure the field value exists
-                            if (fieldValue == null || fieldValue == "") {
-                                continue;
-                            }
                             // Parse the results
                             var results = fieldValue.results || [fieldValue];
                             for (var i_1 = 0; i_1 < results.length; i_1++) {
+                                var result = results[i_1];
+                                // Ensure a value exists
+                                if (result == null || result == "") {
+                                    continue;
+                                }
                                 // Add the index
-                                if (tagMapper[fieldValue] == null) {
+                                if (tagMapper[result] == null) {
                                     // Add the value
-                                    tagMapper[fieldValue] = [item];
+                                    tagMapper[result] = [item];
                                     // Add the search term
                                     searchTerms.push({
-                                        key: fieldValue.toLowerCase(),
-                                        name: fieldValue
+                                        key: result.toLowerCase(),
+                                        name: result
                                     });
                                 }
                                 else {
                                     // Add the value
-                                    tagMapper[fieldValue].push(item);
+                                    tagMapper[result].push(item);
                                 }
                             }
                         }

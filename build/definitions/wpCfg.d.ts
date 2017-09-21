@@ -9,7 +9,7 @@ export interface IWebPartCfg {
  */
 export interface IWebPartCfgProps {
     cfg?: IWebPartCfg;
-    cfgElementId: string;
+    cfgElementId?: string;
 }
 /**
  * Web Part Configuration State

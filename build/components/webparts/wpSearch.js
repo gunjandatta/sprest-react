@@ -54,8 +54,9 @@ var WebPartSearch = /** @class */ (function (_super) {
                                 case gd_sprest_1.SPTypes.FieldType.MultiChoice:
                                     break;
                                 case gd_sprest_1.SPTypes.FieldType.Lookup:
+                                    var fldLookup = field;
                                     // Update the field value
-                                    fieldValue = item[field.InternalName][field.LookupField];
+                                    fieldValue = fldLookup.AllowMultipleValues ? item[fldLookup.InternalName] : item[fldLookup.InternalName][fldLookup.LookupField];
                                     break;
                                 case gd_sprest_1.SPTypes.FieldType.URL:
                                     // Update the field value
@@ -70,19 +71,23 @@ var WebPartSearch = /** @class */ (function (_super) {
                             if (fieldValue == null || fieldValue == "") {
                                 continue;
                             }
-                            // Add the index
-                            if (tagMapper[fieldValue] == null) {
-                                // Add the value
-                                tagMapper[fieldValue] = [item];
-                                // Add the search term
-                                searchTerms.push({
-                                    key: fieldValue.toLowerCase(),
-                                    name: fieldValue
-                                });
-                            }
-                            else {
-                                // Add the value
-                                tagMapper[fieldValue].push(item);
+                            // Parse the results
+                            var results = fieldValue.results || [fieldValue];
+                            for (var i_1 = 0; i_1 < results.length; i_1++) {
+                                // Add the index
+                                if (tagMapper[fieldValue] == null) {
+                                    // Add the value
+                                    tagMapper[fieldValue] = [item];
+                                    // Add the search term
+                                    searchTerms.push({
+                                        key: fieldValue.toLowerCase(),
+                                        name: fieldValue
+                                    });
+                                }
+                                else {
+                                    // Add the value
+                                    tagMapper[fieldValue].push(item);
+                                }
                             }
                         }
                     }

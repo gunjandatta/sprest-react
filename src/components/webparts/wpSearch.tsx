@@ -100,8 +100,10 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                             case SPTypes.FieldType.MultiChoice:
                                 break;
                             case SPTypes.FieldType.Lookup:
+                                let fldLookup = field as Types.IFieldLookup;
+
                                 // Update the field value
-                                fieldValue = item[field.InternalName][(field as Types.IFieldLookup).LookupField];
+                                fieldValue = fldLookup.AllowMultipleValues ? item[fldLookup.InternalName] : item[fldLookup.InternalName][fldLookup.LookupField];
                                 break;
                             case SPTypes.FieldType.URL:
                                 // Update the field value
@@ -116,19 +118,23 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                         // Ensure the field value exists
                         if (fieldValue == null || fieldValue == "") { continue; }
 
-                        // Add the index
-                        if (tagMapper[fieldValue] == null) {
-                            // Add the value
-                            tagMapper[fieldValue] = [item];
+                        // Parse the results
+                        let results = fieldValue.results || [fieldValue];
+                        for (let i = 0; i < results.length; i++) {
+                            // Add the index
+                            if (tagMapper[fieldValue] == null) {
+                                // Add the value
+                                tagMapper[fieldValue] = [item];
 
-                            // Add the search term
-                            searchTerms.push({
-                                key: fieldValue.toLowerCase(),
-                                name: fieldValue
-                            });
-                        } else {
-                            // Add the value
-                            tagMapper[fieldValue].push(item);
+                                // Add the search term
+                                searchTerms.push({
+                                    key: fieldValue.toLowerCase(),
+                                    name: fieldValue
+                                });
+                            } else {
+                                // Add the value
+                                tagMapper[fieldValue].push(item);
+                            }
                         }
                     }
                 }
@@ -249,7 +255,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     protected load = () => {
         // Include the id field
         this._query.Select.push("ID");
-        
+
         // Ensure fields exist
         if (this.props.cfg.Fields) {
             // Parse the search fields

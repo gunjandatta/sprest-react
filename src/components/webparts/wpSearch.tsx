@@ -92,6 +92,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     // Parse the field values
                     let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                     for (let k = 0; k < fieldValues.length; k++) {
+                        let fldLookup: Types.IFieldLookup = null;
                         fieldValue = fieldValues[k];
 
                         // Update the field value based on the type
@@ -100,10 +101,8 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                             case SPTypes.FieldType.MultiChoice:
                                 break;
                             case SPTypes.FieldType.Lookup:
-                                let fldLookup = field as Types.IFieldLookup;
-
-                                // Update the field value
-                                fieldValue = fldLookup.AllowMultipleValues ? item[fldLookup.InternalName] : item[fldLookup.InternalName][fldLookup.LookupField];
+                                // Update the field
+                                fldLookup = field as Types.IFieldLookup;
                                 break;
                             case SPTypes.FieldType.URL:
                                 // Update the field value
@@ -122,7 +121,13 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
                             // Ensure a value exists
                             if (result == null || result == "") { continue; }
-                        
+
+                            // See if this is a lookup field
+                            if (fldLookup) {
+                                // Update the value
+                                result = result[fldLookup.LookupField];
+                            }
+
                             // Add the index
                             if (tagMapper[result] == null) {
                                 // Add the value
@@ -217,7 +222,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Ensure tags exist
         if (this.state.selectedTags.length > 0) {
             let data = {};
-            let items = [];
+            let items: Array<IWebPartSearchItem> = [];
 
             // Parse the selected tags
             for (let i = 0; i < this.state.selectedTags.length; i++) {

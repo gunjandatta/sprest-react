@@ -47,6 +47,7 @@ var WebPartSearch = /** @class */ (function (_super) {
                         // Parse the field values
                         var fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                         for (var k = 0; k < fieldValues.length; k++) {
+                            var fldLookup = null;
                             fieldValue = fieldValues[k];
                             // Update the field value based on the type
                             switch (field.FieldTypeKind) {
@@ -54,9 +55,8 @@ var WebPartSearch = /** @class */ (function (_super) {
                                 case gd_sprest_1.SPTypes.FieldType.MultiChoice:
                                     break;
                                 case gd_sprest_1.SPTypes.FieldType.Lookup:
-                                    var fldLookup = field;
-                                    // Update the field value
-                                    fieldValue = fldLookup.AllowMultipleValues ? item[fldLookup.InternalName] : item[fldLookup.InternalName][fldLookup.LookupField];
+                                    // Update the field
+                                    fldLookup = field;
                                     break;
                                 case gd_sprest_1.SPTypes.FieldType.URL:
                                     // Update the field value
@@ -74,6 +74,11 @@ var WebPartSearch = /** @class */ (function (_super) {
                                 // Ensure a value exists
                                 if (result == null || result == "") {
                                     continue;
+                                }
+                                // See if this is a lookup field
+                                if (fldLookup) {
+                                    // Update the value
+                                    result = result[fldLookup.LookupField];
                                 }
                                 // Add the index
                                 if (tagMapper[result] == null) {

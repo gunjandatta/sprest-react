@@ -310,7 +310,10 @@ var WebPartSearch = /** @class */ (function (_super) {
         // Return the items
         return (React.createElement("div", { className: this.props.className },
             this.props.cfg.TagPickerFl ?
-                React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions })
+                React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions, pickerSuggestionsProps: {
+                        loadingText: "Loading the results",
+                        noResultsFoundText: "No results were found"
+                    } })
                 :
                     React.createElement(office_ui_fabric_react_1.SearchBox, { onChange: this.updateSearchFilter, onSearch: this.updateSearchFilter }),
             this.onRenderContainer(this.getItems())));

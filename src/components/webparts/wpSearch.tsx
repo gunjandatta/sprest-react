@@ -57,6 +57,10 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                         <TagPicker
                             onChange={this.updateSelectedTags}
                             onResolveSuggestions={this.onResolveSuggestions}
+                            pickerSuggestionsProps={{
+                                loadingText: "Loading the results",
+                                noResultsFoundText: "No results were found"
+                            }}
                         />
                         :
                         <SearchBox

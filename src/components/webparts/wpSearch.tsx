@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
 import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
@@ -8,6 +9,8 @@ import { WebPartList, WebPartListCfg } from ".";
  * WebPart Search
  */
 export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends WebPartList<Props, State> {
+    private _filterText: string = null;
+
     /**
      * Constructor
      */
@@ -300,35 +303,45 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     }
 
     // Method to resolve the tag picker
-    private onResolveSuggestions = (filterText: string, tagList: Array<ITag>) => {
-        let tags: Array<ITag> = [];
+    private onResolveSuggestions = (filterText: string, tagList: Array<ITag>): PromiseLike<Array<ITag>> => {
+        // Save the filter
+        this._filterText = filterText ? filterText.toLowerCase() : filterText;
 
-        // Ensure the filter exists
-        if (filterText) {
-            filterText = filterText.toLowerCase();
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Wait for the user to finish typing
+            setTimeout(() => {
+                let tags: Array<ITag> = [];
 
-            // Filter the search terms
-            tags = this.state.searchTerms.filter((term: ITag) => {
-                return term.key.indexOf(filterText) >= 0;
-            });
+                // See if the user is still typing
+                if (this._filterText != filterText.toLowerCase()) { return; }
 
-            // Parse the tag list
-            for (let i = 0; i < tagList.length; i++) {
-                let tag = tagList[i];
+                // Ensure the filter exists
+                if (this._filterText) {
+                    // Filter the search terms
+                    tags = this.state.searchTerms.filter((term: ITag) => {
+                        return term.key.indexOf(filterText) >= 0;
+                    });
 
-                // Parse the tags
-                for (let j = 0; j < tags.length; j++) {
-                    if (tag.key == tags[j].key) {
-                        // Remove this tag
-                        tags.splice(j, 1);
-                        break;
+                    // Parse the tag list
+                    for (let i = 0; i < tagList.length; i++) {
+                        let tag = tagList[i];
+
+                        // Parse the tags
+                        for (let j = 0; j < tags.length; j++) {
+                            if (tag.key == tags[j].key) {
+                                // Remove this tag
+                                tags.splice(j, 1);
+                                break;
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        // Return the tags
-        return tags;
+                // Resolve the promise
+                resolve(tags);
+            }, 500);
+        });
     }
 
     // Method to update the search filter

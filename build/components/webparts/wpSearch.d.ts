@@ -5,6 +5,7 @@ import { WebPartList } from ".";
  * WebPart Search
  */
 export declare class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends WebPartList<Props, State> {
+    private _filterText;
     /**
      * Constructor
      */

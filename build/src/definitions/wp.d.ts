@@ -1,10 +1,5 @@
 /// <reference types="react" />
-/**
- * Web Part Configuration
- */
-export interface IWebPartCfg {
-    WebPartId?: string;
-}
+import { IWebPartCfg } from ".";
 /**
  * Web Part Information
  */

@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var _1 = require(".");
@@ -24,6 +25,7 @@ var WebPartSearch = /** @class */ (function (_super) {
      */
     function WebPartSearch(props) {
         var _this = _super.call(this, props) || this;
+        _this._filterText = null;
         /**
          * Methods
          */
@@ -229,29 +231,40 @@ var WebPartSearch = /** @class */ (function (_super) {
         };
         // Method to resolve the tag picker
         _this.onResolveSuggestions = function (filterText, tagList) {
-            var tags = [];
-            // Ensure the filter exists
-            if (filterText) {
-                filterText = filterText.toLowerCase();
-                // Filter the search terms
-                tags = _this.state.searchTerms.filter(function (term) {
-                    return term.key.indexOf(filterText) >= 0;
-                });
-                // Parse the tag list
-                for (var i = 0; i < tagList.length; i++) {
-                    var tag = tagList[i];
-                    // Parse the tags
-                    for (var j = 0; j < tags.length; j++) {
-                        if (tag.key == tags[j].key) {
-                            // Remove this tag
-                            tags.splice(j, 1);
-                            break;
+            // Save the filter
+            _this._filterText = filterText ? filterText.toLowerCase() : filterText;
+            // Return a promise
+            return new es6_promise_1.Promise(function (resolve, reject) {
+                // Wait for the user to finish typing
+                setTimeout(function () {
+                    var tags = [];
+                    // See if the user is still typing
+                    if (_this._filterText != filterText.toLowerCase()) {
+                        return;
+                    }
+                    // Ensure the filter exists
+                    if (_this._filterText) {
+                        // Filter the search terms
+                        tags = _this.state.searchTerms.filter(function (term) {
+                            return term.key.indexOf(filterText) >= 0;
+                        });
+                        // Parse the tag list
+                        for (var i = 0; i < tagList.length; i++) {
+                            var tag = tagList[i];
+                            // Parse the tags
+                            for (var j = 0; j < tags.length; j++) {
+                                if (tag.key == tags[j].key) {
+                                    // Remove this tag
+                                    tags.splice(j, 1);
+                                    break;
+                                }
+                            }
                         }
                     }
-                }
-            }
-            // Return the tags
-            return tags;
+                    // Resolve the promise
+                    resolve(tags);
+                }, 500);
+            });
         };
         // Method to update the search filter
         _this.updateSearchFilter = function (filter) {

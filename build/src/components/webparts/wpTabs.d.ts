@@ -15,6 +15,8 @@ export declare class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsP
      */
     componentDidMount(): void;
     componentDidUpdate(): void;
+    onRenderFooter: () => JSX.Element;
+    onRenderHeader: () => JSX.Element;
     render(): JSX.Element;
     /**
      * Methods

@@ -39,8 +39,8 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
 
     // Method to update the value
     updateValue = (value: any) => {
-        // Call the on change event
-        this.props.onChange ? this.props.onChange(value) : null;
+        // Ensure a custom renderer doesn't exist, and call the on change event
+        this.props.onRender == null && this.props.onChange ? this.props.onChange(value) : null;
 
         // Update the state
         this.setState({

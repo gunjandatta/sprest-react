@@ -129,22 +129,14 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 Select: ["*"]
             } as Types.ODataQuery;
 
-            // Parse the fields
-            for (let fieldName in this._fields) {
-                let field = this._fields[fieldName];
+            // See if we are rendering the attachments field
+            if (this._attachmentField) {
+                // Expand the attachment files
+                query.Expand = ["AttachmentFiles"];
 
-                // See if this is the attachments field
-                if (fieldName == "Attachments") {
-                    // Expand the attachment files
-                    query.Expand = ["AttachmentFiles"];
-
-                    // Get the attachment files
-                    query.Select.push("Attachments");
-                    query.Select.push("AttachmentFiles");
-
-                    // Break from the loop
-                    break;
-                }
+                // Get the attachment files
+                query.Select.push("Attachments");
+                query.Select.push("AttachmentFiles");
             }
 
             // Get the list

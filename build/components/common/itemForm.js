@@ -39,19 +39,13 @@ var ItemForm = /** @class */ (function (_super) {
                     Filter: "ID eq " + itemId,
                     Select: ["*"]
                 };
-                // Parse the fields
-                for (var fieldName in _this._fields) {
-                    var field = _this._fields[fieldName];
-                    // See if this is the attachments field
-                    if (fieldName == "Attachments") {
-                        // Expand the attachment files
-                        query.Expand = ["AttachmentFiles"];
-                        // Get the attachment files
-                        query.Select.push("Attachments");
-                        query.Select.push("AttachmentFiles");
-                        // Break from the loop
-                        break;
-                    }
+                // See if we are rendering the attachments field
+                if (_this._attachmentField) {
+                    // Expand the attachment files
+                    query.Expand = ["AttachmentFiles"];
+                    // Get the attachment files
+                    query.Select.push("Attachments");
+                    query.Select.push("AttachmentFiles");
                 }
                 // Get the list
                 _this.getList().then(function () {

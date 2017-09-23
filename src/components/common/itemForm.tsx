@@ -306,7 +306,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             name={fieldInfo.name}
                             onChange={fieldInfo.onChange}
                             onRender={fieldInfo.onRender}
-                            ref={field => { this._fields[field.props.name] = field; }}
+                            ref={field => { field ? this._fields[field.props.name] = field : null; }}
                         />
                     </div>
                 </div>

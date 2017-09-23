@@ -13,9 +13,24 @@ import { Field, Fields } from "..";
  * Item Form WebPart
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
-    protected _attachmentField = null;
-    protected _fields: Array<Field> = [];
-    protected _list: Types.IListResult = null;
+    private _attachmentField: Fields.FieldAttachments = null;
+    private _fields: Array<Field> = [];
+    private _list: Types.IListResult = null;
+
+    /**
+     * Properties
+     */
+
+    // Attachment Field
+    get AttachmentField(): Fields.FieldAttachments { return this._attachmentField; }
+    set AttachmentField(field: Fields.FieldAttachments) { this._attachmentField = field; }
+
+    // Form Fields
+    get FormFields(): Array<Field> { return this._fields; }
+    set FormFields(fields: Array<Field>) { this._fields = fields; }
+
+    // List
+    get List(): Types.IListResult { return this._list; }
 
     /**
      * Constructor
@@ -33,7 +48,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     // Render the component
     render() {
         // See if there is a custom renderer
-        if(this.props.onRender) {
+        if (this.props.onRender) {
             // Execute the render event
             return this.props.onRender();
         }
@@ -148,9 +163,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         for (let i = 0; i < this._fields.length; i++) {
             let field = this._fields[i];
             let fieldName = field.Info ? field.Info.name : null;
-            
+
             // Ensure the field exists
-            if(fieldName == null) { continue; }
+            if (fieldName == null) { continue; }
 
             // See if this is a lookup or user field
             if (field.Info.type == SPTypes.FieldType.Lookup ||

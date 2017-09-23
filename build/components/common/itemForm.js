@@ -199,6 +199,29 @@ var ItemForm = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Object.defineProperty(ItemForm.prototype, "AttachmentField", {
+        /**
+         * Properties
+         */
+        // Attachment Field
+        get: function () { return this._attachmentField; },
+        set: function (field) { this._attachmentField = field; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ItemForm.prototype, "FormFields", {
+        // Form Fields
+        get: function () { return this._fields; },
+        set: function (fields) { this._fields = fields; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ItemForm.prototype, "List", {
+        // List
+        get: function () { return this._list; },
+        enumerable: true,
+        configurable: true
+    });
     // Render the component
     ItemForm.prototype.render = function () {
         // See if there is a custom renderer

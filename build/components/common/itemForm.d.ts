@@ -2,14 +2,20 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { IItemFormProps, IItemFormState } from "../../definitions";
-import { Field } from "..";
+import { Field, Fields } from "..";
 /**
  * Item Form WebPart
  */
 export declare class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
-    protected _attachmentField: any;
-    protected _fields: Array<Field>;
-    protected _list: Types.IListResult;
+    private _attachmentField;
+    private _fields;
+    private _list;
+    /**
+     * Properties
+     */
+    AttachmentField: Fields.FieldAttachments;
+    FormFields: Array<Field>;
+    readonly List: Types.IListResult;
     /**
      * Constructor
      */

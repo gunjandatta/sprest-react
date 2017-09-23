@@ -37,6 +37,9 @@ export interface IItemFormProps {
     /** The list display name. */
     listName: string;
 
+    /** The on form render event. */
+    onRender?: () => any;
+
     /** Flag to display the attachments. */
     showAttachments?: boolean;
 

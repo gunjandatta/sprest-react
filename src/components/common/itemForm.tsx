@@ -13,9 +13,9 @@ import { Field, Fields } from "..";
  * Item Form WebPart
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
-    private _attachmentField = null;
-    private _fields: Array<Field> = [];
-    private _list: Types.IListResult = null;
+    protected _attachmentField = null;
+    protected _fields: Array<Field> = [];
+    protected _list: Types.IListResult = null;
 
     /**
      * Constructor
@@ -32,6 +32,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
     // Render the component
     render() {
+        // See if there is a custom renderer
+        if(this.props.onRender) {
+            // Execute the render event
+            return this.props.onRender();
+        }
+
         // See if the fields have been defined
         if (this.state.fields == null) {
             // Load the default fields

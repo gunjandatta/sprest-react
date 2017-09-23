@@ -201,6 +201,11 @@ var ItemForm = /** @class */ (function (_super) {
     }
     // Render the component
     ItemForm.prototype.render = function () {
+        // See if there is a custom renderer
+        if (this.props.onRender) {
+            // Execute the render event
+            return this.props.onRender();
+        }
         // See if the fields have been defined
         if (this.state.fields == null) {
             // Load the default fields

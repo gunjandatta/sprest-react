@@ -28,6 +28,8 @@ export interface IItemFormProps {
     item?: any;
     /** The list display name. */
     listName: string;
+    /** The on form render event. */
+    onRender?: () => any;
     /** Flag to display the attachments. */
     showAttachments?: boolean;
     /** The relative web url containing the list. */

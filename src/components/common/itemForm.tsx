@@ -130,11 +130,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             } as Types.ODataQuery;
 
             // Parse the fields
-            for (let i = 0; i < this.state.fields.length; i++) {
-                let field = this.state.fields[i];
+            for (let fieldName in this._fields) {
+                let field = this._fields[fieldName];
 
                 // See if this is the attachments field
-                if (field.name == "Attachments") {
+                if (fieldName == "Attachments") {
                     // Expand the attachment files
                     query.Expand = ["AttachmentFiles"];
 

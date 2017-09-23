@@ -40,10 +40,10 @@ var ItemForm = /** @class */ (function (_super) {
                     Select: ["*"]
                 };
                 // Parse the fields
-                for (var i = 0; i < _this.state.fields.length; i++) {
-                    var field = _this.state.fields[i];
+                for (var fieldName in _this._fields) {
+                    var field = _this._fields[fieldName];
                     // See if this is the attachments field
-                    if (field.name == "Attachments") {
+                    if (fieldName == "Attachments") {
                         // Expand the attachment files
                         query.Expand = ["AttachmentFiles"];
                         // Get the attachment files

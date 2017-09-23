@@ -26,9 +26,12 @@ var __1 = require("..");
  */
 var Field = /** @class */ (function (_super) {
     __extends(Field, _super);
-    function Field() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._field = null;
+    /**
+     * Constructor
+     */
+    function Field(props) {
+        var _this = _super.call(this, props) || this;
+        _this._field = _this;
         // Method to render the field
         _this.renderField = function () {
             var props = _this.props || {};
@@ -76,6 +79,9 @@ var Field = /** @class */ (function (_super) {
                     }
             }
         };
+        // Set the state
+        var state = _this.state;
+        state.value = props.defaultValue;
         return _this;
     }
     Object.defineProperty(Field.prototype, "Info", {

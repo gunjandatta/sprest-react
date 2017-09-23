@@ -39,8 +39,8 @@ var BaseField = /** @class */ (function (_super) {
         _this.onFieldLoaded = function () { };
         // Method to update the value
         _this.updateValue = function (value) {
-            // Call the on change event
-            _this.props.onChange ? _this.props.onChange(value) : null;
+            // Ensure a custom renderer doesn't exist, and call the on change event
+            _this.props.onRender == null && _this.props.onChange ? _this.props.onChange(value) : null;
             // Update the state
             _this.setState({
                 showErrorMessage: _this.state.fieldInfo.required ? (value ? false : true) : false,

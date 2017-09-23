@@ -26,7 +26,7 @@ var ItemForm = /** @class */ (function (_super) {
     function ItemForm(props) {
         var _this = _super.call(this, props) || this;
         _this._attachmentField = null;
-        _this._fields = [];
+        _this._fields = {};
         _this._list = null;
         /**
          * Methods
@@ -138,7 +138,7 @@ var ItemForm = /** @class */ (function (_super) {
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { _this._fields.push(field); } }))));
+                        React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { _this._fields[field.props.name] = field; } }))));
             }
             // Return the form fields
             return formFields;
@@ -253,12 +253,11 @@ var ItemForm = /** @class */ (function (_super) {
     // Method to get the form values
     ItemForm.prototype.getValues = function () {
         var formValues = {};
-        // Parse the references
-        for (var i = 0; i < this._fields.length; i++) {
-            var field = this._fields[i];
-            var fieldName = field.Info ? field.Info.name : null;
+        // Parse the fields
+        for (var fieldName in this._fields) {
+            var field = this._fields[fieldName];
             // Ensure the field exists
-            if (fieldName == null) {
+            if (field == null) {
                 continue;
             }
             // See if this is a lookup or user field
@@ -274,8 +273,8 @@ var ItemForm = /** @class */ (function (_super) {
                 if (fieldValue.results) {
                     var results = [];
                     // Parse the results
-                    for (var i_1 = 0; i_1 < fieldValue.results.length; i_1++) {
-                        var result = fieldValue.results[i_1];
+                    for (var i = 0; i < fieldValue.results.length; i++) {
+                        var result = fieldValue.results[i];
                         // See if this is a taxonomy field with multiple values
                         if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
                             // Add the term

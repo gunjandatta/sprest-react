@@ -14,7 +14,9 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Properties
      */
     AttachmentField: Fields.FieldAttachments;
-    FormFields: Array<Field>;
+    FormFields: {
+        [key: string]: Field;
+    };
     readonly List: Types.IListResult;
     /**
      * Constructor

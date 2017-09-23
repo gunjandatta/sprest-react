@@ -14,7 +14,7 @@ import { Field, Fields } from "..";
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private _attachmentField: Fields.FieldAttachments = null;
-    private _fields: Array<Field> = [];
+    private _fields: { [key: string]: Field } = {};
     private _list: Types.IListResult = null;
 
     /**
@@ -26,8 +26,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     set AttachmentField(field: Fields.FieldAttachments) { this._attachmentField = field; }
 
     // Form Fields
-    get FormFields(): Array<Field> { return this._fields; }
-    set FormFields(fields: Array<Field>) { this._fields = fields; }
+    get FormFields(): { [key: string]: Field } { return this._fields; }
+    set FormFields(fields: { [key: string]: Field }) { this._fields = fields; }
 
     // List
     get List(): Types.IListResult { return this._list; }
@@ -159,13 +159,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private getValues<IItem = any>() {
         let formValues: any = {};
 
-        // Parse the references
-        for (let i = 0; i < this._fields.length; i++) {
-            let field = this._fields[i];
-            let fieldName = field.Info ? field.Info.name : null;
+        // Parse the fields
+        for (let fieldName in this._fields) {
+            let field = this._fields[fieldName];
 
             // Ensure the field exists
-            if (fieldName == null) { continue; }
+            if (field == null) { continue; }
 
             // See if this is a lookup or user field
             if (field.Info.type == SPTypes.FieldType.Lookup ||
@@ -307,7 +306,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             name={fieldInfo.name}
                             onChange={fieldInfo.onChange}
                             onRender={fieldInfo.onRender}
-                            ref={field => { this._fields.push(field); }}
+                            ref={field => { this._fields[field.props.name] = field; }}
                         />
                     </div>
                 </div>

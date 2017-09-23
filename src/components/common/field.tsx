@@ -1,13 +1,24 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
-import { IBaseFieldInfo } from "../../definitions";
+import { IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "../../definitions";
 import { Fields } from "..";
 
 /**
  * Field
  */
 export class Field extends Fields.BaseField {
-    private _field: Fields.BaseField = null;
+    private _field: Fields.BaseField = this;
+
+    /**
+     * Constructor
+     */
+    constructor(props: IBaseFieldProps) {
+        super(props);
+
+        // Set the state
+        let state = this.state as IBaseFieldState;
+        state.value = props.defaultValue;
+    }
 
     // The field information
     get Info(): IBaseFieldInfo { return this._field.state.fieldInfo; }

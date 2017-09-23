@@ -48,18 +48,22 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
     // Render the component
     render() {
-        // See if we are saving the item
-        if (this.state.saveFl) {
-            // Render a loading dialog
-            return (
-                <Spinner label="Saving the Item" size={SpinnerSize.large} />
-            );
-        }
-
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
-            return this.props.onRender();
+            return (
+                <div>
+                    {
+                        this.state.saveFl ?
+                            <Spinner label="Saving the Item" size={SpinnerSize.large} />
+                            :
+                            null
+                    }
+                    <div hidden={this.state.saveFl}>
+                        {this.props.onRender()}
+                    </div>
+                </div>
+            );
         }
 
         // See if the fields have been defined
@@ -75,8 +79,16 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Render the fields
         return (
-            <div className={"ms-Grid " + this.props.className}>
-                {this.renderFields()}
+            <div>
+                {
+                    this.state.saveFl ?
+                        <Spinner label="Saving the Item" size={SpinnerSize.large} />
+                        :
+                        null
+                }
+                <div className={"ms-Grid " + this.props.className} hidden={this.state.saveFl}>
+                    {this.renderFields()}
+                </div>
             </div>
         );
     }

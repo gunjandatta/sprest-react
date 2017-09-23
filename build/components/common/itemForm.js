@@ -225,15 +225,15 @@ var ItemForm = /** @class */ (function (_super) {
     });
     // Render the component
     ItemForm.prototype.render = function () {
-        // See if we are saving the item
-        if (this.state.saveFl) {
-            // Render a loading dialog
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
-        }
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
-            return this.props.onRender();
+            return (React.createElement("div", null,
+                this.state.saveFl ?
+                    React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
+                    :
+                        null,
+                React.createElement("div", { hidden: this.state.saveFl }, this.props.onRender())));
         }
         // See if the fields have been defined
         if (this.state.fields == null) {
@@ -243,7 +243,12 @@ var ItemForm = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the fields..." }));
         }
         // Render the fields
-        return (React.createElement("div", { className: "ms-Grid " + this.props.className }, this.renderFields()));
+        return (React.createElement("div", null,
+            this.state.saveFl ?
+                React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
+                :
+                    null,
+            React.createElement("div", { className: "ms-Grid " + this.props.className, hidden: this.state.saveFl }, this.renderFields())));
     };
     // Method to save the item form
     ItemForm.prototype.save = function () {

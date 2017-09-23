@@ -22,7 +22,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Constructor
      */
     constructor(props: IItemFormProps);
-    render(): any;
+    render(): JSX.Element;
     save<IItem = any>(): PromiseLike<IItem>;
     /**
      * Methods

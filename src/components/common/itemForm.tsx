@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
-import { Spinner } from "office-ui-fabric-react";
+import { Spinner, SpinnerSize } from "office-ui-fabric-react";
 import {
     IBaseFieldInfo,
     IManagedMetadataFieldInfo,
@@ -41,12 +41,21 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Set the state
         this.state = {
             fields: props.fields,
-            item: props.item || {}
+            item: props.item || {},
+            saveFl: false
         };
     }
 
     // Render the component
     render() {
+        // See if we are saving the item
+        if (this.state.saveFl) {
+            // Render a loading dialog
+            return (
+                <Spinner label="Saving the Item" size={SpinnerSize.large} />
+            );
+        }
+
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
@@ -75,14 +84,23 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     // Method to save the item form
     save<IItem = any>(): PromiseLike<IItem> {
         return new Promise((resolve, reject) => {
-            // Save the item
-            this.saveItem()
-                // Save the attachments
-                .then(this.saveAttachments)
-                // Get the item    
-                .then(this.getItem)
-                // Resolve the promise
-                .then(item => { resolve(item as IItem); })
+            // Set the state
+            this.setState({ saveFl: true }, () => {
+                // Save the item
+                this.saveItem()
+                    // Save the attachments
+                    .then(this.saveAttachments)
+                    // Get the item    
+                    .then(this.getItem)
+                    // Resolve the promise
+                    .then(item => {
+                        // Update the state
+                        this.setState({ saveFl: false }, () => {
+                            // Resolve the promise
+                            resolve(item as IItem);
+                        })
+                    })
+            })
         });
     }
 

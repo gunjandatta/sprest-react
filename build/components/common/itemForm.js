@@ -195,7 +195,8 @@ var ItemForm = /** @class */ (function (_super) {
         // Set the state
         _this.state = {
             fields: props.fields,
-            item: props.item || {}
+            item: props.item || {},
+            saveFl: false
         };
         return _this;
     }
@@ -224,6 +225,11 @@ var ItemForm = /** @class */ (function (_super) {
     });
     // Render the component
     ItemForm.prototype.render = function () {
+        // See if we are saving the item
+        if (this.state.saveFl) {
+            // Render a loading dialog
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
+        }
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
@@ -243,11 +249,20 @@ var ItemForm = /** @class */ (function (_super) {
     ItemForm.prototype.save = function () {
         var _this = this;
         return new es6_promise_1.Promise(function (resolve, reject) {
-            // Save the item
-            _this.saveItem()
-                .then(_this.saveAttachments)
-                .then(_this.getItem)
-                .then(function (item) { resolve(item); });
+            // Set the state
+            _this.setState({ saveFl: true }, function () {
+                // Save the item
+                _this.saveItem()
+                    .then(_this.saveAttachments)
+                    .then(_this.getItem)
+                    .then(function (item) {
+                    // Update the state
+                    _this.setState({ saveFl: false }, function () {
+                        // Resolve the promise
+                        resolve(item);
+                    });
+                });
+            });
         });
     };
     // Method to get the form values

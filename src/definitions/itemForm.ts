@@ -56,4 +56,7 @@ export interface IItemFormState {
 
     /** The existing item. */
     item?: any;
+
+    /** The save flag. */
+    saveFl?: boolean;
 }

@@ -306,6 +306,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             key={"Attachments"}
                             listName={this.props.listName}
                             ref={field => { this._attachmentField = field; }}
+                            webUrl={this.props.webUrl}
                         />
                     </div>
                 </div>
@@ -329,6 +330,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             onChange={fieldInfo.onChange}
                             onRender={fieldInfo.onRender}
                             ref={field => { field ? this._fields[field.props.name] = field : null; }}
+                            webUrl={this.props.webUrl}
                         />
                     </div>
                 </div>

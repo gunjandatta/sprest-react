@@ -43,4 +43,6 @@ export interface IItemFormState {
     fields?: Array<IItemFormField>;
     /** The existing item. */
     item?: any;
+    /** The save flag. */
+    saveFl?: boolean;
 }

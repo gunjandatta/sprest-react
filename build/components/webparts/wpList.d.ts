@@ -7,13 +7,14 @@ import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../../de
  */
 export declare class WebPartList<Props extends IWebPartListProps = IWebPartListProps, State extends IWebPartListState = IWebPartListState> extends React.Component<Props, State> {
     /**
+     * Global Variables
+     */
+    protected _caml: string;
+    protected _query: Types.ODataQuery;
+    /**
      * Constructor
      */
     constructor(props: Props);
-    /**
-     * Global Variables
-     */
-    protected _query: Types.ODataQuery;
     /**
      * Events
      */
@@ -24,4 +25,7 @@ export declare class WebPartList<Props extends IWebPartListProps = IWebPartListP
      * Methods
      */
     protected load: () => void;
+    private loadCAML;
+    private loadODATA;
+    private onLoadData;
 }

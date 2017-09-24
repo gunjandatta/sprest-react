@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types, Web } from "gd-sprest";
+import { ContextInfo, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner } from "office-ui-fabric-react";
 import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../../definitions";
 
@@ -7,6 +7,16 @@ import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../../de
  * WebPart List
  */
 export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, State extends IWebPartListState = IWebPartListState> extends React.Component<Props, State> {
+    /**
+     * Global Variables
+     */
+
+    // The CAML query
+    protected _caml: string = null;
+
+    // The OData query
+    protected _query: Types.ODataQuery = null;
+
     /**
      * Constructor
      */
@@ -18,7 +28,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             items: null
         } as State;
 
-        // Set the query
+        // Set the default query to use ODATA
         this._query = {
             Expand: [],
             GetAllItems: false,
@@ -27,12 +37,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             Top: 500
         };
     }
-
-    /**
-     * Global Variables
-     */
-
-    protected _query: Types.ODataQuery = null;
 
     /**
      * Events
@@ -84,9 +88,45 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * Methods
      */
 
-    // Method to load the documents
+    // Method to load the list data
     protected load = () => {
-        // Load the documents
+        // See if we are using the CAML query
+        if (this._caml) { this.loadCAML(); }
+        // Else, load using the ODATA query
+        else { this.loadODATA(); }
+    }
+
+    // Method to load the list data using a CAML query
+    private loadCAML = () => {
+        // See if we are targeting a different web
+        if (this.props.cfg.WebUrl) {
+            // Get the context information for the destination web
+            // Note - Since we are using a POST request, this would be required for cross-site collection requests
+            ContextInfo.getWeb(this.props.cfg.WebUrl).execute((contextInfo) => {
+                // Get the web
+                (new Web(this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue }))
+                    // Get the list
+                    .Lists(this.props.cfg.ListName)
+                    // Query the items
+                    .getItemsByQuery(this._caml)
+                    // Execute the request
+                    .execute(this.onLoadData);
+            });
+        } else {
+            // Get the web
+            (new Web(this.props.cfg.WebUrl))
+                // Get the list
+                .Lists(this.props.cfg.ListName)
+                // Query the items
+                .getItemsByQuery(this._caml)
+                // Execute the request
+                .execute(this.onLoadData);
+        }
+    }
+
+    // Method to load the list data using an ODATA query
+    private loadODATA = () => {
+        // Get the web
         (new Web(this.props.cfg.WebUrl))
             // Get the list
             .Lists(this.props.cfg.ListName)
@@ -95,18 +135,21 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             // Query the list
             .query(this._query)
             // Execute the request
-            .execute(items => {
-                // Ensure the items exist
-                if (items.results) {
-                    // Update the state
-                    this.setState({
-                        items: items.results
-                    });
-                } else {
-                    // Log
-                    console.log("[gd-sprest] Error: The list query failed.");
-                    console.log("[gd-sprest] " + items["response"]);
-                }
+            .execute(this.onLoadData);
+    }
+
+    // Method to update the state
+    private onLoadData = (items: Types.IListItemResults | Types.IResults<Types.IListItemQueryResult>) => {
+        // Ensure the items exist
+        if (items.results) {
+            // Update the state
+            this.setState({
+                items: items.results as Array<IWebPartListItem>
             });
+        } else {
+            // Log
+            console.log("[gd-sprest] Error: The list query failed.");
+            console.log("[gd-sprest] " + items["response"]);
+        }
     }
 }

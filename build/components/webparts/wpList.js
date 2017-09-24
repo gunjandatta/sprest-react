@@ -26,6 +26,9 @@ var WebPartList = /** @class */ (function (_super) {
         /**
          * Global Variables
          */
+        // The CAML query
+        _this._caml = null;
+        // The OData query
         _this._query = null;
         /**
          * Events
@@ -50,33 +53,67 @@ var WebPartList = /** @class */ (function (_super) {
         /**
          * Methods
          */
-        // Method to load the documents
+        // Method to load the list data
         _this.load = function () {
-            // Load the documents
+            // See if we are using the CAML query
+            if (_this._caml) {
+                _this.loadCAML();
+            }
+            else {
+                _this.loadODATA();
+            }
+        };
+        // Method to load the list data using a CAML query
+        _this.loadCAML = function () {
+            // See if we are targeting a different web
+            if (_this.props.cfg.WebUrl) {
+                // Get the context information for the destination web
+                // Note - Since we are using a POST request, this would be required for cross-site collection requests
+                gd_sprest_1.ContextInfo.getWeb(_this.props.cfg.WebUrl).execute(function (contextInfo) {
+                    // Get the web
+                    (new gd_sprest_1.Web(_this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue }))
+                        .Lists(_this.props.cfg.ListName)
+                        .getItemsByQuery(_this._caml)
+                        .execute(_this.onLoadData);
+                });
+            }
+            else {
+                // Get the web
+                (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                    .Lists(_this.props.cfg.ListName)
+                    .getItemsByQuery(_this._caml)
+                    .execute(_this.onLoadData);
+            }
+        };
+        // Method to load the list data using an ODATA query
+        _this.loadODATA = function () {
+            // Get the web
             (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
                 .Lists(_this.props.cfg.ListName)
                 .Items()
                 .query(_this._query)
-                .execute(function (items) {
-                // Ensure the items exist
-                if (items.results) {
-                    // Update the state
-                    _this.setState({
-                        items: items.results
-                    });
-                }
-                else {
-                    // Log
-                    console.log("[gd-sprest] Error: The list query failed.");
-                    console.log("[gd-sprest] " + items["response"]);
-                }
-            });
+                .execute(_this.onLoadData);
+        };
+        // Method to update the state
+        _this.onLoadData = function (items) {
+            // Ensure the items exist
+            if (items.results) {
+                // Update the state
+                _this.setState({
+                    items: items.results
+                });
+            }
+            else {
+                // Log
+                console.log("[gd-sprest] Error: The list query failed.");
+                console.log("[gd-sprest] " + items["response"]);
+            }
         };
         // Set the state
         _this.state = {
             items: null
         };
-        // Set the query
+        // Set the default query to use ODATA
         _this._query = {
             Expand: [],
             GetAllItems: false,

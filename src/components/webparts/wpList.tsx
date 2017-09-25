@@ -155,7 +155,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     }
 
     // Method to refresh an item
-    protected refreshItem = (itemId: number | string) => {
+    protected refreshItem = (itemId: number | string): PromiseLike<IWebPartListItem> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Copy the odata query
@@ -177,7 +177,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                     // Ensure the item exists
                     if (items.results && items.results[0]) {
                         // Resolve the promise
-                        resolve(items[0]);
+                        resolve(items.results[0]);
                     } else {
                         // Reject the promise
                         reject(items["response"]);

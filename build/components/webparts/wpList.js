@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
@@ -108,6 +109,32 @@ var WebPartList = /** @class */ (function (_super) {
                 console.log("[gd-sprest] Error: The list query failed.");
                 console.log("[gd-sprest] " + items["response"]);
             }
+        };
+        // Method to refresh an item
+        _this.refreshItem = function (itemId) {
+            // Return a promise
+            return new es6_promise_1.Promise(function (resolve, reject) {
+                // Copy the odata query
+                var query = Object.create(_this._query);
+                // Update the filter to query the item
+                query.Filter = "ID eq " + itemId;
+                // Get the web
+                (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                    .Lists(_this.props.cfg.ListName)
+                    .Items()
+                    .query(_this._query)
+                    .execute(function (items) {
+                    // Ensure the item exists
+                    if (items.results && items.results[0]) {
+                        // Resolve the promise
+                        resolve(items[0]);
+                    }
+                    else {
+                        // Reject the promise
+                        reject(items["response"]);
+                    }
+                });
+            });
         };
         // Set the state
         _this.state = {

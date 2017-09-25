@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Promise } from "es6-promise";
 import { ContextInfo, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner } from "office-ui-fabric-react";
 import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../../definitions";
@@ -151,5 +152,37 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             console.log("[gd-sprest] Error: The list query failed.");
             console.log("[gd-sprest] " + items["response"]);
         }
+    }
+
+    // Method to refresh an item
+    protected refreshItem = (itemId: number | string) => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Copy the odata query
+            let query: Types.ODataQuery = Object.create(this._query);
+
+            // Update the filter to query the item
+            query.Filter = "ID eq " + itemId;
+
+            // Get the web
+            (new Web(this.props.cfg.WebUrl))
+                // Get the list
+                .Lists(this.props.cfg.ListName)
+                // Get the items
+                .Items()
+                // Query the list
+                .query(this._query)
+                // Execute the request
+                .execute((items) => {
+                    // Ensure the item exists
+                    if (items.results && items.results[0]) {
+                        // Resolve the promise
+                        resolve(items[0]);
+                    } else {
+                        // Reject the promise
+                        reject(items["response"]);
+                    }
+                });
+        });
     }
 }

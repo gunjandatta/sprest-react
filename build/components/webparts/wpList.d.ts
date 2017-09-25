@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
+import { Promise } from "es6-promise";
 import { Types } from "gd-sprest";
 import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../../definitions";
 /**
@@ -28,4 +29,5 @@ export declare class WebPartList<Props extends IWebPartListProps = IWebPartListP
     private loadCAML;
     private loadODATA;
     private onLoadData;
+    protected refreshItem: (itemId: string | number) => Promise<{}>;
 }

@@ -44,7 +44,7 @@ var FieldUser = /** @class */ (function (_super) {
             lblProps.required = typeof (lblProps.required) === "boolean" ? lblProps.required : _this.state.fieldInfo.required;
             // Set the picker props
             var props = _this.props.pickerProps || {};
-            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.disabled = _this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.onChange = _this.onChange;
             // Render the component
             return (React.createElement("div", { className: _this.props.className },

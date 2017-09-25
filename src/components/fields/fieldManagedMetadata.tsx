@@ -32,7 +32,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
         props.className = this.props.className;
-        props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
+        props.disabled = this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;

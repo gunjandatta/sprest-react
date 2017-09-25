@@ -50,7 +50,7 @@ var FieldText = /** @class */ (function (_super) {
             props.value = _this.getFieldValue();
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
             // See if we are displaying the value
-            if (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            if (_this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Render the value
                 return (React.createElement("div", null,
                     React.createElement(office_ui_fabric_react_1.Label, null, props.label),

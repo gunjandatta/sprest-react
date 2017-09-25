@@ -32,7 +32,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
 
         // See if we are displaying the value
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+        if (this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display) {
             // Render the value
             return (
                 <div>

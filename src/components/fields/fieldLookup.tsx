@@ -28,10 +28,17 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
             return this.props.onRender(this.state.fieldInfo);
         }
 
+        // See if this is an associated lookup field and we are creating or editing the field
+        if (this.state.fieldInfo.readOnly &&
+            (this.state.controlMode == SPTypes.ControlMode.Edit || this.state.controlMode == SPTypes.ControlMode.New)) {
+            // Don't render this field in 
+            return null;
+        }
+
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
         props.className = this.props.className;
-        props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
+        props.disabled = this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
         props.label = props.label ? props.label : this.state.label;

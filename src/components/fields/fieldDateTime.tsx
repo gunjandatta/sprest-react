@@ -145,7 +145,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
             }
 
             // Update the properties
-            props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
+            props.disabled = this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display;
             props.onChanged = this.onTimeChanged;
             props.placeHolder = props.placeHolder || "Time";
             props.selectedKey = selectedHour + "|" + selectedMin;

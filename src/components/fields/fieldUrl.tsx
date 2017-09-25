@@ -41,7 +41,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
 
         // See if this is the display mode
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+        if (this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display) {
             // Return the value
             return (
                 <Link

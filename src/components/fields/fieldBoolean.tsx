@@ -20,8 +20,8 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
         props.checked = this.getValue();
         props.onChange = this.onChange;
 
-        // See if this is the display mode
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+        // See if this is the display mode or a read-only field
+        if (this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display) {
             // Return the value
             return (
                 <div className={this.props.className}>

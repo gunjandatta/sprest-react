@@ -44,10 +44,16 @@ var FieldLookup = /** @class */ (function (_super) {
             if (_this.props.onRender) {
                 return _this.props.onRender(_this.state.fieldInfo);
             }
+            // See if this is an associated lookup field and we are creating or editing the field
+            if (_this.state.fieldInfo.readOnly &&
+                (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Edit || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.New)) {
+                // Don't render this field in 
+                return null;
+            }
             // Update the properties
             var props = _this.props.props || {};
             props.className = _this.props.className;
-            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.disabled = _this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
             props.errorMessage = _this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
             props.label = props.label ? props.label : _this.state.label;

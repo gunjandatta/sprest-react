@@ -138,7 +138,7 @@ var FieldDateTime = /** @class */ (function (_super) {
                     }
                 }
                 // Update the properties
-                props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+                props.disabled = _this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
                 props.onChanged = _this.onTimeChanged;
                 props.placeHolder = props.placeHolder || "Time";
                 props.selectedKey = selectedHour + "|" + selectedMin;

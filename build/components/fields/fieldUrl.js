@@ -57,7 +57,7 @@ var FieldUrl = /** @class */ (function (_super) {
             descProps.onChanged = _this.onDescChanged;
             descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
             // See if this is the display mode
-            if (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            if (_this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
                 return (React.createElement(office_ui_fabric_react_1.Link, { className: _this.props.className, href: defaultValue.Url, label: urlProps.label }, descProps.defaultValue || urlProps.defaultValue));
             }

@@ -122,7 +122,7 @@ var WebPartList = /** @class */ (function (_super) {
                 (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
                     .Lists(_this.props.cfg.ListName)
                     .Items()
-                    .query(_this._query)
+                    .query(query)
                     .execute(function (items) {
                     // Ensure the item exists
                     if (items.results && items.results[0]) {

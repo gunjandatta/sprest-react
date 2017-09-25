@@ -171,7 +171,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                 // Get the items
                 .Items()
                 // Query the list
-                .query(this._query)
+                .query(query)
                 // Execute the request
                 .execute((items) => {
                     // Ensure the item exists

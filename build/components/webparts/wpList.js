@@ -127,7 +127,7 @@ var WebPartList = /** @class */ (function (_super) {
                     // Ensure the item exists
                     if (items.results && items.results[0]) {
                         // Resolve the promise
-                        resolve(items[0]);
+                        resolve(items.results[0]);
                     }
                     else {
                         // Reject the promise

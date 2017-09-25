@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { TextField, ITextFieldProps } from "office-ui-fabric-react";
+import { Label, TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { IFieldTextProps, IFieldTextState } from "../../definitions";
 import { BaseField } from ".";
 
@@ -22,7 +22,6 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         // Update the properties
         let props: ITextFieldProps = this.props.props || {};
         props.className = this.props.className;
-        props.disabled = this.state.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
@@ -31,6 +30,17 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
         props.value = this.getFieldValue();
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
+
+        // See if we are displaying the value
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Render the value
+            return (
+                <div>
+                    <Label>{props.label}</Label>
+                    <div dangerouslySetInnerHTML={{ __html: this.props.defaultValue || "" }} />
+                </div>
+            );
+        }
 
         // Return the component
         return (

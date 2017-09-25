@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { TextField, ITextFieldProps } from "office-ui-fabric-react";
+import { Link, TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { IFieldUrlProps, IFieldUrlState } from "../../definitions";
 import { BaseField } from ".";
 
@@ -22,14 +22,6 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Get the default value
         let defaultValue = this.getFieldValue() as Types.ComplexTypes.FieldUrlValue;
 
-        // See if this is the display mode
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
-            // Return the value
-            return (
-                <a href={defaultValue.Url} className={this.props.className}>{defaultValue ? defaultValue.Description || defaultValue.Url : ""}</a>
-            );
-        }
-
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};
         urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
@@ -47,6 +39,19 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
+
+        // See if this is the display mode
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+            // Return the value
+            return (
+                <Link
+                    className={this.props.className}
+                    href={defaultValue.Url}
+                    label={urlProps.label}>
+                    {descProps.defaultValue || urlProps.defaultValue}
+                </Link>
+            );
+        }
 
         // Return the component
         return (

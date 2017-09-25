@@ -41,7 +41,6 @@ var FieldText = /** @class */ (function (_super) {
             // Update the properties
             var props = _this.props.props || {};
             props.className = _this.props.className;
-            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
             props.label = props.label || _this.state.label;
             props.multiline = typeof (props.label) === "boolean" ? props.label : _this.state.fieldInfo.multiline;
@@ -50,6 +49,13 @@ var FieldText = /** @class */ (function (_super) {
             props.rows = props.rows ? props.rows : _this.state.fieldInfo.rows;
             props.value = _this.getFieldValue();
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
+            // See if we are displaying the value
+            if (_this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+                // Render the value
+                return (React.createElement("div", null,
+                    React.createElement(office_ui_fabric_react_1.Label, null, props.label),
+                    React.createElement("div", { dangerouslySetInnerHTML: { __html: _this.props.defaultValue || "" } })));
+            }
             // Return the component
             return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
         };

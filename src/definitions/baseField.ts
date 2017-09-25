@@ -16,6 +16,9 @@ export interface IBaseFieldInfo {
     /** The internal name of the field. */
     name: string;
 
+    /** Flag indicating if the field is read-only. */
+    readOnly?: boolean;
+
     /** True indicates a required field type. */
     required?: boolean;
 

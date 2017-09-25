@@ -78,32 +78,6 @@ var BaseField = /** @class */ (function (_super) {
                 showErrorMessage: false,
                 value: _this.props.defaultValue
             };
-            // See if the session data exists
-            var sessionData = sessionStorage.getItem(_this._sessionKey);
-            if (sessionData) {
-                // Try to parse the data
-                try {
-                    var data = JSON.parse(sessionData);
-                    var list = data[state.fieldInfo.listName] || {};
-                    var field = list.Fields ? list.Fields[state.fieldInfo.name] : null;
-                    // See if fields exist
-                    if (field) {
-                        // Update the field information
-                        state.fieldInfo.defaultValue = field.defaultValue;
-                        state.fieldInfo.required = field.required;
-                        state.fieldInfo.title = field.title;
-                        state.initFl = true;
-                        state.label = field.title + ":";
-                        state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
-                        // Call the on loaded event
-                        _this.onFieldLoaded ? _this.onFieldLoaded() : null;
-                        // Return the field information
-                        return state;
-                    }
-                }
-                // Do nothing
-                catch (ex) { }
-            }
             // Get the web
             (new gd_sprest_1.Web(state.fieldInfo.webUrl))
                 .Lists(state.fieldInfo.listName)
@@ -112,6 +86,7 @@ var BaseField = /** @class */ (function (_super) {
                 .execute(function (field) {
                 // Update the field information
                 state.fieldInfo.defaultValue = field.DefaultValue;
+                state.fieldInfo.readOnly = field.ReadOnlyField;
                 state.fieldInfo.required = field.Required ? true : false;
                 state.fieldInfo.title = field.Title;
                 state.fieldInfo.type = field.FieldTypeKind;

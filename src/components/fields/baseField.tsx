@@ -110,36 +110,6 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
             value: this.props.defaultValue
         } as State;
 
-        // See if the session data exists
-        let sessionData = sessionStorage.getItem(this._sessionKey);
-        if (sessionData) {
-            // Try to parse the data
-            try {
-                let data = JSON.parse(sessionData);
-                let list = data[state.fieldInfo.listName] || {};
-                let field: IBaseFieldInfo = list.Fields ? list.Fields[state.fieldInfo.name] : null;
-
-                // See if fields exist
-                if (field) {
-                    // Update the field information
-                    state.fieldInfo.defaultValue = field.defaultValue;
-                    state.fieldInfo.required = field.required;
-                    state.fieldInfo.title = field.title;
-                    state.initFl = true;
-                    state.label = field.title + ":";
-                    state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
-
-                    // Call the on loaded event
-                    this.onFieldLoaded ? this.onFieldLoaded() : null;
-
-                    // Return the field information
-                    return state;
-                }
-            }
-            // Do nothing
-            catch (ex) { }
-        }
-
         // Get the web
         (new Web(state.fieldInfo.webUrl))
             // Get the list
@@ -152,6 +122,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
             .execute((field) => {
                 // Update the field information
                 state.fieldInfo.defaultValue = field.DefaultValue;
+                state.fieldInfo.readOnly = field.ReadOnlyField;
                 state.fieldInfo.required = field.Required ? true : false;
                 state.fieldInfo.title = field.Title;
                 state.fieldInfo.type = field.FieldTypeKind as number;

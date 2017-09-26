@@ -126,15 +126,15 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                         for (let i = 0; i < results.length; i++) {
                             let result = results[i];
 
-                            // Ensure a value exists
-                            if (result == null || result == "") { continue; }
-
                             // See if this is a lookup field
                             if (fldLookup) {
                                 // Update the value
-                                result = result[fldLookup.LookupField];
+                                result = result ? result[fldLookup.LookupField] : result;
                             }
 
+                            // Ensure a value exists
+                            if (result == null || result == "") { continue; }
+                            
                             // Add the index
                             if (tagMapper[result] == null) {
                                 // Add the value

@@ -73,14 +73,14 @@ var WebPartSearch = /** @class */ (function (_super) {
                             var results = fieldValue.results || [fieldValue];
                             for (var i_1 = 0; i_1 < results.length; i_1++) {
                                 var result = results[i_1];
-                                // Ensure a value exists
-                                if (result == null || result == "") {
-                                    continue;
-                                }
                                 // See if this is a lookup field
                                 if (fldLookup) {
                                     // Update the value
-                                    result = result[fldLookup.LookupField];
+                                    result = result ? result[fldLookup.LookupField] : result;
+                                }
+                                // Ensure a value exists
+                                if (result == null || result == "") {
+                                    continue;
                                 }
                                 // Add the index
                                 if (tagMapper[result] == null) {

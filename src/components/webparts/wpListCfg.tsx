@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Web, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField, Spinner } from "office-ui-fabric-react";
-import { IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../../definitions";
+import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../../definitions";
 import { WebPartConfigurationPanel } from ".";
 
 /**
- * WebPart List Configuration
+ * WebPart List Configuration Panel
  */
-export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> {
+export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> implements IWebPartListCfgPanel {
     /**
      * Constructor
      */
@@ -24,11 +24,11 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     /**
      * Global Variables
      */
-    protected _query: Types.ODataQuery = null;
-    protected _listDropdown: Dropdown = null;
-    protected _refreshButton: PrimaryButton = null;
-    protected _saveButton: PrimaryButton = null;
-    protected _webUrl: TextField = null;
+    _query: Types.ODataQuery = null;
+    _listDropdown: Dropdown = null;
+    _refreshButton: PrimaryButton = null;
+    _saveButton: PrimaryButton = null;
+    _webUrl: TextField = null;
 
     /**
      * Events
@@ -53,6 +53,10 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         this.loadLists(cfg);
     }
 
+    /**
+     * Overload Methods
+     */
+
     // The render contents event
     onRenderContents = (cfg: IWebPartListCfg) => {
         // See if the lists exists
@@ -69,23 +73,8 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         // Render the component
         return (
             <div>
-                <TextField
-                    label="Relative Web Url:"
-                    ref={webUrl => { this._webUrl = webUrl; }}
-                    value={cfg ? cfg.WebUrl : ""}
-                />
-                <PrimaryButton
-                    onClick={this.onRefresh}
-                    ref={btn => { this._refreshButton = btn; }}
-                    text="Refresh"
-                />
-                <Dropdown
-                    label="List:"
-                    onChanged={this.updateListName}
-                    ref={ddl => { this._listDropdown = ddl; }}
-                    options={this.state.options}
-                    selectedKey={cfg ? cfg.ListName : ""}
-                />
+                {this.renderWebUrl()}
+                {this.renderList()}
             </div>
         );
     }
@@ -94,26 +83,11 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     onRenderFooter = () => {
         // See if the lists exists
         if (this.state.lists != null) {
-            return (
-                <PrimaryButton
-                    onClick={this.onSave}
-                    ref={btn => { this._refreshButton = btn; }}
-                    text="Save"
-                />
-            );
+            return this.renderSaveButton();
         }
 
         // Render nothing
         return null;
-    }
-
-    // The save button click event
-    onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        // Prevent postback
-        ev.preventDefault();
-
-        // Save the webpart configuration
-        this.saveConfiguration(this.state.cfg);
     }
 
     /**
@@ -157,6 +131,58 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                 this.setState(newState);
             });
     }
+
+    // Method to render the list property
+    renderList = () => {
+        return (
+            <Dropdown
+                label="List:"
+                onChanged={this.updateListName}
+                ref={ddl => { this._listDropdown = ddl; }}
+                options={this.state.options}
+                selectedKey={this.state.cfg.ListName || ""}
+            />
+        );
+    }
+
+    // Method to render the save button
+    renderSaveButton = () => {
+        return (
+            <PrimaryButton
+                onClick={this.onSave}
+                ref={btn => { this._refreshButton = btn; }}
+                text="Save"
+            />
+        );
+    }
+
+    // Method to render the web url property
+    renderWebUrl = () => {
+        return [
+            <TextField
+                label="Relative Web Url:"
+                key="webUrlTextField"
+                ref={webUrl => { this._webUrl = webUrl; }}
+                value={this.state.cfg.WebUrl || ""}
+            />,
+            <PrimaryButton
+                key="webUrlRefreshButton"
+                onClick={this.onRefresh}
+                ref={btn => { this._refreshButton = btn; }}
+                text="Refresh"
+            />
+        ];
+    }
+
+    // Method to save the webpart configuration
+    private onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        // Prevent postback
+        ev.preventDefault();
+
+        // Save the webpart configuration
+        this.saveConfiguration(this.state.cfg);
+    }
+
 
     // Method to update the list name
     private updateListName = (option?: IDropdownOption, idx?: number) => {

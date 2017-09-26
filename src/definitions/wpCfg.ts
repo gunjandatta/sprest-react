@@ -1,12 +1,27 @@
+import { Panel } from "..";
+
 /**
- * Web Part Configuration
+ * WebPart Configuration
  */
 export interface IWebPartCfg {
     WebPartId?: string;
 }
 
 /**
- * Web Part Configuration Properties
+ * WebPart Configuration Panel
+ */
+export interface IWebPartCfgPanel {
+    _errorMessage: HTMLDivElement;
+    _panel: Panel;
+
+    onRenderContents: (cfg: IWebPartCfg) => JSX.Element | Array<JSX.Element>;
+    onRenderFooter?: () => JSX.Element | Array<JSX.Element>;
+    onRenderHeader?: () => JSX.Element | Array<JSX.Element>;
+    saveConfiguration?: (wpCfg: IWebPartCfg) => void;
+}
+
+/**
+ * WebPart Configuration Properties
  */
 export interface IWebPartCfgProps {
     cfg?: IWebPartCfg;
@@ -14,7 +29,7 @@ export interface IWebPartCfgProps {
 }
 
 /**
- * Web Part Configuration State
+ * WebPart Configuration State
  */
 export interface IWebPartCfgState {
     cfg?: IWebPartCfg;

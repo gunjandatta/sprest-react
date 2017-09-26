@@ -15,7 +15,7 @@ var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var _1 = require(".");
 /**
- * WebPart Search Configuration
+ * WebPart Search Configuration Panel
  */
 var WebPartSearchCfg = /** @class */ (function (_super) {
     __extends(WebPartSearchCfg, _super);
@@ -27,158 +27,64 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
         /**
          * Events
          */
-        // The list changed event
-        _this.onListChanged = function (state) {
-            // Ensure the list exists
-            if (state.cfg.ListName) {
-                // Parse the lists
-                for (var i = 0; i < state.lists.length; i++) {
-                    var list = state.lists[i];
-                    // See if this is the list we are looking for
-                    if (list.Title == state.cfg.ListName) {
-                        // Set the list
-                        state.list = list;
-                        break;
-                    }
-                }
-            }
-        };
-        // The lists loaded event
-        _this.onListsLoaded = function (state) {
-            // Call the change event
-            _this.onListChanged(state);
-        };
-        // The render footer method
-        _this.onRenderFooter = function () {
-            var tags = [];
-            // See if the lists and configuration fields exists
-            if (_this.state.lists == null) {
-                // Render nothing
-                return null;
-            }
-            // Parse the fields
-            var fields = _this.state.cfg.Fields || [];
-            for (var i = 0; i < fields.length; i++) {
-                var field = _this.state.cfg.Fields[i];
-                // Add the tag
-                tags.push({
-                    key: field.InternalName,
-                    name: field.Title + " [" + field.InternalName + "]",
-                });
-            }
-            // Return the footer
-            return (React.createElement("div", null,
-                React.createElement(office_ui_fabric_react_1.Checkbox, { defaultChecked: _this.state.cfg.TagPickerFl ? true : false, label: "Use Tag Picker", onChange: _this.updatePickerFlag }),
-                React.createElement("label", { className: "ms-Label ms-fontSize-m" }, "Searchable Fields:"),
-                React.createElement(office_ui_fabric_react_1.TagPicker, { defaultSelectedItems: tags, onChange: _this.updateFields, onResolveSuggestions: _this.onResolveSuggestions, pickerSuggestionsProps: {
-                        noResultsFoundText: "No fields found.",
-                        suggestionsHeaderText: "Searchable Fields"
-                    } }),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, text: "Save" })));
-        };
-        // Method to resolve suggestions event
-        _this.onResolveSuggestions = function (filterText, selectedItems) {
-            var tags = [];
-            // Ensure the list and filter exists
-            if (_this.state.list && filterText) {
-                var filter = filterText.toLowerCase();
+        _this.onFieldPickerDisplay = function (tags) {
+            // Copy the tags
+            var fieldTags = Object.create(tags);
+            // Clear the tags
+            tags = [];
+            // Parse the tags
+            for (var i = 0; i < fieldTags.length; i++) {
+                var tag = fieldTags[i];
                 // Parse the fields
-                for (var i = 0; i < _this.state.list.Fields.results.length; i++) {
-                    var field = _this.state.list.Fields.results[i];
-                    // Allow certain fields to be selected
-                    switch (field.FieldTypeKind) {
-                        // Searchable Fields
-                        case gd_sprest_1.SPTypes.FieldType.Choice:
-                        case gd_sprest_1.SPTypes.FieldType.MultiChoice:
-                        case gd_sprest_1.SPTypes.FieldType.Lookup:
-                        case gd_sprest_1.SPTypes.FieldType.Text:
-                        case gd_sprest_1.SPTypes.FieldType.URL:
-                            break;
-                        default:
-                            // Allow managed metadata fields
-                            if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
-                                break;
-                            }
-                            else {
-                                continue;
-                            }
-                    }
-                    // See if the internal or title contain this value
-                    if (field.InternalName.toLowerCase().indexOf(filter) >= 0 ||
-                        field.Title.toLowerCase().indexOf(filter) >= 0) {
-                        var existsFl = false;
-                        // Parse the selected items
-                        for (var j = 0; j < selectedItems.length; j++) {
-                            if (existsFl = (selectedItems[j].key == field.InternalName)) {
-                                // Break from the loop
-                                break;
-                            }
-                        }
-                        // See if the tag is already selected
-                        if (existsFl) {
-                            continue;
-                        }
-                        // Add the tag
-                        tags.push({
-                            key: field.InternalName,
-                            name: field.Title + " [" + field.InternalName + "]",
-                        });
-                    }
-                }
-            }
-            // Return the tags
-            return tags;
-        };
-        /**
-         * Methods
-         */
-        // Method to update the state w/ the selected field(s)
-        _this.updateFields = function (selectedFields) {
-            // Update the configuration
-            var cfg = _this.state.cfg;
-            cfg.Fields = [];
-            // Parse the selected fields
-            for (var i = 0; i < selectedFields.length; i++) {
-                var selectedField = selectedFields[i];
-                // Parse the list fields
                 for (var j = 0; j < _this.state.list.Fields.results.length; j++) {
-                    var field = _this.state.list.Fields.results[j];
+                    var field = _this.state.list.Fields.results[i];
                     // See if this is the field we are looking for
-                    if (field.InternalName == selectedField.key) {
-                        // See if this is a taxonomy field
-                        if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
-                            // Parse the fields
-                            for (var k = 0; k < _this.state.list.Fields.results.length; k++) {
-                                var fld = _this.state.list.Fields.results[k];
-                                // See if this is the hidden value field
-                                if (fld.Title == field.Title + "_0") {
-                                    // Add the hidden value field
-                                    cfg.Fields.push(fld);
-                                    break;
-                                }
-                            }
+                    if (field.InternalName == tag.key) {
+                        var addField = false;
+                        // Allow certain fields to be selected
+                        switch (field.FieldTypeKind) {
+                            // Searchable Fields
+                            case gd_sprest_1.SPTypes.FieldType.Choice:
+                            case gd_sprest_1.SPTypes.FieldType.MultiChoice:
+                            case gd_sprest_1.SPTypes.FieldType.Lookup:
+                            case gd_sprest_1.SPTypes.FieldType.Text:
+                            case gd_sprest_1.SPTypes.FieldType.URL:
+                                addField = true;
+                                break;
+                            default:
+                                // Allow managed metadata fields
+                                addField = field.TypeAsString.indexOf("TaxonomyFieldType") == 0;
+                                break;
                         }
-                        else {
-                            // Add the field
-                            cfg.Fields.push(field);
+                        // See if we are adding the field
+                        if (addField) {
+                            // Add this tag
+                            tags.push(tag);
                         }
                         // Break from the loop
                         break;
                     }
                 }
             }
-            // Sort the fields
-            cfg.Fields = cfg.Fields.sort(function (a, b) {
-                if (a.Title < b.Title) {
-                    return -1;
-                }
-                if (a.Title > b.Title) {
-                    return 1;
-                }
-                return 0;
-            });
-            // Update the state
-            _this.setState({ cfg: cfg });
+        };
+        // The render footer method
+        _this.onRenderFooter = function () {
+            var footer = null;
+            // See if the lists exists
+            if (_this.state.lists != null) {
+                footer = [_this.renderSearchPicker()];
+                footer.join(_this.renderField());
+                footer.push(_this.renderSaveButton());
+            }
+            // Render the footer
+            return footer;
+        };
+        /**
+         * Methods
+         */
+        // Method to render the picker checkbox
+        _this.renderSearchPicker = function () {
+            return (React.createElement(office_ui_fabric_react_1.Checkbox, { defaultChecked: _this.state.cfg.TagPickerFl ? true : false, key: "searchPicker", label: "Use Tag Picker", onChange: _this.updatePickerFlag }));
         };
         // Method to update the
         _this.updatePickerFlag = function (ev, checked) {
@@ -193,6 +99,6 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
         return _this;
     }
     return WebPartSearchCfg;
-}(_1.WebPartListCfg));
+}(_1.WebPartFieldCfg));
 exports.WebPartSearchCfg = WebPartSearchCfg;
 //# sourceMappingURL=wpSearchCfg.js.map

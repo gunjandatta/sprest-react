@@ -2,14 +2,14 @@ import * as React from "react";
 import { Types } from "gd-sprest";
 import { Dropdown, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { Page } from "../../common";
-import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
+import { IWebPartCfgPanel, IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
 import { Panel } from '..';
 declare var SP;
 
 /**
- * Web Part Configuration
+ * Web Part Configuration Panel
  */
-export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> {
+export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> implements IWebPartCfgPanel {
     /**
      * Constructor
      */
@@ -25,24 +25,24 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps =
     /**
      * Global Variables
      */
-    private _errorMessage: HTMLDivElement = null;
-    private _panel: Panel = null;
+    _errorMessage: HTMLDivElement = null;
+    _panel: Panel = null;
 
 
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => JSX.Element;
+    abstract onRenderContents: (cfg: IWebPartCfg) => any;
 
     /**
      * Events
      */
 
     // The render footer event
-    onRenderFooter = (): JSX.Element => { return <div />; }
+    onRenderFooter = (): any => { return null; }
 
     // The render header event
-    onRenderHeader = (): JSX.Element => { return <div />; }
+    onRenderHeader = (): any => { return null; }
 
     // Method to render the panel
     render() {
@@ -64,7 +64,7 @@ export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps =
      */
 
     // Method to save the webpart configuration
-    protected saveConfiguration = (wpCfg: any) => {
+    saveConfiguration = (wpCfg: any) => {
         // Clear the error message
         this._errorMessage.innerText = "";
 

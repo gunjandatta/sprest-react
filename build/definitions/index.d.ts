@@ -13,6 +13,7 @@ export * from "./fieldUser";
 export * from "./itemForm";
 export * from "./wp";
 export * from "./wpCfg";
+export * from "./wpField";
 export * from "./wpList";
 export * from "./wpSearch";
 export * from "./wpTabs";

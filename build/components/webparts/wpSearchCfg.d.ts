@@ -1,10 +1,11 @@
 /// <reference types="react" />
-import { IWebPartSearchCfgProps, IWebPartSearchCfgState } from "../../definitions";
-import { WebPartListCfg } from ".";
+import { ITag } from "office-ui-fabric-react";
+import { IWebPartSearchCfgPanel, IWebPartSearchCfgProps, IWebPartSearchCfgState } from "../../definitions";
+import { WebPartFieldCfg } from ".";
 /**
- * WebPart Search Configuration
+ * WebPart Search Configuration Panel
  */
-export declare class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSearchCfgProps, State extends IWebPartSearchCfgState = IWebPartSearchCfgState> extends WebPartListCfg<Props, State> {
+export declare class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSearchCfgProps, State extends IWebPartSearchCfgState = IWebPartSearchCfgState> extends WebPartFieldCfg<Props, State> implements IWebPartSearchCfgPanel {
     /**
      * Constructor
      */
@@ -12,13 +13,11 @@ export declare class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWe
     /**
      * Events
      */
-    onListChanged: (state: State) => void;
-    onListsLoaded: (state: State) => void;
-    onRenderFooter: () => JSX.Element;
-    private onResolveSuggestions;
+    onFieldPickerDisplay: (tags: ITag[]) => void;
+    onRenderFooter: () => any;
     /**
      * Methods
      */
-    private updateFields;
+    renderSearchPicker: () => JSX.Element;
     private updatePickerFlag;
 }

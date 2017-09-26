@@ -1,5 +1,6 @@
 export * from "./wp";
 export * from "./wpCfg";
+export * from "./wpFieldCfg";
 export * from "./wpList";
 export * from "./wpListCfg";
 export * from "./wpSearch";

@@ -1,12 +1,29 @@
-import { Types } from "gd-sprest";
+/// <reference types="react" />
 import { ITag } from "office-ui-fabric-react";
-import { IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState, IWebPartListItem, IWebPartListProps, IWebPartListState } from ".";
+import { IWebPartFieldCfg, IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState, IWebPartListItem, IWebPartListProps, IWebPartListState } from ".";
 /**
  * Search Configuration
  */
-export interface IWebPartSearchCfg extends IWebPartListCfg {
-    Fields?: Array<Types.IFieldResult>;
+export interface IWebPartSearchCfg extends IWebPartFieldCfg {
     TagPickerFl?: boolean;
+}
+/**
+ * Search Configuration Panel
+ */
+export interface IWebPartSearchCfgPanel extends IWebPartFieldCfgPanel {
+    renderSearchPicker?: () => JSX.Element;
+}
+/**
+ * Search Configuration Properties
+ */
+export interface IWebPartSearchCfgProps extends IWebPartFieldCfgProps {
+    cfg: IWebPartSearchCfg;
+}
+/**
+ * Search Configuration State
+ */
+export interface IWebPartSearchCfgState extends IWebPartFieldCfgState {
+    cfg: IWebPartSearchCfg;
 }
 /**
  * Search Item
@@ -15,19 +32,6 @@ export interface IWebPartSearchItem extends IWebPartListItem {
     DocIcon?: string;
     FileRef?: string;
     LinkFilename?: string;
-}
-/**
- * Search Configuration Properties
- */
-export interface IWebPartSearchCfgProps extends IWebPartListCfgProps {
-    cfg: IWebPartSearchCfg;
-}
-/**
- * Search Configuration State
- */
-export interface IWebPartSearchCfgState extends IWebPartListCfgState {
-    cfg: IWebPartSearchCfg;
-    list: Types.IListQueryResult;
 }
 /**
  * Search Properties

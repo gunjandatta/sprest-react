@@ -15,7 +15,7 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../../common");
 var __1 = require("..");
 /**
- * Web Part Configuration
+ * Web Part Configuration Panel
  */
 var WebPartConfigurationPanel = /** @class */ (function (_super) {
     __extends(WebPartConfigurationPanel, _super);
@@ -33,9 +33,9 @@ var WebPartConfigurationPanel = /** @class */ (function (_super) {
          * Events
          */
         // The render footer event
-        _this.onRenderFooter = function () { return React.createElement("div", null); };
+        _this.onRenderFooter = function () { return null; };
         // The render header event
-        _this.onRenderHeader = function () { return React.createElement("div", null); };
+        _this.onRenderHeader = function () { return null; };
         /**
          * Methods
          */

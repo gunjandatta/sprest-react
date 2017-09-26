@@ -1,10 +1,11 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
+import { IWebPartCfgPanel, IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../../definitions";
+import { Panel } from '..';
 /**
- * Web Part Configuration
+ * Web Part Configuration Panel
  */
-export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> {
+export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> implements IWebPartCfgPanel {
     /**
      * Constructor
      */
@@ -12,22 +13,22 @@ export declare abstract class WebPartConfigurationPanel<Props extends IWebPartCf
     /**
      * Global Variables
      */
-    private _errorMessage;
-    private _panel;
+    _errorMessage: HTMLDivElement;
+    _panel: Panel;
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => JSX.Element;
+    abstract onRenderContents: (cfg: IWebPartCfg) => any;
     /**
      * Events
      */
-    onRenderFooter: () => JSX.Element;
-    onRenderHeader: () => JSX.Element;
+    onRenderFooter: () => any;
+    onRenderHeader: () => any;
     render(): JSX.Element;
     /**
      * Methods
      */
-    protected saveConfiguration: (wpCfg: any) => void;
+    saveConfiguration: (wpCfg: any) => void;
     private show;
     private updateWebPartContentElements;
     private updateConfigurationInElement;

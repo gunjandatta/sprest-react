@@ -2,12 +2,12 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
-import { IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../../definitions";
+import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../../definitions";
 import { WebPartConfigurationPanel } from ".";
 /**
- * WebPart List Configuration
+ * WebPart List Configuration Panel
  */
-export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> {
+export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> implements IWebPartListCfgPanel {
     /**
      * Constructor
      */
@@ -15,23 +15,29 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
     /**
      * Global Variables
      */
-    protected _query: Types.ODataQuery;
-    protected _listDropdown: Dropdown;
-    protected _refreshButton: PrimaryButton;
-    protected _saveButton: PrimaryButton;
-    protected _webUrl: TextField;
+    _query: Types.ODataQuery;
+    _listDropdown: Dropdown;
+    _refreshButton: PrimaryButton;
+    _saveButton: PrimaryButton;
+    _webUrl: TextField;
     /**
      * Events
      */
     onListChanged: (state: State, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: State) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    /**
+     * Overload Methods
+     */
     onRenderContents: (cfg: IWebPartListCfg) => JSX.Element;
     onRenderFooter: () => JSX.Element;
-    onSave: (ev: React.MouseEvent<HTMLButtonElement>) => void;
     /**
      * Methods
      */
     private loadLists;
+    renderList: () => JSX.Element;
+    renderSaveButton: () => JSX.Element;
+    renderWebUrl: () => JSX.Element[];
+    private onSave;
     private updateListName;
 }

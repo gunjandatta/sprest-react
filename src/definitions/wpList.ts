@@ -1,6 +1,12 @@
 import { Types } from "gd-sprest";
-import { IDropdownOption } from "office-ui-fabric-react";
-import { IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from ".";
+import {
+    Dropdown, IDropdownOption,
+    PrimaryButton,
+    TextField
+} from "office-ui-fabric-react";
+import {
+    IWebPartCfg, IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel
+} from ".";
 
 /**
  * List Configuration
@@ -11,9 +17,22 @@ export interface IWebPartListCfg extends IWebPartCfg {
 }
 
 /**
- * List Item
+ * List Configuration Panel
  */
-export interface IWebPartListItem extends Types.IListItemQueryResult { }
+export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
+    _query: Types.ODataQuery;
+    _listDropdown: Dropdown;
+    _refreshButton: PrimaryButton;
+    _saveButton: PrimaryButton;
+    _webUrl: TextField;
+
+    onListChanged?: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
+    onListsLoaded?: (newState: IWebPartListCfgState) => void;
+    onRefresh?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    renderList?: () => JSX.Element;
+    renderSaveButton?: () => JSX.Element;
+    renderWebUrl?: () => Array<JSX.Element>;
+}
 
 /**
  * List Configuration Properties
@@ -30,6 +49,11 @@ export interface IWebPartListCfgState extends IWebPartCfgState {
     lists?: Array<Types.IListQueryResult>;
     options?: Array<IDropdownOption>;
 }
+
+/**
+ * List Item
+ */
+export interface IWebPartListItem extends Types.IListItemQueryResult { }
 
 /**
  * List Properties

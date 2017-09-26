@@ -15,7 +15,7 @@ var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var _1 = require(".");
 /**
- * WebPart List Configuration
+ * WebPart List Configuration Panel
  */
 var WebPartListCfg = /** @class */ (function (_super) {
     __extends(WebPartListCfg, _super);
@@ -49,6 +49,9 @@ var WebPartListCfg = /** @class */ (function (_super) {
             // Load the lists
             _this.loadLists(cfg);
         };
+        /**
+         * Overload Methods
+         */
         // The render contents event
         _this.onRenderContents = function (cfg) {
             // See if the lists exists
@@ -60,25 +63,17 @@ var WebPartListCfg = /** @class */ (function (_super) {
             }
             // Render the component
             return (React.createElement("div", null,
-                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", ref: function (webUrl) { _this._webUrl = webUrl; }, value: cfg ? cfg.WebUrl : "" }),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" }),
-                React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: cfg ? cfg.ListName : "" })));
+                _this.renderWebUrl(),
+                _this.renderList()));
         };
         // Render the save button
         _this.onRenderFooter = function () {
             // See if the lists exists
             if (_this.state.lists != null) {
-                return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
+                return _this.renderSaveButton();
             }
             // Render nothing
             return null;
-        };
-        // The save button click event
-        _this.onSave = function (ev) {
-            // Prevent postback
-            ev.preventDefault();
-            // Save the webpart configuration
-            _this.saveConfiguration(_this.state.cfg);
         };
         /**
          * Methods
@@ -111,6 +106,28 @@ var WebPartListCfg = /** @class */ (function (_super) {
                 // Set the state
                 _this.setState(newState);
             });
+        };
+        // Method to render the list property
+        _this.renderList = function () {
+            return (React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: _this.state.cfg.ListName || "" }));
+        };
+        // Method to render the save button
+        _this.renderSaveButton = function () {
+            return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
+        };
+        // Method to render the web url property
+        _this.renderWebUrl = function () {
+            return [
+                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", key: "webUrlTextField", ref: function (webUrl) { _this._webUrl = webUrl; }, value: _this.state.cfg.WebUrl || "" }),
+                React.createElement(office_ui_fabric_react_1.PrimaryButton, { key: "webUrlRefreshButton", onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" })
+            ];
+        };
+        // Method to save the webpart configuration
+        _this.onSave = function (ev) {
+            // Prevent postback
+            ev.preventDefault();
+            // Save the webpart configuration
+            _this.saveConfiguration(_this.state.cfg);
         };
         // Method to update the list name
         _this.updateListName = function (option, idx) {

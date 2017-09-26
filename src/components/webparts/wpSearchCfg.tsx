@@ -7,21 +7,12 @@ import { WebPartFieldCfg } from ".";
 /**
  * WebPart Search Configuration Panel
  */
-export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSearchCfgProps, State extends IWebPartSearchCfgState = IWebPartSearchCfgState> extends WebPartFieldCfg<Props, State> implements IWebPartSearchCfgPanel {
-    /**
-     * Constructor
-     */
-    constructor(props: Props) {
-        super(props);
-
-        // Update the query to expand the fields
-        this._query.Expand = ["Fields"];
-    }
-
+export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSearchCfgProps, State extends IWebPartSearchCfgState = IWebPartSearchCfgState> extends WebPartFieldCfg<Props, State> {
     /**
      * Events
      */
 
+    // The field picker display event
     onFieldPickerDisplay = (tags: Array<ITag>) => {
         // Copy the tags
         let fieldTags = Object.create(tags);

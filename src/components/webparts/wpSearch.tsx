@@ -3,7 +3,7 @@ import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
 import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../../definitions";
-import { WebPartList, WebPartListCfg } from ".";
+import { WebPartList } from ".";
 
 /**
  * WebPart Search

@@ -1,5 +1,5 @@
+// Fields
 export * from "./baseField";
-export * from "./basePanel";
 export * from "./fieldAttachments";
 export * from "./fieldBoolean";
 export * from "./fieldChoice";
@@ -10,10 +10,15 @@ export * from "./fieldNumber";
 export * from "./fieldText";
 export * from "./fieldUrl";
 export * from "./fieldUser";
+
+// Components
 export * from "./itemForm";
+export * from "./basePanel";
+
+// WebParts
 export * from "./wp";
 export * from "./wpCfg";
-export * from "./wpField";
 export * from "./wpList";
+export * from "./wpField";
 export * from "./wpSearch";
 export * from "./wpTabs";

@@ -9,7 +9,7 @@ declare var SP;
 /**
  * Web Part Configuration Panel
  */
-export abstract class WebPartConfigurationPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> implements IWebPartCfgPanel {
+export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartCfgProps, State extends IWebPartCfgState = IWebPartCfgState> extends React.Component<Props, State> implements IWebPartCfgPanel {
     /**
      * Constructor
      */

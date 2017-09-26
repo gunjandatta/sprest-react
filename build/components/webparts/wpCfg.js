@@ -17,12 +17,12 @@ var __1 = require("..");
 /**
  * Web Part Configuration Panel
  */
-var WebPartConfigurationPanel = /** @class */ (function (_super) {
-    __extends(WebPartConfigurationPanel, _super);
+var WebPartCfgPanel = /** @class */ (function (_super) {
+    __extends(WebPartCfgPanel, _super);
     /**
      * Constructor
      */
-    function WebPartConfigurationPanel(props) {
+    function WebPartCfgPanel(props) {
         var _this = _super.call(this, props) || this;
         /**
          * Global Variables
@@ -163,7 +163,7 @@ var WebPartConfigurationPanel = /** @class */ (function (_super) {
         return _this;
     }
     // Method to render the panel
-    WebPartConfigurationPanel.prototype.render = function () {
+    WebPartCfgPanel.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
@@ -173,7 +173,7 @@ var WebPartConfigurationPanel = /** @class */ (function (_super) {
                 this.onRenderContents(this.state.cfg),
                 this.onRenderFooter())));
     };
-    return WebPartConfigurationPanel;
+    return WebPartCfgPanel;
 }(React.Component));
-exports.WebPartConfigurationPanel = WebPartConfigurationPanel;
+exports.WebPartCfgPanel = WebPartCfgPanel;
 //# sourceMappingURL=wpCfg.js.map

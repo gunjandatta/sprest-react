@@ -2,12 +2,12 @@ import * as React from "react";
 import { Web, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField, Spinner } from "office-ui-fabric-react";
 import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../../definitions";
-import { WebPartConfigurationPanel } from ".";
+import { WebPartCfgPanel } from ".";
 
 /**
  * WebPart List Configuration Panel
  */
-export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartConfigurationPanel<Props, State> implements IWebPartListCfgPanel {
+export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartCfgPanel<Props, State> implements IWebPartListCfgPanel {
     /**
      * Constructor
      */

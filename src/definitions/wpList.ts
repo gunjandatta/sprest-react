@@ -26,12 +26,12 @@ export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
     _saveButton: PrimaryButton;
     _webUrl: TextField;
 
-    onListChanged?: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
-    onListsLoaded?: (newState: IWebPartListCfgState) => void;
-    onRefresh?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
-    renderList?: () => JSX.Element;
-    renderSaveButton?: () => JSX.Element;
-    renderWebUrl?: () => Array<JSX.Element>;
+    onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
+    onListsLoaded: (newState: IWebPartListCfgState) => void;
+    onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    renderList: () => JSX.Element;
+    renderSaveButton: () => JSX.Element;
+    renderWebUrl: () => Array<JSX.Element>;
 }
 
 /**

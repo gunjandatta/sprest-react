@@ -19,14 +19,12 @@ var _1 = require(".");
  */
 var WebPartSearchCfg = /** @class */ (function (_super) {
     __extends(WebPartSearchCfg, _super);
-    /**
-     * Constructor
-     */
-    function WebPartSearchCfg(props) {
-        var _this = _super.call(this, props) || this;
+    function WebPartSearchCfg() {
         /**
          * Events
          */
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        // The field picker display event
         _this.onFieldPickerDisplay = function (tags) {
             // Copy the tags
             var fieldTags = Object.create(tags);
@@ -94,8 +92,6 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
             // Update the state
             _this.setState({ cfg: cfg });
         };
-        // Update the query to expand the fields
-        _this._query.Expand = ["Fields"];
         return _this;
     }
     return WebPartSearchCfg;

@@ -11,7 +11,7 @@ export interface IWebPartSearchCfg extends IWebPartFieldCfg {
  * Search Configuration Panel
  */
 export interface IWebPartSearchCfgPanel extends IWebPartFieldCfgPanel {
-    renderSearchPicker?: () => JSX.Element;
+    renderSearchPicker: () => JSX.Element;
 }
 /**
  * Search Configuration Properties

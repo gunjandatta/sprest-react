@@ -1,8 +1,11 @@
+// WebParts
 export * from "./wp";
-export * from "./wpCfg";
-export * from "./wpFieldCfg";
 export * from "./wpList";
-export * from "./wpListCfg";
 export * from "./wpSearch";
-export * from "./wpSearchCfg";
 export * from "./wpTabs";
+
+// WebPart Configurations
+export * from "./wpCfg";
+export * from "./wpListCfg";
+export * from "./wpFieldCfg";
+export * from "./wpSearchCfg";

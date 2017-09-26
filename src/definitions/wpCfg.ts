@@ -15,9 +15,9 @@ export interface IWebPartCfgPanel {
     _panel: Panel;
 
     onRenderContents: (cfg: IWebPartCfg) => JSX.Element | Array<JSX.Element>;
-    onRenderFooter?: () => JSX.Element | Array<JSX.Element>;
-    onRenderHeader?: () => JSX.Element | Array<JSX.Element>;
-    saveConfiguration?: (wpCfg: IWebPartCfg) => void;
+    onRenderFooter: () => JSX.Element | Array<JSX.Element>;
+    onRenderHeader: () => JSX.Element | Array<JSX.Element>;
+    saveConfiguration: (wpCfg: IWebPartCfg) => void;
 }
 
 /**

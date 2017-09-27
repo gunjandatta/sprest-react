@@ -34,13 +34,24 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      * Events
      */
 
-    // The list change event
+    /**
+     * The list change event
+     * @param state - The current state, updates to this object will be saved.
+     * @param option - The dropdown option.
+     * @param idx - The dropdown option index.
+     */
     onListChanged = (state: State, option?: IDropdownOption, idx?: number) => { }
 
-    // The lists loaded event
+    /**
+     * The lists loaded event
+     * @param newState - The new state, updates to this object will be saved.
+     */
     onListsLoaded = (newState: State) => { }
 
-    // The refresh button click event
+    /**
+     * The refresh button click event
+     * @param ev - The button click event.
+     */
     onRefresh = (ev: React.MouseEvent<HTMLButtonElement>) => {
         // Prevent postback
         ev.preventDefault();
@@ -57,7 +68,10 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      * Overload Methods
      */
 
-    // The render contents event
+    /**
+     * The render contents event
+     * @param cfg - The webpart list configuration.
+     */
     onRenderContents = (cfg: IWebPartListCfg) => {
         // See if the lists exists
         if (this.state.lists == null) {
@@ -79,7 +93,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         );
     }
 
-    // Render the save button
+    /**
+     * The render footer event
+     */
     onRenderFooter = () => {
         // See if the lists exists
         if (this.state.lists != null) {
@@ -94,7 +110,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      * Methods
      */
 
-    // Method to load the lists for the drop down
+    /**
+     * Method to load the lists for the drop down
+     */
     private loadLists = (cfg: IWebPartListCfg) => {
         // Get the web
         (new Web(cfg.WebUrl))
@@ -132,7 +150,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
             });
     }
 
-    // Method to render the list property
+    /**
+     * Method to render the list property
+     */
     renderList = () => {
         return (
             <Dropdown
@@ -145,7 +165,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         );
     }
 
-    // Method to render the save button
+    /**
+     * Method to render the save button
+     */
     renderSaveButton = () => {
         return (
             <PrimaryButton
@@ -156,7 +178,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         );
     }
 
-    // Method to render the web url property
+    /**
+     * Method to render the web url property
+     */
     renderWebUrl = () => {
         return [
             <TextField
@@ -174,7 +198,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         ];
     }
 
-    // Method to save the webpart configuration
+    /**
+     * Method to save the webpart configuration
+     */
     private onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
         // Prevent postback
         ev.preventDefault();
@@ -184,7 +210,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     }
 
 
-    // Method to update the list name
+    /**
+     * Method to update the list name
+     */
     private updateListName = (option?: IDropdownOption, idx?: number) => {
         let newState = this.state;
 

@@ -14,7 +14,7 @@ var React = require("react");
 var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var __1 = require("..");
+var _1 = require(".");
 /**
  * Item Form WebPart
  */
@@ -124,7 +124,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Fields.FieldAttachments, { files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {
@@ -132,7 +132,7 @@ var ItemForm = /** @class */ (function (_super) {
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(__1.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Fields.Field, { controlMode: _this.props.controlMode || (_this.props.item && _this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New), defaultValue: item[fieldInfo.name], listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             }
             // Return the form fields
             return formFields;

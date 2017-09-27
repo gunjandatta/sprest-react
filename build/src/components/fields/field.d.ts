@@ -1,10 +1,10 @@
 /// <reference types="react" />
 import { IBaseFieldInfo, IBaseFieldProps } from "../../definitions";
-import { Fields } from "..";
+import { BaseField } from ".";
 /**
  * Field
  */
-export declare class Field extends Fields.BaseField {
+export declare class Field extends BaseField {
     private _field;
     /**
      * Constructor

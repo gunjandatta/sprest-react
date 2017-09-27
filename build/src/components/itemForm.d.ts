@@ -1,8 +1,8 @@
 /// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { IItemFormProps, IItemFormState } from "../../definitions";
-import { Field, Fields } from "..";
+import { IItemFormProps, IItemFormState } from "../definitions";
+import { Fields } from ".";
 /**
  * Item Form WebPart
  */
@@ -15,7 +15,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     AttachmentField: Fields.FieldAttachments;
     FormFields: {
-        [key: string]: Field;
+        [key: string]: Fields.Field;
     };
     readonly List: Types.IListResult;
     /**

@@ -6,6 +6,7 @@
   "typings": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "docs": "typedoc --out ./docs --module commonjs --target es5 ./src",
     "test": "tsc && webpack"
   },
   "repository": {

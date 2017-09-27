@@ -1,25 +1,18 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var baseField_1 = require("./baseField");
-exports.BaseField = baseField_1.BaseField;
-var fieldAttachments_1 = require("./fieldAttachments");
-exports.FieldAttachments = fieldAttachments_1.FieldAttachments;
-var fieldBoolean_1 = require("./fieldBoolean");
-exports.FieldBoolean = fieldBoolean_1.FieldBoolean;
-var fieldChoice_1 = require("./fieldChoice");
-exports.FieldChoice = fieldChoice_1.FieldChoice;
-var fieldDateTime_1 = require("./fieldDateTime");
-exports.FieldDateTime = fieldDateTime_1.FieldDateTime;
-var fieldLookup_1 = require("./fieldLookup");
-exports.FieldLookup = fieldLookup_1.FieldLookup;
-var fieldManagedMetadata_1 = require("./fieldManagedMetadata");
-exports.FieldManagedMetadata = fieldManagedMetadata_1.FieldManagedMetadata;
-var fieldNumber_1 = require("./fieldNumber");
-exports.FieldNumber = fieldNumber_1.FieldNumber;
-var fieldText_1 = require("./fieldText");
-exports.FieldText = fieldText_1.FieldText;
-var fieldUrl_1 = require("./fieldUrl");
-exports.FieldUrl = fieldUrl_1.FieldUrl;
-var fieldUser_1 = require("./fieldUser");
-exports.FieldUser = fieldUser_1.FieldUser;
+__export(require("./baseField"));
+__export(require("./field"));
+__export(require("./fieldAttachments"));
+__export(require("./fieldBoolean"));
+__export(require("./fieldChoice"));
+__export(require("./fieldDateTime"));
+__export(require("./fieldLookup"));
+__export(require("./fieldManagedMetadata"));
+__export(require("./fieldNumber"));
+__export(require("./fieldText"));
+__export(require("./fieldUrl"));
+__export(require("./fieldUser"));
 //# sourceMappingURL=index.js.map

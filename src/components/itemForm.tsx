@@ -6,15 +6,15 @@ import {
     IBaseFieldInfo,
     IManagedMetadataFieldInfo,
     IItemFormField, IItemFormProps, IItemFormState
-} from "../../definitions";
-import { Field, Fields } from "..";
+} from "../definitions";
+import { Fields } from ".";
 
 /**
  * Item Form WebPart
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private _attachmentField: Fields.FieldAttachments = null;
-    private _fields: { [key: string]: Field } = {};
+    private _fields: { [key: string]: Fields.Field } = {};
     private _list: Types.IListResult = null;
 
     /**
@@ -26,8 +26,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     set AttachmentField(field: Fields.FieldAttachments) { this._attachmentField = field; }
 
     // Form Fields
-    get FormFields(): { [key: string]: Field } { return this._fields; }
-    set FormFields(fields: { [key: string]: Field }) { this._fields = fields; }
+    get FormFields(): { [key: string]: Fields.Field } { return this._fields; }
+    set FormFields(fields: { [key: string]: Fields.Field }) { this._fields = fields; }
 
     // List
     get List(): Types.IListResult { return this._list; }
@@ -321,7 +321,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             formFields.push(
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                     <div className="ms-Grid-col ms-md12">
-                        <Field
+                        <Fields.Field
                             controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
                             defaultValue={item[fieldInfo.name]}
                             listName={this.props.listName}

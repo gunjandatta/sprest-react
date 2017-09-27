@@ -5,6 +5,9 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Fields = require("./fields");
 exports.Fields = Fields;
-__export(require("./common"));
+var basePanel_1 = require("./basePanel");
+exports.Panel = basePanel_1.BasePanel;
+__export(require("./itemForm"));
+__export(require("./peoplePicker"));
 __export(require("./webparts"));
 //# sourceMappingURL=index.js.map

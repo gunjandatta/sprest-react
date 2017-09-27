@@ -1,13 +1,16 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
 import { IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "../../definitions";
-import { Fields } from "..";
+import {
+    BaseField, FieldAttachments, FieldBoolean, FieldChoice, FieldDateTime, FieldLookup,
+    FieldManagedMetadata, FieldNumber, FieldText, FieldUrl, FieldUser
+} from ".";
 
 /**
  * Field
  */
-export class Field extends Fields.BaseField {
-    private _field: Fields.BaseField = this;
+export class Field extends BaseField {
+    private _field: BaseField = this;
 
     /**
      * Constructor
@@ -35,31 +38,31 @@ export class Field extends Fields.BaseField {
         switch (fieldInfo.type) {
             // Boolean
             case SPTypes.FieldType.Boolean:
-                return <Fields.FieldBoolean {...props} ref={field => { this._field = field; }} />;
+                return <FieldBoolean {...props} ref={field => { this._field = field; }} />;
             // Choice
             case SPTypes.FieldType.Choice:
             case SPTypes.FieldType.MultiChoice:
-                return <Fields.FieldChoice {...props} ref={field => { this._field = field; }} />;
+                return <FieldChoice {...props} ref={field => { this._field = field; }} />;
             // Date/Time
             case SPTypes.FieldType.DateTime:
-                return <Fields.FieldDateTime {...props} ref={field => { this._field = field; }} />;
+                return <FieldDateTime {...props} ref={field => { this._field = field; }} />;
             // Lookup
             case SPTypes.FieldType.Lookup:
-                return <Fields.FieldLookup {...props} ref={field => { this._field = field; }} />;
+                return <FieldLookup {...props} ref={field => { this._field = field; }} />;
             // Number
             case SPTypes.FieldType.Currency:
             case SPTypes.FieldType.Number:
-                return <Fields.FieldNumber {...props} ref={field => { this._field = field; }} />;
+                return <FieldNumber {...props} ref={field => { this._field = field; }} />;
             // Text
             case SPTypes.FieldType.Note:
             case SPTypes.FieldType.Text:
-                return <Fields.FieldText {...props} ref={field => { this._field = field; }} />;
+                return <FieldText {...props} ref={field => { this._field = field; }} />;
             // URL
             case SPTypes.FieldType.URL:
-                return <Fields.FieldUrl {...props} ref={field => { this._field = field; }} />;
+                return <FieldUrl {...props} ref={field => { this._field = field; }} />;
             // User
             case SPTypes.FieldType.User:
-                return <Fields.FieldUser {...props} ref={field => { this._field = field; }} />;
+                return <FieldUser {...props} ref={field => { this._field = field; }} />;
             // Default
             default:
                 // Check the type as string value
@@ -67,11 +70,11 @@ export class Field extends Fields.BaseField {
                     // Managed Metadata
                     case "TaxonomyFieldType":
                     case "TaxonomyFieldTypeMulti":
-                        return <Fields.FieldManagedMetadata {...props} ref={field => { this._field = field; }} />;
+                        return <FieldManagedMetadata {...props} ref={field => { this._field = field; }} />;
                     // Default
                     default:
                         return (
-                            <Fields.BaseField {...props} ref={field => { this._field = field; }} />
+                            <BaseField {...props} ref={field => { this._field = field; }} />
                         );
                 }
         }

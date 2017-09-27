@@ -35,11 +35,22 @@ var WebPartListCfg = /** @class */ (function (_super) {
         /**
          * Events
          */
-        // The list change event
+        /**
+         * The list change event
+         * @param state - The current state, updates to this object will be saved.
+         * @param option - The dropdown option.
+         * @param idx - The dropdown option index.
+         */
         _this.onListChanged = function (state, option, idx) { };
-        // The lists loaded event
+        /**
+         * The lists loaded event
+         * @param newState - The new state, updates to this object will be saved.
+         */
         _this.onListsLoaded = function (newState) { };
-        // The refresh button click event
+        /**
+         * The refresh button click event
+         * @param ev - The button click event.
+         */
         _this.onRefresh = function (ev) {
             // Prevent postback
             ev.preventDefault();
@@ -52,7 +63,10 @@ var WebPartListCfg = /** @class */ (function (_super) {
         /**
          * Overload Methods
          */
-        // The render contents event
+        /**
+         * The render contents event
+         * @param cfg - The webpart list configuration.
+         */
         _this.onRenderContents = function (cfg) {
             // See if the lists exists
             if (_this.state.lists == null) {
@@ -66,7 +80,9 @@ var WebPartListCfg = /** @class */ (function (_super) {
                 _this.renderWebUrl(),
                 _this.renderList()));
         };
-        // Render the save button
+        /**
+         * The render footer event
+         */
         _this.onRenderFooter = function () {
             // See if the lists exists
             if (_this.state.lists != null) {
@@ -78,7 +94,9 @@ var WebPartListCfg = /** @class */ (function (_super) {
         /**
          * Methods
          */
-        // Method to load the lists for the drop down
+        /**
+         * Method to load the lists for the drop down
+         */
         _this.loadLists = function (cfg) {
             // Get the web
             (new gd_sprest_1.Web(cfg.WebUrl))
@@ -107,29 +125,39 @@ var WebPartListCfg = /** @class */ (function (_super) {
                 _this.setState(newState);
             });
         };
-        // Method to render the list property
+        /**
+         * Method to render the list property
+         */
         _this.renderList = function () {
             return (React.createElement(office_ui_fabric_react_1.Dropdown, { label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: _this.state.cfg.ListName || "" }));
         };
-        // Method to render the save button
+        /**
+         * Method to render the save button
+         */
         _this.renderSaveButton = function () {
             return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
         };
-        // Method to render the web url property
+        /**
+         * Method to render the web url property
+         */
         _this.renderWebUrl = function () {
             return [
                 React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", key: "webUrlTextField", ref: function (webUrl) { _this._webUrl = webUrl; }, value: _this.state.cfg.WebUrl || "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { key: "webUrlRefreshButton", onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" })
             ];
         };
-        // Method to save the webpart configuration
+        /**
+         * Method to save the webpart configuration
+         */
         _this.onSave = function (ev) {
             // Prevent postback
             ev.preventDefault();
             // Save the webpart configuration
             _this.saveConfiguration(_this.state.cfg);
         };
-        // Method to update the list name
+        /**
+         * Method to update the list name
+         */
         _this.updateListName = function (option, idx) {
             var newState = _this.state;
             // Set the list name

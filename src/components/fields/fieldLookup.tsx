@@ -10,10 +10,8 @@ import { BaseField } from ".";
  */
 export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState> implements IFieldLookup {
     /**
-     * Public Interface
+     * Render the field
      */
-
-    // Render the field
     renderField = () => {
         // Ensure the options exist
         if (this.state.options == null) {
@@ -66,7 +64,11 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * Events
      */
 
-    // The change event for the dropdown list
+    /**
+     * The change event for the dropdown list
+     * @param option - The dropdown option.
+     * @param idx - The dropdown option number.
+     */
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(option) : null;
@@ -97,7 +99,11 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         }
     }
 
-    // The field initialized event
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
     onFieldInit = (field: any, state: IFieldLookupState) => {
         let lookupField = field as Types.IFieldLookup;
 
@@ -149,7 +155,10 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * Methods
      */
 
-    // Method to load the lookup items
+    /**
+     * Method to load the lookup items
+     * @param fieldInfo - The field information.
+     */
     private loadLookupItems = (fieldInfo: ILookupFieldInfo) => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -183,7 +192,11 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         });
     }
 
-    // Method to convert the field value to options
+    /**
+     * Method to convert the field value to options
+     * @param items - The lookup items.
+     * @param fieldName - The lookup field name.
+     */
     private toOptions = (items: Array<Types.IListItemQueryResult> = [], fieldName: string) => {
         let options: Array<IDropdownOption> = [];
 

@@ -10,15 +10,31 @@ import { WebPartCfgPanel } from ".";
 export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartCfgPanel<Props, State> implements IWebPartListCfgPanel {
     /**
      * Constructor
+     * @param props - The webpart list configuration properties.
      */
     constructor(props: Props);
     /**
      * Global Variables
      */
+    /**
+     * The OData query.
+     */
     _query: Types.ODataQuery;
+    /**
+     * Reference to the list dropdown.
+     */
     _listDropdown: Dropdown;
+    /**
+     * Reference to the refresh button.
+     */
     _refreshButton: PrimaryButton;
+    /**
+     * Reference to the save button.
+     */
     _saveButton: PrimaryButton;
+    /**
+     * Reference to the web url text field.
+     */
     _webUrl: TextField;
     /**
      * Events

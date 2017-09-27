@@ -28,6 +28,7 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
     __extends(WebPartFieldCfg, _super);
     /**
      * Constructor
+     * @param props - The webpart field configuration properties.
      */
     function WebPartFieldCfg(props) {
         var _this = _super.call(this, props) || this;
@@ -36,9 +37,14 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
         /**
          * Events
          */
-        // The on field picker display event
+        /**
+         * The on field picker display event
+         * @param tags - The fields as an array of tags for the picker.
+         */
         _this.onFieldPickerDisplay = function (tags) { return; };
-        // The render footer event
+        /**
+         * The render footer event
+         */
         _this.onRenderFooter = function () {
             var footer = null;
             // See if the lists exists
@@ -49,7 +55,11 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
             // Render the footer
             return footer;
         };
-        // Method to resolve suggestions event
+        /**
+         * Method to resolve suggestions event
+         * @param filterText - The filter text.
+         * @param selectedItems - The selected tags.
+         */
         _this.onResolveSuggestions = function (filterText, selectedItems) {
             var tags = [];
             // Ensure the list and filter exists
@@ -89,7 +99,9 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
         /**
          * Methods
          */
-        // Method to render the field property
+        /**
+         * Method to render the field property
+         */
         _this.renderField = function () {
             var tags = [];
             // Parse the fields
@@ -121,7 +133,9 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
                 React.createElement(office_ui_fabric_react_1.TagPicker, __assign({}, pickerProps, { ref: function (picker) { _this._fieldPicker = picker; }, key: "fieldPicker" }))
             ];
         };
-        // Method to update the state w/ the selected field(s)
+        /**
+         * Method to update the state w/ the selected field(s)
+         */
         _this.updateFields = function (selectedFields) {
             // Update the configuration
             var cfg = _this.state.cfg;

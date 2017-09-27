@@ -9,10 +9,8 @@ import { BaseField } from ".";
  */
 export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState> {
     /**
-     * Public Interface
+     * Render the component
      */
-
-    // Method to render the component
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -40,7 +38,9 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
      * Methods
      */
 
-    // Method to return the value
+    /**
+     * Method to return the value
+     */
     private getValue = () => {
         let value = this.getFieldValue();
 
@@ -58,7 +58,10 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         return value;
     }
 
-    // The on change event
+    /**
+     * The on change event
+     * @param value - The field value.
+     */
     private onChange = (value: number) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(value) : null;

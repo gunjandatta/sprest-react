@@ -18,6 +18,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
     /**
      * Constructor
+     * @param props - The attachment field properties.
      */
     constructor(props: IFieldAttachmentsProps) {
         super(props);
@@ -31,10 +32,8 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
-     * Public Interface
+     * Method to render the component
      */
-
-    // Method to render the component
     render() {
         // See if this is the display mode
         if (this.props.controlMode == SPTypes.ControlMode.Display) {
@@ -70,7 +69,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         );
     }
 
-    // Method to save the attachments to the item
+    /**
+     * Method to save the attachments to the item
+     * @param itemId - The item id.
+     */
     save = (itemId: number): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -89,7 +91,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Events
      */
 
-    // Event triggered by the user selecting a file to upload
+    /**
+     * Event triggered by the user selecting a file to upload
+     * @param ev - The button click event.
+     */
     private addAttachment = (ev) => {
         // Get the file information
         let srcFile = ev.target.files[0];
@@ -158,7 +163,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         }
     }
 
-    // Event triggered by clicking on the attachment delete icon
+    /**
+     * Event triggered by clicking on the attachment delete icon
+     * @param ev - The button click event.
+     */
     private removeAttachment = (ev: React.MouseEvent<HTMLButtonElement>) => {
         // Prevent postback
         ev.preventDefault();
@@ -188,7 +196,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         this.setState({ files });
     }
 
-    // Event triggered by clicking on the add attachment link
+    /**
+     * Event triggered by clicking on the add attachment link
+     * @param ev - The button click event.
+     */
     private showFileDialog = (ev: React.MouseEvent<HTMLButtonElement>) => {
         // Prevent postback
         ev.preventDefault();
@@ -201,7 +212,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Methods
      */
 
-    // Method to delete the attachments
+    /**
+     * Method to delete the attachments
+     */
     private deleteAttachments = () => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -231,7 +244,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         });
     }
 
-    // Method to load the files
+    /**
+     * Method to load the files
+     * @param attachments - The file attachments.
+     */
     private loadFiles = (attachments: Types.ComplexTypes.FieldAttachmentFiles) => {
         let files: Array<IAttachmentFile> = [];
 
@@ -256,7 +272,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         return files;
     }
 
-    // Method to render the attachments
+    /**
+     * Method to render the attachments
+     */
     private renderAttachments = () => {
         let files = [];
 
@@ -280,7 +298,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         return files;
     }
 
-    // Method to save the attachments
+    /**
+     * Method to save the attachments
+     * @param itemId - The item id.
+     */
     private saveAttachments = (itemId: number) => {
         // Return a promise
         return new Promise((resolve, reject) => {

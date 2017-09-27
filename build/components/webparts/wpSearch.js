@@ -22,6 +22,7 @@ var WebPartSearch = /** @class */ (function (_super) {
     __extends(WebPartSearch, _super);
     /**
      * Constructor
+     * @param props - The webpart search properties.
      */
     function WebPartSearch(props) {
         var _this = _super.call(this, props) || this;
@@ -29,7 +30,9 @@ var WebPartSearch = /** @class */ (function (_super) {
         /**
          * Methods
          */
-        // Method to generate the mapper
+        /**
+         * Method to generate the mapper
+         */
         _this.generateMapper = function (items) {
             var searchTerms = [];
             var tagMapper = {};
@@ -119,7 +122,9 @@ var WebPartSearch = /** @class */ (function (_super) {
                 tagMapper: tagMapper
             });
         };
-        // Method to get the items
+        /**
+         * Method to get the items
+         */
         _this.getItems = function () {
             // Determine if we are using the picker
             if (_this.props.cfg.TagPickerFl) {
@@ -129,7 +134,9 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Return the items by the filter
             return _this.getItemsByFilter();
         };
-        // Method to get the items by filter
+        /**
+         * Method to get the items by filter
+         */
         _this.getItemsByFilter = function () {
             // Ensure a filter exists
             if (_this.state.searchFilter) {
@@ -163,7 +170,9 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Return the items
             return _this.state.items;
         };
-        // Method to get the items by tags
+        /**
+         * Method to get the items by tags
+         */
         _this.getItemsByTags = function () {
             // Ensure tags exist
             if (_this.state.selectedTags.length > 0) {
@@ -196,7 +205,9 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Return the items
             return _this.state.items;
         };
-        // Method to load the documents
+        /**
+         * Method to load the documents
+         */
         _this.load = function () {
             // Include the id field
             _this._query.Select.push("ID");
@@ -229,7 +240,11 @@ var WebPartSearch = /** @class */ (function (_super) {
                     .execute(_this.generateMapper);
             }
         };
-        // Method to resolve the tag picker
+        /**
+         * Method to resolve the tag picker
+         * @param filterText - The filter text.
+         * @param tagList - The selected fields.
+         */
         _this.onResolveSuggestions = function (filterText, tagList) {
             // Save the filter
             _this._filterText = filterText ? filterText.toLowerCase() : filterText;
@@ -266,14 +281,20 @@ var WebPartSearch = /** @class */ (function (_super) {
                 }, 500);
             });
         };
-        // Method to update the search filter
+        /**
+         * Method to update the search filter
+         * @param - The search filter.
+         */
         _this.updateSearchFilter = function (filter) {
             // Update the state
             _this.setState({
                 searchFilter: filter
             });
         };
-        // Method to update the selected tags
+        /**
+         * Method to update the selected tags
+         * @param tags - The selected fields.
+         */
         _this.updateSelectedTags = function (tags) {
             // Update the state
             _this.setState({
@@ -298,7 +319,9 @@ var WebPartSearch = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Render the component
+    /**
+     * Render the component
+     */
     WebPartSearch.prototype.render = function () {
         // Ensure the component has been initialized
         if (this.state.items == null) {

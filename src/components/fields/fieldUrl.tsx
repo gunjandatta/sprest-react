@@ -9,10 +9,8 @@ import { BaseField } from ".";
  */
 export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
     /**
-     * Public Interface
+     * Render the component
      */
-
-    // Method to render the component
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -66,7 +64,10 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      * Events
      */
 
-    // The change event for the description field
+    /**
+     * The change event for the description field
+     * @param value - The description.
+     */
     private onDescChanged = (value: string) => {
         // Get the value
         let fieldValue: Types.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.ComplexTypes.FieldUrlValue;
@@ -84,7 +85,10 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         this.updateValue(fieldValue);
     }
 
-    // The change event for the url field
+    /**
+     * The change event for the url field
+     * @param value - The url.
+     */
     private onUrlChanged = (value: string) => {
         // Get the value
         let fieldValue: Types.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.ComplexTypes.FieldUrlValue;

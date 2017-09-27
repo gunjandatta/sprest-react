@@ -19,18 +19,28 @@ var WebPartTabs = /** @class */ (function (_super) {
     __extends(WebPartTabs, _super);
     /**
      * Constructor
+     * @param props - The webpart tabs properties.
      */
     function WebPartTabs(props) {
         var _this = _super.call(this, props) || this;
+        /**
+         * Flag to determine if the webpart is inside a content zone.
+         */
         _this._isContentZone = false;
-        // The render footer event
+        /**
+         * The render footer event
+         */
         _this.onRenderFooter = function () { return null; };
-        // The render header event
+        /**
+         * The render header event
+         */
         _this.onRenderHeader = function () { return null; };
         /**
          * Methods
          */
-        // Methods to get the webparts
+        /**
+         * Methods to get the webparts
+         */
         _this.getWebParts = function () {
             var wps = [];
             // Get the webpart element and zone
@@ -72,7 +82,9 @@ var WebPartTabs = /** @class */ (function (_super) {
             // Return the webparts
             return wps;
         };
-        // Method to get the webpart zone
+        /**
+         * Method to get the webpart zone
+         */
         _this.getWebPartZone = function (el) {
             // Ensure the element exists
             if (el) {
@@ -94,7 +106,9 @@ var WebPartTabs = /** @class */ (function (_super) {
             // Return nothing
             return null;
         };
-        // Method to render the tabs
+        /**
+         * Method to render the tabs
+         */
         _this.renderTabs = function () {
             var tabs = [];
             // Parse the webparts
@@ -117,14 +131,20 @@ var WebPartTabs = /** @class */ (function (_super) {
             // Return the tabs
             return tabs;
         };
-        // Method to update the
+        /**
+         * Method to update the
+         * @param item - The pivot item.
+         * @param ev - The tab click event.
+         */
         _this.updateSelectedTab = function (item, ev) {
             // Update the state
             _this.setState({
                 selectedTabId: parseInt(item.props.itemID)
             });
         };
-        // Method to update the webpart visibility
+        /**
+         * Method to update the webpart visibility
+         */
         _this.updateWebPartVisibility = function () {
             // Parse the webparts
             for (var i = 0; i < _this.state.webparts.length; i++) {
@@ -153,17 +173,23 @@ var WebPartTabs = /** @class */ (function (_super) {
     /**
      * Events
      */
-    // Component initialized event
+    /**
+     * Component initialized event
+     */
     WebPartTabs.prototype.componentDidMount = function () {
         // Update the webpart visibility
         this.updateWebPartVisibility();
     };
-    // Component updated event
+    /**
+     * Component updated event
+     */
     WebPartTabs.prototype.componentDidUpdate = function () {
         // Update the webpart visibility
         this.updateWebPartVisibility();
     };
-    // Method to render the component
+    /**
+     * Method to render the component
+     */
     WebPartTabs.prototype.render = function () {
         return (React.createElement("div", { className: this.props.className },
             this.onRenderHeader(),

@@ -21,20 +21,28 @@ var WebPartList = /** @class */ (function (_super) {
     __extends(WebPartList, _super);
     /**
      * Constructor
+     * @param props - The webpart list properties.
      */
     function WebPartList(props) {
         var _this = _super.call(this, props) || this;
         /**
          * Global Variables
          */
-        // The CAML query
+        /**
+         * The CAML query
+         */
         _this._caml = null;
-        // The OData query
+        /**
+         * The OData query (Default)
+         */
         _this._query = null;
         /**
          * Events
          */
-        // The render container event
+        /**
+         * The render container event
+         * @param items - An array of webpart list items.
+         */
         _this.onRenderContainer = function (items) {
             var elItems = [];
             // Parse the items
@@ -49,12 +57,17 @@ var WebPartList = /** @class */ (function (_super) {
             // Render the item elements
             return React.createElement("div", null, elItems);
         };
-        // The render item event
+        /**
+         * The render item event
+         * @param item - The webpart list item.
+         */
         _this.onRenderItem = function (item) { return React.createElement("div", null); };
         /**
          * Methods
          */
-        // Method to load the list data
+        /**
+         * Method to load the list data
+         */
         _this.load = function () {
             // See if we are using the CAML query
             if (_this._caml) {
@@ -64,7 +77,9 @@ var WebPartList = /** @class */ (function (_super) {
                 _this.loadODATA();
             }
         };
-        // Method to load the list data using a CAML query
+        /**
+         * Method to load the list data using a CAML query
+         */
         _this.loadCAML = function () {
             // See if we are targeting a different web
             if (_this.props.cfg.WebUrl) {
@@ -86,7 +101,9 @@ var WebPartList = /** @class */ (function (_super) {
                     .execute(_this.onLoadData);
             }
         };
-        // Method to load the list data using an ODATA query
+        /**
+         * Method to load the list data using an ODATA query
+         */
         _this.loadODATA = function () {
             // Get the web
             (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
@@ -95,7 +112,9 @@ var WebPartList = /** @class */ (function (_super) {
                 .query(_this._query)
                 .execute(_this.onLoadData);
         };
-        // Method to update the state
+        /**
+         * Method to update the state
+         */
         _this.onLoadData = function (items) {
             // Ensure the items exist
             if (items.results) {
@@ -110,7 +129,9 @@ var WebPartList = /** @class */ (function (_super) {
                 console.log("[gd-sprest] " + items["response"]);
             }
         };
-        // Method to refresh an item
+        /**
+         * Method to refresh an item
+         */
         _this.refreshItem = function (itemId) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
@@ -150,7 +171,9 @@ var WebPartList = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Render the component
+    /**
+     * Render the component
+     */
     WebPartList.prototype.render = function () {
         // Ensure the component has been initialized
         if (this.state.items == null) {

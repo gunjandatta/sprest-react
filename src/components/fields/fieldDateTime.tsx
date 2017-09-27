@@ -13,13 +13,14 @@ import { BaseField } from ".";
  * Date Time field
  */
 export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime {
+    /**
+     * Reference to the date picker.
+     */
     private _datePicker: DatePicker = null;
 
     /**
-     * Public Interface
+     * Render the field
      */
-
-    // Render the field
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -50,13 +51,20 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
      * Events
      */
 
-    // The field initialized event
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
     onFieldInit = (field: any, state: IFieldDateTimeState) => {
         // Update the state
         state.fieldInfo.showTime = field.DisplayFormat == SPTypes.DateFormat.DateTime;
     }
 
-    // The date changed event
+    /**
+     * The date changed event
+     * @param date - The date value.
+     */
     private onDateChanged = (date: Date) => {
         // Clear the time
         date.setHours(0);
@@ -71,7 +79,10 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         this.updateValue(date);
     }
 
-    // The time changed event
+    /**
+     * The time changed event
+     * @param option - The time dropdown option.
+     */
     private onTimeChanged = (option: IDropdownOption) => {
         // Get the time
         let time = option ? option.key.toString().split("|") : "00";
@@ -94,7 +105,9 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
      * Methods
      */
 
-    // Method to get the value
+    /**
+     * Method to get the value
+     */
     private getValue = () => {
         // Get the value
         let value = this.getFieldValue();
@@ -113,7 +126,10 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         return null;
     }
 
-    // Method to render the time component
+    /**
+     * Method to render the time component
+     * @param date - The date/time value
+     */
     private renderTime = (date: Date) => {
         // Update the date value
         date = date ? date : this.state.value;

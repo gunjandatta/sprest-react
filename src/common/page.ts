@@ -17,7 +17,10 @@ export interface IWebPartInstance {
  * Page Common Methods
  */
 export class Page {
-    // Method to get the webpart
+    /**
+     * Method to get the webpart
+     * @param wpId - The webpart id.
+     */
     static getWebPart(wpId: string): PromiseLike<IWebPartInstance> {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -52,7 +55,10 @@ export class Page {
         });
     }
 
-    // Method to get the webpart id for a specified element
+    /**
+     * Method to get the webpart id for a specified element
+     * @param el - The target element.
+     */
     static getWebPartId(el: HTMLElement) {
         // Loop until we find the webpart id
         while (el) {
@@ -71,13 +77,15 @@ export class Page {
         return "";
     }
 
-    // Method to detect if a page is being edited
+    /**
+     * Method to detect if a page is being edited
+     */
     static isEditMode() {
         let formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
 
         // Get the form
         let form = document.forms[MSOWebPartPageFormName];
-        if(form) {
+        if (form) {
             // Get the wiki page mode
             let wikiPageMode: any = form._wikiPageMode ? form._wikiPageMode.value : null;
 
@@ -90,9 +98,5 @@ export class Page {
 
         // Unable to determine
         return false;
-    }
-
-    // Method to detect if the page is a wiki page.
-    static isWikiPage() {
     }
 }

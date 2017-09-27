@@ -8,7 +8,10 @@ var es6_promise_1 = require("es6-promise");
 var Page = /** @class */ (function () {
     function Page() {
     }
-    // Method to get the webpart
+    /**
+     * Method to get the webpart
+     * @param wpId - The webpart id.
+     */
     Page.getWebPart = function (wpId) {
         // Return a promise
         return new es6_promise_1.Promise(function (resolve, reject) {
@@ -43,7 +46,10 @@ var Page = /** @class */ (function () {
             });
         });
     };
-    // Method to get the webpart id for a specified element
+    /**
+     * Method to get the webpart id for a specified element
+     * @param el - The target element.
+     */
     Page.getWebPartId = function (el) {
         // Loop until we find the webpart id
         while (el) {
@@ -59,7 +65,9 @@ var Page = /** @class */ (function () {
         // Unable to detect
         return "";
     };
-    // Method to detect if a page is being edited
+    /**
+     * Method to detect if a page is being edited
+     */
     Page.isEditMode = function () {
         var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
         // Get the form
@@ -74,9 +82,6 @@ var Page = /** @class */ (function () {
         }
         // Unable to determine
         return false;
-    };
-    // Method to detect if the page is a wiki page.
-    Page.isWikiPage = function () {
     };
     return Page;
 }());

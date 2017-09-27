@@ -10,17 +10,36 @@ export declare class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebP
     _fieldPicker: TagPicker;
     /**
      * Constructor
+     * @param props - The webpart field configuration properties.
      */
     constructor(props: Props);
     /**
      * Events
      */
+    /**
+     * The on field picker display event
+     * @param tags - The fields as an array of tags for the picker.
+     */
     onFieldPickerDisplay: (tags: ITag[]) => void;
+    /**
+     * The render footer event
+     */
     onRenderFooter: () => any;
+    /**
+     * Method to resolve suggestions event
+     * @param filterText - The filter text.
+     * @param selectedItems - The selected tags.
+     */
     private onResolveSuggestions;
     /**
      * Methods
      */
+    /**
+     * Method to render the field property
+     */
     renderField: () => JSX.Element[];
+    /**
+     * Method to update the state w/ the selected field(s)
+     */
     private updateFields;
 }

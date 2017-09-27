@@ -27,19 +27,32 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
         /**
          * Global Variables
          */
+        /**
+         * Reference to the error message.
+         */
         _this._errorMessage = null;
+        /**
+         * Reference to the panel.
+         */
         _this._panel = null;
         /**
          * Events
          */
-        // The render footer event
+        /**
+         * The render footer event
+         */
         _this.onRenderFooter = function () { return null; };
-        // The render header event
+        /**
+         * The render header event
+         */
         _this.onRenderHeader = function () { return null; };
         /**
          * Methods
          */
-        // Method to save the webpart configuration
+        /**
+         * Method to save the webpart configuration
+         * @param wpCfg - The webpart configuration.
+         */
         _this.saveConfiguration = function (wpCfg) {
             // Clear the error message
             _this._errorMessage.innerText = "";
@@ -87,14 +100,21 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
                 }
             });
         };
-        // Method to show the panel
+        /**
+         * Method to show the panel
+         * @param ev - The button event.
+         */
         _this.show = function (ev) {
             // Prevent postback
             ev.preventDefault();
             // Show the panel
             _this._panel.show();
         };
-        // Method to update the webpart content elements
+        /**
+         * Method to update the webpart content elements
+         * @param wpId - The webpart id.
+         * @param wpCfg - The webpart configuration.
+         */
         _this.updateWebPartContentElements = function (wpId, wpCfg) {
             // Get the webpart element
             var elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
@@ -145,7 +165,11 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
             // Webpart is not in a content field
             return false;
         };
-        // Method to update the configuration element
+        /**
+         * Method to update the configuration element
+         * @param elTarget - The target element.
+         * @param wpCfg - The webpart configuration.
+         */
         _this.updateConfigurationInElement = function (elTarget, wpCfg) {
             // Create an element so we can update the configuration
             var el = document.createElement("div");
@@ -162,7 +186,9 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // Method to render the panel
+    /**
+     * Method to render the panel
+     */
     WebPartCfgPanel.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,

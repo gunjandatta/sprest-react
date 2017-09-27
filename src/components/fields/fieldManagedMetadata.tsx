@@ -11,10 +11,8 @@ declare var SP;
  */
 export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, IFieldManagedMetadataState> implements IFieldManagedMetadata {
     /**
-     * Public Interface
+     * Render the field
      */
-
-    // Render the field
     renderField = () => {
         // Ensure the options exist
         if (this.state.options == null) {
@@ -68,7 +66,11 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * Events
      */
 
-    // The change event for the dropdown list
+    /**
+     * The change event for the dropdown list
+     * @param option - The dropdown option.
+     * @param idx - The dropdown option index.
+     */
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(option) : null;
@@ -108,7 +110,11 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         }
     }
 
-    // The field initialized event
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
     onFieldInit = (field: any, state: IFieldManagedMetadataState) => {
         let mmsField = field as Types.IFieldManagedMetadata;
 
@@ -172,7 +178,10 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * Methods
      */
 
-    // Method to load the value field
+    /**
+     * Method to load the value field
+     * @param fieldInfo - The field information.
+     */
     private loadValueField = (fieldInfo: IManagedMetadataFieldInfo): PromiseLike<IManagedMetadataFieldInfo> => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -207,7 +216,10 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         });
     }
 
-    // Method to load the terms
+    /**
+     * Method to load the terms
+     * @param fieldInfo - The field information.
+     */
     private loadTerms = (fieldInfo: IManagedMetadataFieldInfo): PromiseLike<IManagedMetadataFieldInfo> => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -262,7 +274,10 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         });
     }
 
-    // Method to convert the field value to options
+    /**
+     * Method to convert the field value to options
+     * @param terms - The managed metadata terms.
+     */
     private toOptions = (terms: Array<IManagedMetadataTermInfo> = []) => {
         let options: Array<IDropdownOption> = [];
 

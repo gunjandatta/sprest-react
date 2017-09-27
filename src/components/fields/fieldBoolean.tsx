@@ -8,7 +8,9 @@ import { BaseField } from ".";
  * Boolean field
  */
 export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean {
-    // Render the field
+    /**
+     * Render the field
+     */
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -40,7 +42,9 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
         );
     }
 
-    // Method to get the value
+    /**
+     * Method to get the value
+     */
     private getValue = () => {
         // Get the field value
         let value = this.getFieldValue();
@@ -49,7 +53,9 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
         return typeof (value) === "boolean" ? value : false;
     }
 
-    // The on change event
+    /**
+     * The on change event
+     */
     private onChange = (ev: React.MouseEvent<HTMLInputElement>, checked: boolean) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(checked) : null;

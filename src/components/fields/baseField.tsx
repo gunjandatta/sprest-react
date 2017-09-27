@@ -5,10 +5,12 @@ import { IBaseField, IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "..
 
 /**
  * Base Field
+ * This is the base field class, inherited by all field types.
  */
 export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps, State extends IBaseFieldState = IBaseFieldState> extends React.Component<Props, State> implements IBaseField<Props, State> {
     /**
      * Constructor
+     * @param props - The base field properties.
      */
     constructor(props: Props) {
         super(props);
@@ -18,26 +20,24 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     }
 
     /**
-     * Global Variables
+     * Method to get the field value
      */
-
-    // Session Key
-    private _sessionKey = "gd-sprest";
-
-    /**
-     * Public Interface
-     */
-
-    // Method to get the field value
     getFieldValue = () => { return this.state.value || this.state.fieldInfo.defaultValue || ""; }
 
-    // Event triggered after the field information is retrieved from SharePoint.
+    /**
+     * Event triggered after the field information is retrieved from SharePoint
+     */
     onFieldInit = (field: any, state: State) => { };
 
-    // Event triggered after loading the field information.
+    /**
+     * Event triggered after loading the field information
+     */
     onFieldLoaded = () => { };
 
-    // Method to update the value
+    /**
+     * Method to update the value
+     * @param value - The field value.
+     */
     updateValue = (value: any) => {
         // Ensure a custom renderer doesn't exist, and call the on change event
         this.props.onRender == null && this.props.onChange ? this.props.onChange(value) : null;
@@ -49,7 +49,9 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         });
     }
 
-    // Method to render the component
+    /**
+     * Method to render the component
+     */
     render() {
         // See if the field is initialized
         if (this.state.initFl) {
@@ -73,10 +75,12 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         return null;
     }
 
-    // Method to render the field
+    /**
+     * Method to render the field
+     */
     renderField = () => {
         // See if we are displaying the field
-        if(this.state.controlMode == SPTypes.ControlMode.Display) {
+        if (this.state.controlMode == SPTypes.ControlMode.Display) {
             // Render the field name and value
             return (
                 <Label>{this.state.fieldInfo.title + ": " + this.state.value}</Label>
@@ -91,7 +95,9 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
      * Methods
      */
 
-    // Method to load the field information.
+    /**
+     * Method to load the field information
+     */
     private load = (): State => {
         // Default the state
         let state: State = {

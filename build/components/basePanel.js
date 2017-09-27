@@ -27,18 +27,23 @@ var BasePanel = /** @class */ (function (_super) {
     __extends(BasePanel, _super);
     /**
      * Constructor
+     * @param props - The base panel properties.
      */
     function BasePanel(props) {
         var _this = _super.call(this, props) || this;
         /**
          * Public Interface
          */
-        // Method to hide the panel
+        /**
+         * Method to hide the panel
+         */
         _this.hide = function () {
             // Update the state
             _this.setState({ visible: false });
         };
-        // Method to show the panel
+        /**
+         * Method to show the panel
+         */
         _this.show = function () {
             // Update the state
             _this.setState({ visible: true });
@@ -47,7 +52,9 @@ var BasePanel = /** @class */ (function (_super) {
         _this.state = { visible: false };
         return _this;
     }
-    // Method to render the component
+    /**
+     * Method to render the component
+     */
     BasePanel.prototype.render = function () {
         return (React.createElement(office_ui_fabric_react_1.Panel, __assign({}, this.props, { isOpen: typeof (this.props.isOpen) === "boolean" ? this.props.isOpen : this.state.visible, onDismiss: this.hide }), this.props.children));
     };

@@ -9,10 +9,8 @@ import { BaseField } from ".";
  */
 export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
     /**
-     * Public Interface
+     * Render the component
      */
-
-    // Method to render the component
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -52,7 +50,11 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
      * Events
      */
 
-    // The field initialized event
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
     onFieldInit = (field: any, state: IFieldTextState) => {
         // Ensure this is a lookup field
         if (field.FieldTypeKind != SPTypes.FieldType.Note && field.FieldTypeKind != SPTypes.FieldType.Text) {
@@ -66,7 +68,10 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         state.fieldInfo.rows = field.NumberOfLines;
     }
 
-    // The on change event
+    /**
+     * The on change event
+     * @param value - The field value.
+     */
     private onChange = (value: string) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(value) : null;

@@ -9,6 +9,7 @@ var common_1 = require("../../common");
 var WebPart = /** @class */ (function () {
     /**
      * Constructor
+     * @param props - The webpart properties.
      */
     function WebPart(props) {
         var _this = this;
@@ -16,7 +17,10 @@ var WebPart = /** @class */ (function () {
         /**
          * Methods
          */
-        // Method to add the help link
+        /**
+         * Method to add the help link
+         * @wpId - The webpart id.
+         */
         this.addHelpLink = function (wpId) {
             // Ensure the help url exists
             if (_this._props.helpUrl) {
@@ -36,7 +40,9 @@ var WebPart = /** @class */ (function () {
                 }
             }
         };
-        // Method to get the target information
+        /**
+         * Method to get the target information
+         */
         this.getTargetInformation = function () {
             var targetInfo = {
                 cfg: null,
@@ -118,7 +124,9 @@ var WebPart = /** @class */ (function () {
             // Return the target information
             return targetInfo;
         };
-        // Method to render the webpart
+        /**
+         * Method to render the webpart
+         */
         this.render = function () {
             var element = null;
             // Get the target information

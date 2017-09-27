@@ -35,12 +35,17 @@ var SPPeoplePicker = /** @class */ (function (_super) {
         /**
          * Global Variables
          */
-        // Filter text
+        /**
+         * The filter text
+         */
         _this._filterText = "";
         /**
          * Methods
          */
-        // Method to convert the user to persona value
+        /**
+         * Method to convert the user to persona value
+         * @param users - An array of field user values.
+         */
         _this.convertToPersonas = function (users) {
             if (users === void 0) { users = []; }
             var personas = [];
@@ -65,7 +70,10 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             // Return the personas
             return personas;
         };
-        // Method executed when the value changes
+        /**
+         * Method executed when the value changes
+         * @param personas - The persona values.
+         */
         _this.onChange = function (personas) {
             // Update the personas
             personas = personas ? personas : [];
@@ -82,7 +90,11 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                 _this.props.props && _this.props.props.onChange ? _this.props.props.onChange(personas) : null;
             });
         };
-        // Method to search for the user
+        /**
+         * Method to search for the user
+         * @param filterText - The filtered text.
+         * @param personas - The selected users.
+         */
         _this.search = function (filterText, personas) {
             // Save the filter
             _this._filterText = filterText.toLowerCase();
@@ -150,7 +162,11 @@ var SPPeoplePicker = /** @class */ (function (_super) {
         // Return the people picker
         return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { defaultSelectedItems: this.state.personas, getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps })));
     };
-    // Method to convert the personas to a field value
+    /**
+     * Method to convert the personas to a field value
+     * @param personas - The persona values.
+     * @param allowMultiple - Flag to determine if multiple user selection is allowed.
+     */
     SPPeoplePicker.convertToFieldValue = function (personas, allowMultiple) {
         var fieldValue = null;
         // See if we are allowing multiple

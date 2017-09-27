@@ -9,10 +9,8 @@ import { BaseField } from ".";
  */
 export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
     /**
-     * Public Interface
+     * Render the field
      */
-
-    // Render the field
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -50,7 +48,11 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
      * Events
      */
 
-    // The change event for the dropdown list
+    /**
+     * The change event for the dropdown list
+     * @param option - The dropdown option.
+     * @param idx - The dropdown option index.
+     */
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(option) : null;
@@ -81,7 +83,11 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         }
     }
 
-    // The field initialized event
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
     onFieldInit = (field: any, state: IFieldChoiceState) => {
         let choiceField = field as Types.IFieldChoice;
 
@@ -116,7 +122,9 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
      * Methods
      */
 
-    // Method to convert the field value to options
+    /**
+     * Method to convert the field value to options
+     */
     private toOptions = () => {
         let options: Array<IDropdownOption> = [];
 

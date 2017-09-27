@@ -25,13 +25,25 @@ var ItemForm = /** @class */ (function (_super) {
      */
     function ItemForm(props) {
         var _this = _super.call(this, props) || this;
+        /**
+         * Reference to the attachments field
+         */
         _this._attachmentField = null;
+        /**
+         * Reference to the form fields
+         */
         _this._fields = {};
+        /**
+         * Reference to the list
+         */
         _this._list = null;
         /**
          * Methods
          */
-        // Method to get the item
+        /**
+         * Method to get the item
+         * @param itemId - The item id.
+         */
         _this.getItem = function (itemId) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
@@ -58,7 +70,9 @@ var ItemForm = /** @class */ (function (_super) {
                 });
             });
         };
-        // Method to get the list
+        /**
+         * Method to get the list
+         */
         _this.getList = function () {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
@@ -80,7 +94,9 @@ var ItemForm = /** @class */ (function (_super) {
                 }
             });
         };
-        // Method to load the fields
+        /**
+         * Method to load the fields
+         */
         _this.loadDefaultFields = function () {
             // Load the web
             (new gd_sprest_1.Web(_this.props.webUrl))
@@ -116,7 +132,9 @@ var ItemForm = /** @class */ (function (_super) {
                 }
             });
         };
-        // Method to render the fields
+        /**
+         * Method to render the fields
+         */
         _this.renderFields = function () {
             var formFields = [];
             var item = _this.state.item;
@@ -137,7 +155,10 @@ var ItemForm = /** @class */ (function (_super) {
             // Return the form fields
             return formFields;
         };
-        // Method to save the item attachments
+        /**
+         * Method to save the item attachments
+         * @param itemId - The item id.
+         */
         _this.saveAttachments = function (itemId) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
@@ -155,7 +176,9 @@ var ItemForm = /** @class */ (function (_super) {
                 }
             });
         };
-        // Method to save the item
+        /**
+         * Method to save the item
+         */
         _this.saveItem = function () {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
@@ -196,28 +219,39 @@ var ItemForm = /** @class */ (function (_super) {
     }
     Object.defineProperty(ItemForm.prototype, "AttachmentField", {
         /**
-         * Properties
+         * Get the attachment field
          */
-        // Attachment Field
         get: function () { return this._attachmentField; },
+        /**
+         * Set the attachment field
+         */
         set: function (field) { this._attachmentField = field; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ItemForm.prototype, "FormFields", {
-        // Form Fields
+        /**
+         * Get the form fields
+         */
         get: function () { return this._fields; },
+        /**
+         * Set the form fields
+         */
         set: function (fields) { this._fields = fields; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ItemForm.prototype, "List", {
-        // List
+        /**
+         * Get the list
+         */
         get: function () { return this._list; },
         enumerable: true,
         configurable: true
     });
-    // Render the component
+    /**
+     * Render the component
+     */
     ItemForm.prototype.render = function () {
         // See if there is a custom renderer
         if (this.props.onRender) {
@@ -244,7 +278,9 @@ var ItemForm = /** @class */ (function (_super) {
                     null,
             React.createElement("div", { className: "ms-Grid " + this.props.className, hidden: this.state.saveFl }, this.renderFields())));
     };
-    // Method to save the item form
+    /**
+     * Method to save the item form
+     */
     ItemForm.prototype.save = function () {
         var _this = this;
         return new es6_promise_1.Promise(function (resolve, reject) {
@@ -264,7 +300,9 @@ var ItemForm = /** @class */ (function (_super) {
             });
         });
     };
-    // Method to get the form values
+    /**
+     * Method to get the form values
+     */
     ItemForm.prototype.getValues = function () {
         var formValues = {};
         // Parse the fields

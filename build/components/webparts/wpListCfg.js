@@ -21,16 +21,32 @@ var WebPartListCfg = /** @class */ (function (_super) {
     __extends(WebPartListCfg, _super);
     /**
      * Constructor
+     * @param props - The webpart list configuration properties.
      */
     function WebPartListCfg(props) {
         var _this = _super.call(this, props) || this;
         /**
          * Global Variables
          */
+        /**
+         * The OData query.
+         */
         _this._query = null;
+        /**
+         * Reference to the list dropdown.
+         */
         _this._listDropdown = null;
+        /**
+         * Reference to the refresh button.
+         */
         _this._refreshButton = null;
+        /**
+         * Reference to the save button.
+         */
         _this._saveButton = null;
+        /**
+         * Reference to the web url text field.
+         */
         _this._webUrl = null;
         /**
          * Events

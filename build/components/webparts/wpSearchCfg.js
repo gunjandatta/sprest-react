@@ -24,7 +24,10 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
          * Events
          */
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // The field picker display event
+        /**
+         * The field picker display event
+         * @param tags - An array of fields used for the field picker.
+         */
         _this.onFieldPickerDisplay = function (tags) {
             // Copy the tags
             var fieldTags = Object.create(tags);
@@ -65,7 +68,9 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
                 }
             }
         };
-        // The render footer method
+        /**
+         * The render footer method
+         */
         _this.onRenderFooter = function () {
             var footer = null;
             // See if the lists exists
@@ -80,11 +85,17 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
         /**
          * Methods
          */
-        // Method to render the picker checkbox
+        /**
+         * Method to render the picker checkbox
+         */
         _this.renderSearchPicker = function () {
             return (React.createElement(office_ui_fabric_react_1.Checkbox, { defaultChecked: _this.state.cfg.TagPickerFl ? true : false, key: "searchPicker", label: "Use Tag Picker", onChange: _this.updatePickerFlag }));
         };
-        // Method to update the
+        /**
+         * Method to update the
+         * @param ev - The checkbox click event.
+         * @param checked - The value of the checkbox.
+         */
         _this.updatePickerFlag = function (ev, checked) {
             var cfg = _this.state.cfg;
             // Update the configuration

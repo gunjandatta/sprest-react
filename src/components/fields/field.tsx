@@ -8,12 +8,14 @@ import {
 
 /**
  * Field
+ * This is a generic field component.
  */
 export class Field extends BaseField {
     private _field: BaseField = this;
 
     /**
      * Constructor
+     * @param props - The field properties.
      */
     constructor(props: IBaseFieldProps) {
         super(props);
@@ -23,13 +25,19 @@ export class Field extends BaseField {
         state.value = props.defaultValue;
     }
 
-    // The field information
+    /**
+     * Get the field information
+     */
     get Info(): IBaseFieldInfo { return this._field.state.fieldInfo; }
 
-    // The field value
+    /**
+     * Get the field value
+     */
     get Value(): any { return this._field.state.value; }
 
-    // Method to render the field
+    /**
+     * Method to render the field
+     */
     renderField = () => {
         let props: any = this.props || {};
         let fieldInfo = this.state.fieldInfo;

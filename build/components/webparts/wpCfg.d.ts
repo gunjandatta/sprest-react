@@ -13,7 +13,13 @@ export declare abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = I
     /**
      * Global Variables
      */
+    /**
+     * Reference to the error message.
+     */
     _errorMessage: HTMLDivElement;
+    /**
+     * Reference to the panel.
+     */
     _panel: Panel;
     /**
      * Required Methods
@@ -22,14 +28,41 @@ export declare abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = I
     /**
      * Events
      */
+    /**
+     * The render footer event
+     */
     onRenderFooter: () => any;
+    /**
+     * The render header event
+     */
     onRenderHeader: () => any;
+    /**
+     * Method to render the panel
+     */
     render(): JSX.Element;
     /**
      * Methods
      */
+    /**
+     * Method to save the webpart configuration
+     * @param wpCfg - The webpart configuration.
+     */
     saveConfiguration: (wpCfg: any) => void;
+    /**
+     * Method to show the panel
+     * @param ev - The button event.
+     */
     private show;
+    /**
+     * Method to update the webpart content elements
+     * @param wpId - The webpart id.
+     * @param wpCfg - The webpart configuration.
+     */
     private updateWebPartContentElements;
+    /**
+     * Method to update the configuration element
+     * @param elTarget - The target element.
+     * @param wpCfg - The webpart configuration.
+     */
     private updateConfigurationInElement;
 }

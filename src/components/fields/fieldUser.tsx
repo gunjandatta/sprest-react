@@ -11,10 +11,8 @@ import { BaseField } from ".";
  */
 export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
     /**
-     * Public Interface
+     * Render the field
      */
-
-    // Method to render the field
     renderField = () => {
         // See if a custom render method exists
         if (this.props.onRender) {
@@ -47,7 +45,10 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      * Events
      */
 
-    // The change event
+    /**
+     * The change event
+     * @param personas - The user personas.
+     */
     onChange = (personas) => {
         // Call the change event
         this.props.onChange ? this.props.onChange(personas) : null;
@@ -56,7 +57,11 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
         this.updateValue(SPPeoplePicker.convertToFieldValue(personas, this.state.fieldInfo.allowMultiple));
     }
 
-    // The field initialized event
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
     onFieldInit = (field: any, state: IFieldUserState) => {
         let userField = field as Types.IFieldUser;
 

@@ -13,6 +13,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
     /**
      * Constructor
+     * @param props - The webpart search properties.
      */
     constructor(props: Props) {
         super(props);
@@ -36,7 +37,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         };
     }
 
-    // Render the component
+    /**
+     * Render the component
+     */
     render() {
         // Ensure the component has been initialized
         if (this.state.items == null) {
@@ -77,7 +80,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
      * Methods
      */
 
-    // Method to generate the mapper
+    /**
+     * Method to generate the mapper
+     */
     private generateMapper = (items: Types.IResults<Types.IListItemQueryResult>) => {
         let searchTerms: Array<ITag> = [];
         let tagMapper = {};
@@ -171,7 +176,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         } as IWebPartSearchState);
     }
 
-    // Method to get the items
+    /**
+     * Method to get the items
+     */
     private getItems = () => {
         // Determine if we are using the picker
         if (this.props.cfg.TagPickerFl) {
@@ -183,7 +190,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         return this.getItemsByFilter();
     }
 
-    // Method to get the items by filter
+    /**
+     * Method to get the items by filter
+     */
     private getItemsByFilter = () => {
         // Ensure a filter exists
         if (this.state.searchFilter) {
@@ -224,7 +233,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         return this.state.items;
     }
 
-    // Method to get the items by tags
+    /**
+     * Method to get the items by tags
+     */
     private getItemsByTags = () => {
         // Ensure tags exist
         if (this.state.selectedTags.length > 0) {
@@ -265,7 +276,9 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         return this.state.items;
     }
 
-    // Method to load the documents
+    /**
+     * Method to load the documents
+     */
     protected load = () => {
         // Include the id field
         this._query.Select.push("ID");
@@ -306,7 +319,11 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         }
     }
 
-    // Method to resolve the tag picker
+    /**
+     * Method to resolve the tag picker
+     * @param filterText - The filter text.
+     * @param tagList - The selected fields.
+     */
     private onResolveSuggestions = (filterText: string, tagList: Array<ITag>): PromiseLike<Array<ITag>> => {
         // Save the filter
         this._filterText = filterText ? filterText.toLowerCase() : filterText;
@@ -348,7 +365,10 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         });
     }
 
-    // Method to update the search filter
+    /**
+     * Method to update the search filter
+     * @param - The search filter.
+     */
     private updateSearchFilter = (filter: string) => {
         // Update the state
         this.setState({
@@ -356,7 +376,10 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         });
     }
 
-    // Method to update the selected tags
+    /**
+     * Method to update the selected tags
+     * @param tags - The selected fields.
+     */
     private updateSelectedTags = (tags) => {
         // Update the state
         this.setState({

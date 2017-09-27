@@ -25,7 +25,15 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
     /**
      * Global Variables
      */
+
+    /**
+     * Reference to the error message.
+     */
     _errorMessage: HTMLDivElement = null;
+
+    /**
+     * Reference to the panel.
+     */
     _panel: Panel = null;
 
 
@@ -38,13 +46,19 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
      * Events
      */
 
-    // The render footer event
+    /**
+     * The render footer event
+     */
     onRenderFooter = (): any => { return null; }
 
-    // The render header event
+    /**
+     * The render header event
+     */
     onRenderHeader = (): any => { return null; }
 
-    // Method to render the panel
+    /**
+     * Method to render the panel
+     */
     render() {
         return (
             <div>
@@ -63,7 +77,10 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
      * Methods
      */
 
-    // Method to save the webpart configuration
+    /**
+     * Method to save the webpart configuration
+     * @param wpCfg - The webpart configuration.
+     */
     saveConfiguration = (wpCfg: any) => {
         // Clear the error message
         this._errorMessage.innerText = "";
@@ -115,7 +132,10 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
         });
     }
 
-    // Method to show the panel
+    /**
+     * Method to show the panel
+     * @param ev - The button event.
+     */
     private show = (ev: React.MouseEvent<HTMLButtonElement>) => {
         // Prevent postback
         ev.preventDefault();
@@ -124,7 +144,11 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
         this._panel.show();
     }
 
-    // Method to update the webpart content elements
+    /**
+     * Method to update the webpart content elements
+     * @param wpId - The webpart id.
+     * @param wpCfg - The webpart configuration.
+     */
     private updateWebPartContentElements = (wpId: string, wpCfg): boolean => {
         // Get the webpart element
         let elWebPart = document.querySelector("div[webpartid='" + wpId + "']");
@@ -187,7 +211,11 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
         return false;
     }
 
-    // Method to update the configuration element
+    /**
+     * Method to update the configuration element
+     * @param elTarget - The target element.
+     * @param wpCfg - The webpart configuration.
+     */
     private updateConfigurationInElement = (elTarget: HTMLInputElement, wpCfg) => {
         // Create an element so we can update the configuration
         let el = document.createElement("div");

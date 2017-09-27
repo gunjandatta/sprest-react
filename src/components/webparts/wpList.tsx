@@ -12,14 +12,19 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * Global Variables
      */
 
-    // The CAML query
+    /**
+     * The CAML query
+     */
     protected _caml: string = null;
 
-    // The OData query
+    /**
+     * The OData query (Default)
+     */
     protected _query: Types.ODataQuery = null;
 
     /**
      * Constructor
+     * @param props - The webpart list properties.
      */
     constructor(props: Props) {
         super(props);
@@ -43,7 +48,10 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * Events
      */
 
-    // The render container event
+    /**
+     * The render container event
+     * @param items - An array of webpart list items.
+     */
     onRenderContainer = (items: Array<IWebPartListItem>): JSX.Element => {
         let elItems = [];
 
@@ -61,10 +69,15 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         return <div>{elItems}</div>;
     }
 
-    // The render item event
+    /**
+     * The render item event
+     * @param item - The webpart list item.
+     */
     onRenderItem = (item: IWebPartListItem): JSX.Element => { return <div /> }
 
-    // Render the component
+    /**
+     * Render the component
+     */
     render() {
         // Ensure the component has been initialized
         if (this.state.items == null) {
@@ -89,7 +102,9 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * Methods
      */
 
-    // Method to load the list data
+    /**
+     * Method to load the list data
+     */
     protected load = () => {
         // See if we are using the CAML query
         if (this._caml) { this.loadCAML(); }
@@ -97,7 +112,9 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         else { this.loadODATA(); }
     }
 
-    // Method to load the list data using a CAML query
+    /**
+     * Method to load the list data using a CAML query
+     */
     private loadCAML = () => {
         // See if we are targeting a different web
         if (this.props.cfg.WebUrl) {
@@ -125,7 +142,9 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         }
     }
 
-    // Method to load the list data using an ODATA query
+    /**
+     * Method to load the list data using an ODATA query
+     */
     private loadODATA = () => {
         // Get the web
         (new Web(this.props.cfg.WebUrl))
@@ -139,7 +158,9 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             .execute(this.onLoadData);
     }
 
-    // Method to update the state
+    /**
+     * Method to update the state
+     */
     private onLoadData = (items: Types.IListItemResults | Types.IResults<Types.IListItemQueryResult>) => {
         // Ensure the items exist
         if (items.results) {
@@ -154,7 +175,9 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         }
     }
 
-    // Method to refresh an item
+    /**
+     * Method to refresh an item
+     */
     protected refreshItem = (itemId: number | string): PromiseLike<IWebPartListItem> => {
         // Return a promise
         return new Promise((resolve, reject) => {

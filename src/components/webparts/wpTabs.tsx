@@ -6,10 +6,14 @@ import { IWebPartTabsProps, IWebPartTabsState } from "../../definitions";
  * WebPart Tabs
  */
 export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, State extends IWebPartTabsState = IWebPartTabsState> extends React.Component<Props, State> {
+    /**
+     * Flag to determine if the webpart is inside a content zone.
+     */
     private _isContentZone: boolean = false;
 
     /**
      * Constructor
+     * @param props - The webpart tabs properties.
      */
     constructor(props: Props) {
         super(props);
@@ -32,25 +36,35 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
      * Events
      */
 
-    // Component initialized event
+    /**
+     * Component initialized event
+     */
     componentDidMount() {
         // Update the webpart visibility
         this.updateWebPartVisibility();
     }
 
-    // Component updated event
+    /**
+     * Component updated event
+     */
     componentDidUpdate() {
         // Update the webpart visibility
         this.updateWebPartVisibility();
     }
 
-    // The render footer event
+    /**
+     * The render footer event
+     */
     onRenderFooter = (): JSX.Element => { return null; }
 
-    // The render header event
+    /**
+     * The render header event
+     */
     onRenderHeader = (): JSX.Element => { return null; }
 
-    // Method to render the component
+    /**
+     * Method to render the component
+     */
     render() {
         return (
             <div className={this.props.className}>
@@ -67,7 +81,9 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
      * Methods
      */
 
-    // Methods to get the webparts
+    /**
+     * Methods to get the webparts
+     */
     private getWebParts = () => {
         let wps = [];
 
@@ -111,7 +127,9 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
         return wps;
     }
 
-    // Method to get the webpart zone
+    /**
+     * Method to get the webpart zone
+     */
     private getWebPartZone = (el: HTMLDivElement) => {
         // Ensure the element exists
         if (el) {
@@ -138,7 +156,9 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
         return null;
     }
 
-    // Method to render the tabs
+    /**
+     * Method to render the tabs
+     */
     private renderTabs = () => {
         let tabs = [];
 
@@ -173,7 +193,11 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
         return tabs;
     }
 
-    // Method to update the
+    /**
+     * Method to update the
+     * @param item - The pivot item.
+     * @param ev - The tab click event.
+     */
     private updateSelectedTab = (item: PivotItem, ev?: React.MouseEvent<HTMLElement>) => {
         // Update the state
         this.setState({
@@ -181,7 +205,9 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
         });
     }
 
-    // Method to update the webpart visibility
+    /**
+     * Method to update the webpart visibility
+     */
     private updateWebPartVisibility = () => {
         // Parse the webparts
         for (let i = 0; i < this.state.webparts.length; i++) {

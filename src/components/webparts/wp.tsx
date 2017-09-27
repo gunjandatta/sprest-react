@@ -11,6 +11,7 @@ export class WebPart {
 
     /**
      * Constructor
+     * @param props - The webpart properties.
      */
     constructor(props: IWebPartProps) {
         // Set the properties
@@ -27,7 +28,10 @@ export class WebPart {
      * Methods
      */
 
-    // Method to add the help link
+    /**
+     * Method to add the help link
+     * @wpId - The webpart id.
+     */
     private addHelpLink = (wpId: string) => {
         // Ensure the help url exists
         if (this._props.helpUrl) {
@@ -49,7 +53,9 @@ export class WebPart {
         }
     }
 
-    // Method to get the target information
+    /**
+     * Method to get the target information
+     */
     private getTargetInformation = (): IWebPartTargetInfo => {
         let targetInfo: IWebPartTargetInfo = {
             cfg: null,
@@ -140,7 +146,9 @@ export class WebPart {
         return targetInfo;
     }
 
-    // Method to render the webpart
+    /**
+     * Method to render the webpart
+     */
     private render = () => {
         let element = null;
 

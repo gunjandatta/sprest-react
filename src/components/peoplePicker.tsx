@@ -30,7 +30,9 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Global Variables
      */
 
-    // Filter text
+    /**
+     * The filter text
+     */
     private _filterText = "";
 
     /**
@@ -49,7 +51,11 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         };
     }
 
-    // Method to convert the personas to a field value
+    /**
+     * Method to convert the personas to a field value
+     * @param personas - The persona values.
+     * @param allowMultiple - Flag to determine if multiple user selection is allowed.
+     */
     static convertToFieldValue = (personas: Array<IPersonaProps>, allowMultiple?: boolean) => {
         let fieldValue = null;
 
@@ -104,7 +110,10 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Methods
      */
 
-    // Method to convert the user to persona value
+    /**
+     * Method to convert the user to persona value
+     * @param users - An array of field user values.
+     */
     private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
@@ -132,7 +141,10 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         return personas;
     }
 
-    // Method executed when the value changes
+    /**
+     * Method executed when the value changes
+     * @param personas - The persona values.
+     */
     private onChange = (personas?: Array<IPersonaProps>) => {
         // Update the personas
         personas = personas ? personas : [];
@@ -151,7 +163,11 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         });
     }
 
-    // Method to search for the user
+    /**
+     * Method to search for the user
+     * @param filterText - The filtered text.
+     * @param personas - The selected users.
+     */
     private search = (filterText: string, personas: Array<IPersonaProps>): Array<IPersonaProps> | PromiseLike<Array<IPersonaProps>> => {
         // Save the filter
         this._filterText = filterText.toLowerCase();

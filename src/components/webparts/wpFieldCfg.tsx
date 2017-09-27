@@ -13,6 +13,7 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
 
     /**
      * Constructor
+     * @param props - The webpart field configuration properties.
      */
     constructor(props: Props) {
         super(props);
@@ -25,10 +26,15 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
      * Events
      */
 
-    // The on field picker display event
+    /**
+     * The on field picker display event
+     * @param tags - The fields as an array of tags for the picker.
+     */
     onFieldPickerDisplay = (tags: Array<ITag>) => { return; }
 
-    // The render footer event
+    /**
+     * The render footer event
+     */
     onRenderFooter = () => {
         let footer = null;
 
@@ -42,7 +48,11 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
         return footer;
     }
 
-    // Method to resolve suggestions event
+    /**
+     * Method to resolve suggestions event
+     * @param filterText - The filter text.
+     * @param selectedItems - The selected tags.
+     */
     private onResolveSuggestions = (filterText?: string, selectedItems?: Array<ITag>) => {
         let tags: Array<ITag> = [];
 
@@ -90,7 +100,9 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
      * Methods
      */
 
-    // Method to render the field property
+    /**
+     * Method to render the field property
+     */
     renderField = () => {
         let tags: Array<ITag> = [];
 
@@ -126,7 +138,9 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
         ];
     }
 
-    // Method to update the state w/ the selected field(s)
+    /**
+     * Method to update the state w/ the selected field(s)
+     */
     private updateFields = (selectedFields: Array<ITag>) => {
         // Update the configuration
         let cfg = this.state.cfg;

@@ -13,23 +13,44 @@ import { Fields } from ".";
  * Item Form WebPart
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
+    /**
+     * Reference to the attachments field
+     */
     private _attachmentField: Fields.FieldAttachments = null;
+
+    /**
+     * Reference to the form fields
+     */
     private _fields: { [key: string]: Fields.Field } = {};
+
+    /**
+     * Reference to the list
+     */
     private _list: Types.IListResult = null;
 
     /**
-     * Properties
+     * Get the attachment field
      */
-
-    // Attachment Field
     get AttachmentField(): Fields.FieldAttachments { return this._attachmentField; }
+
+    /**
+     * Set the attachment field
+     */
     set AttachmentField(field: Fields.FieldAttachments) { this._attachmentField = field; }
 
-    // Form Fields
+    /**
+     * Get the form fields
+     */
     get FormFields(): { [key: string]: Fields.Field } { return this._fields; }
+
+    /**
+     * Set the form fields
+     */
     set FormFields(fields: { [key: string]: Fields.Field }) { this._fields = fields; }
 
-    // List
+    /**
+     * Get the list
+     */
     get List(): Types.IListResult { return this._list; }
 
     /**
@@ -46,7 +67,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         };
     }
 
-    // Render the component
+    /**
+     * Render the component
+     */
     render() {
         // See if there is a custom renderer
         if (this.props.onRender) {
@@ -93,7 +116,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         );
     }
 
-    // Method to save the item form
+    /**
+     * Method to save the item form
+     */
     save<IItem = any>(): PromiseLike<IItem> {
         return new Promise((resolve, reject) => {
             // Set the state
@@ -120,7 +145,10 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Methods
      */
 
-    // Method to get the item
+    /**
+     * Method to get the item
+     * @param itemId - The item id.
+     */
     private getItem = (itemId) => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -152,7 +180,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         });
     }
 
-    // Method to get the list
+    /**
+     * Method to get the list
+     */
     private getList = () => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -177,7 +207,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         });
     }
 
-    // Method to get the form values
+    /**
+     * Method to get the form values
+     */
     private getValues<IItem = any>() {
         let formValues: any = {};
 
@@ -250,7 +282,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         return formValues;
     }
 
-    // Method to load the fields
+    /**
+     * Method to load the fields
+     */
     private loadDefaultFields = () => {
         // Load the web
         (new Web(this.props.webUrl))
@@ -291,7 +325,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             });
     }
 
-    // Method to render the fields
+    /**
+     * Method to render the fields
+     */
     private renderFields = () => {
         let formFields = [];
         let item = this.state.item;
@@ -341,7 +377,10 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         return formFields;
     }
 
-    // Method to save the item attachments
+    /**
+     * Method to save the item attachments
+     * @param itemId - The item id.
+     */
     private saveAttachments = (itemId: number) => {
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -359,7 +398,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         });
     }
 
-    // Method to save the item
+    /**
+     * Method to save the item
+     */
     private saveItem = () => {
         // Return a promise
         return new Promise((resolve, reject) => {

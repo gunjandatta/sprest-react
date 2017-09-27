@@ -12,7 +12,10 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
      * Events
      */
 
-    // The field picker display event
+    /**
+     * The field picker display event
+     * @param tags - An array of fields used for the field picker.
+     */
     onFieldPickerDisplay = (tags: Array<ITag>) => {
         // Copy the tags
         let fieldTags = Object.create(tags);
@@ -61,7 +64,9 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
         }
     }
 
-    // The render footer method
+    /**
+     * The render footer method
+     */
     onRenderFooter = () => {
         let footer = null;
 
@@ -80,7 +85,9 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
      * Methods
      */
 
-    // Method to render the picker checkbox
+    /**
+     * Method to render the picker checkbox
+     */
     renderSearchPicker = () => {
         return (
             <Checkbox
@@ -92,7 +99,11 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
         );
     }
 
-    // Method to update the
+    /**
+     * Method to update the
+     * @param ev - The checkbox click event.
+     * @param checked - The value of the checkbox.
+     */
     private updatePickerFlag = (ev: React.MouseEvent<HTMLInputElement>, checked: boolean) => {
         let cfg = this.state.cfg;
 

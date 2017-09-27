@@ -6,4 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./common"));
 __export(require("./components"));
 __export(require("./definitions"));
+var Fields = require("./fields");
+exports.Fields = Fields;
+__export(require("./webparts"));
 //# sourceMappingURL=index.js.map

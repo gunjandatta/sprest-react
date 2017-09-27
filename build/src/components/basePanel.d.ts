@@ -7,12 +7,22 @@ import { IBasePanelProps, IBasePanelState } from "../definitions";
 export declare class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends React.Component<Props, State> {
     /**
      * Constructor
+     * @param props - The base panel properties.
      */
     constructor(props: Props);
     /**
      * Public Interface
      */
+    /**
+     * Method to hide the panel
+     */
     hide: () => void;
+    /**
+     * Method to render the component
+     */
     render(): JSX.Element;
+    /**
+     * Method to show the panel
+     */
     show: () => void;
 }

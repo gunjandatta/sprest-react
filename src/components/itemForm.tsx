@@ -7,7 +7,8 @@ import {
     IManagedMetadataFieldInfo,
     IItemFormField, IItemFormProps, IItemFormState
 } from "../definitions";
-import { Fields } from ".";
+import { Fields } from "..";
+import { Field } from ".";
 
 /**
  * Item Form WebPart
@@ -21,7 +22,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Reference to the form fields
      */
-    private _fields: { [key: string]: Fields.Field } = {};
+    private _fields: { [key: string]: Field } = {};
 
     /**
      * Reference to the list
@@ -41,12 +42,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Get the form fields
      */
-    get FormFields(): { [key: string]: Fields.Field } { return this._fields; }
+    get FormFields(): { [key: string]: Field } { return this._fields; }
 
     /**
      * Set the form fields
      */
-    set FormFields(fields: { [key: string]: Fields.Field }) { this._fields = fields; }
+    set FormFields(fields: { [key: string]: Field }) { this._fields = fields; }
 
     /**
      * Get the list
@@ -357,7 +358,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             formFields.push(
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                     <div className="ms-Grid-col ms-md12">
-                        <Fields.Field
+                        <Field
                             controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
                             defaultValue={item[fieldInfo.name]}
                             listName={this.props.listName}

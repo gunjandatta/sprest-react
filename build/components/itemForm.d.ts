@@ -2,7 +2,8 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { IItemFormProps, IItemFormState } from "../definitions";
-import { Fields } from ".";
+import { Fields } from "..";
+import { Field } from ".";
 /**
  * Item Form WebPart
  */
@@ -33,7 +34,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Set the form fields
      */
     FormFields: {
-        [key: string]: Fields.Field;
+        [key: string]: Field;
     };
     /**
      * Get the list

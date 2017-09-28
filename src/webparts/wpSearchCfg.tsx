@@ -73,7 +73,7 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
         // See if the lists exists
         if (this.state.lists != null) {
             footer = [this.renderSearchPicker()];
-            footer.join(this.renderField());
+            footer = footer.concat(this.renderField());
             footer.push(this.renderSaveButton());
         }
 

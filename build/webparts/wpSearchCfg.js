@@ -76,7 +76,7 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
             // See if the lists exists
             if (_this.state.lists != null) {
                 footer = [_this.renderSearchPicker()];
-                footer.join(_this.renderField());
+                footer = footer.concat(_this.renderField());
                 footer.push(_this.renderSaveButton());
             }
             // Render the footer

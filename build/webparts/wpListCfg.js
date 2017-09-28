@@ -136,9 +136,15 @@ var WebPartListCfg = /** @class */ (function (_super) {
                 .query(_this._query)
                 .execute(function (lists) {
                 var options = [];
+                var selectedList = null;
                 // Parse the lists
                 for (var i = 0; i < lists.results.length; i++) {
                     var list = lists.results[i];
+                    // See if this is the selected list
+                    if (list.Title == cfg.ListName) {
+                        // Set the list
+                        selectedList = list;
+                    }
                     // Add the option
                     options.push({
                         key: list.Title,
@@ -149,7 +155,8 @@ var WebPartListCfg = /** @class */ (function (_super) {
                 var newState = {
                     cfg: cfg,
                     lists: lists.results,
-                    options: options
+                    options: options,
+                    selectedList: selectedList
                 };
                 // Call the on lists loaded method
                 _this.onListsLoaded(newState);

@@ -29,7 +29,7 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
 
             // Parse the fields
             for (let j = 0; j < this.state.selectedList.Fields.results.length; j++) {
-                let field = this.state.selectedList.Fields.results[i];
+                let field = this.state.selectedList.Fields.results[j];
 
                 // See if this is the field we are looking for
                 if (field.InternalName == tag.key) {

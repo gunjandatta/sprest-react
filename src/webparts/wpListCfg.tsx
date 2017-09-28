@@ -164,10 +164,17 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
             // Execute the request
             .execute((lists) => {
                 let options: Array<IDropdownOption> = [];
+                let selectedList = null;
 
                 // Parse the lists
                 for (let i = 0; i < lists.results.length; i++) {
                     let list = lists.results[i];
+
+                    // See if this is the selected list
+                    if(list.Title == cfg.ListName) {
+                        // Set the list
+                        selectedList = list;
+                    }
 
                     // Add the option
                     options.push({
@@ -180,7 +187,8 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                 let newState = {
                     cfg,
                     lists: lists.results,
-                    options
+                    options,
+                    selectedList
                 } as State;
 
                 // Call the on lists loaded method

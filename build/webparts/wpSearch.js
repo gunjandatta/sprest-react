@@ -247,7 +247,7 @@ var WebPartSearch = /** @class */ (function (_super) {
          */
         _this.onResolveSuggestions = function (filterText, tagList) {
             // Save the filter
-            _this._filterText = filterText ? filterText.toLowerCase() : filterText;
+            _this._filterText = (filterText || "").toLowerCase();
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
                 // Wait for the user to finish typing
@@ -261,7 +261,7 @@ var WebPartSearch = /** @class */ (function (_super) {
                     if (_this._filterText) {
                         // Filter the search terms
                         tags = _this.state.searchTerms.filter(function (term) {
-                            return term.key.indexOf(filterText) >= 0;
+                            return term.key.indexOf(_this._filterText) >= 0;
                         });
                         // Parse the tag list
                         for (var i = 0; i < tagList.length; i++) {

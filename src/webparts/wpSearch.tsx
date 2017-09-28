@@ -139,7 +139,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
                             // Ensure a value exists
                             if (result == null || result == "") { continue; }
-                            
+
                             // Add the index
                             if (tagMapper[result] == null) {
                                 // Add the value
@@ -326,7 +326,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
      */
     private onResolveSuggestions = (filterText: string, tagList: Array<ITag>): PromiseLike<Array<ITag>> => {
         // Save the filter
-        this._filterText = filterText ? filterText.toLowerCase() : filterText;
+        this._filterText = (filterText || "").toLowerCase();
 
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -341,7 +341,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 if (this._filterText) {
                     // Filter the search terms
                     tags = this.state.searchTerms.filter((term: ITag) => {
-                        return term.key.indexOf(filterText) >= 0;
+                        return term.key.indexOf(this._filterText) >= 0;
                     });
 
                     // Parse the tag list

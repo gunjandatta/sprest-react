@@ -131,6 +131,26 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      * Methods
      */
 
+    // Method to get the list
+    getList = (option: IDropdownOption) => {
+        let selectedList = null;
+
+        // Parse the lists
+        for (let i = 0; i < this.state.lists.length; i++) {
+            let list = this.state.lists[i];
+
+            // See if this is the target list
+            if (list.Title == option.key) {
+                // Set the list
+                selectedList = list;
+                break;
+            }
+        }
+
+        // Return the list
+        return selectedList;
+    }
+
     /**
      * Method to load the lists for the drop down
      */
@@ -235,10 +255,11 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      * Method to update the list name
      */
     private updateListName = (option?: IDropdownOption, idx?: number) => {
-        let newState = this.state;
+        let newState = Object.create(this.state);
 
         // Set the list name
         newState.cfg.ListName = option.text;
+        newState.selectedList = this.getList(option);
 
         // Call the change event
         this.onListChanged(newState, option, idx);

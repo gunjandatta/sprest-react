@@ -71,6 +71,7 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
     /**
      * Methods
      */
+    getList: (option: IDropdownOption) => any;
     /**
      * Method to load the lists for the drop down
      */

@@ -37,8 +37,8 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
             for (var i = 0; i < fieldTags.length; i++) {
                 var tag = fieldTags[i];
                 // Parse the fields
-                for (var j = 0; j < _this.state.list.Fields.results.length; j++) {
-                    var field = _this.state.list.Fields.results[i];
+                for (var j = 0; j < _this.state.selectedList.Fields.results.length; j++) {
+                    var field = _this.state.selectedList.Fields.results[i];
                     // See if this is the field we are looking for
                     if (field.InternalName == tag.key) {
                         var addField = false;

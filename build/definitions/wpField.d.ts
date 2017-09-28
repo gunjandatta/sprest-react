@@ -30,5 +30,4 @@ export interface IWebPartFieldCfgProps extends IWebPartListCfgProps {
  */
 export interface IWebPartFieldCfgState extends IWebPartListCfgState {
     cfg: IWebPartFieldCfg;
-    list: Types.IListQueryResult;
 }

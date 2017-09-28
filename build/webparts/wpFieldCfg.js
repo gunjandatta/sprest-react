@@ -63,11 +63,11 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
         _this.onResolveSuggestions = function (filterText, selectedItems) {
             var tags = [];
             // Ensure the list and filter exists
-            if (_this.state.list && filterText) {
+            if (_this.state.selectedList && filterText) {
                 var filter = filterText.toLowerCase();
                 // Parse the fields
-                for (var i = 0; i < _this.state.list.Fields.results.length; i++) {
-                    var field = _this.state.list.Fields.results[i];
+                for (var i = 0; i < _this.state.selectedList.Fields.results.length; i++) {
+                    var field = _this.state.selectedList.Fields.results[i];
                     // See if the internal or title contain this value
                     if (field.InternalName.toLowerCase().indexOf(filter) >= 0 ||
                         field.Title.toLowerCase().indexOf(filter) >= 0) {
@@ -144,15 +144,15 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
             for (var i = 0; i < selectedFields.length; i++) {
                 var selectedField = selectedFields[i];
                 // Parse the list fields
-                for (var j = 0; j < _this.state.list.Fields.results.length; j++) {
-                    var field = _this.state.list.Fields.results[j];
+                for (var j = 0; j < _this.state.selectedList.Fields.results.length; j++) {
+                    var field = _this.state.selectedList.Fields.results[j];
                     // See if this is the field we are looking for
                     if (field.InternalName == selectedField.key) {
                         // See if this is a taxonomy field
                         if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                             // Parse the fields
-                            for (var k = 0; k < _this.state.list.Fields.results.length; k++) {
-                                var fld = _this.state.list.Fields.results[k];
+                            for (var k = 0; k < _this.state.selectedList.Fields.results.length; k++) {
+                                var fld = _this.state.selectedList.Fields.results[k];
                                 // See if this is the hidden value field
                                 if (fld.Title == field.Title + "_0") {
                                     // Add the hidden value field

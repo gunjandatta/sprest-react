@@ -57,12 +57,12 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
         let tags: Array<ITag> = [];
 
         // Ensure the list and filter exists
-        if (this.state.list && filterText) {
+        if (this.state.selectedList && filterText) {
             let filter = filterText.toLowerCase();
 
             // Parse the fields
-            for (let i = 0; i < this.state.list.Fields.results.length; i++) {
-                let field = this.state.list.Fields.results[i];
+            for (let i = 0; i < this.state.selectedList.Fields.results.length; i++) {
+                let field = this.state.selectedList.Fields.results[i];
 
                 // See if the internal or title contain this value
                 if (field.InternalName.toLowerCase().indexOf(filter) >= 0 ||
@@ -151,16 +151,16 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
             let selectedField = selectedFields[i];
 
             // Parse the list fields
-            for (let j = 0; j < this.state.list.Fields.results.length; j++) {
-                let field = this.state.list.Fields.results[j];
+            for (let j = 0; j < this.state.selectedList.Fields.results.length; j++) {
+                let field = this.state.selectedList.Fields.results[j];
 
                 // See if this is the field we are looking for
                 if (field.InternalName == selectedField.key) {
                     // See if this is a taxonomy field
                     if (field.TypeAsString.indexOf("TaxonomyFieldType") == 0) {
                         // Parse the fields
-                        for (let k = 0; k < this.state.list.Fields.results.length; k++) {
-                            let fld = this.state.list.Fields.results[k];
+                        for (let k = 0; k < this.state.selectedList.Fields.results.length; k++) {
+                            let fld = this.state.selectedList.Fields.results[k];
 
                             // See if this is the hidden value field
                             if (fld.Title == field.Title + "_0") {

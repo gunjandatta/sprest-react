@@ -110,6 +110,22 @@ var WebPartListCfg = /** @class */ (function (_super) {
         /**
          * Methods
          */
+        // Method to get the list
+        _this.getList = function (option) {
+            var selectedList = null;
+            // Parse the lists
+            for (var i = 0; i < _this.state.lists.length; i++) {
+                var list = _this.state.lists[i];
+                // See if this is the target list
+                if (list.Title == option.key) {
+                    // Set the list
+                    selectedList = list;
+                    break;
+                }
+            }
+            // Return the list
+            return selectedList;
+        };
         /**
          * Method to load the lists for the drop down
          */
@@ -175,9 +191,10 @@ var WebPartListCfg = /** @class */ (function (_super) {
          * Method to update the list name
          */
         _this.updateListName = function (option, idx) {
-            var newState = _this.state;
+            var newState = Object.create(_this.state);
             // Set the list name
             newState.cfg.ListName = option.text;
+            newState.selectedList = _this.getList(option);
             // Call the change event
             _this.onListChanged(newState, option, idx);
             // Update the state

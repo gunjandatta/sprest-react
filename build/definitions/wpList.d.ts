@@ -18,6 +18,7 @@ export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
     _webUrl: TextField;
+    getList: (option: IDropdownOption) => Types.IListQueryResult;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: IWebPartListCfgState) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -38,6 +39,7 @@ export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
     lists?: Array<Types.IListQueryResult>;
     options?: Array<IDropdownOption>;
+    selectedList?: Types.IListQueryResult;
 }
 /**
  * List Item

@@ -81,12 +81,20 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     render() {
         // Ensure the component has been initialized
         if (this.state.items == null) {
-            // Load the items
-            this.load();
+            // Ensure the list name exists
+            if (this.props.cfg && this.props.cfg.ListName) {
+                // Load the items
+                this.load();
 
-            // Return a spinner
+                // Return a spinner
+                return (
+                    <Spinner label="Loading the items..." />
+                );
+            }
+
+            // Render a message
             return (
-                <Spinner label="Loading the items..." />
+                <div>Please edit the page and configure this webpart.</div>
             );
         }
 

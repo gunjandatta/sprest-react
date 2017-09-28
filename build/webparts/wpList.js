@@ -177,10 +177,15 @@ var WebPartList = /** @class */ (function (_super) {
     WebPartList.prototype.render = function () {
         // Ensure the component has been initialized
         if (this.state.items == null) {
-            // Load the items
-            this.load();
-            // Return a spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
+            // Ensure the list name exists
+            if (this.props.cfg && this.props.cfg.ListName) {
+                // Load the items
+                this.load();
+                // Return a spinner
+                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
+            }
+            // Render a message
+            return (React.createElement("div", null, "Please edit the page and configure this webpart."));
         }
         // Return the items
         return (React.createElement("div", { className: this.props.className }, this.onRenderContainer(this.state.items)));

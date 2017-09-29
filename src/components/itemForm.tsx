@@ -83,16 +83,18 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         };
 
         // Default the query
-        this._query = {
+        this._query = props.query || {
             Select: ["*"]
         } as Types.ODataQuery;
 
         // See if we are rendering the attachments field
         if (this._attachmentField) {
             // Expand the attachment files
-            this._query.Expand = ["AttachmentFiles"];
+            this._query.Expand = this._query.Expand || [];
+            this._query.Expand.push("AttachmentFiles");
 
             // Get the attachment files
+            this._query.Select = this._query.Select || [];
             this._query.Select.push("Attachments");
             this._query.Select.push("AttachmentFiles");
         }

@@ -28,6 +28,8 @@ export interface IItemFormProps {
     item?: any;
     /** The list display name. */
     listName: string;
+    /** The item query, used when refreshing the item after a save. */
+    query?: Types.ODataQuery;
     /** The on form render event. */
     onRender?: () => any;
     /** Flag to display the attachments. */

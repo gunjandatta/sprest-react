@@ -37,6 +37,9 @@ export interface IItemFormProps {
     /** The list display name. */
     listName: string;
 
+    /** The item query, used when refreshing the item after a save. */
+    query?: Types.ODataQuery;
+
     /** The on form render event. */
     onRender?: () => any;
 

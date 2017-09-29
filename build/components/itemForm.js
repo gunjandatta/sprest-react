@@ -211,14 +211,16 @@ var ItemForm = /** @class */ (function (_super) {
             saveFl: false
         };
         // Default the query
-        _this._query = {
+        _this._query = props.query || {
             Select: ["*"]
         };
         // See if we are rendering the attachments field
         if (_this._attachmentField) {
             // Expand the attachment files
-            _this._query.Expand = ["AttachmentFiles"];
+            _this._query.Expand = _this._query.Expand || [];
+            _this._query.Expand.push("AttachmentFiles");
             // Get the attachment files
+            _this._query.Select = _this._query.Select || [];
             _this._query.Select.push("Attachments");
             _this._query.Select.push("AttachmentFiles");
         }

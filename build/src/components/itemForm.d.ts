@@ -21,6 +21,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     private _list;
     /**
+     * Reference to the query used to refresh the item
+     */
+    private _query;
+    /**
      * Get the attachment field
      */
     /**
@@ -40,6 +44,13 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Get the list
      */
     readonly List: Types.IListResult;
+    /**
+     * Get the item query
+     */
+    /**
+     * Set the item query
+     */
+    ItemQuery: Types.ODataQuery;
     /**
      * Constructor
      */

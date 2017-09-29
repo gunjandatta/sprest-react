@@ -30,6 +30,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private _list: Types.IListResult = null;
 
     /**
+     * Reference to the query used to refresh the item
+     */
+    private _query: Types.ODataQuery = null;
+
+    /**
      * Get the attachment field
      */
     get AttachmentField(): Fields.FieldAttachments { return this._attachmentField; }
@@ -55,6 +60,16 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     get List(): Types.IListResult { return this._list; }
 
     /**
+     * Get the item query
+     */
+    get ItemQuery(): Types.ODataQuery { return this._query; }
+
+    /**
+     * Set the item query
+     */
+    set ItemQuery(query: Types.ODataQuery) { this._query = query; }
+
+    /**
      * Constructor
      */
     constructor(props: IItemFormProps) {
@@ -66,6 +81,21 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             item: props.item || {},
             saveFl: false
         };
+
+        // Default the query
+        this._query = {
+            Select: ["*"]
+        } as Types.ODataQuery;
+
+        // See if we are rendering the attachments field
+        if (this._attachmentField) {
+            // Expand the attachment files
+            this._query.Expand = ["AttachmentFiles"];
+
+            // Get the attachment files
+            this._query.Select.push("Attachments");
+            this._query.Select.push("AttachmentFiles");
+        }
     }
 
     /**
@@ -153,25 +183,13 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private getItem = (itemId) => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let query = {
-                Filter: "ID eq " + itemId,
-                Select: ["*"]
-            } as Types.ODataQuery;
-
-            // See if we are rendering the attachments field
-            if (this._attachmentField) {
-                // Expand the attachment files
-                query.Expand = ["AttachmentFiles"];
-
-                // Get the attachment files
-                query.Select.push("Attachments");
-                query.Select.push("AttachmentFiles");
-            }
+            // Set the filter
+            this._query.Filter = "ID eq " + itemId;
 
             // Get the list
             this.getList().then(() => {
                 // Get the item
-                this._list.Items().query(query)
+                this._list.Items().query(this._query)
                     // Execute the request
                     .execute(items => {
                         // Resolve the promise

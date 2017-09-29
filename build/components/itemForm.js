@@ -39,6 +39,10 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this._list = null;
         /**
+         * Reference to the query used to refresh the item
+         */
+        _this._query = null;
+        /**
          * Methods
          */
         /**
@@ -48,22 +52,12 @@ var ItemForm = /** @class */ (function (_super) {
         _this.getItem = function (itemId) {
             // Return a promise
             return new es6_promise_1.Promise(function (resolve, reject) {
-                var query = {
-                    Filter: "ID eq " + itemId,
-                    Select: ["*"]
-                };
-                // See if we are rendering the attachments field
-                if (_this._attachmentField) {
-                    // Expand the attachment files
-                    query.Expand = ["AttachmentFiles"];
-                    // Get the attachment files
-                    query.Select.push("Attachments");
-                    query.Select.push("AttachmentFiles");
-                }
+                // Set the filter
+                _this._query.Filter = "ID eq " + itemId;
                 // Get the list
                 _this.getList().then(function () {
                     // Get the item
-                    _this._list.Items().query(query)
+                    _this._list.Items().query(_this._query)
                         .execute(function (items) {
                         // Resolve the promise
                         resolve(items.results ? items.results[0] : null);
@@ -216,6 +210,18 @@ var ItemForm = /** @class */ (function (_super) {
             item: props.item || {},
             saveFl: false
         };
+        // Default the query
+        _this._query = {
+            Select: ["*"]
+        };
+        // See if we are rendering the attachments field
+        if (_this._attachmentField) {
+            // Expand the attachment files
+            _this._query.Expand = ["AttachmentFiles"];
+            // Get the attachment files
+            _this._query.Select.push("Attachments");
+            _this._query.Select.push("AttachmentFiles");
+        }
         return _this;
     }
     Object.defineProperty(ItemForm.prototype, "AttachmentField", {
@@ -247,6 +253,18 @@ var ItemForm = /** @class */ (function (_super) {
          * Get the list
          */
         get: function () { return this._list; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ItemForm.prototype, "ItemQuery", {
+        /**
+         * Get the item query
+         */
+        get: function () { return this._query; },
+        /**
+         * Set the item query
+         */
+        set: function (query) { this._query = query; },
         enumerable: true,
         configurable: true
     });

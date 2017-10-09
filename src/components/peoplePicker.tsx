@@ -90,6 +90,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             className: "ms-PeoplePicker",
             loadingText: "Loading the user...",
             noResultsFoundText: "No users were found.",
+            searchForMoreText: "Search All",
             suggestionsHeaderText: "Suggested Users"
         };
 
@@ -100,6 +101,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                 defaultSelectedItems={this.state.personas}
                 getTextFromItem={(persona: IPersonaProps) => { return persona.primaryText; }}
                 onChange={this.onChange}
+                onGetMoreResults={this.searchAll}
                 onResolveSuggestions={this.search}
                 pickerSuggestionsProps={pickerSuggestionsProps}
             />
@@ -164,11 +166,21 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     }
 
     /**
+     * Method to search for all sources
+     * @param filterText - The filtered text.
+     * @param personas - The selected users.
+     */
+    private searchAll = (filterText: string, personas: Array<IPersonaProps>): Array<IPersonaProps> | PromiseLike<Array<IPersonaProps>> => {
+        // Search all principal sources
+        return this.search(filterText, personas, SPTypes.PrincipalSources.All);
+    }
+
+    /**
      * Method to search for the user
      * @param filterText - The filtered text.
      * @param personas - The selected users.
      */
-    private search = (filterText: string, personas: Array<IPersonaProps>): Array<IPersonaProps> | PromiseLike<Array<IPersonaProps>> => {
+    private search = (filterText: string, personas: Array<IPersonaProps>, source?: number): Array<IPersonaProps> | PromiseLike<Array<IPersonaProps>> => {
         // Save the filter
         this._filterText = filterText.toLowerCase();
 
@@ -188,33 +200,41 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                         // Search for the user
                         .clientPeoplePickerSearchUser({
                             MaximumEntitySuggestions: 15,
-                            PrincipalSource: SPTypes.PrincipalSources.UserInfoList,
+                            PrincipalSource: typeof (source) === "number" ? source : SPTypes.PrincipalSources.UserInfoList,
                             PrincipalType: SPTypes.PrincipalTypes.User,
                             QueryString: this._filterText
                         })
                         // Execute the request
                         .execute((results) => {
-                            let users: Array<IPersonaProps> = [];
-
-                            // Parse the users
-                            for (let i = 0; i < results.ClientPeoplePickerSearchUser.length; i++) {
-                                let user = results.ClientPeoplePickerSearchUser[i];
-
-                                // Add the user
-                                users.push({
-                                    id: user.Key,
-                                    itemID: user.EntityData.SPUserID,
-                                    primaryText: user.DisplayText,
-                                    secondaryText: user.EntityData.Email,
-                                    tertiaryText: user.Description
-                                });
-                            }
-
                             // Resolve the promise
-                            resolve(users);
+                            resolve(this.toArray(results));
                         });
                 }
             }, 500);
         });
+    }
+
+    /**
+     * Method to convert the people picker results to an array
+     */
+    private toArray = (results: Types.IPeoplePickerSearchUser) => {
+        let users: Array<IPersonaProps> = [];
+
+        // Parse the users
+        for (let i = 0; i < results.ClientPeoplePickerSearchUser.length; i++) {
+            let user = results.ClientPeoplePickerSearchUser[i];
+
+            // Add the user
+            users.push({
+                id: user.Key,
+                itemID: user.EntityData.SPUserID,
+                primaryText: user.DisplayText,
+                secondaryText: user.EntityData.Email,
+                tertiaryText: user.Description
+            });
+        }
+
+        // Return the users
+        return users;
     }
 }

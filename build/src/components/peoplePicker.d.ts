@@ -53,9 +53,19 @@ export declare class SPPeoplePicker extends React.Component<ISPPeoplePickerProps
      */
     private onChange;
     /**
+     * Method to search for all sources
+     * @param filterText - The filtered text.
+     * @param personas - The selected users.
+     */
+    private searchAll;
+    /**
      * Method to search for the user
      * @param filterText - The filtered text.
      * @param personas - The selected users.
      */
     private search;
+    /**
+     * Method to convert the people picker results to an array
+     */
+    private toArray;
 }

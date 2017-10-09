@@ -91,11 +91,20 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             });
         };
         /**
+         * Method to search for all sources
+         * @param filterText - The filtered text.
+         * @param personas - The selected users.
+         */
+        _this.searchAll = function (filterText, personas) {
+            // Search all principal sources
+            return _this.search(filterText, personas, gd_sprest_1.SPTypes.PrincipalSources.All);
+        };
+        /**
          * Method to search for the user
          * @param filterText - The filtered text.
          * @param personas - The selected users.
          */
-        _this.search = function (filterText, personas) {
+        _this.search = function (filterText, personas, source) {
             // Save the filter
             _this._filterText = filterText.toLowerCase();
             // Ensure we have a minimum of 3 characters
@@ -115,30 +124,37 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                         (new gd_sprest_1.PeoplePicker())
                             .clientPeoplePickerSearchUser({
                             MaximumEntitySuggestions: 15,
-                            PrincipalSource: gd_sprest_1.SPTypes.PrincipalSources.UserInfoList,
+                            PrincipalSource: typeof (source) === "number" ? source : gd_sprest_1.SPTypes.PrincipalSources.UserInfoList,
                             PrincipalType: gd_sprest_1.SPTypes.PrincipalTypes.User,
                             QueryString: _this._filterText
                         })
                             .execute(function (results) {
-                            var users = [];
-                            // Parse the users
-                            for (var i = 0; i < results.ClientPeoplePickerSearchUser.length; i++) {
-                                var user = results.ClientPeoplePickerSearchUser[i];
-                                // Add the user
-                                users.push({
-                                    id: user.Key,
-                                    itemID: user.EntityData.SPUserID,
-                                    primaryText: user.DisplayText,
-                                    secondaryText: user.EntityData.Email,
-                                    tertiaryText: user.Description
-                                });
-                            }
                             // Resolve the promise
-                            resolve(users);
+                            resolve(_this.toArray(results));
                         });
                     }
                 }, 500);
             });
+        };
+        /**
+         * Method to convert the people picker results to an array
+         */
+        _this.toArray = function (results) {
+            var users = [];
+            // Parse the users
+            for (var i = 0; i < results.ClientPeoplePickerSearchUser.length; i++) {
+                var user = results.ClientPeoplePickerSearchUser[i];
+                // Add the user
+                users.push({
+                    id: user.Key,
+                    itemID: user.EntityData.SPUserID,
+                    primaryText: user.DisplayText,
+                    secondaryText: user.EntityData.Email,
+                    tertiaryText: user.Description
+                });
+            }
+            // Return the users
+            return users;
         };
         // Get the personas
         var personas = props.props && props.props.defaultSelectedItems ? props.props.defaultSelectedItems : _this.convertToPersonas(props.fieldValue);
@@ -157,10 +173,11 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             className: "ms-PeoplePicker",
             loadingText: "Loading the user...",
             noResultsFoundText: "No users were found.",
+            searchForMoreText: "Search All",
             suggestionsHeaderText: "Suggested Users"
         };
         // Return the people picker
-        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { defaultSelectedItems: this.state.personas, getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps })));
+        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { defaultSelectedItems: this.state.personas, getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onGetMoreResults: this.searchAll, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps })));
     };
     /**
      * Method to convert the personas to a field value

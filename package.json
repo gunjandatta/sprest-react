@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest-react",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "SharePoint react components.",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
@@ -30,14 +30,14 @@
   },
   "homepage": "https://github.com/gunjandatta/sprest-react#readme",
   "dependencies": {
-    "gd-sprest": "^2.0.2",
-    "office-ui-fabric-react": "^6.0.0",
+    "gd-sprest": "^2.0.4",
+    "office-ui-fabric-react": "^6.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "@types/react": "^16.0.9",
-    "@types/react-dom": "^16.0.0",
+    "@types/react": "^16.0.10",
+    "@types/react-dom": "^16.0.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",

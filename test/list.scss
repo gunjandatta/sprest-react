@@ -30,6 +30,6 @@
 
     // The save button
     .save-button {
-        @include ms-textAlign(right);
+        text-align: center;
     }
 }

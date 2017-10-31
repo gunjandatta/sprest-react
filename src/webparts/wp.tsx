@@ -1,5 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
+import { Fabric } from "office-ui-fabric-react";
 import { Page } from "../common";
 import { IWebPartCfg, IWebPartInfo, IWebPartProps, IWebPartTargetInfo } from "../definitions";
 
@@ -191,7 +192,7 @@ export class WebPart {
         // See if the element exists
         if (element) {
             // Render the element
-            render(element, targetInfo.element);
+            render(<Fabric>{element}</Fabric>, targetInfo.element);
         }
 
         // Execute the post render event

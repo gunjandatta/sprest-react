@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_dom_1 = require("react-dom");
+var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../common");
 /**
  * Web Part
@@ -165,7 +166,7 @@ var WebPart = /** @class */ (function () {
             // See if the element exists
             if (element) {
                 // Render the element
-                react_dom_1.render(element, targetInfo.element);
+                react_dom_1.render(React.createElement(office_ui_fabric_react_1.Fabric, null, element), targetInfo.element);
             }
             // Execute the post render event
             _this._props.onPostRender ? _this._props.onPostRender(targetInfo) : null;

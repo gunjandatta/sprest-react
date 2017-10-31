@@ -78,7 +78,7 @@ showPanel = () => { this._panel.show(); }
 ```
 
 #### SharePoint People Picker
-The people picker component will currently search the user information list. This will be enhanced to include a "Search Global" to allow the user to search all role providers.
+The people picker component searches the user information list by default, but contains a "Search All" option to search all principal sources.
 ```
 <SPPeoplePicker allowMultiple={this.state.fieldInfo.allowMultiple} fieldValue={this.state.value} />
 ```

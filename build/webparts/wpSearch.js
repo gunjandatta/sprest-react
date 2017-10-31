@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var _1 = require(".");
@@ -249,7 +248,7 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Save the filter
             _this._filterText = (filterText || "").toLowerCase();
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Wait for the user to finish typing
                 setTimeout(function () {
                     var tags = [];

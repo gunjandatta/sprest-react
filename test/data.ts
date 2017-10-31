@@ -1,4 +1,3 @@
-import { Promise } from "es6-promise";
 import { Types, Web } from "gd-sprest";
 import { IWebPartListCfg } from "../src";
 

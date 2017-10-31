@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 require("../../sass/fieldAttachments.scss");
@@ -33,7 +32,7 @@ var FieldAttachments = /** @class */ (function (_super) {
          */
         _this.save = function (itemId) {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Delete the attachments
                 _this.deleteAttachments().then(function () {
                     // Save the attachments
@@ -155,7 +154,7 @@ var FieldAttachments = /** @class */ (function (_super) {
          */
         _this.deleteAttachments = function () {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Get the web
                 var web = new gd_sprest_1.Web(_this.props.webUrl);
                 // Parse the files
@@ -230,7 +229,7 @@ var FieldAttachments = /** @class */ (function (_super) {
          */
         _this.saveAttachments = function (itemId) {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Get the list item
                 var item = (new gd_sprest_1.Web(_this.props.webUrl))
                     .Lists(_this.props.listName)

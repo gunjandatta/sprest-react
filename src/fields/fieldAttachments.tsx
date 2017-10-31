@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Promise } from "es6-promise";
 import { SPTypes, Types, Web } from "gd-sprest";
 import {
     Label, Link,

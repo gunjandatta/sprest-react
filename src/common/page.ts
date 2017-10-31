@@ -1,5 +1,4 @@
 import { ContextInfo } from "gd-sprest";
-import { Promise } from "es6-promise";
 declare var MSOWebPartPageFormName;
 declare var SP;
 

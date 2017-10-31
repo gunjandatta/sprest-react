@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Promise } from "es6-promise";
 import { ContextInfo, SPTypes, Site, Types, Web } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps, Spinner } from "office-ui-fabric-react";
 import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState, IManagedMetadataFieldInfo, IManagedMetadataTermInfo } from "../definitions";

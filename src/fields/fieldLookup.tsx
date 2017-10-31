@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Promise } from "es6-promise";
 import { SPTypes, Site, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps, Spinner } from "office-ui-fabric-react";
 import { IFieldLookup, IFieldLookupProps, IFieldLookupState, ILookupFieldInfo } from "../definitions";

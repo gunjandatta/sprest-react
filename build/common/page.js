@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var gd_sprest_1 = require("gd-sprest");
-var es6_promise_1 = require("es6-promise");
 /**
  * Page Common Methods
  */
@@ -14,7 +13,7 @@ var Page = /** @class */ (function () {
      */
     Page.getWebPart = function (wpId) {
         // Return a promise
-        return new es6_promise_1.Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             // Get the current context
             var context = SP.ClientContext.get_current();
             // Get the webpart from the current page

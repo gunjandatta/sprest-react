@@ -19,7 +19,6 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var _1 = require(".");
@@ -162,7 +161,7 @@ var FieldLookup = /** @class */ (function (_super) {
          */
         _this.loadLookupItems = function (fieldInfo) {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Get the current site collection
                 (new gd_sprest_1.Site())
                     .openWebById(fieldInfo.lookupWebId)

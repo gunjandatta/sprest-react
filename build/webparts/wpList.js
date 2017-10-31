@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
@@ -134,7 +133,7 @@ var WebPartList = /** @class */ (function (_super) {
          */
         _this.refreshItem = function (itemId) {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Copy the odata query
                 var query = Object.create(_this._query);
                 // Update the filter to query the item

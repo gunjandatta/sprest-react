@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var __1 = require("..");
@@ -51,7 +50,7 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.getItem = function (itemId) {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Set the filter
                 _this._query.Filter = "ID eq " + itemId;
                 // Get the list
@@ -70,7 +69,7 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.getList = function () {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // See if we have already queried the list
                 if (_this._list) {
                     // Resolve the promise
@@ -156,7 +155,7 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.saveAttachments = function (itemId) {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // See if attachments exist
                 if (_this._attachmentField) {
                     // Save the attachments
@@ -176,7 +175,7 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.saveItem = function () {
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 var item = _this.props.item;
                 // Get the item
                 var formValues = _this.getValues();
@@ -304,7 +303,7 @@ var ItemForm = /** @class */ (function (_super) {
      */
     ItemForm.prototype.save = function () {
         var _this = this;
-        return new es6_promise_1.Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             // Set the state
             _this.setState({ saveFl: true }, function () {
                 // Save the item

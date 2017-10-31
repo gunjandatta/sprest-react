@@ -19,7 +19,6 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var es6_promise_1 = require("es6-promise");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
@@ -112,7 +111,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                 return [];
             }
             // Return a promise
-            return new es6_promise_1.Promise(function (resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 // Wait for the user to finish typing
                 setTimeout(function () {
                     // See if the user is still typing

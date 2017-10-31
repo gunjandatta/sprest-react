@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Promise } from "es6-promise";
 import { PeoplePicker, SPTypes, Types } from "gd-sprest";
 import {
     NormalPeoplePicker, IPeoplePickerProps, IPersonaProps

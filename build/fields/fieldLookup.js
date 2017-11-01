@@ -80,8 +80,6 @@ var FieldLookup = /** @class */ (function (_super) {
          * @param idx - The dropdown option number.
          */
         _this.onChanged = function (option, idx) {
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
             // See if this is a multi-choice field
             if (_this.state.fieldInfo.allowMultipleValues) {
                 var fieldValue = _this.state.value;

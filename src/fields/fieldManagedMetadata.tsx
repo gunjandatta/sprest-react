@@ -71,9 +71,6 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * @param idx - The dropdown option index.
      */
     protected onChanged = (option: IDropdownOption, idx: number) => {
-        // Call the change event
-        this.props.onChange ? this.props.onChange(option) : null;
-
         // See if this is a multi-choice field
         if (this.state.fieldInfo.allowMultipleValues) {
             let fieldValue = this.state.value;

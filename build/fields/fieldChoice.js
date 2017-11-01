@@ -69,8 +69,6 @@ var FieldChoice = /** @class */ (function (_super) {
          * @param idx - The dropdown option index.
          */
         _this.onChanged = function (option, idx) {
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(option) : null;
             // See if this is a multi-choice field
             if (_this.state.fieldInfo.multiChoice) {
                 var fieldValue = _this.state.value;

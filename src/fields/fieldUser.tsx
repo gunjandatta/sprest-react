@@ -49,9 +49,6 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      * @param personas - The user personas.
      */
     onChange = (personas) => {
-        // Call the change event
-        this.props.onChange ? this.props.onChange(personas) : null;
-
         // Update the field value
         this.updateValue(SPPeoplePicker.convertToFieldValue(personas, this.state.fieldInfo.allowMultiple));
     }

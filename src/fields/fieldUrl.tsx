@@ -78,9 +78,6 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         // Ensure the metadata type exists
         fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
 
-        // Call the change event
-        this.props.onChange ? this.props.onChange(fieldValue) : null;
-
         // Update the value
         this.updateValue(fieldValue);
     }
@@ -98,9 +95,6 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
         // Ensure the metadata type exists
         fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
-
-        // Call the change event
-        this.props.onChange ? this.props.onChange(fieldValue) : null;
 
         // Update the value
         this.updateValue(fieldValue);

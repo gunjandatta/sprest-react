@@ -66,8 +66,6 @@ var FieldBoolean = /** @class */ (function (_super) {
          * The on change event
          */
         _this.onChange = function (ev, checked) {
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(checked) : null;
             // Update the value
             _this.updateValue(checked);
         };

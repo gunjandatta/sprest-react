@@ -58,8 +58,6 @@ var FieldUser = /** @class */ (function (_super) {
          * @param personas - The user personas.
          */
         _this.onChange = function (personas) {
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(personas) : null;
             // Update the field value
             _this.updateValue(__1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple));
         };

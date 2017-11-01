@@ -79,8 +79,6 @@ var FieldUrl = /** @class */ (function (_super) {
             fieldValue.Description = value;
             // Ensure the metadata type exists
             fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
             // Update the value
             _this.updateValue(fieldValue);
         };
@@ -95,8 +93,6 @@ var FieldUrl = /** @class */ (function (_super) {
             fieldValue.Url = value;
             // Ensure the metadata type exists
             fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(fieldValue) : null;
             // Update the value
             _this.updateValue(fieldValue);
         };

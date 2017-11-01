@@ -79,8 +79,6 @@ var FieldDateTime = /** @class */ (function (_super) {
             date.setMinutes(0);
             date.setSeconds(0);
             date.setMilliseconds(0);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(date) : null;
             // Update the value
             _this.updateValue(date);
         };

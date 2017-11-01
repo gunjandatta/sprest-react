@@ -72,9 +72,6 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         date.setSeconds(0);
         date.setMilliseconds(0);
 
-        // Call the change event
-        this.props.onChange ? this.props.onChange(date) : null;
-
         // Update the value
         this.updateValue(date);
     }

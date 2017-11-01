@@ -69,9 +69,6 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * @param idx - The dropdown option number.
      */
     protected onChanged = (option: IDropdownOption, idx: number) => {
-        // Call the change event
-        this.props.onChange ? this.props.onChange(option) : null;
-
         // See if this is a multi-choice field
         if (this.state.fieldInfo.allowMultipleValues) {
             let fieldValue = this.state.value;

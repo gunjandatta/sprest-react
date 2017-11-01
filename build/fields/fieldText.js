@@ -82,8 +82,6 @@ var FieldText = /** @class */ (function (_super) {
          * @param value - The field value.
          */
         _this.onChange = function (value) {
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(value) : null;
             // Update the value
             _this.updateValue(value);
         };

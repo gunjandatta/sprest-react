@@ -63,9 +63,6 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
      * @param value - The field value.
      */
     private onChange = (value: number) => {
-        // Call the change event
-        this.props.onChange ? this.props.onChange(value) : null;
-
         // Update the value
         this.updateValue(value);
     }

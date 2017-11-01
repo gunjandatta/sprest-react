@@ -57,9 +57,6 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
      * The on change event
      */
     private onChange = (ev: React.MouseEvent<HTMLInputElement>, checked: boolean) => {
-        // Call the change event
-        this.props.onChange ? this.props.onChange(checked) : null;
-
         // Update the value
         this.updateValue(checked);
     }

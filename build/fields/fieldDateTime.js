@@ -119,7 +119,7 @@ var FieldDateTime = /** @class */ (function (_super) {
                 }
             }
             // Return the value
-            return null;
+            return value;
         };
         /**
          * Method to render the time component

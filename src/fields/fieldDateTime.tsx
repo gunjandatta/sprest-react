@@ -117,7 +117,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         }
 
         // Return the value
-        return null;
+        return value;
     }
 
     /**

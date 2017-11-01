@@ -91,9 +91,6 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         date.setHours(hours);
         date.setMinutes(minutes);
 
-        // Call the change event
-        this.props.onChange ? this.props.onChange(date) : null;
-
         // Update the value
         this.updateValue(date);
     }

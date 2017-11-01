@@ -106,7 +106,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             }
             else {
                 // Update the field value
-                _this.updateValue(option.selected ? {
+                _this.updateValue(option ? {
                     __metadata: { type: "SP.Taxonomy.TaxonomyFieldValue" },
                     Label: option.data,
                     TermGuid: option.key,

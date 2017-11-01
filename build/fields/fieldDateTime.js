@@ -95,8 +95,6 @@ var FieldDateTime = /** @class */ (function (_super) {
             var date = _this._datePicker.state.selectedDate;
             date.setHours(hours);
             date.setMinutes(minutes);
-            // Call the change event
-            _this.props.onChange ? _this.props.onChange(date) : null;
             // Update the value
             _this.updateValue(date);
         };

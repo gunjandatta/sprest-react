@@ -76,7 +76,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
             this.updateValue(fieldValue);
         } else {
             // Update the field value
-            this.updateValue(option.selected ? option.key : null);
+            this.updateValue(option ? option.key : null);
         }
     }
 

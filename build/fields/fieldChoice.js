@@ -91,7 +91,7 @@ var FieldChoice = /** @class */ (function (_super) {
             }
             else {
                 // Update the field value
-                _this.updateValue(option.selected ? option.key : null);
+                _this.updateValue(option ? option.key : null);
             }
         };
         /**

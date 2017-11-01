@@ -97,7 +97,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             this.updateValue(fieldValue);
         } else {
             // Update the field value
-            this.updateValue(option.selected ? {
+            this.updateValue(option ? {
                 __metadata: { type: "SP.Taxonomy.TaxonomyFieldValue" },
                 Label: option.data,
                 TermGuid: option.key,

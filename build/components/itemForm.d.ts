@@ -17,10 +17,6 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     private _fields;
     /**
-     * Reference to the list
-     */
-    private _list;
-    /**
      * Reference to the query used to refresh the item
      */
     private _query;
@@ -72,10 +68,6 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     private getItem;
     /**
-     * Method to get the list
-     */
-    private getList;
-    /**
      * Method to get the form values
      */
     private getValues<IItem>();
@@ -83,6 +75,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Method to load the fields
      */
     private loadDefaultFields;
+    /**
+     * Method to load the list
+     */
+    private loadList;
     /**
      * Method to render the fields
      */

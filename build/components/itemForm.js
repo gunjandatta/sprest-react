@@ -34,10 +34,6 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this._fields = {};
         /**
-         * Reference to the list
-         */
-        _this._list = null;
-        /**
          * Reference to the query used to refresh the item
          */
         _this._query = null;
@@ -53,39 +49,12 @@ var ItemForm = /** @class */ (function (_super) {
             return new Promise(function (resolve, reject) {
                 // Set the filter
                 _this._query.Filter = "ID eq " + itemId;
-                // Get the list
-                _this.getList().then(function () {
-                    // Get the item
-                    _this._list.Items().query(_this._query)
-                        .execute(function (items) {
-                        // Resolve the promise
-                        resolve(items.results ? items.results[0] : null);
-                    });
-                });
-            });
-        };
-        /**
-         * Method to get the list
-         */
-        _this.getList = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if we have already queried the list
-                if (_this._list) {
+                // Get the item
+                _this.state.list.Items().query(_this._query)
+                    .execute(function (items) {
                     // Resolve the promise
-                    resolve(_this._list);
-                }
-                else {
-                    // Get the web
-                    (new gd_sprest_1.Web(_this.props.webUrl))
-                        .Lists(_this.props.listName)
-                        .execute(function (list) {
-                        // Save the list
-                        _this._list = list;
-                        // Resolve the promise
-                        resolve(list);
-                    });
-                }
+                    resolve(items.results ? items.results[0] : null);
+                });
             });
         };
         /**
@@ -124,6 +93,18 @@ var ItemForm = /** @class */ (function (_super) {
                     console.log("[gd-sprest] Error getting default fields.");
                     console.log("[gd-sprest] " + contentTypes["response"]);
                 }
+            });
+        };
+        /**
+         * Method to load the list
+         */
+        _this.loadList = function () {
+            // Get the web
+            (new gd_sprest_1.Web(_this.props.webUrl))
+                .Lists(_this.props.listName)
+                .execute(function (list) {
+                // Update the state
+                _this.setState({ list: list });
             });
         };
         /**
@@ -188,17 +169,14 @@ var ItemForm = /** @class */ (function (_super) {
                     });
                 }
                 else {
-                    // Get the list
-                    _this.getList().then(function () {
-                        // Set the metadata type
-                        formValues["__metadata"] = { type: _this._list.ListItemEntityTypeFullName };
-                        // Get the items
-                        _this._list.Items()
-                            .add(formValues)
-                            .execute(function (item) {
-                            // Resolve the request
-                            resolve(item.Id);
-                        });
+                    // Set the metadata type
+                    formValues["__metadata"] = { type: _this.state.list.ListItemEntityTypeFullName };
+                    // Get the items
+                    _this.state.list.Items()
+                        .add(formValues)
+                        .execute(function (item) {
+                        // Resolve the request
+                        resolve(item.Id);
                     });
                 }
             });
@@ -253,7 +231,7 @@ var ItemForm = /** @class */ (function (_super) {
         /**
          * Get the list
          */
-        get: function () { return this._list; },
+        get: function () { return this.state.list; },
         enumerable: true,
         configurable: true
     });
@@ -273,6 +251,13 @@ var ItemForm = /** @class */ (function (_super) {
      * Render the component
      */
     ItemForm.prototype.render = function () {
+        // See if the list exists
+        if (this.state.list == null) {
+            // Load the list
+            this.loadList();
+            // Return a spinner
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list..." }));
+        }
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event

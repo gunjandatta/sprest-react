@@ -24,11 +24,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private _fields: { [key: string]: Field } = {};
 
     /**
-     * Reference to the list
-     */
-    private _list: Types.IListResult = null;
-
-    /**
      * Reference to the query used to refresh the item
      */
     private _query: Types.ODataQuery = null;
@@ -56,7 +51,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Get the list
      */
-    get List(): Types.IListResult { return this._list; }
+    get List(): Types.IListResult { return this.state.list; }
 
     /**
      * Get the item query
@@ -103,6 +98,17 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Render the component
      */
     render() {
+        // See if the list exists
+        if (this.state.list == null) {
+            // Load the list
+            this.loadList();
+
+            // Return a spinner
+            return (
+                <Spinner label="Loading the list..." />
+            );
+        }
+
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
@@ -187,43 +193,13 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // Set the filter
             this._query.Filter = "ID eq " + itemId;
 
-            // Get the list
-            this.getList().then(() => {
-                // Get the item
-                this._list.Items().query(this._query)
-                    // Execute the request
-                    .execute(items => {
-                        // Resolve the promise
-                        resolve(items.results ? items.results[0] : null);
-                    });
-            });
-        });
-    }
-
-    /**
-     * Method to get the list
-     */
-    private getList = () => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // See if we have already queried the list
-            if (this._list) {
-                // Resolve the promise
-                resolve(this._list);
-            } else {
-                // Get the web
-                (new Web(this.props.webUrl))
-                    // Get the list
-                    .Lists(this.props.listName)
-                    // Execute this request
-                    .execute(list => {
-                        // Save the list
-                        this._list = list;
-
-                        // Resolve the promise
-                        resolve(list);
-                    });
-            }
+            // Get the item
+            this.state.list.Items().query(this._query)
+                // Execute the request
+                .execute(items => {
+                    // Resolve the promise
+                    resolve(items.results ? items.results[0] : null);
+                });
         });
     }
 
@@ -346,6 +322,21 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
+     * Method to load the list
+     */
+    private loadList = () => {
+        // Get the web
+        (new Web(this.props.webUrl))
+            // Get the list
+            .Lists(this.props.listName)
+            // Execute this request
+            .execute(list => {
+                // Update the state
+                this.setState({ list });
+            });
+    }
+
+    /**
      * Method to render the fields
      */
     private renderFields = () => {
@@ -437,21 +428,18 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     resolve(item.Id);
                 });
             } else {
-                // Get the list
-                this.getList().then(() => {
-                    // Set the metadata type
-                    formValues["__metadata"] = { type: this._list.ListItemEntityTypeFullName };
+                // Set the metadata type
+                formValues["__metadata"] = { type: this.state.list.ListItemEntityTypeFullName };
 
-                    // Get the items
-                    this._list.Items()
-                        // Add the item
-                        .add(formValues)
-                        // Execute the request
-                        .execute(item => {
-                            // Resolve the request
-                            resolve(item.Id);
-                        });
-                });
+                // Get the items
+                this.state.list.Items()
+                    // Add the item
+                    .add(formValues)
+                    // Execute the request
+                    .execute(item => {
+                        // Resolve the request
+                        resolve(item.Id);
+                    });
             }
         });
     }

@@ -99,7 +99,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
 
         // Return the items
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 {this.onRenderContainer(this.state.items)}
             </div>
         );

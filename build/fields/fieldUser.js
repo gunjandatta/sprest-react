@@ -46,7 +46,7 @@ var FieldUser = /** @class */ (function (_super) {
             props.disabled = _this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.onChange = _this.onChange;
             // Render the component
-            return (React.createElement("div", { className: _this.props.className },
+            return (React.createElement("div", { className: (_this.props.className || "") },
                 React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.label),
                 React.createElement(__1.SPPeoplePicker, { allowMultiple: _this.state.fieldInfo.allowMultiple, fieldValue: _this.props.defaultValue ? _this.props.defaultValue.results || [_this.props.defaultValue] : null, props: props })));
         };

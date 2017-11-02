@@ -39,7 +39,7 @@ var FieldText = /** @class */ (function (_super) {
             }
             // Update the properties
             var props = _this.props.props || {};
-            props.className = _this.props.className;
+            props.className = (_this.props.className || "");
             props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
             props.label = props.label || _this.state.label;
             props.multiline = typeof (props.label) === "boolean" ? props.label : _this.state.fieldInfo.multiline;

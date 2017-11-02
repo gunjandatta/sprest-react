@@ -38,13 +38,13 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         if (this.props.controlMode == SPTypes.ControlMode.Display) {
             // Render the attachments
             return (
-                <div className={this.props.className}>{this.renderAttachments()}</div>
+                <div className={(this.props.className || "")}>{this.renderAttachments()}</div>
             );
         }
 
         // Render the attachments
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 {this.renderAttachments()}
                 {
                     this.state.loadingFl ?

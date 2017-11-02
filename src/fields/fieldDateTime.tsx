@@ -40,7 +40,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Render the component
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 <DatePicker {...props} ref={datePicker => { this._datePicker = datePicker; }} />
                 {this.renderTime(props.value)}
             </div>

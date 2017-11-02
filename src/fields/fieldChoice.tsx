@@ -19,7 +19,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
 
         // Update the properties
         let props: IDropdownProps = this.props.props || {};
-        props.className = this.props.className;
+        props.className = (this.props.className || "");
         props.disabled = this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";

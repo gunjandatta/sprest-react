@@ -19,7 +19,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
 
         // Update the properties
         let props: ITextFieldProps = this.props.props || {};
-        props.className = this.props.className;
+        props.className = (this.props.className || "");
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label || this.state.label;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;

@@ -53,7 +53,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
         // Return the items
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 {
                     this.props.cfg.TagPickerFl ?
                         <TagPicker

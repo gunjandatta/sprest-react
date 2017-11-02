@@ -141,7 +141,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         :
                         null
                 }
-                <div className={"ms-Grid " + this.props.className} hidden={this.state.saveFl}>
+                <div className={"ms-Grid " + (this.props.className || "")} hidden={this.state.saveFl}>
                     {this.renderFields()}
                 </div>
             </div>

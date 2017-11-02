@@ -187,7 +187,7 @@ var WebPartList = /** @class */ (function (_super) {
             return (React.createElement("div", null, "Please edit the page and configure this webpart."));
         }
         // Return the items
-        return (React.createElement("div", { className: this.props.className }, this.onRenderContainer(this.state.items)));
+        return (React.createElement("div", { className: (this.props.className || "") }, this.onRenderContainer(this.state.items)));
     };
     return WebPartList;
 }(React.Component));

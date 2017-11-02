@@ -29,7 +29,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
         // Render the component
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
                 <SPPeoplePicker
                     allowMultiple={this.state.fieldInfo.allowMultiple}

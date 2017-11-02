@@ -43,7 +43,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
             // Return the value
             return (
                 <Link
-                    className={this.props.className}
+                    className={(this.props.className || "")}
                     href={defaultValue.Url}
                     label={urlProps.label}>
                     {descProps.defaultValue || urlProps.defaultValue}
@@ -53,7 +53,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
 
         // Return the component
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 <TextField {...urlProps as any} />
                 <TextField {...descProps as any} />
             </div>

@@ -53,7 +53,7 @@ var FieldDateTime = /** @class */ (function (_super) {
             props.strings = props.strings || common_1.DatePickerStrings;
             props.value = _this.getValue();
             // Render the component
-            return (React.createElement("div", { className: _this.props.className },
+            return (React.createElement("div", { className: (_this.props.className || "") },
                 React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { ref: function (datePicker) { _this._datePicker = datePicker; } })),
                 _this.renderTime(props.value)));
         };

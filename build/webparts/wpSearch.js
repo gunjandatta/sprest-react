@@ -330,7 +330,7 @@ var WebPartSearch = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
         }
         // Return the items
-        return (React.createElement("div", { className: this.props.className },
+        return (React.createElement("div", { className: (this.props.className || "") },
             this.props.cfg.TagPickerFl ?
                 React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions, pickerSuggestionsProps: {
                         loadingText: "Loading the results",

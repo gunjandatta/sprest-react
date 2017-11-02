@@ -26,7 +26,7 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
         if (this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display) {
             // Return the value
             return (
-                <div className={this.props.className}>
+                <div className={(this.props.className || "")}>
                     <Label>{props.label || this.state.label}</Label>
                     <div>{this.getValue() ? "Yes" : "No"}</div>
                 </div>
@@ -35,7 +35,7 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
 
         // Render the component
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 <Label>{props.label || this.state.label}</Label>
                 <Checkbox {...props as any} />
             </div>

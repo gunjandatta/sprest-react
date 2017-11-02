@@ -67,7 +67,7 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
      */
     render() {
         return (
-            <div className={this.props.className}>
+            <div className={(this.props.className || "")}>
                 {this.onRenderHeader()}
                 <Pivot onLinkClick={this.updateSelectedTab} linkFormat={this.props.linkFormat} linkSize={this.props.linkSize}>
                     {this.renderTabs()}

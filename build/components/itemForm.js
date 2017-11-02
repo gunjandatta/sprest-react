@@ -296,7 +296,7 @@ var ItemForm = /** @class */ (function (_super) {
                 React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
                 :
                     null,
-            React.createElement("div", { className: "ms-Grid " + this.props.className, hidden: this.state.saveFl }, this.renderFields())));
+            React.createElement("div", { className: "ms-Grid " + (this.props.className || ""), hidden: this.state.saveFl }, this.renderFields())));
     };
     /**
      * Method to save the item form

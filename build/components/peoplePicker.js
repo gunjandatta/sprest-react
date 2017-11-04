@@ -71,7 +71,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                     web.done(function () {
                         // Update the state
                         _this.setState({
-                            personas: _this.convertToPersonas()
+                            personas: _this.convertToPersonas(userInfo_1)
                         });
                     });
                 }

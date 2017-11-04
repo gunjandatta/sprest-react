@@ -144,7 +144,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                 web.done(() => {
                     // Update the state
                     this.setState({
-                        personas: this.convertToPersonas()
+                        personas: this.convertToPersonas(userInfo)
                     });
                 });
             } else {

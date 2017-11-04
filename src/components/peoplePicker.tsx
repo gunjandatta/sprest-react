@@ -115,30 +115,15 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Method to convert the user to persona value
      * @param users - An array of field user values.
      */
-    private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue> = []): Array<IPersonaProps> => {
+    private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue | number> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist
         if (users && users.length > 0) {
-            // See if the user information exists
-            if (users[0].ID > 0) {
-                // Parse the users
-                for (let i = 0; i < users.length; i++) {
-                    let user: Types.ComplexTypes.FieldUserValue = users[i];
+            let user = users[0];
 
-                    // Ensure the user exists
-                    if (user.ID > 0) {
-                        // Add the persona
-                        personas.push({
-                            id: user.UserName,
-                            itemID: user.ID.toString(),
-                            primaryText: user.Title,
-                            secondaryText: user.Email,
-                            tertiaryText: user.JobTitle,
-                        });
-                    }
-                }
-            } else {
+            // See if this is an array of user ids
+            if (typeof (user) === "number") {
                 let web = new Web();
                 let userInfo = [];
 
@@ -158,6 +143,20 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                         personas: this.convertToPersonas(userInfo)
                     });
                 });
+            } else {
+                // Parse the users
+                for (let i = 0; i < users.length; i++) {
+                    let user = users[i] as Types.ComplexTypes.FieldUserValue;
+
+                    // Add the persona
+                    personas.push({
+                        id: user.UserName,
+                        itemID: (user.Id || user.ID) + "",
+                        primaryText: user.Title,
+                        secondaryText: user.Email,
+                        tertiaryText: user.JobTitle,
+                    });
+                }
             }
         }
 

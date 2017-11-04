@@ -50,25 +50,9 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             var personas = [];
             // Ensure users exist
             if (users && users.length > 0) {
-                // See if the user information exists
-                if (users[0].ID > 0) {
-                    // Parse the users
-                    for (var i = 0; i < users.length; i++) {
-                        var user = users[i];
-                        // Ensure the user exists
-                        if (user.ID > 0) {
-                            // Add the persona
-                            personas.push({
-                                id: user.UserName,
-                                itemID: user.ID.toString(),
-                                primaryText: user.Title,
-                                secondaryText: user.Email,
-                                tertiaryText: user.JobTitle,
-                            });
-                        }
-                    }
-                }
-                else {
+                var user = users[0];
+                // See if this is an array of user ids
+                if (typeof (user) === "number") {
                     var web = new gd_sprest_1.Web();
                     var userInfo_1 = [];
                     // Parse the users
@@ -86,6 +70,20 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                             personas: _this.convertToPersonas(userInfo_1)
                         });
                     });
+                }
+                else {
+                    // Parse the users
+                    for (var i = 0; i < users.length; i++) {
+                        var user_1 = users[i];
+                        // Add the persona
+                        personas.push({
+                            id: user_1.UserName,
+                            itemID: (user_1.Id || user_1.ID) + "",
+                            primaryText: user_1.Title,
+                            secondaryText: user_1.Email,
+                            tertiaryText: user_1.JobTitle,
+                        });
+                    }
                 }
             }
             // Return the personas

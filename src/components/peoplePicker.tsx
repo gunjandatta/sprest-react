@@ -125,14 +125,18 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             // See if this is an array of user ids
             if (typeof (user) === "number") {
                 let web = new Web();
-                let userInfo = [];
+                let userInfo: Array<Types.ComplexTypes.FieldUserValue> = [];
 
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
                     // Get the user
                     web.SiteUsers(users[i]).execute(user => {
                         // Add the user information
-                        user.existsFl ? userInfo.push(user) : null;
+                        user.existsFl ? userInfo.push({
+                            ID: parseInt(user.Id),
+                            UserName: user.LoginName,
+                            Title: user.Title
+                        }) : null;
                     }, true);
                 }
 
@@ -140,7 +144,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                 web.done(() => {
                     // Update the state
                     this.setState({
-                        personas: this.convertToPersonas(userInfo)
+                        personas: this.convertToPersonas()
                     });
                 });
             } else {
@@ -151,7 +155,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                     // Add the persona
                     personas.push({
                         id: user.UserName,
-                        itemID: (user.Id || user.ID) + "",
+                        itemID: user.ID + "",
                         primaryText: user.Title,
                         secondaryText: user.Email,
                         tertiaryText: user.JobTitle,

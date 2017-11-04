@@ -60,14 +60,18 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                         // Get the user
                         web.SiteUsers(users[i]).execute(function (user) {
                             // Add the user information
-                            user.existsFl ? userInfo_1.push(user) : null;
+                            user.existsFl ? userInfo_1.push({
+                                ID: parseInt(user.Id),
+                                UserName: user.LoginName,
+                                Title: user.Title
+                            }) : null;
                         }, true);
                     }
                     // Wait for the requests to complete
                     web.done(function () {
                         // Update the state
                         _this.setState({
-                            personas: _this.convertToPersonas(userInfo_1)
+                            personas: _this.convertToPersonas()
                         });
                     });
                 }
@@ -78,7 +82,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                         // Add the persona
                         personas.push({
                             id: user_1.UserName,
-                            itemID: (user_1.Id || user_1.ID) + "",
+                            itemID: user_1.ID + "",
                             primaryText: user_1.Title,
                             secondaryText: user_1.Email,
                             tertiaryText: user_1.JobTitle,

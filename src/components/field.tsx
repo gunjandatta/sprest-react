@@ -36,7 +36,7 @@ export class Field extends Fields.BaseField {
      * Method to render the field
      */
     renderField = () => {
-        let props: any = this.props || {};
+        let props: any = Object.assign(this.props) || {};
         let fieldInfo = this.state.fieldInfo;
 
         // See if this is a user or lookup field

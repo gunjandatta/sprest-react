@@ -38,7 +38,7 @@ var Field = /** @class */ (function (_super) {
          * Method to render the field
          */
         _this.renderField = function () {
-            var props = Object.assign(_this.props) || {};
+            var props = Object.create(_this.props) || {};
             var fieldInfo = _this.state.fieldInfo;
             // See if this is a user or lookup field
             if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup || fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {

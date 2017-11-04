@@ -200,7 +200,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             suggestionsHeaderText: "Suggested Users"
         };
         // Return the people picker
-        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { defaultSelectedItems: this.state.personas, getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onGetMoreResults: this.searchAll, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps })));
+        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onGetMoreResults: this.searchAll, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps, selectedItems: this.state.personas })));
     };
     /**
      * Method to convert the personas to a field value

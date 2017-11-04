@@ -97,12 +97,12 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         return (
             <NormalPeoplePicker
                 {...props}
-                defaultSelectedItems={this.state.personas}
                 getTextFromItem={(persona: IPersonaProps) => { return persona.primaryText; }}
                 onChange={this.onChange}
                 onGetMoreResults={this.searchAll}
                 onResolveSuggestions={this.search}
                 pickerSuggestionsProps={pickerSuggestionsProps}
+                selectedItems={this.state.personas}
             />
         );
     }

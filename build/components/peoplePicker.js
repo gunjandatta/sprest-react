@@ -50,20 +50,42 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             var personas = [];
             // Ensure users exist
             if (users && users.length > 0) {
-                // Parse the users
-                for (var i = 0; i < users.length; i++) {
-                    var user = users[i];
-                    // Ensure the user exists
-                    if (user.ID > 0) {
-                        // Add the persona
-                        personas.push({
-                            id: user.UserName,
-                            itemID: user.ID.toString(),
-                            primaryText: user.Title,
-                            secondaryText: user.Email,
-                            tertiaryText: user.JobTitle,
-                        });
+                // See if the user information exists
+                if (users[0].ID > 0) {
+                    // Parse the users
+                    for (var i = 0; i < users.length; i++) {
+                        var user = users[i];
+                        // Ensure the user exists
+                        if (user.ID > 0) {
+                            // Add the persona
+                            personas.push({
+                                id: user.UserName,
+                                itemID: user.ID.toString(),
+                                primaryText: user.Title,
+                                secondaryText: user.Email,
+                                tertiaryText: user.JobTitle,
+                            });
+                        }
                     }
+                }
+                else {
+                    var web = new gd_sprest_1.Web();
+                    var userInfo_1 = [];
+                    // Parse the users
+                    for (var i = 0; i < users.length; i++) {
+                        // Get the user
+                        web.SiteUsers(users[i]).execute(function (user) {
+                            // Add the user information
+                            user.existsFl ? userInfo_1.push(user) : null;
+                        }, true);
+                    }
+                    // Wait for the requests to complete
+                    web.done(function () {
+                        // Update the state
+                        _this.setState({
+                            personas: _this.convertToPersonas(userInfo_1)
+                        });
+                    });
                 }
             }
             // Return the personas

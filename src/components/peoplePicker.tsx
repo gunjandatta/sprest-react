@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PeoplePicker, SPTypes, Types } from "gd-sprest";
+import { PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
 import {
     NormalPeoplePicker, IPeoplePickerProps, IPersonaProps
 } from "office-ui-fabric-react";
@@ -120,21 +120,44 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
         // Ensure users exist
         if (users && users.length > 0) {
-            // Parse the users
-            for (let i = 0; i < users.length; i++) {
-                let user: Types.ComplexTypes.FieldUserValue = users[i];
+            // See if the user information exists
+            if (users[0].ID > 0) {
+                // Parse the users
+                for (let i = 0; i < users.length; i++) {
+                    let user: Types.ComplexTypes.FieldUserValue = users[i];
 
-                // Ensure the user exists
-                if (user.ID > 0) {
-                    // Add the persona
-                    personas.push({
-                        id: user.UserName,
-                        itemID: user.ID.toString(),
-                        primaryText: user.Title,
-                        secondaryText: user.Email,
-                        tertiaryText: user.JobTitle,
-                    });
+                    // Ensure the user exists
+                    if (user.ID > 0) {
+                        // Add the persona
+                        personas.push({
+                            id: user.UserName,
+                            itemID: user.ID.toString(),
+                            primaryText: user.Title,
+                            secondaryText: user.Email,
+                            tertiaryText: user.JobTitle,
+                        });
+                    }
                 }
+            } else {
+                let web = new Web();
+                let userInfo = [];
+
+                // Parse the users
+                for (let i = 0; i < users.length; i++) {
+                    // Get the user
+                    web.SiteUsers(users[i]).execute(user => {
+                        // Add the user information
+                        user.existsFl ? userInfo.push(user) : null;
+                    }, true);
+                }
+
+                // Wait for the requests to complete
+                web.done(() => {
+                    // Update the state
+                    this.setState({
+                        personas: this.convertToPersonas(userInfo)
+                    });
+                });
             }
         }
 

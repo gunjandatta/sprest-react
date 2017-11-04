@@ -38,14 +38,15 @@ var Field = /** @class */ (function (_super) {
          * Method to render the field
          */
         _this.renderField = function () {
-            var props = Object.create(_this.props) || {};
+            var props = _this.props || {};
+            var defaultValue = props.defaultValue;
             var fieldInfo = _this.state.fieldInfo;
             // See if this is a user or lookup field
             if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup || fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
                 // Ensure the default value is set
                 if (_this.props.defaultValue == null && _this.props.item) {
                     // Update the default value
-                    props.defaultValue = _this.props.item[fieldInfo.name + "Id"];
+                    defaultValue = _this.props.item[fieldInfo.name + "Id"];
                 }
             }
             // Return the field component, based on the type
@@ -62,7 +63,7 @@ var Field = /** @class */ (function (_super) {
                     return React.createElement(__1.Fields.FieldDateTime, __assign({}, props, { ref: function (field) { _this._field = field; } }));
                 // Lookup
                 case gd_sprest_1.SPTypes.FieldType.Lookup:
-                    return React.createElement(__1.Fields.FieldLookup, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                    return React.createElement(__1.Fields.FieldLookup, __assign({}, props, { defaultValue: defaultValue, ref: function (field) { _this._field = field; } }));
                 // Number
                 case gd_sprest_1.SPTypes.FieldType.Currency:
                 case gd_sprest_1.SPTypes.FieldType.Number:
@@ -76,7 +77,7 @@ var Field = /** @class */ (function (_super) {
                     return React.createElement(__1.Fields.FieldUrl, __assign({}, props, { ref: function (field) { _this._field = field; } }));
                 // User
                 case gd_sprest_1.SPTypes.FieldType.User:
-                    return React.createElement(__1.Fields.FieldUser, __assign({}, props, { ref: function (field) { _this._field = field; } }));
+                    return React.createElement(__1.Fields.FieldUser, __assign({}, props, { defaultValue: defaultValue, ref: function (field) { _this._field = field; } }));
                 // Default
                 default:
                     // Check the type as string value

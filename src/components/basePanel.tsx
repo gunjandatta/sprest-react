@@ -25,6 +25,9 @@ export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State ex
      * Method to hide the panel
      */
     hide = () => {
+        // Call the on dismiss event
+        this.props.onDismiss ? this.props.onDismiss() : null;
+        
         // Update the state
         this.setState({ visible: false });
     }

@@ -38,6 +38,8 @@ var BasePanel = /** @class */ (function (_super) {
          * Method to hide the panel
          */
         _this.hide = function () {
+            // Call the on dismiss event
+            _this.props.onDismiss ? _this.props.onDismiss() : null;
             // Update the state
             _this.setState({ visible: false });
         };

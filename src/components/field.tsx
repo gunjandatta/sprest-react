@@ -36,15 +36,16 @@ export class Field extends Fields.BaseField {
      * Method to render the field
      */
     renderField = () => {
-        let props: any = Object.create(this.props) || {};
+        let props: any = this.props || {};
+        let defaultValue = props.defaultValue;
         let fieldInfo = this.state.fieldInfo;
 
         // See if this is a user or lookup field
         if (fieldInfo.type == SPTypes.FieldType.Lookup || fieldInfo.type == SPTypes.FieldType.User) {
             // Ensure the default value is set
-            if(this.props.defaultValue == null && this.props.item) {
+            if (this.props.defaultValue == null && this.props.item) {
                 // Update the default value
-                props.defaultValue = this.props.item[fieldInfo.name + "Id"];
+                defaultValue = this.props.item[fieldInfo.name + "Id"];
             }
         }
 
@@ -62,7 +63,7 @@ export class Field extends Fields.BaseField {
                 return <Fields.FieldDateTime {...props} ref={field => { this._field = field; }} />;
             // Lookup
             case SPTypes.FieldType.Lookup:
-                return <Fields.FieldLookup {...props} ref={field => { this._field = field; }} />;
+                return <Fields.FieldLookup {...props} defaultValue={defaultValue} ref={field => { this._field = field; }} />;
             // Number
             case SPTypes.FieldType.Currency:
             case SPTypes.FieldType.Number:
@@ -76,7 +77,7 @@ export class Field extends Fields.BaseField {
                 return <Fields.FieldUrl {...props} ref={field => { this._field = field; }} />;
             // User
             case SPTypes.FieldType.User:
-                return <Fields.FieldUser {...props} ref={field => { this._field = field; }} />;
+                return <Fields.FieldUser {...props} defaultValue={defaultValue} ref={field => { this._field = field; }} />;
             // Default
             default:
                 // Check the type as string value

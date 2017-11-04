@@ -371,6 +371,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         <Field
                             controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
                             defaultValue={item[fieldInfo.name]}
+                            item={item}
                             listName={this.props.listName}
                             key={fieldInfo.name}
                             name={fieldInfo.name}

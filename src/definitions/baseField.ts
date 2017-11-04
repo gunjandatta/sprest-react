@@ -10,6 +10,9 @@ export interface IBaseFieldInfo {
     /** The error message to display. This requires the "required" property to be set to true. */
     errorMessage?: string;
 
+    /** The list item. */
+    item?: object;
+
     /** The list name. */
     listName: string;
 

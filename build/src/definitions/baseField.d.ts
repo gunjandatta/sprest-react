@@ -8,6 +8,8 @@ export interface IBaseFieldInfo {
     defaultValue?: any;
     /** The error message to display. This requires the "required" property to be set to true. */
     errorMessage?: string;
+    /** The list item. */
+    item?: object;
     /** The list name. */
     listName: string;
     /** The internal name of the field. */

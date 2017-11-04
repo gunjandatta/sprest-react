@@ -39,6 +39,15 @@ export class Field extends Fields.BaseField {
         let props: any = this.props || {};
         let fieldInfo = this.state.fieldInfo;
 
+        // See if this is a user or lookup field
+        if (fieldInfo.type == SPTypes.FieldType.Lookup || fieldInfo.type == SPTypes.FieldType.User) {
+            // Ensure the default value is set
+            if(this.props.defaultValue == null && this.props.item) {
+                // Update the default value
+                props.defaultValue = this.props.item[fieldInfo.name + "Id"];
+            }
+        }
+
         // Return the field component, based on the type
         switch (fieldInfo.type) {
             // Boolean

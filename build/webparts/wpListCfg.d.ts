@@ -77,6 +77,10 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
      */
     private loadLists;
     /**
+     * Method to save the webpart configuration
+     */
+    private onSave;
+    /**
      * Method to render the list property
      */
     renderList: () => JSX.Element;
@@ -88,10 +92,6 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
      * Method to render the web url property
      */
     renderWebUrl: () => JSX.Element[];
-    /**
-     * Method to save the webpart configuration
-     */
-    private onSave;
     /**
      * Method to update the list name
      */

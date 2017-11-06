@@ -38,6 +38,7 @@ export interface IWebPartListCfgProps extends IWebPartCfgProps {
 export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
     lists?: Array<Types.IListQueryResult>;
+    loadFl?: boolean;
     options?: Array<IDropdownOption>;
     selectedList?: Types.IListQueryResult;
 }

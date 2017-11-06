@@ -77,6 +77,9 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
         // Prevent postback
         ev.preventDefault();
 
+        // Update the state
+        this.setState({ loadFl: true });
+
         // Update the configuration
         let cfg = this.props.cfg;
         cfg.WebUrl = this._webUrl.state.value;
@@ -95,7 +98,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      */
     onRenderContents = (cfg: IWebPartListCfg) => {
         // See if the lists exists
-        if (this.state.lists == null) {
+        if (this.state.loadFl || this.state.lists == null) {
             // Load the lists
             this.loadLists(cfg);
 
@@ -187,6 +190,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                 let newState = {
                     cfg,
                     lists: lists.results,
+                    loadFl: false,
                     options,
                     selectedList
                 } as State;
@@ -200,11 +204,23 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     }
 
     /**
+     * Method to save the webpart configuration
+     */
+    private onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        // Prevent postback
+        ev.preventDefault();
+
+        // Save the webpart configuration
+        this.saveConfiguration(this.state.cfg);
+    }
+
+    /**
      * Method to render the list property
      */
     renderList = () => {
         return (
             <Dropdown
+                key="listDropdown"
                 label="List:"
                 onChanged={this.updateListName}
                 ref={ddl => { this._listDropdown = ddl; }}
@@ -220,6 +236,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     renderSaveButton = () => {
         return (
             <PrimaryButton
+                key="saveButton"
                 onClick={this.onSave}
                 ref={btn => { this._refreshButton = btn; }}
                 text="Save"
@@ -246,18 +263,6 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
             />
         ];
     }
-
-    /**
-     * Method to save the webpart configuration
-     */
-    private onSave = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        // Prevent postback
-        ev.preventDefault();
-
-        // Save the webpart configuration
-        this.saveConfiguration(this.state.cfg);
-    }
-
 
     /**
      * Method to update the list name

@@ -20,7 +20,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         // Update the properties
         let props: ITextFieldProps = this.props.props || {};
         props.className = (this.props.className || "");
-        props.disabled = this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display;
+        props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
         props.label = props.label ? props.label : this.state.label;
         props.onChanged = this.updateValue;

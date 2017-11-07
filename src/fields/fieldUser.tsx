@@ -24,7 +24,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
         // Set the picker props
         let props: IPeoplePickerProps = this.props.pickerProps || {} as any;
-        props.disabled = this.state.fieldInfo.readOnly || this.state.controlMode == SPTypes.ControlMode.Display;
+        props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
         props.onChange = this.onChange;
 
         // Render the component

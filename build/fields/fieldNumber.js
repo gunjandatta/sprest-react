@@ -41,7 +41,7 @@ var FieldNumber = /** @class */ (function (_super) {
             // Update the properties
             var props = _this.props.props || {};
             props.className = (_this.props.className || "");
-            props.disabled = _this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
             props.label = props.label ? props.label : _this.state.label;
             props.onChanged = _this.updateValue;

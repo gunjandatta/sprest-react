@@ -42,7 +42,7 @@ var FieldBoolean = /** @class */ (function (_super) {
             props.checked = _this.getValue();
             props.onChange = _this.onChange;
             // See if this is the display mode or a read-only field
-            if (_this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
                 return (React.createElement("div", { className: (_this.props.className || "") },
                     React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.label),

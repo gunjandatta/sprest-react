@@ -42,7 +42,7 @@ var FieldUrl = /** @class */ (function (_super) {
             // Update the url properties
             var urlProps = _this.props.urlProps || {};
             urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
-            urlProps.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            urlProps.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
             urlProps.label = urlProps.label || _this.state.label;
             urlProps.onChanged = _this.onUrlChanged;
@@ -50,13 +50,13 @@ var FieldUrl = /** @class */ (function (_super) {
             // Update the description properties
             var descProps = _this.props.descProps || {};
             descProps.defaultValue = defaultValue ? defaultValue.Description : "";
-            descProps.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            descProps.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : _this.state.fieldInfo.errorMessage;
             descProps.errorMessage = _this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
             descProps.onChanged = _this.onDescChanged;
             descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
             // See if this is the display mode
-            if (_this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+            if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
                 return (React.createElement(office_ui_fabric_react_1.Link, { className: (_this.props.className || ""), href: defaultValue.Url, label: urlProps.label }, descProps.defaultValue || urlProps.defaultValue));
             }

@@ -44,7 +44,7 @@ var FieldDateTime = /** @class */ (function (_super) {
             }
             // Update the date picker properties
             var props = _this.props.dtProps || {};
-            props.disabled = _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+            props.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;
             props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : _this.state.fieldInfo.required;
             props.label = _this.state.label;
@@ -151,7 +151,7 @@ var FieldDateTime = /** @class */ (function (_super) {
                     }
                 }
                 // Update the properties
-                props.disabled = _this.state.fieldInfo.readOnly || _this.state.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
+                props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
                 props.onChanged = _this.onTimeChanged;
                 props.placeHolder = props.placeHolder || "Time";
                 props.selectedKey = selectedHour + "|" + selectedMin;

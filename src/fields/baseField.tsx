@@ -80,7 +80,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
      */
     renderField = () => {
         // See if we are displaying the field
-        if (this.state.controlMode == SPTypes.ControlMode.Display) {
+        if (this.props.controlMode == SPTypes.ControlMode.Display) {
             // Render the field name and value
             return (
                 <Label>{this.state.fieldInfo.title + ": " + this.state.value}</Label>

@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest-react",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "SharePoint react components.",
   "main": "build/index.js",
   "typings": "build/index.d.ts",

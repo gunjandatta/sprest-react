@@ -364,6 +364,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         for (let i = 0; i < this.state.fields.length; i++) {
             let fieldInfo = this.state.fields[i];
 
+            // See if we are excluding this field
+            if (this.props.excludeFields && this.props.excludeFields.indexOf(fieldInfo.name) >= 0) { continue; }
+
             // Add the form field
             formFields.push(
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>

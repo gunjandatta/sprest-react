@@ -122,6 +122,10 @@ var ItemForm = /** @class */ (function (_super) {
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {
                 var fieldInfo = _this.state.fields[i];
+                // See if we are excluding this field
+                if (_this.props.excludeFields && _this.props.excludeFields.indexOf(fieldInfo.name) >= 0) {
+                    continue;
+                }
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },

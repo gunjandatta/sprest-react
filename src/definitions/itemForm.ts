@@ -28,6 +28,9 @@ export interface IItemFormProps {
     /** The form control mode. */
     controlMode?: number | Types.SPTypes.ControlMode;
 
+    /** The form fields to exclude from the form. */
+    excludeFields?: Array<string>;
+    
     /** The form fields. */
     fields?: Array<IItemFormField>;
 
@@ -37,12 +40,12 @@ export interface IItemFormProps {
     /** The list display name. */
     listName: string;
 
-    /** The item query, used when refreshing the item after a save. */
-    query?: Types.ODataQuery;
-
     /** The on form render event. */
     onRender?: () => any;
 
+    /** The item query, used when refreshing the item after a save. */
+    query?: Types.ODataQuery;
+    
     /** Flag to display the attachments. */
     showAttachments?: boolean;
 

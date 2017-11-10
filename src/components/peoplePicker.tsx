@@ -9,6 +9,7 @@ import {
  */
 export interface ISPPeoplePickerProps {
     allowMultiple?: boolean;
+    allowGroups?: boolean;
     fieldValue?: Array<Types.ComplexTypes.FieldUserValue>;
     props?: IPeoplePickerProps;
 }
@@ -17,6 +18,7 @@ export interface ISPPeoplePickerProps {
  * State
  */
 export interface ISPPeoplePickerState {
+    allowGroups?: boolean;
     fieldValue?: number | Array<number>;
     personas?: Array<IPersonaProps>;
 }
@@ -45,6 +47,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
         // Set the state
         this.state = {
+            allowGroups: typeof (props.allowGroups) === "boolean" ? props.allowGroups : false,
             fieldValue: SPPeoplePicker.convertToFieldValue(personas),
             personas
         };
@@ -87,10 +90,10 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
         // Default the suggested properties
         let pickerSuggestionsProps = props.pickerSuggestionsProps || {
             className: "ms-PeoplePicker",
-            loadingText: "Loading the user...",
-            noResultsFoundText: "No users were found.",
+            loadingText: "Loading the users" + (this.state.allowGroups ? " and groups" : ""),
+            noResultsFoundText: "No users " + (this.state.allowGroups ? "/groups" : "") + " were found.",
             searchForMoreText: "Search All",
-            suggestionsHeaderText: "Suggested Users"
+            suggestionsHeaderText: "Suggested Users" + (this.state.allowGroups ? "/Groups" : "")
         };
 
         // Return the people picker
@@ -226,7 +229,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                         .clientPeoplePickerSearchUser({
                             MaximumEntitySuggestions: 15,
                             PrincipalSource: typeof (source) === "number" ? source : SPTypes.PrincipalSources.UserInfoList,
-                            PrincipalType: SPTypes.PrincipalTypes.User,
+                            PrincipalType: this.state.allowGroups ? SPTypes.PrincipalTypes.All : SPTypes.PrincipalTypes.User,
                             QueryString: this._filterText
                         })
                         // Execute the request

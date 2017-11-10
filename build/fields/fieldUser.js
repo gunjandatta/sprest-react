@@ -48,7 +48,7 @@ var FieldUser = /** @class */ (function (_super) {
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
                 React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.label),
-                React.createElement(__1.SPPeoplePicker, { allowMultiple: _this.state.fieldInfo.allowMultiple, fieldValue: _this.props.defaultValue ? _this.props.defaultValue.results || [_this.props.defaultValue] : null, props: props })));
+                React.createElement(__1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.allowMultiple, fieldValue: _this.props.defaultValue ? _this.props.defaultValue.results || [_this.props.defaultValue] : null, props: props })));
         };
         /**
          * Events
@@ -76,6 +76,7 @@ var FieldUser = /** @class */ (function (_super) {
             }
             // Update the state
             state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
+            state.fieldInfo.allowGroups = userField.SelectionMode == gd_sprest_1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
             // See if this is a multi-lookup field
             if (state.fieldInfo.allowMultiple) {
                 var results = [];

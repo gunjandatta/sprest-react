@@ -6,6 +6,7 @@ import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "..
  * User Field Information
  */
 export interface IUserFieldInfo extends IBaseFieldInfo {
+    allowGroups?: boolean;
     allowMultiple?: boolean;
 }
 

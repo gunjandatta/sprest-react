@@ -148,7 +148,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                             .clientPeoplePickerSearchUser({
                             MaximumEntitySuggestions: 15,
                             PrincipalSource: typeof (source) === "number" ? source : gd_sprest_1.SPTypes.PrincipalSources.UserInfoList,
-                            PrincipalType: gd_sprest_1.SPTypes.PrincipalTypes.User,
+                            PrincipalType: _this.state.allowGroups ? gd_sprest_1.SPTypes.PrincipalTypes.All : gd_sprest_1.SPTypes.PrincipalTypes.User,
                             QueryString: _this._filterText
                         })
                             .execute(function (results) {
@@ -183,6 +183,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
         var personas = props.props && props.props.defaultSelectedItems ? props.props.defaultSelectedItems : _this.convertToPersonas(props.fieldValue);
         // Set the state
         _this.state = {
+            allowGroups: typeof (props.allowGroups) === "boolean" ? props.allowGroups : false,
             fieldValue: SPPeoplePicker.convertToFieldValue(personas),
             personas: personas
         };
@@ -194,10 +195,10 @@ var SPPeoplePicker = /** @class */ (function (_super) {
         // Default the suggested properties
         var pickerSuggestionsProps = props.pickerSuggestionsProps || {
             className: "ms-PeoplePicker",
-            loadingText: "Loading the user...",
-            noResultsFoundText: "No users were found.",
+            loadingText: "Loading the users" + (this.state.allowGroups ? " and groups" : ""),
+            noResultsFoundText: "No users " + (this.state.allowGroups ? "/groups" : "") + " were found.",
             searchForMoreText: "Search All",
-            suggestionsHeaderText: "Suggested Users"
+            suggestionsHeaderText: "Suggested Users" + (this.state.allowGroups ? "/Groups" : "")
         };
         // Return the people picker
         return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onGetMoreResults: this.searchAll, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps, selectedItems: this.state.personas })));

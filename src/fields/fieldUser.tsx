@@ -32,6 +32,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
             <div className={(this.props.className || "")}>
                 <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
                 <SPPeoplePicker
+                    allowGroups={this.state.fieldInfo.allowGroups}
                     allowMultiple={this.state.fieldInfo.allowMultiple}
                     fieldValue={this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null}
                     props={props}
@@ -70,6 +71,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
         // Update the state
         state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
+        state.fieldInfo.allowGroups = userField.SelectionMode == SPTypes.FieldUserSelectionType.PeopleAndGroups;
 
         // See if this is a multi-lookup field
         if (state.fieldInfo.allowMultiple) {

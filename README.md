@@ -80,7 +80,7 @@ showPanel = () => { this._panel.show(); }
 #### SharePoint People Picker
 The people picker component searches the user information list by default, but contains a "Search All" option to search all principal sources.
 ```
-<SPPeoplePicker allowMultiple={this.state.fieldInfo.allowMultiple} fieldValue={this.state.value} />
+<SPPeoplePicker allowGroups={this.state.fieldInfo.allowGroups} allowMultiple={this.state.fieldInfo.allowMultiple} fieldValue={this.state.value} />
 ```
 
 

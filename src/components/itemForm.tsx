@@ -81,8 +81,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             Select: ["*"]
         } as Types.ODataQuery;
 
-        // See if we are rendering the attachments field
-        if (this._attachmentField) {
+        // See if we are showing attachments
+        if (props.showAttachments) {
             // Expand the attachment files
             this._query.Expand = this._query.Expand || [];
             this._query.Expand.push("AttachmentFiles");

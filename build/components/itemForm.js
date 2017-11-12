@@ -196,8 +196,8 @@ var ItemForm = /** @class */ (function (_super) {
         _this._query = props.query || {
             Select: ["*"]
         };
-        // See if we are rendering the attachments field
-        if (_this._attachmentField) {
+        // See if we are showing attachments
+        if (props.showAttachments) {
             // Expand the attachment files
             _this._query.Expand = _this._query.Expand || [];
             _this._query.Expand.push("AttachmentFiles");

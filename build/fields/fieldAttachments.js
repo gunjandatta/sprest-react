@@ -44,6 +44,13 @@ var FieldAttachments = /** @class */ (function (_super) {
             });
         };
         /**
+         * Method to show the file dialog
+         */
+        _this.showFileDialog = function () {
+            // Show the file dialog
+            _this._file.click();
+        };
+        /**
          * Events
          */
         /**
@@ -137,16 +144,6 @@ var FieldAttachments = /** @class */ (function (_super) {
             _this.setState({ files: files });
         };
         /**
-         * Event triggered by clicking on the add attachment link
-         * @param ev - The button click event.
-         */
-        _this.showFileDialog = function (ev) {
-            // Prevent postback
-            ev.preventDefault();
-            // Show the file dialog
-            _this._file.click();
-        };
-        /**
          * Methods
          */
         /**
@@ -218,7 +215,8 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Add the file
                 files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, download: true },
                     React.createElement("span", { className: "ms-fontSize-m" }, file.name),
-                    React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-fileName": file.name.toLowerCase(), onClick: _this.removeAttachment })));
+                    _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display ? null :
+                        React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-fileName": file.name.toLowerCase(), onClick: _this.removeAttachment })));
             }
             // Return the files
             return files;
@@ -273,6 +271,10 @@ var FieldAttachments = /** @class */ (function (_super) {
      */
     FieldAttachments.prototype.render = function () {
         var _this = this;
+        // See if the render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.files);
+        }
         // See if this is the display mode
         if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
             // Render the attachments

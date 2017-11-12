@@ -21,6 +21,8 @@ export interface IFieldAttachmentsProps {
     listName: string;
     /** The existing attachment files. */
     files?: any | Types.ComplexTypes.FieldAttachmentFiles;
+    /** The on form render event. */
+    onRender?: (files: Array<IAttachmentFile>) => any;
     /** The relative web url containing the list. */
     webUrl?: string;
 }

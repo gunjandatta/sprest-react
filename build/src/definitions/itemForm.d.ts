@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { Types } from "gd-sprest";
-import { IBaseFieldInfo } from ".";
+import { IAttachmentFile, IBaseFieldInfo } from ".";
 /**
  * Field Information
  */
@@ -32,6 +32,8 @@ export interface IItemFormProps {
     listName: string;
     /** The on form render event. */
     onRender?: () => any;
+    /** The on form render attachments event. */
+    onRenderAttachments?: (files: Array<IAttachmentFile>) => any;
     /** The item query, used when refreshing the item after a save. */
     query?: Types.ODataQuery;
     /** Flag to display the attachments. */

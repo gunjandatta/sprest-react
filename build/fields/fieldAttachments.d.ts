@@ -15,12 +15,16 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
     /**
      * Method to render the component
      */
-    render(): JSX.Element;
+    render(): any;
     /**
      * Method to save the attachments to the item
      * @param itemId - The item id.
      */
     save: (itemId: number) => PromiseLike<any>;
+    /**
+     * Method to show the file dialog
+     */
+    private showFileDialog;
     /**
      * Events
      */
@@ -34,11 +38,6 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      * @param ev - The button click event.
      */
     private removeAttachment;
-    /**
-     * Event triggered by clicking on the add attachment link
-     * @param ev - The button click event.
-     */
-    private showFileDialog;
     /**
      * Methods
      */

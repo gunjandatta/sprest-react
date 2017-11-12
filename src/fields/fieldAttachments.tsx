@@ -34,6 +34,11 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Method to render the component
      */
     render() {
+        // See if the render method exists
+        if (this.props.onRender) {
+            return this.props.onRender(this.state.files);
+        }
+
         // See if this is the display mode
         if (this.props.controlMode == SPTypes.ControlMode.Display) {
             // Render the attachments
@@ -84,6 +89,14 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 });
             });
         });
+    }
+
+    /**
+     * Method to show the file dialog
+     */
+    private showFileDialog = () => {
+        // Show the file dialog
+        this._file.click();
     }
 
     /**
@@ -196,18 +209,6 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
-     * Event triggered by clicking on the add attachment link
-     * @param ev - The button click event.
-     */
-    private showFileDialog = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        // Prevent postback
-        ev.preventDefault();
-
-        // Show the file dialog
-        this._file.click();
-    }
-
-    /**
      * Methods
      */
 
@@ -288,7 +289,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             files.push(
                 <Link className="ms-AttachmentLink" key={file.name} href={file.url} download={true}>
                     <span className="ms-fontSize-m">{file.name}</span>
-                    <i className="ms-Icon ms-Icon--Delete" data-fileName={file.name.toLowerCase()} onClick={this.removeAttachment} />
+                    {
+                        this.props.controlMode == SPTypes.ControlMode.Display ? null :
+                            <i className="ms-Icon ms-Icon--Delete" data-fileName={file.name.toLowerCase()} onClick={this.removeAttachment} />
+                    }
                 </Link>
             );
         }

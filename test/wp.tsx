@@ -84,6 +84,7 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
                                 item={this.state.item}
                                 listName={this.props.cfg.ListName}
                                 ref={form => { this._itemForm = form; }}
+                                showAttachments={true}
                             />
                         </Panel>
                     </div>

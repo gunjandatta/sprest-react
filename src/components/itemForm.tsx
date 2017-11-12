@@ -340,6 +340,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Method to render the fields
      */
     private renderFields = () => {
+        let controlMode = this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New);
         let formFields = [];
         let item = this.state.item;
 
@@ -349,9 +350,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_Attachments"}>
                     <div className="ms-Grid-col-md12">
                         <Fields.FieldAttachments
+                            controlMode={controlMode}
                             files={item.AttachmentFiles}
                             key={"Attachments"}
                             listName={this.props.listName}
+                            onRender={this.props.onRenderAttachments}
                             ref={field => { this._attachmentField = field; }}
                             webUrl={this.props.webUrl}
                         />
@@ -372,7 +375,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                     <div className="ms-Grid-col ms-md12">
                         <Field
-                            controlMode={this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New)}
+                            controlMode={controlMode}
                             defaultValue={item[fieldInfo.name]}
                             item={item}
                             listName={this.props.listName}

@@ -110,7 +110,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         }
 
         // See if we are showing attachments, but the item doesn't contain them
-        if (this.props.showAttachments && this.state.item.Id > 0 && this.state.item.AttachmentFiles == null) {
+        if (this.props.showAttachments && this.state.item.Id > 0 && (this.state.item.AttachmentFiles == null || typeof (this.state.item.AttachmentFiles.length) === "function")) {
             // Load the item
             this.getItem(this.state.item.Id).then(item => {
                 // Update the item

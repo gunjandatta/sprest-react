@@ -256,12 +256,21 @@ var ItemForm = /** @class */ (function (_super) {
      * Render the component
      */
     ItemForm.prototype.render = function () {
+        var _this = this;
         // See if the list exists
         if (this.state.list == null) {
             // Load the list
             this.loadList();
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list..." }));
+        }
+        // See if we are showing attachments, but the item doesn't contain them
+        if (this.props.showAttachments && this.state.item.Id > 0 && this.state.item.AttachmentFiles == null) {
+            // Load the item
+            this.getItem(this.state.item.Id).then(function (item) {
+                // Update the item
+                _this.setState({ item: item });
+            });
         }
         // See if there is a custom renderer
         if (this.props.onRender) {

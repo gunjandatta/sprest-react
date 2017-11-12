@@ -109,6 +109,15 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
+        // See if we are showing attachments, but the item doesn't contain them
+        if (this.props.showAttachments && this.state.item.Id > 0 && this.state.item.AttachmentFiles == null) {
+            // Load the item
+            this.getItem(this.state.item.Id).then(item => {
+                // Update the item
+                this.setState({ item });
+            });
+        }
+
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event

@@ -43,7 +43,15 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         if (this.props.controlMode == SPTypes.ControlMode.Display) {
             // Render the attachments
             return (
-                <div className={(this.props.className || "")}>{this.renderAttachments()}</div>
+                <div>
+                    <div className={(this.props.className || "")}>{this.renderAttachments()}</div>
+                    <input
+                        type="file"
+                        hidden={true}
+                        onChange={this.addAttachment}
+                        ref={file => { this._file = file; }}
+                    />
+                </div>
             );
         }
 
@@ -145,7 +153,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
                 // See if this is a new attachment
                 if (newFl) {
-                    let attachment:IAttachmentFile = {
+                    let attachment: IAttachmentFile = {
                         data: ev.target.result,
                         deleteFl: false,
                         existsFl: false,

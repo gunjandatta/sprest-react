@@ -281,7 +281,9 @@ var FieldAttachments = /** @class */ (function (_super) {
         // See if this is the display mode
         if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
             // Render the attachments
-            return (React.createElement("div", { className: (this.props.className || "") }, this.renderAttachments()));
+            return (React.createElement("div", null,
+                React.createElement("div", { className: (this.props.className || "") }, this.renderAttachments()),
+                React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
         }
         // Render the attachments
         return (React.createElement("div", { className: (this.props.className || "") },

@@ -30,6 +30,8 @@ export interface IItemFormProps {
     item?: any;
     /** The list display name. */
     listName: string;
+    /** The attachment added event. */
+    onAttachmentAdded?: (file: IAttachmentFile) => void;
     /** The on form render event. */
     onRender?: () => any;
     /** The on form render attachments event. */

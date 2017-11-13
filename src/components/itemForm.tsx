@@ -363,6 +363,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             files={item.AttachmentFiles}
                             key={"Attachments"}
                             listName={this.props.listName}
+                            onFileAdded={this.props.onAttachmentAdded}
                             onRender={this.props.onRenderAttachments}
                             ref={field => { this._attachmentField = field; }}
                             webUrl={this.props.webUrl}

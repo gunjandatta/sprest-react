@@ -70,6 +70,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Set the file loaded event
                 reader.onloadend = function (ev) {
                     var newFl = true;
+                    var attachment = null;
                     var files = _this.state.files;
                     // Parse the attachments
                     for (var i = 0; i < files.length; i++) {
@@ -82,13 +83,15 @@ var FieldAttachments = /** @class */ (function (_super) {
                             file.data = ev.target.result;
                             file.deleteFl = false;
                             file.name = srcFile.name;
+                            // Set the attachment
+                            attachment = file;
                             // Break from the loop
                             break;
                         }
                     }
                     // See if this is a new attachment
                     if (newFl) {
-                        var attachment = {
+                        attachment = {
                             data: ev.target.result,
                             deleteFl: false,
                             existsFl: false,
@@ -96,9 +99,9 @@ var FieldAttachments = /** @class */ (function (_super) {
                         };
                         // Add the file
                         files.push(attachment);
-                        // Call the file added event
-                        _this.props.onFileAdded ? _this.props.onFileAdded(attachment) : null;
                     }
+                    // Call the file added event
+                    _this.props.onFileAdded ? _this.props.onFileAdded(attachment) : null;
                     // Update the state
                     _this.setState({
                         files: files,

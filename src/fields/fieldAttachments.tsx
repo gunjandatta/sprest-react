@@ -130,6 +130,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             // Set the file loaded event
             reader.onloadend = (ev: any) => {
                 let newFl = true;
+                let attachment: IAttachmentFile = null;
                 let files = this.state.files;
 
                 // Parse the attachments
@@ -146,6 +147,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                         file.deleteFl = false;
                         file.name = srcFile.name;
 
+                        // Set the attachment
+                        attachment = file;
+
                         // Break from the loop
                         break;
                     }
@@ -153,7 +157,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
                 // See if this is a new attachment
                 if (newFl) {
-                    let attachment: IAttachmentFile = {
+                    attachment = {
                         data: ev.target.result,
                         deleteFl: false,
                         existsFl: false,
@@ -162,10 +166,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
                     // Add the file
                     files.push(attachment);
-
-                    // Call the file added event
-                    this.props.onFileAdded ? this.props.onFileAdded(attachment) : null;
                 }
+
+                // Call the file added event
+                this.props.onFileAdded ? this.props.onFileAdded(attachment) : null;
 
                 // Update the state
                 this.setState({

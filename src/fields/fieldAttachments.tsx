@@ -94,7 +94,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     /**
      * Method to show the file dialog
      */
-    private showFileDialog = () => {
+    showFileDialog = () => {
         // Show the file dialog
         this._file.click();
     }
@@ -145,13 +145,18 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
                 // See if this is a new attachment
                 if (newFl) {
-                    // Add the file
-                    files.push({
+                    let attachment:IAttachmentFile = {
                         data: ev.target.result,
                         deleteFl: false,
                         existsFl: false,
                         name: srcFile.name
-                    });
+                    };
+
+                    // Add the file
+                    files.push(attachment);
+
+                    // Call the file added event
+                    this.props.onFileAdded ? this.props.onFileAdded(attachment) : null;
                 }
 
                 // Update the state

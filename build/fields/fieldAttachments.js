@@ -88,13 +88,16 @@ var FieldAttachments = /** @class */ (function (_super) {
                     }
                     // See if this is a new attachment
                     if (newFl) {
-                        // Add the file
-                        files.push({
+                        var attachment = {
                             data: ev.target.result,
                             deleteFl: false,
                             existsFl: false,
                             name: srcFile.name
-                        });
+                        };
+                        // Add the file
+                        files.push(attachment);
+                        // Call the file added event
+                        _this.props.onFileAdded ? _this.props.onFileAdded(attachment) : null;
                     }
                     // Update the state
                     _this.setState({

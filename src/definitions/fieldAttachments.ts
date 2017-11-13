@@ -26,7 +26,7 @@ export interface IAttachmentFile {
 export interface IFieldAttachmentsProps {
     /** The class name. */
     className?: string;
-    
+
     /** The field control mode. */
     controlMode?: number | Types.SPTypes.ControlMode;
 
@@ -36,9 +36,12 @@ export interface IFieldAttachmentsProps {
     /** The existing attachment files. */
     files?: any | Types.ComplexTypes.FieldAttachmentFiles;
 
+    /** The attachment file added event. */
+    onFileAdded?: (file: IAttachmentFile) => any;
+
     /** The on form render event. */
-    onRender?: (files:Array<IAttachmentFile>) => any;
-    
+    onRender?: (files: Array<IAttachmentFile>) => any;
+
     /** The relative web url containing the list. */
     webUrl?: string;
 }
@@ -65,5 +68,10 @@ export interface IFieldAttachment {
      * Saves the item attachments.
      * @param itemId - The item id.
     */
-    save: (itemId:number) => PromiseLike<any>
+    save: (itemId: number) => PromiseLike<any>
+
+    /**
+     * Displays the file upload dialog.
+     */
+    showFileDialog: () => void;
 }

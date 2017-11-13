@@ -21,6 +21,8 @@ export interface IFieldAttachmentsProps {
     listName: string;
     /** The existing attachment files. */
     files?: any | Types.ComplexTypes.FieldAttachmentFiles;
+    /** The attachment file added event. */
+    onFileAdded?: (file: IAttachmentFile) => any;
     /** The on form render event. */
     onRender?: (files: Array<IAttachmentFile>) => any;
     /** The relative web url containing the list. */
@@ -46,4 +48,8 @@ export interface IFieldAttachment {
      * @param itemId - The item id.
     */
     save: (itemId: number) => PromiseLike<any>;
+    /**
+     * Displays the file upload dialog.
+     */
+    showFileDialog: () => void;
 }

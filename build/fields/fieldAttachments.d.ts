@@ -24,7 +24,7 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
     /**
      * Method to show the file dialog
      */
-    private showFileDialog;
+    showFileDialog: () => void;
     /**
      * Events
      */

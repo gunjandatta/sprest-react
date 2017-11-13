@@ -311,7 +311,7 @@ var ItemForm = /** @class */ (function (_super) {
                     .then(_this.getItem)
                     .then(function (item) {
                     // Update the state
-                    _this.setState({ saveFl: false }, function () {
+                    _this.setState({ item: item, saveFl: false }, function () {
                         // Resolve the promise
                         resolve(item);
                     });

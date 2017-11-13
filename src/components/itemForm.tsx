@@ -179,12 +179,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     // Resolve the promise
                     .then(item => {
                         // Update the state
-                        this.setState({ saveFl: false }, () => {
+                        this.setState({ item, saveFl: false }, () => {
                             // Resolve the promise
                             resolve(item as IItem);
-                        })
-                    })
-            })
+                        });
+                    });
+            });
         });
     }
 

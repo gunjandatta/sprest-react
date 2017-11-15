@@ -6,6 +6,7 @@ export interface IAttachmentFile {
     data?: any;
     deleteFl?: boolean;
     existsFl?: boolean;
+    ext: string;
     name: string;
     url?: string;
 }

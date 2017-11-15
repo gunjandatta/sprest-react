@@ -83,6 +83,8 @@ var FieldAttachments = /** @class */ (function (_super) {
                             file.data = ev.target.result;
                             file.deleteFl = false;
                             file.name = srcFile.name;
+                            file.ext = file.name.split(".");
+                            file.ext = file.ext[file.ext.length - 1].toLowerCase();
                             // Set the attachment
                             attachment = file;
                             // Break from the loop
@@ -91,10 +93,14 @@ var FieldAttachments = /** @class */ (function (_super) {
                     }
                     // See if this is a new attachment
                     if (newFl) {
+                        var ext = srcFile.name.split(".");
+                        ext = ext[ext.length - 1].toLowerCase();
+                        // Set the attachment
                         attachment = {
                             data: ev.target.result,
                             deleteFl: false,
                             existsFl: false,
+                            ext: ext,
                             name: srcFile.name
                         };
                         // Add the file
@@ -219,11 +225,15 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Parse the attachments
                 for (var i = 0; i < attachments.results.length; i++) {
                     var attachment = attachments.results[i];
+                    // Set the file extension
+                    var ext = attachment.FileName.split(".");
+                    ext = ext[ext.length - 1].toLowerCase();
                     // Add the file
                     files.push({
                         data: null,
                         deleteFl: false,
                         existsFl: true,
+                        ext: ext,
                         name: attachment.FileName,
                         url: attachment.ServerRelativeUrl
                     });

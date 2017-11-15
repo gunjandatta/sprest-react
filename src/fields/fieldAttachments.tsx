@@ -146,6 +146,8 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                         file.data = ev.target.result;
                         file.deleteFl = false;
                         file.name = srcFile.name;
+                        file.ext = file.name.split(".") as any;
+                        file.ext = file.ext[file.ext.length - 1].toLowerCase();
 
                         // Set the attachment
                         attachment = file;
@@ -157,10 +159,15 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
                 // See if this is a new attachment
                 if (newFl) {
+                    let ext = srcFile.name.split(".") as any;
+                    ext = ext[ext.length - 1].toLowerCase();
+
+                    // Set the attachment
                     attachment = {
                         data: ev.target.result,
                         deleteFl: false,
                         existsFl: false,
+                        ext,
                         name: srcFile.name
                     };
 
@@ -306,11 +313,16 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             for (let i = 0; i < attachments.results.length; i++) {
                 let attachment = attachments.results[i];
 
+                // Set the file extension
+                let ext: any = attachment.FileName.split(".");
+                ext = ext[ext.length - 1].toLowerCase();
+
                 // Add the file
                 files.push({
                     data: null,
                     deleteFl: false,
                     existsFl: true,
+                    ext,
                     name: attachment.FileName,
                     url: attachment.ServerRelativeUrl
                 });

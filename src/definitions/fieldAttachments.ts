@@ -13,6 +13,9 @@ export interface IAttachmentFile {
     // Flag to determine if it already exists
     existsFl?: boolean;
 
+    // The file extension
+    ext: string;
+
     // The file name
     name: string;
 

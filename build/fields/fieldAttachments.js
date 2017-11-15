@@ -121,6 +121,30 @@ var FieldAttachments = /** @class */ (function (_super) {
             }
         };
         /**
+         * The click event for the link.
+         */
+        _this.linkClick = function (ev) {
+            // Prevent postback
+            ev.preventDefault();
+            // Execute the event
+            if (_this.props.onLinkClick) {
+                // Get the file name
+                var fileName = ev.currentTarget.getAttribute("data-fileName");
+                // Parse the attachments
+                var files = _this.state.files;
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    // See if this is the attachment to remove
+                    if (file.name.toLowerCase() == fileName) {
+                        // Execute the event
+                        _this.props.onLinkClick(file);
+                        // Break from the loop
+                        break;
+                    }
+                }
+            }
+        };
+        /**
          * Event triggered by clicking on the attachment delete icon
          * @param ev - The button click event.
          */
@@ -144,6 +168,8 @@ var FieldAttachments = /** @class */ (function (_super) {
                         // Remove the file
                         files.splice(i, 1);
                     }
+                    // Break from the loop
+                    break;
                 }
             }
             // Update the state
@@ -219,7 +245,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                     continue;
                 }
                 // Add the file
-                files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, download: true },
+                files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-fileName": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
                     React.createElement("span", { className: "ms-fontSize-m" }, file.name),
                     _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display ? null :
                         React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-fileName": file.name.toLowerCase(), onClick: _this.removeAttachment })));

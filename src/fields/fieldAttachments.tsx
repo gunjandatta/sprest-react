@@ -193,6 +193,35 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
+     * The click event for the link.
+     */
+    private linkClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        // Prevent postback
+        ev.preventDefault();
+
+        // Execute the event
+        if (this.props.onLinkClick) {
+            // Get the file name
+            let fileName = ev.currentTarget.getAttribute("data-fileName");
+
+            // Parse the attachments
+            let files = this.state.files;
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+
+                // See if this is the attachment to remove
+                if (file.name.toLowerCase() == fileName) {
+                    // Execute the event
+                    this.props.onLinkClick(file);
+
+                    // Break from the loop
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
      * Event triggered by clicking on the attachment delete icon
      * @param ev - The button click event.
      */
@@ -218,6 +247,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                     // Remove the file
                     files.splice(i, 1);
                 }
+
+                // Break from the loop
+                break;
             }
         }
 
@@ -304,7 +336,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
             // Add the file
             files.push(
-                <Link className="ms-AttachmentLink" key={file.name} href={file.url} download={true}>
+                <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-fileName={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
                     <span className="ms-fontSize-m">{file.name}</span>
                     {
                         this.props.controlMode == SPTypes.ControlMode.Display ? null :

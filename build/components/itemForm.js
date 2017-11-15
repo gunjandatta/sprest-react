@@ -118,7 +118,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: controlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onRender: _this.props.onRenderAttachments, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { controlMode: controlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onLinkClick: _this.props.onAttchmentClick, onRender: _this.props.onRenderAttachments, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {

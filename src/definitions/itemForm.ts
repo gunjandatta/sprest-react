@@ -43,6 +43,9 @@ export interface IItemFormProps {
     /** The attachment added event. */
     onAttachmentAdded?: (file: IAttachmentFile) => void;
 
+    /** The click event for the attachment */
+    onAttchmentClick?: (file: IAttachmentFile) => void;
+
     /** The on form render event. */
     onRender?: () => any;
 

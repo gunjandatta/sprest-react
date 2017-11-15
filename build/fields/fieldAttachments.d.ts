@@ -34,6 +34,10 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      */
     private addAttachment;
     /**
+     * The click event for the link.
+     */
+    private linkClick;
+    /**
      * Event triggered by clicking on the attachment delete icon
      * @param ev - The button click event.
      */

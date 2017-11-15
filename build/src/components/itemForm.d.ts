@@ -63,6 +63,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Methods
      */
     /**
+     * The click event for an attachment.
+     */
+    private attachmentClick;
+    /**
      * Method to get the item
      * @param itemId - The item id.
      */

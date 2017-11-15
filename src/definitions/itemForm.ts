@@ -44,7 +44,7 @@ export interface IItemFormProps {
     onAttachmentAdded?: (file: IAttachmentFile) => void;
 
     /** The click event for the attachment */
-    onAttchmentClick?: (file: IAttachmentFile) => void;
+    onAttchmentClick?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
 
     /** The on form render event. */
     onRender?: () => any;
@@ -66,6 +66,9 @@ export interface IItemFormProps {
  * State
  */
 export interface IItemFormState {
+    /** The form control mode. */
+    controlMode?: Types.SPTypes.ControlMode;
+
     /** The form fields. */
     fields?: Array<IItemFormField>;
 

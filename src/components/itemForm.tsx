@@ -2,6 +2,7 @@ import * as React from "react";
 import { SPTypes, Types, Web } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
 import {
+    IAttachmentFile,
     IBaseFieldInfo,
     IManagedMetadataFieldInfo,
     IItemFormField, IItemFormProps, IItemFormState
@@ -71,6 +72,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Set the state
         this.state = {
+            controlMode: props.controlMode as any || (props.item && props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New),
             fields: props.fields,
             item: props.item || {},
             saveFl: false
@@ -191,6 +193,17 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Methods
      */
+
+    /**
+     * The click event for an attachment.
+     */
+    private attachmentClick = (file: IAttachmentFile) => {
+        // See if the click event exists
+        if (this.props.onAttchmentClick) {
+            // Execute the event
+            this.props.onAttchmentClick(file, this.state.controlMode);
+        }
+    }
 
     /**
      * Method to get the item
@@ -349,7 +362,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Method to render the fields
      */
     private renderFields = () => {
-        let controlMode = this.props.controlMode || (this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New);
         let formFields = [];
         let item = this.state.item;
 
@@ -359,12 +371,12 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_Attachments"}>
                     <div className="ms-Grid-col-md12">
                         <Fields.FieldAttachments
-                            controlMode={controlMode}
+                            controlMode={this.state.controlMode}
                             files={item.AttachmentFiles}
                             key={"Attachments"}
                             listName={this.props.listName}
                             onFileAdded={this.props.onAttachmentAdded}
-                            onLinkClick={this.props.onAttchmentClick}
+                            onLinkClick={this.attachmentClick}
                             onRender={this.props.onRenderAttachments}
                             ref={field => { this._attachmentField = field; }}
                             webUrl={this.props.webUrl}
@@ -386,7 +398,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                     <div className="ms-Grid-col ms-md12">
                         <Field
-                            controlMode={controlMode}
+                            controlMode={this.state.controlMode}
                             defaultValue={item[fieldInfo.name]}
                             item={item}
                             listName={this.props.listName}

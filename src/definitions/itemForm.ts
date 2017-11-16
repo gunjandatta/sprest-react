@@ -78,6 +78,9 @@ export interface IItemFormState {
     /** The list. */
     list?: Types.IListResult;
 
+    /** The load flag. */
+    loadFl?: boolean;
+
     /** The save flag. */
     saveFl?: boolean;
 }

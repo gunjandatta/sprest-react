@@ -189,6 +189,7 @@ var ItemForm = /** @class */ (function (_super) {
         _this.state = {
             fields: props.fields,
             item: props.item || {},
+            loadFl: false,
             saveFl: false
         };
         // Default the query
@@ -284,12 +285,15 @@ var ItemForm = /** @class */ (function (_super) {
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list..." }));
         }
+        // Ensure we aren't already loading the attachments
         // See if we are showing attachments, but the item doesn't contain them
-        if (this.props.showAttachments && this.state.item.Id > 0 && (this.state.item.AttachmentFiles == null || typeof (this.state.item.AttachmentFiles) === "function")) {
+        if (!this.state.loadFl && this.props.showAttachments && this.state.item.Id > 0 && (this.state.item.AttachmentFiles == null || typeof (this.state.item.AttachmentFiles) === "function")) {
+            // Update the state
+            this.setState({ loadFl: true });
             // Load the item
             this.getItem(this.state.item.Id).then(function (item) {
                 // Update the item
-                _this.setState({ item: item });
+                _this.setState({ item: item, loadFl: false });
             });
         }
         // See if there is a custom renderer

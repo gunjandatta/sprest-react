@@ -95,6 +95,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         this.state = {
             fields: props.fields,
             item: props.item || {},
+            loadFl: false,
             saveFl: false
         };
 
@@ -131,12 +132,16 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
+        // Ensure we aren't already loading the attachments
         // See if we are showing attachments, but the item doesn't contain them
-        if (this.props.showAttachments && this.state.item.Id > 0 && (this.state.item.AttachmentFiles == null || typeof (this.state.item.AttachmentFiles) === "function")) {
+        if (!this.state.loadFl && this.props.showAttachments && this.state.item.Id > 0 && (this.state.item.AttachmentFiles == null || typeof (this.state.item.AttachmentFiles) === "function")) {
+            // Update the state
+            this.setState({ loadFl: true });
+
             // Load the item
             this.getItem(this.state.item.Id).then(item => {
                 // Update the item
-                this.setState({ item });
+                this.setState({ item, loadFl: false });
             });
         }
 

@@ -57,6 +57,8 @@ export interface IItemFormState {
     item?: any;
     /** The list. */
     list?: Types.IListResult;
+    /** The load flag. */
+    loadFl?: boolean;
     /** The save flag. */
     saveFl?: boolean;
 }

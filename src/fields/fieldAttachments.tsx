@@ -207,7 +207,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         ev.preventDefault();
 
         // Execute the event
-        if (this.props.onLinkClick) {
+        if (this.props.onFileClick) {
             // Get the file name
             let fileName = ev.currentTarget.getAttribute("data-filename");
 
@@ -219,7 +219,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 // See if this is the attachment to remove
                 if (file.name.toLowerCase() == fileName) {
                     // Execute the event
-                    this.props.onLinkClick(file);
+                    this.props.onFileClick(file);
 
                     // Break from the loop
                     break;

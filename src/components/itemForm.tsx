@@ -215,48 +215,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      */
 
     /**
-     * The click event for an attachment.
-     */
-    private attachmentClick = (file: IAttachmentFile) => {
-        // See if the click event exists
-        if (this.props.onAttachmentClick) {
-            // Execute the event
-            return this.props.onAttachmentClick(file, this.ControlMode);
-        }
-
-        // Property doesn't exist
-        return null;
-    }
-
-    /**
-     * The render event for an attachment.
-     */
-    private attachmentRender = (file: IAttachmentFile) => {
-        // See if the click event exists
-        if (this.props.onAttachmentRender) {
-            // Execute the event
-            return this.props.onAttachmentRender(file, this.ControlMode);
-        }
-
-        // Property doesn't exist
-        return null;
-    }
-
-    /**
-     * The render event for an attachments.
-     */
-    private attachmentsRender = (files: Array<IAttachmentFile>) => {
-        // See if the click event exists
-        if (this.props.onRenderAttachments) {
-            // Execute the event
-            return this.props.onRenderAttachments(files, this.ControlMode);
-        }
-
-        // Property doesn't exist
-        return null;
-    }
-
-    /**
      * Method to get the item
      * @param itemId - The item id.
      */
@@ -427,9 +385,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             key={"Attachments"}
                             listName={this.props.listName}
                             onFileAdded={this.props.onAttachmentAdded}
-                            onFileRender={this.attachmentRender}
-                            onLinkClick={this.attachmentClick}
-                            onRender={this.attachmentsRender}
+                            onFileClick={this.props.onAttachmentClick ? (file) => { return this.props.onAttachmentClick(file, this.ControlMode); } : null}
+                            onFileRender={this.props.onAttachmentRender ? (file) => { return this.props.onAttachmentRender(file, this.ControlMode); } : null}
+                            onRender={this.props.onRenderAttachments ? (files) => { return this.props.onRenderAttachments(files, this.ControlMode); } : null}
                             ref={field => { this._attachmentField = field; }}
                             webUrl={this.props.webUrl}
                         />

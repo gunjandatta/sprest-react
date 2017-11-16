@@ -133,7 +133,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             // Prevent postback
             ev.preventDefault();
             // Execute the event
-            if (_this.props.onLinkClick) {
+            if (_this.props.onFileClick) {
                 // Get the file name
                 var fileName = ev.currentTarget.getAttribute("data-filename");
                 // Parse the attachments
@@ -143,7 +143,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                     // See if this is the attachment to remove
                     if (file.name.toLowerCase() == fileName) {
                         // Execute the event
-                        _this.props.onLinkClick(file);
+                        _this.props.onFileClick(file);
                         // Break from the loop
                         break;
                     }

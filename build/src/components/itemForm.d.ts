@@ -67,18 +67,6 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Methods
      */
     /**
-     * The click event for an attachment.
-     */
-    private attachmentClick;
-    /**
-     * The render event for an attachment.
-     */
-    private attachmentRender;
-    /**
-     * The render event for an attachments.
-     */
-    private attachmentsRender;
-    /**
      * Method to get the item
      * @param itemId - The item id.
      */

@@ -24,10 +24,10 @@ export interface IFieldAttachmentsProps {
     files?: any | Types.ComplexTypes.FieldAttachmentFiles;
     /** The attachment file added event. */
     onFileAdded?: (file: IAttachmentFile) => any;
+    /** The click event for the file link. */
+    onFileClick?: (file: IAttachmentFile) => void;
     /** The attachment file render event. */
     onFileRender?: (file: IAttachmentFile) => any;
-    /** The click event for the file link. */
-    onLinkClick?: (file: IAttachmentFile) => void;
     /** The on form render event. */
     onRender?: (files: Array<IAttachmentFile>) => any;
     /** The relative web url containing the list. */

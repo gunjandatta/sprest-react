@@ -41,42 +41,6 @@ var ItemForm = /** @class */ (function (_super) {
          * Methods
          */
         /**
-         * The click event for an attachment.
-         */
-        _this.attachmentClick = function (file) {
-            // See if the click event exists
-            if (_this.props.onAttachmentClick) {
-                // Execute the event
-                return _this.props.onAttachmentClick(file, _this.ControlMode);
-            }
-            // Property doesn't exist
-            return null;
-        };
-        /**
-         * The render event for an attachment.
-         */
-        _this.attachmentRender = function (file) {
-            // See if the click event exists
-            if (_this.props.onAttachmentRender) {
-                // Execute the event
-                return _this.props.onAttachmentRender(file, _this.ControlMode);
-            }
-            // Property doesn't exist
-            return null;
-        };
-        /**
-         * The render event for an attachments.
-         */
-        _this.attachmentsRender = function (files) {
-            // See if the click event exists
-            if (_this.props.onRenderAttachments) {
-                // Execute the event
-                return _this.props.onRenderAttachments(files, _this.ControlMode);
-            }
-            // Property doesn't exist
-            return null;
-        };
-        /**
          * Method to get the item
          * @param itemId - The item id.
          */
@@ -153,7 +117,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onFileRender: _this.attachmentRender, onLinkClick: _this.attachmentClick, onRender: _this.attachmentsRender, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick ? function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); } : null, onFileRender: _this.props.onAttachmentRender ? function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); } : null, onRender: _this.props.onRenderAttachments ? function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); } : null, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {

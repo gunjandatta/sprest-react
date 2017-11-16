@@ -53,7 +53,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if we are editing the form
         if (controlMode == SPTypes.ControlMode.Edit) {
             // Ensure the item exists
-            controlMode = this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New;
+            controlMode = this.state.item && this.state.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New;
         }
 
         // Return the control mode
@@ -153,19 +153,18 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
-        // See if we are saving the item
-        if (this.state.saveFl) {
-            return (
-                <Spinner label="Saving the Item" size={SpinnerSize.large} />
-            );
-        }
-
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
             return (
                 <div>
-                    {this.props.onRender(this.ControlMode)}
+                    {
+                        !this.state.saveFl ? null :
+                            <Spinner label="Saving the Item" size={SpinnerSize.large} />
+                    }
+                    <div hidden={this.state.saveFl}>
+                        {this.props.onRender(this.ControlMode)}
+                    </div>
                 </div>
             );
         }
@@ -184,7 +183,13 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Render the fields
         return (
             <div className={"ms-Grid " + (this.props.className || "")}>
-                {this.renderFields()}
+                {
+                    !this.state.saveFl ? null :
+                        <Spinner label="Saving the Item" size={SpinnerSize.large} />
+                }
+                <div hidden={this.state.saveFl}>
+                    {this.renderFields()}
+                </div>
             </div>
         );
     }
@@ -460,7 +465,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private saveItem = () => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let item: Types.IListItemQueryResult = this.props.item;
+            let item: Types.IListItemQueryResult = this.state.item;
 
             // Get the item
             let formValues = this.getValues();

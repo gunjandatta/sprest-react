@@ -95,6 +95,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         this.state = {
             fields: props.fields,
             item: props.item || {},
+            refreshFl: false,
             saveFl: false
         };
 
@@ -114,6 +115,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             this._query.Select.push("Attachments");
             this._query.Select.push("AttachmentFiles");
         }
+    }
+
+    /**
+     * Method to refresh the item
+     */
+    refresh() {
+        // Update the state
+        this.setState({ refreshFl: true });
+
+        // Get the item
+        this.getItem(this.state.item.Id).then(item => {
+            // Update the state
+            this.setState({ item, refreshFl: false });
+        });
     }
 
     /**
@@ -137,12 +152,18 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             return (
                 <div>
                     {
+                        this.state.refreshFl ?
+                            <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
+                            :
+                            null
+                    }
+                    {
                         this.state.saveFl ?
                             <Spinner label="Saving the Item" size={SpinnerSize.large} />
                             :
                             null
                     }
-                    <div hidden={this.state.saveFl}>
+                    <div hidden={this.state.refreshFl || this.state.saveFl}>
                         {this.props.onRender(this.ControlMode)}
                     </div>
                 </div>
@@ -164,12 +185,18 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         return (
             <div>
                 {
+                    this.state.refreshFl ?
+                        <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
+                        :
+                        null
+                }
+                {
                     this.state.saveFl ?
                         <Spinner label="Saving the Item" size={SpinnerSize.large} />
                         :
                         null
                 }
-                <div className={"ms-Grid " + (this.props.className || "")} hidden={this.state.saveFl}>
+                <div className={"ms-Grid " + (this.props.className || "")} hidden={this.state.refreshFl || this.state.saveFl}>
                     {this.renderFields()}
                 </div>
             </div>
@@ -363,7 +390,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      */
     private renderFields = () => {
         let formFields = [];
-        let item:Types.IListItemResult = this.state.item;
+        let item: Types.IListItemResult = this.state.item;
 
         // See if we are displaying attachments
         if (this.props.showAttachments) {

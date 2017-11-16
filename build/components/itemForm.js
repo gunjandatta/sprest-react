@@ -189,6 +189,7 @@ var ItemForm = /** @class */ (function (_super) {
         _this.state = {
             fields: props.fields,
             item: props.item || {},
+            refreshFl: false,
             saveFl: false
         };
         // Default the query
@@ -273,6 +274,19 @@ var ItemForm = /** @class */ (function (_super) {
         configurable: true
     });
     /**
+     * Method to refresh the item
+     */
+    ItemForm.prototype.refresh = function () {
+        var _this = this;
+        // Update the state
+        this.setState({ refreshFl: true });
+        // Get the item
+        this.getItem(this.state.item.Id).then(function (item) {
+            // Update the state
+            _this.setState({ item: item, refreshFl: false });
+        });
+    };
+    /**
      * Render the component
      */
     ItemForm.prototype.render = function () {
@@ -287,11 +301,15 @@ var ItemForm = /** @class */ (function (_super) {
         if (this.props.onRender) {
             // Execute the render event
             return (React.createElement("div", null,
+                this.state.refreshFl ?
+                    React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
+                    :
+                        null,
                 this.state.saveFl ?
                     React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
                     :
                         null,
-                React.createElement("div", { hidden: this.state.saveFl }, this.props.onRender(this.ControlMode))));
+                React.createElement("div", { hidden: this.state.refreshFl || this.state.saveFl }, this.props.onRender(this.ControlMode))));
         }
         // See if the fields have been defined
         if (this.state.fields == null) {
@@ -302,11 +320,15 @@ var ItemForm = /** @class */ (function (_super) {
         }
         // Render the fields
         return (React.createElement("div", null,
+            this.state.refreshFl ?
+                React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
+                :
+                    null,
             this.state.saveFl ?
                 React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
                 :
                     null,
-            React.createElement("div", { className: "ms-Grid " + (this.props.className || ""), hidden: this.state.saveFl }, this.renderFields())));
+            React.createElement("div", { className: "ms-Grid " + (this.props.className || ""), hidden: this.state.refreshFl || this.state.saveFl }, this.renderFields())));
     };
     /**
      * Method to save the item form

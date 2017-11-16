@@ -1,5 +1,5 @@
 import { Types } from "gd-sprest";
-import { IAttachmentFile, IBaseFieldInfo } from ".";
+import { IAttachmentFile, IBaseFieldInfo, IFieldAttachment } from ".";
 
 /**
  * Field Information
@@ -77,6 +77,9 @@ export interface IItemFormState {
 
     /** The list. */
     list?: Types.IListResult;
+
+    /** The refresh flag. */
+    refreshFl?: boolean;
 
     /** The save flag. */
     saveFl?: boolean;

@@ -343,11 +343,18 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         for (let i = 0; i < this.state.files.length; i++) {
             let file = this.state.files[i];
 
-            // Ensure we are not deleting this fiel
+            // Ensure we are not deleting this field
             if (file.deleteFl) { continue; }
 
-            // Add the file
-            files.push(
+            // See if the render event exists
+            let attachment = null;
+            if (this.props.onFileRender) {
+                // Set the attachment
+                attachment = this.props.onFileRender(file);
+            }
+
+            // Add the attachment
+            files.push(attachment ||
                 <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-filename={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
                     <span className="ms-fontSize-m">{file.name}</span>
                     {

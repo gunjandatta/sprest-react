@@ -43,14 +43,17 @@ export interface IItemFormProps {
     /** The attachment added event. */
     onAttachmentAdded?: (file: IAttachmentFile) => void;
 
-    /** The click event for the attachment */
+    /** The click event for the attachment. */
     onAttchmentClick?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
 
+    /** The render event for the attachment. */
+    onAttchmentRender?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
+    
     /** The on form render event. */
-    onRender?: () => any;
+    onRender?: (controlMode: Types.SPTypes.ControlMode) => any;
 
     /** The on form render attachments event. */
-    onRenderAttachments?: (files: Array<IAttachmentFile>) => any;
+    onRenderAttachments?: (files: Array<IAttachmentFile>, controlMode: Types.SPTypes.ControlMode) => any;
 
     /** The item query, used when refreshing the item after a save. */
     query?: Types.ODataQuery;

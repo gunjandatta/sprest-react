@@ -24,6 +24,8 @@ export interface IFieldAttachmentsProps {
     files?: any | Types.ComplexTypes.FieldAttachmentFiles;
     /** The attachment file added event. */
     onFileAdded?: (file: IAttachmentFile) => any;
+    /** The attachment file render event. */
+    onFileRender?: (file: IAttachmentFile) => any;
     /** The click event for the file link. */
     onLinkClick?: (file: IAttachmentFile) => void;
     /** The on form render event. */

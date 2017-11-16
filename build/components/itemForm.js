@@ -51,6 +51,26 @@ var ItemForm = /** @class */ (function (_super) {
             }
         };
         /**
+         * The render event for an attachment.
+         */
+        _this.attachmentRender = function (file) {
+            // See if the click event exists
+            if (_this.props.onAttchmentRender) {
+                // Execute the event
+                _this.props.onAttchmentRender(file, _this.ControlMode);
+            }
+        };
+        /**
+         * The render event for an attachments.
+         */
+        _this.attachmentsRender = function (files) {
+            // See if the click event exists
+            if (_this.props.onAttchmentRender) {
+                // Execute the event
+                _this.props.onRenderAttachments(files, _this.ControlMode);
+            }
+        };
+        /**
          * Method to get the item
          * @param itemId - The item id.
          */
@@ -127,7 +147,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onLinkClick: _this.attachmentClick, onRender: _this.props.onRenderAttachments, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onFileRender: _this.attachmentRender, onLinkClick: _this.attachmentClick, onRender: _this.attachmentsRender, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {
@@ -310,7 +330,7 @@ var ItemForm = /** @class */ (function (_super) {
                     React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large })
                     :
                         null,
-                React.createElement("div", { hidden: this.state.saveFl }, this.props.onRender())));
+                React.createElement("div", { hidden: this.state.saveFl }, this.props.onRender(this.ControlMode))));
         }
         // See if the fields have been defined
         if (this.state.fields == null) {

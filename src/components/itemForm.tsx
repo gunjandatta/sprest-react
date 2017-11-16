@@ -152,7 +152,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             null
                     }
                     <div hidden={this.state.saveFl}>
-                        {this.props.onRender()}
+                        {this.props.onRender(this.ControlMode)}
                     </div>
                 </div>
             );
@@ -222,6 +222,28 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         if (this.props.onAttchmentClick) {
             // Execute the event
             this.props.onAttchmentClick(file, this.ControlMode);
+        }
+    }
+
+    /**
+     * The render event for an attachment.
+     */
+    private attachmentRender = (file: IAttachmentFile) => {
+        // See if the click event exists
+        if (this.props.onAttchmentRender) {
+            // Execute the event
+            this.props.onAttchmentRender(file, this.ControlMode);
+        }
+    }
+
+    /**
+     * The render event for an attachments.
+     */
+    private attachmentsRender = (files: Array<IAttachmentFile>) => {
+        // See if the click event exists
+        if (this.props.onAttchmentRender) {
+            // Execute the event
+            this.props.onRenderAttachments(files, this.ControlMode);
         }
     }
 
@@ -396,8 +418,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             key={"Attachments"}
                             listName={this.props.listName}
                             onFileAdded={this.props.onAttachmentAdded}
+                            onFileRender={this.attachmentRender}
                             onLinkClick={this.attachmentClick}
-                            onRender={this.props.onRenderAttachments}
+                            onRender={this.attachmentsRender}
                             ref={field => { this._attachmentField = field; }}
                             webUrl={this.props.webUrl}
                         />

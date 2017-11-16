@@ -25,7 +25,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: props.files ? this.toArray(props.files) : null,
+            files: props.files && typeof(props.files) !== "function" ? this.toArray(props.files) : null,
             loadingFl: false
         };
     }

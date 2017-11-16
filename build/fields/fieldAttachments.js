@@ -336,7 +336,7 @@ var FieldAttachments = /** @class */ (function (_super) {
         // Update the state
         _this.state = {
             errorMessage: "",
-            files: props.files ? _this.toArray(props.files) : null,
+            files: props.files && typeof (props.files) !== "function" ? _this.toArray(props.files) : null,
             loadingFl: false
         };
         return _this;

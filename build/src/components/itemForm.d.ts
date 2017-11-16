@@ -28,6 +28,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     AttachmentField: Fields.FieldAttachments;
     /**
+     * Get the control mode
+     */
+    readonly ControlMode: Types.SPTypes.ControlMode;
+    /**
      * Get the form fields
      */
     /**

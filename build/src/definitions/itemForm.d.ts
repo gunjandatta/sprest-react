@@ -49,8 +49,6 @@ export interface IItemFormProps {
  * State
  */
 export interface IItemFormState {
-    /** The form control mode. */
-    controlMode?: Types.SPTypes.ControlMode;
     /** The form fields. */
     fields?: Array<IItemFormField>;
     /** The existing item. */

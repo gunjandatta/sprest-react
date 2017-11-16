@@ -47,7 +47,7 @@ var ItemForm = /** @class */ (function (_super) {
             // See if the click event exists
             if (_this.props.onAttchmentClick) {
                 // Execute the event
-                _this.props.onAttchmentClick(file, _this.state.controlMode);
+                _this.props.onAttchmentClick(file, _this.ControlMode);
             }
         };
         /**
@@ -127,7 +127,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.state.controlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onLinkClick: _this.attachmentClick, onRender: _this.props.onRenderAttachments, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onLinkClick: _this.attachmentClick, onRender: _this.props.onRenderAttachments, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {
@@ -139,7 +139,7 @@ var ItemForm = /** @class */ (function (_super) {
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(_1.Field, { controlMode: _this.state.controlMode, defaultValue: item[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Field, { controlMode: _this.ControlMode, defaultValue: item[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             }
             // Return the form fields
             return formFields;
@@ -197,7 +197,6 @@ var ItemForm = /** @class */ (function (_super) {
         };
         // Set the state
         _this.state = {
-            controlMode: props.controlMode || (props.item && props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New),
             fields: props.fields,
             item: props.item || {},
             saveFl: false
@@ -227,6 +226,27 @@ var ItemForm = /** @class */ (function (_super) {
          * Set the attachment field
          */
         set: function (field) { this._attachmentField = field; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ItemForm.prototype, "ControlMode", {
+        /**
+         * Get the control mode
+         */
+        get: function () {
+            var controlMode = this.props.controlMode;
+            // Default the value
+            if (typeof (this.props.controlMode) !== "number") {
+                controlMode = gd_sprest_1.SPTypes.ControlMode.Display;
+            }
+            // See if we are editing the form
+            if (controlMode == gd_sprest_1.SPTypes.ControlMode.Edit) {
+                // Ensure the item exists
+                controlMode = this.props.item && this.props.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New;
+            }
+            // Return the control mode
+            return controlMode;
+        },
         enumerable: true,
         configurable: true
     });

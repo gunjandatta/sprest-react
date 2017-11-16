@@ -40,6 +40,27 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     set AttachmentField(field: Fields.FieldAttachments) { this._attachmentField = field; }
 
     /**
+     * Get the control mode
+     */
+    get ControlMode(): Types.SPTypes.ControlMode {
+        let controlMode = this.props.controlMode;
+
+        // Default the value
+        if (typeof (this.props.controlMode) !== "number") {
+            controlMode = SPTypes.ControlMode.Display;
+        }
+
+        // See if we are editing the form
+        if (controlMode == SPTypes.ControlMode.Edit) {
+            // Ensure the item exists
+            controlMode = this.props.item && this.props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New;
+        }
+
+        // Return the control mode
+        return controlMode as any;
+    }
+
+    /**
      * Get the form fields
      */
     get FormFields(): { [key: string]: Field } { return this._fields; }
@@ -72,7 +93,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Set the state
         this.state = {
-            controlMode: props.controlMode as any || (props.item && props.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New),
             fields: props.fields,
             item: props.item || {},
             saveFl: false
@@ -201,7 +221,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if the click event exists
         if (this.props.onAttchmentClick) {
             // Execute the event
-            this.props.onAttchmentClick(file, this.state.controlMode);
+            this.props.onAttchmentClick(file, this.ControlMode);
         }
     }
 
@@ -371,7 +391,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_Attachments"}>
                     <div className="ms-Grid-col-md12">
                         <Fields.FieldAttachments
-                            controlMode={this.state.controlMode}
+                            controlMode={this.ControlMode}
                             files={item.AttachmentFiles}
                             key={"Attachments"}
                             listName={this.props.listName}
@@ -398,7 +418,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                     <div className="ms-Grid-col ms-md12">
                         <Field
-                            controlMode={this.state.controlMode}
+                            controlMode={this.ControlMode}
                             defaultValue={item[fieldInfo.name]}
                             item={item}
                             listName={this.props.listName}

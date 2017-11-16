@@ -43,7 +43,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         if (this.state.loadingFl) {
             // Render a loading dialog
             return (
-                <Spinner label="Uploading the file" />
+                <Spinner label="Loading..." />
             );
         }
 
@@ -51,6 +51,11 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         if (this.state.files == null) {
             // Load the attachments
             this.loadAttachments();
+
+            // Render a loading dialog
+            return (
+                <Spinner label="Loading..." />
+            );
         }
 
         // See if this is the display mode

@@ -146,26 +146,26 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
+        // See if we are refreshing the item
+        if (this.state.refreshFl) {
+            return (
+                <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
+            );
+        }
+
+        // See if we are saving the item
+        if (this.state.saveFl) {
+            return (
+                <Spinner label="Saving the Item" size={SpinnerSize.large} />
+            );
+        }
+
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Execute the render event
             return (
                 <div>
-                    {
-                        this.state.refreshFl ?
-                            <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
-                            :
-                            null
-                    }
-                    {
-                        this.state.saveFl ?
-                            <Spinner label="Saving the Item" size={SpinnerSize.large} />
-                            :
-                            null
-                    }
-                    <div hidden={this.state.refreshFl || this.state.saveFl}>
-                        {this.props.onRender(this.ControlMode)}
-                    </div>
+                    {this.props.onRender(this.ControlMode)}
                 </div>
             );
         }
@@ -183,22 +183,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Render the fields
         return (
-            <div>
-                {
-                    this.state.refreshFl ?
-                        <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
-                        :
-                        null
-                }
-                {
-                    this.state.saveFl ?
-                        <Spinner label="Saving the Item" size={SpinnerSize.large} />
-                        :
-                        null
-                }
-                <div className={"ms-Grid " + (this.props.className || "")} hidden={this.state.refreshFl || this.state.saveFl}>
-                    {this.renderFields()}
-                </div>
+            <div className={"ms-Grid " + (this.props.className || "")}>
+                {this.renderFields()}
             </div>
         );
     }

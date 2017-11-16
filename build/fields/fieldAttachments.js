@@ -350,15 +350,15 @@ var FieldAttachments = /** @class */ (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.files);
         }
-        // Ensure the files exist
-        if (this.state.files) {
-            // Load the attachments
-            this.loadAttachments();
-        }
         // See if we are loading the attachments
         if (this.state.loadingFl) {
             // Render a loading dialog
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Uploading the file" }));
+        }
+        // Ensure the files exist
+        if (this.state.files) {
+            // Load the attachments
+            this.loadAttachments();
         }
         // See if this is the display mode
         if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {

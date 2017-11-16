@@ -135,7 +135,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             // Execute the event
             if (_this.props.onLinkClick) {
                 // Get the file name
-                var fileName = ev.currentTarget.getAttribute("data-fileName");
+                var fileName = ev.currentTarget.getAttribute("data-filename");
                 // Parse the attachments
                 var files = _this.state.files;
                 for (var i = 0; i < files.length; i++) {
@@ -158,7 +158,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             // Prevent postback
             ev.preventDefault();
             // Get the file name
-            var fileName = ev.currentTarget.getAttribute("data-fileName");
+            var fileName = ev.currentTarget.getAttribute("data-filename");
             // Parse the attachments
             var files = _this.state.files;
             for (var i = 0; i < files.length; i++) {
@@ -255,10 +255,10 @@ var FieldAttachments = /** @class */ (function (_super) {
                     continue;
                 }
                 // Add the file
-                files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-fileName": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
+                files.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-filename": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
                     React.createElement("span", { className: "ms-fontSize-m" }, file.name),
                     _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display ? null :
-                        React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-fileName": file.name.toLowerCase(), onClick: _this.removeAttachment })));
+                        React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-filename": file.name.toLowerCase(), onClick: _this.removeAttachment })));
             }
             // Return the files
             return files;

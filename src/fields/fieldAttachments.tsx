@@ -209,7 +209,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Execute the event
         if (this.props.onLinkClick) {
             // Get the file name
-            let fileName = ev.currentTarget.getAttribute("data-fileName");
+            let fileName = ev.currentTarget.getAttribute("data-filename");
 
             // Parse the attachments
             let files = this.state.files;
@@ -237,7 +237,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         ev.preventDefault();
 
         // Get the file name
-        let fileName = ev.currentTarget.getAttribute("data-fileName");
+        let fileName = ev.currentTarget.getAttribute("data-filename");
 
         // Parse the attachments
         let files = this.state.files;
@@ -348,11 +348,11 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
             // Add the file
             files.push(
-                <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-fileName={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
+                <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-filename={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
                     <span className="ms-fontSize-m">{file.name}</span>
                     {
                         this.props.controlMode == SPTypes.ControlMode.Display ? null :
-                            <i className="ms-Icon ms-Icon--Delete" data-fileName={file.name.toLowerCase()} onClick={this.removeAttachment} />
+                            <i className="ms-Icon ms-Icon--Delete" data-filename={file.name.toLowerCase()} onClick={this.removeAttachment} />
                     }
                 </Link>
             );

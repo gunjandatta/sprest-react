@@ -44,10 +44,10 @@ export interface IItemFormProps {
     onAttachmentAdded?: (file: IAttachmentFile) => void;
 
     /** The click event for the attachment. */
-    onAttchmentClick?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
+    onAttachmentClick?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
 
     /** The render event for the attachment. */
-    onAttchmentRender?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
+    onAttachmentRender?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
     
     /** The on form render event. */
     onRender?: (controlMode: Types.SPTypes.ControlMode) => any;

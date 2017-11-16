@@ -219,9 +219,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      */
     private attachmentClick = (file: IAttachmentFile) => {
         // See if the click event exists
-        if (this.props.onAttchmentClick) {
+        if (this.props.onAttachmentClick) {
             // Execute the event
-            this.props.onAttchmentClick(file, this.ControlMode);
+            this.props.onAttachmentClick(file, this.ControlMode);
         }
     }
 
@@ -230,9 +230,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      */
     private attachmentRender = (file: IAttachmentFile) => {
         // See if the click event exists
-        if (this.props.onAttchmentRender) {
+        if (this.props.onAttachmentRender) {
             // Execute the event
-            this.props.onAttchmentRender(file, this.ControlMode);
+            this.props.onAttachmentRender(file, this.ControlMode);
         }
     }
 
@@ -241,7 +241,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      */
     private attachmentsRender = (files: Array<IAttachmentFile>) => {
         // See if the click event exists
-        if (this.props.onAttchmentRender) {
+        if (this.props.onRenderAttachments) {
             // Execute the event
             this.props.onRenderAttachments(files, this.ControlMode);
         }

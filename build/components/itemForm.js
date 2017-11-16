@@ -45,9 +45,9 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.attachmentClick = function (file) {
             // See if the click event exists
-            if (_this.props.onAttchmentClick) {
+            if (_this.props.onAttachmentClick) {
                 // Execute the event
-                _this.props.onAttchmentClick(file, _this.ControlMode);
+                _this.props.onAttachmentClick(file, _this.ControlMode);
             }
         };
         /**
@@ -55,9 +55,9 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.attachmentRender = function (file) {
             // See if the click event exists
-            if (_this.props.onAttchmentRender) {
+            if (_this.props.onAttachmentRender) {
                 // Execute the event
-                _this.props.onAttchmentRender(file, _this.ControlMode);
+                _this.props.onAttachmentRender(file, _this.ControlMode);
             }
         };
         /**
@@ -65,7 +65,7 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.attachmentsRender = function (files) {
             // See if the click event exists
-            if (_this.props.onAttchmentRender) {
+            if (_this.props.onRenderAttachments) {
                 // Execute the event
                 _this.props.onRenderAttachments(files, _this.ControlMode);
             }

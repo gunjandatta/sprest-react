@@ -336,7 +336,7 @@ var FieldAttachments = /** @class */ (function (_super) {
         // Update the state
         _this.state = {
             errorMessage: "",
-            files: _this.toArray(props.files),
+            files: props.files ? _this.toArray(props.files) : null,
             loadingFl: false
         };
         return _this;
@@ -356,7 +356,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Uploading the file" }));
         }
         // Ensure the files exist
-        if (this.state.files) {
+        if (this.state.files == null) {
             // Load the attachments
             this.loadAttachments();
         }

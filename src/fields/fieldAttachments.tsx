@@ -25,7 +25,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: this.toArray(props.files),
+            files: props.files ? this.toArray(props.files) : null,
             loadingFl: false
         };
     }
@@ -48,7 +48,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         }
 
         // Ensure the files exist
-        if (this.state.files) {
+        if (this.state.files == null) {
             // Load the attachments
             this.loadAttachments();
         }

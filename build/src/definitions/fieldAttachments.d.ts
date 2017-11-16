@@ -18,10 +18,12 @@ export interface IFieldAttachmentsProps {
     className?: string;
     /** The field control mode. */
     controlMode?: number | Types.SPTypes.ControlMode;
+    /** The item id. */
+    itemId?: number;
     /** The list name. */
     listName: string;
     /** The existing attachment files. */
-    files?: any | Types.ComplexTypes.FieldAttachmentFiles;
+    files?: any | Types.IAttachmentFiles;
     /** The attachment file added event. */
     onFileAdded?: (file: IAttachmentFile) => any;
     /** The click event for the file link. */

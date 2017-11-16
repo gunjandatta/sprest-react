@@ -26,13 +26,21 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      */
     showFileDialog: () => void;
     /**
-     * Events
+     * Methods
      */
     /**
      * Event triggered by the user selecting a file to upload
      * @param ev - The button click event.
      */
     private addAttachment;
+    /**
+     * Method to delete the attachments
+     */
+    private deleteAttachments;
+    /**
+     * Method to load the attachment files from the item.
+     */
+    private loadAttachments;
     /**
      * The click event for the link.
      */
@@ -43,18 +51,6 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      */
     private removeAttachment;
     /**
-     * Methods
-     */
-    /**
-     * Method to delete the attachments
-     */
-    private deleteAttachments;
-    /**
-     * Method to load the files
-     * @param attachments - The file attachments.
-     */
-    private loadFiles;
-    /**
      * Method to render the attachments
      */
     private renderAttachments;
@@ -63,4 +59,9 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      * @param itemId - The item id.
      */
     private saveAttachments;
+    /**
+     * Method to convert the item value to the attachment file array
+     * @param attachments - The file attachments.
+     */
+    private toArray;
 }

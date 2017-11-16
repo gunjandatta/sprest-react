@@ -117,7 +117,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick ? function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); } : null, onFileRender: _this.props.onAttachmentRender ? function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); } : null, onRender: _this.props.onRenderAttachments ? function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); } : null, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", itemId: item.Id, listName: _this.props.listName, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick ? function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); } : null, onFileRender: _this.props.onAttachmentRender ? function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); } : null, onRender: _this.props.onRenderAttachments ? function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); } : null, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {
@@ -189,7 +189,6 @@ var ItemForm = /** @class */ (function (_super) {
         _this.state = {
             fields: props.fields,
             item: props.item || {},
-            loadFl: false,
             saveFl: false
         };
         // Default the query
@@ -277,24 +276,12 @@ var ItemForm = /** @class */ (function (_super) {
      * Render the component
      */
     ItemForm.prototype.render = function () {
-        var _this = this;
         // See if the list exists
         if (this.state.list == null) {
             // Load the list
             this.loadList();
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list..." }));
-        }
-        // Ensure we aren't already loading the attachments
-        // See if we are showing attachments, but the item doesn't contain them
-        if (!this.state.loadFl && this.props.showAttachments && this.state.item.Id > 0 && (this.state.item.AttachmentFiles == null || typeof (this.state.item.AttachmentFiles) === "function")) {
-            // Update the state
-            this.setState({ loadFl: true });
-            // Load the item
-            this.getItem(this.state.item.Id).then(function (item) {
-                // Update the item
-                _this.setState({ item: item, loadFl: false });
-            });
         }
         // See if there is a custom renderer
         if (this.props.onRender) {

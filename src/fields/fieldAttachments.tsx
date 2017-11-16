@@ -25,7 +25,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: this.loadFiles(props.files),
+            files: this.toArray(props.files),
             loadingFl: false
         };
     }
@@ -37,6 +37,20 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // See if the render method exists
         if (this.props.onRender) {
             return this.props.onRender(this.state.files);
+        }
+
+        // Ensure the files exist
+        if (this.state.files) {
+            // Load the attachments
+            this.loadAttachments();
+        }
+
+        // See if we are loading the attachments
+        if (this.state.loadingFl) {
+            // Render a loading dialog
+            return (
+                <Spinner label="Uploading the file" />
+            );
         }
 
         // See if this is the display mode
@@ -59,14 +73,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         return (
             <div className={(this.props.className || "")}>
                 {this.renderAttachments()}
-                {
-                    this.state.loadingFl ?
-                        <Spinner
-                            label="Uploading the file"
-                        />
-                        :
-                        <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
-                }
+                <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
                 {
                     this.state.errorMessage == "" ? null :
                         <span className="ms-fontSize-m ms-fontColor-redDark">{this.state.errorMessage}</span>
@@ -108,7 +115,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
-     * Events
+     * Methods
      */
 
     /**
@@ -200,6 +207,73 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
+     * Method to delete the attachments
+     */
+    private deleteAttachments = () => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the web
+            let web = new Web(this.props.webUrl);
+
+            // Parse the files
+            for (let i = 0; i < this.state.files.length; i++) {
+                let file = this.state.files[i];
+
+                // See if we are deleting the file
+                if (file.deleteFl) {
+                    // Get the file
+                    web.getFileByServerRelativeUrl(file.url)
+                        // Delete the file
+                        .delete()
+                        // Execute the request
+                        .execute(true);
+                }
+            }
+
+            // Wait for the requests to complete
+            web.done((...args) => {
+                // Resolve the proimse
+                resolve(args);
+            })
+        });
+    }
+
+    /**
+     * Method to load the attachment files from the item.
+     */
+    private loadAttachments = () => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Set the state
+            this.setState({ loadingFl: true });
+
+            // Ensure the list and item id exists
+            if (this.props.listName && this.props.itemId && this.props.itemId > 0) {
+                // Get the web
+                (new Web(this.props.webUrl))
+                    // Get the list
+                    .Lists(this.props.listName)
+                    // Get the item
+                    .Items(this.props.itemId)
+                    // Query
+                    // Get the attachment files
+                    .AttachmentFiles()
+                    // Execute the request
+                    .execute(attachments => {
+                        // Update the state
+                        this.setState({
+                            files: this.toArray(attachments as any),
+                            loadingFl: false
+                        });
+                    });
+            } else {
+                // Set the state
+                this.setState({ files: [], loadingFl: false })
+            }
+        });
+    }
+
+    /**
      * The click event for the link.
      */
     private linkClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
@@ -262,75 +336,6 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
         // Update the state
         this.setState({ files });
-    }
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Method to delete the attachments
-     */
-    private deleteAttachments = () => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Get the web
-            let web = new Web(this.props.webUrl);
-
-            // Parse the files
-            for (let i = 0; i < this.state.files.length; i++) {
-                let file = this.state.files[i];
-
-                // See if we are deleting the file
-                if (file.deleteFl) {
-                    // Get the file
-                    web.getFileByServerRelativeUrl(file.url)
-                        // Delete the file
-                        .delete()
-                        // Execute the request
-                        .execute(true);
-                }
-            }
-
-            // Wait for the requests to complete
-            web.done((...args) => {
-                // Resolve the proimse
-                resolve(args);
-            })
-        });
-    }
-
-    /**
-     * Method to load the files
-     * @param attachments - The file attachments.
-     */
-    private loadFiles = (attachments: Types.ComplexTypes.FieldAttachmentFiles) => {
-        let files: Array<IAttachmentFile> = [];
-
-        // Ensure attachments exist
-        if (attachments && attachments.results) {
-            // Parse the attachments
-            for (let i = 0; i < attachments.results.length; i++) {
-                let attachment = attachments.results[i];
-
-                // Set the file extension
-                let ext: any = attachment.FileName.split(".");
-                ext = ext[ext.length - 1].toLowerCase();
-
-                // Add the file
-                files.push({
-                    data: null,
-                    deleteFl: false,
-                    existsFl: true,
-                    ext,
-                    name: attachment.FileName,
-                    url: attachment.ServerRelativeUrl
-                });
-            }
-        }
-
-        // Return the files
-        return files;
     }
 
     /**
@@ -407,5 +412,38 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 resolve(args);
             });
         });
+    }
+
+    /**
+     * Method to convert the item value to the attachment file array
+     * @param attachments - The file attachments.
+     */
+    private toArray = (attachments: Types.IAttachmentFiles) => {
+        let files: Array<IAttachmentFile> = [];
+
+        // Ensure attachments exist
+        if (attachments && attachments.results) {
+            // Parse the attachments
+            for (let i = 0; i < attachments.results.length; i++) {
+                let attachment = attachments.results[i];
+
+                // Set the file extension
+                let ext: any = attachment.FileName.split(".");
+                ext = ext[ext.length - 1].toLowerCase();
+
+                // Add the file
+                files.push({
+                    data: null,
+                    deleteFl: false,
+                    existsFl: true,
+                    ext,
+                    name: attachment.FileName,
+                    url: attachment.ServerRelativeUrl
+                });
+            }
+        }
+
+        // Return the files
+        return files;
     }
 }

@@ -51,7 +51,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             _this._file.click();
         };
         /**
-         * Events
+         * Methods
          */
         /**
          * Event triggered by the user selecting a file to upload
@@ -127,6 +127,65 @@ var FieldAttachments = /** @class */ (function (_super) {
             }
         };
         /**
+         * Method to delete the attachments
+         */
+        _this.deleteAttachments = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the web
+                var web = new gd_sprest_1.Web(_this.props.webUrl);
+                // Parse the files
+                for (var i = 0; i < _this.state.files.length; i++) {
+                    var file = _this.state.files[i];
+                    // See if we are deleting the file
+                    if (file.deleteFl) {
+                        // Get the file
+                        web.getFileByServerRelativeUrl(file.url)
+                            .delete()
+                            .execute(true);
+                    }
+                }
+                // Wait for the requests to complete
+                web.done(function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Resolve the proimse
+                    resolve(args);
+                });
+            });
+        };
+        /**
+         * Method to load the attachment files from the item.
+         */
+        _this.loadAttachments = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Set the state
+                _this.setState({ loadingFl: true });
+                // Ensure the list and item id exists
+                if (_this.props.listName && _this.props.itemId && _this.props.itemId > 0) {
+                    // Get the web
+                    (new gd_sprest_1.Web(_this.props.webUrl))
+                        .Lists(_this.props.listName)
+                        .Items(_this.props.itemId)
+                        .AttachmentFiles()
+                        .execute(function (attachments) {
+                        // Update the state
+                        _this.setState({
+                            files: _this.toArray(attachments),
+                            loadingFl: false
+                        });
+                    });
+                }
+                else {
+                    // Set the state
+                    _this.setState({ files: [], loadingFl: false });
+                }
+            });
+        };
+        /**
          * The click event for the link.
          */
         _this.linkClick = function (ev) {
@@ -180,67 +239,6 @@ var FieldAttachments = /** @class */ (function (_super) {
             }
             // Update the state
             _this.setState({ files: files });
-        };
-        /**
-         * Methods
-         */
-        /**
-         * Method to delete the attachments
-         */
-        _this.deleteAttachments = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the web
-                var web = new gd_sprest_1.Web(_this.props.webUrl);
-                // Parse the files
-                for (var i = 0; i < _this.state.files.length; i++) {
-                    var file = _this.state.files[i];
-                    // See if we are deleting the file
-                    if (file.deleteFl) {
-                        // Get the file
-                        web.getFileByServerRelativeUrl(file.url)
-                            .delete()
-                            .execute(true);
-                    }
-                }
-                // Wait for the requests to complete
-                web.done(function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
-                    // Resolve the proimse
-                    resolve(args);
-                });
-            });
-        };
-        /**
-         * Method to load the files
-         * @param attachments - The file attachments.
-         */
-        _this.loadFiles = function (attachments) {
-            var files = [];
-            // Ensure attachments exist
-            if (attachments && attachments.results) {
-                // Parse the attachments
-                for (var i = 0; i < attachments.results.length; i++) {
-                    var attachment = attachments.results[i];
-                    // Set the file extension
-                    var ext = attachment.FileName.split(".");
-                    ext = ext[ext.length - 1].toLowerCase();
-                    // Add the file
-                    files.push({
-                        data: null,
-                        deleteFl: false,
-                        existsFl: true,
-                        ext: ext,
-                        name: attachment.FileName,
-                        url: attachment.ServerRelativeUrl
-                    });
-                }
-            }
-            // Return the files
-            return files;
         };
         /**
          * Method to render the attachments
@@ -307,10 +305,38 @@ var FieldAttachments = /** @class */ (function (_super) {
                 });
             });
         };
+        /**
+         * Method to convert the item value to the attachment file array
+         * @param attachments - The file attachments.
+         */
+        _this.toArray = function (attachments) {
+            var files = [];
+            // Ensure attachments exist
+            if (attachments && attachments.results) {
+                // Parse the attachments
+                for (var i = 0; i < attachments.results.length; i++) {
+                    var attachment = attachments.results[i];
+                    // Set the file extension
+                    var ext = attachment.FileName.split(".");
+                    ext = ext[ext.length - 1].toLowerCase();
+                    // Add the file
+                    files.push({
+                        data: null,
+                        deleteFl: false,
+                        existsFl: true,
+                        ext: ext,
+                        name: attachment.FileName,
+                        url: attachment.ServerRelativeUrl
+                    });
+                }
+            }
+            // Return the files
+            return files;
+        };
         // Update the state
         _this.state = {
             errorMessage: "",
-            files: _this.loadFiles(props.files),
+            files: _this.toArray(props.files),
             loadingFl: false
         };
         return _this;
@@ -324,6 +350,16 @@ var FieldAttachments = /** @class */ (function (_super) {
         if (this.props.onRender) {
             return this.props.onRender(this.state.files);
         }
+        // Ensure the files exist
+        if (this.state.files) {
+            // Load the attachments
+            this.loadAttachments();
+        }
+        // See if we are loading the attachments
+        if (this.state.loadingFl) {
+            // Render a loading dialog
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Uploading the file" }));
+        }
         // See if this is the display mode
         if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
             // Render the attachments
@@ -334,10 +370,7 @@ var FieldAttachments = /** @class */ (function (_super) {
         // Render the attachments
         return (React.createElement("div", { className: (this.props.className || "") },
             this.renderAttachments(),
-            this.state.loadingFl ?
-                React.createElement(office_ui_fabric_react_1.Spinner, { label: "Uploading the file" })
-                :
-                    React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
+            React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
             this.state.errorMessage == "" ? null :
                 React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage),
             React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));

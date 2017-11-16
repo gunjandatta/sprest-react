@@ -221,8 +221,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if the click event exists
         if (this.props.onAttachmentClick) {
             // Execute the event
-            this.props.onAttachmentClick(file, this.ControlMode);
+            return this.props.onAttachmentClick(file, this.ControlMode);
         }
+
+        // Property doesn't exist
+        return null;
     }
 
     /**
@@ -232,8 +235,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if the click event exists
         if (this.props.onAttachmentRender) {
             // Execute the event
-            this.props.onAttachmentRender(file, this.ControlMode);
+            return this.props.onAttachmentRender(file, this.ControlMode);
         }
+
+        // Property doesn't exist
+        return null;
     }
 
     /**
@@ -243,8 +249,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if the click event exists
         if (this.props.onRenderAttachments) {
             // Execute the event
-            this.props.onRenderAttachments(files, this.ControlMode);
+            return this.props.onRenderAttachments(files, this.ControlMode);
         }
+
+        // Property doesn't exist
+        return null;
     }
 
     /**

@@ -47,8 +47,10 @@ var ItemForm = /** @class */ (function (_super) {
             // See if the click event exists
             if (_this.props.onAttachmentClick) {
                 // Execute the event
-                _this.props.onAttachmentClick(file, _this.ControlMode);
+                return _this.props.onAttachmentClick(file, _this.ControlMode);
             }
+            // Property doesn't exist
+            return null;
         };
         /**
          * The render event for an attachment.
@@ -57,8 +59,10 @@ var ItemForm = /** @class */ (function (_super) {
             // See if the click event exists
             if (_this.props.onAttachmentRender) {
                 // Execute the event
-                _this.props.onAttachmentRender(file, _this.ControlMode);
+                return _this.props.onAttachmentRender(file, _this.ControlMode);
             }
+            // Property doesn't exist
+            return null;
         };
         /**
          * The render event for an attachments.
@@ -67,8 +71,10 @@ var ItemForm = /** @class */ (function (_super) {
             // See if the click event exists
             if (_this.props.onRenderAttachments) {
                 // Execute the event
-                _this.props.onRenderAttachments(files, _this.ControlMode);
+                return _this.props.onRenderAttachments(files, _this.ControlMode);
             }
+            // Property doesn't exist
+            return null;
         };
         /**
          * Method to get the item

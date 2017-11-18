@@ -57,6 +57,10 @@ export interface IItemFormState {
     item?: any;
     /** The list. */
     list?: Types.IListResult;
+    /** The list fields. */
+    listFields?: {
+        [key: string]: Types.IFieldResult | Types.IFieldQueryResult;
+    };
     /** The refresh flag. */
     refreshFl?: boolean;
     /** The save flag. */

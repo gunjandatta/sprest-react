@@ -1,11 +1,16 @@
 import "core-js/es6/map";
 import "core-js/es6/promise";
 import "core-js/es6/set";
+import { initializeIcons } from "@uifabric/icons";
 import { WebPart, WebPartSearchCfg, WebPartTabs } from "../src";
 import { Configuration } from "./cfg";
 import { ListWebpart } from "./wp";
 import "./list.scss";
 declare var SP;
+
+// Load the icons
+initializeIcons();
+
 /**
  * SP-REST React Demo
  */

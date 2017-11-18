@@ -16,7 +16,29 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         super(props);
 
         // Set the state
-        this.state = this.load();
+        this.state = {
+            controlMode: this.props.controlMode,
+            fieldInfo: {
+                defaultValue: "",
+                errorMessage: this.props.errorMessage || "This field requires a value.",
+                listName: this.props.listName,
+                name: this.props.name,
+                required: this.props.required ? true : false,
+                title: this.props.title,
+                webUrl: this.props.webUrl
+            },
+            initFl: false,
+            showErrorMessage: false,
+            value: this.props.defaultValue
+        } as State;
+    }
+
+    /**
+     * Component initialized event
+     */
+    componentWillMount() {
+        // Load the data
+        this.load();
     }
 
     /**
@@ -27,12 +49,12 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     /**
      * Event triggered after the field information is retrieved from SharePoint
      */
-    onFieldInit = (field: any, state: State) => { };
+    onFieldInit?: (field: any, state: State) => void;
 
     /**
      * Event triggered after loading the field information
      */
-    onFieldLoaded = () => { };
+    onFieldLoaded?: () => void;
 
     /**
      * Method to update the value
@@ -98,56 +120,56 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     /**
      * Method to load the field information
      */
-    private load = (): State => {
-        // Default the state
-        let state: State = {
-            controlMode: this.props.controlMode,
-            fieldInfo: {
-                defaultValue: "",
-                errorMessage: this.props.errorMessage || "This field requires a value.",
-                listName: this.props.listName,
-                name: this.props.name,
-                required: this.props.required ? true : false,
-                title: this.props.title,
-                webUrl: this.props.webUrl
-            },
-            initFl: false,
-            showErrorMessage: false,
-            value: this.props.defaultValue
-        } as State;
+    private load = () => {
+        let state: State = Object.create(this.state);
 
-        // Get the web
-        (new Web(state.fieldInfo.webUrl))
-            // Get the list
-            .Lists(state.fieldInfo.listName)
-            // Get the fields
-            .Fields()
-            // Get the field by its internal name
-            .getByInternalNameOrTitle(state.fieldInfo.name)
-            // Execute the request
-            .execute((field) => {
-                // Update the field information
-                state.fieldInfo.defaultValue = field.DefaultValue;
-                state.fieldInfo.readOnly = field.ReadOnlyField;
-                state.fieldInfo.required = field.Required ? true : false;
-                state.fieldInfo.title = field.Title;
-                state.fieldInfo.type = field.FieldTypeKind as number;
-                state.fieldInfo.typeAsString = field.TypeAsString;
-                state.initFl = true;
-                state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
-                state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
+        // See if the field exists
+        if (this.props.field) {
+            // Load the field
+            this.loadField(state, this.props.field);
 
-                // Call the on initialized event
-                this.onFieldInit ? this.onFieldInit(field, state) : null;
-
-                // Update the state
-                this.setState(state, () => {
-                    // Call the on loaded event
-                    this.onFieldLoaded ? this.onFieldLoaded() : null;
-                });
+            // Update the state
+            this.setState(state, () => {
+                // Call the field loaded event
+                this.onFieldLoaded ? this.onFieldLoaded() : null;
             });
+        } else {
+            // Get the web
+            (new Web(state.fieldInfo.webUrl))
+                // Get the list
+                .Lists(state.fieldInfo.listName)
+                // Get the fields
+                .Fields()
+                // Get the field by its internal name
+                .getByInternalNameOrTitle(state.fieldInfo.name)
+                // Execute the request
+                .execute((field) => {
+                    // Load the field
+                    this.loadField(state, field);
 
-        // Return the state
-        return state;
+                    // Update the state
+                    this.setState(state, () => {
+                        // Call the on loaded event
+                        this.onFieldLoaded ? this.onFieldLoaded() : null;
+                    });
+                });
+        }
+    }
+
+    // Method to load the field
+    private loadField = (state: State, field: Types.IFieldResult | Types.IFieldQueryResult) => {
+        // Update the field information
+        state.fieldInfo.defaultValue = field.DefaultValue;
+        state.fieldInfo.readOnly = field.ReadOnlyField;
+        state.fieldInfo.required = field.Required ? true : false;
+        state.fieldInfo.title = field.Title;
+        state.fieldInfo.type = field.FieldTypeKind as number;
+        state.fieldInfo.typeAsString = field.TypeAsString;
+        state.initFl = true;
+        state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
+        state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
+
+        // Call the initialize event
+        this.onFieldInit ? this.onFieldInit(field, state) : null;
     }
 }

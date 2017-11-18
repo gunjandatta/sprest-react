@@ -146,8 +146,17 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
+        // Ensure the fields are loaded
+        if(this.state.listFields == null) {
+            // Return a spinner
+            return (
+                <Spinner label="Loading the list fields..." />
+            );
+        }
+
         // See if we are refreshing the item
         if (this.state.refreshFl) {
+            // Return a spinner
             return (
                 <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
             );
@@ -155,7 +164,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // See if there is a custom renderer
         if (this.props.onRender) {
-            // Execute the render event
+            // Render the custom event
             return (
                 <div>
                     {
@@ -373,6 +382,23 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             .execute(list => {
                 // Update the state
                 this.setState({ list });
+            })
+            // Get the list fields
+            .Fields()
+            // Execute the request
+            .execute(fields => {
+                let listFields = {};
+
+                // Parse the fields
+                for(let i=0; i<fields.results.length; i++) {
+                    let field = fields.results[i];
+
+                    // Add the list field
+                    listFields[field.InternalName] = field;
+                }
+
+                // Update the state
+                this.setState({ listFields });
             });
     }
 
@@ -420,6 +446,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         <Field
                             controlMode={this.ControlMode}
                             defaultValue={item[fieldInfo.name]}
+                            field={this.state.listFields && this.state.listFields[fieldInfo.name]}
                             item={item}
                             listName={this.props.listName}
                             key={fieldInfo.name}

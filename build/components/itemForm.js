@@ -105,6 +105,18 @@ var ItemForm = /** @class */ (function (_super) {
                 .execute(function (list) {
                 // Update the state
                 _this.setState({ list: list });
+            })
+                .Fields()
+                .execute(function (fields) {
+                var listFields = {};
+                // Parse the fields
+                for (var i = 0; i < fields.results.length; i++) {
+                    var field = fields.results[i];
+                    // Add the list field
+                    listFields[field.InternalName] = field;
+                }
+                // Update the state
+                _this.setState({ listFields: listFields });
             });
         };
         /**
@@ -129,7 +141,7 @@ var ItemForm = /** @class */ (function (_super) {
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(_1.Field, { controlMode: _this.ControlMode, defaultValue: item[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Field, { controlMode: _this.ControlMode, defaultValue: item[fieldInfo.name], field: _this.state.listFields && _this.state.listFields[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             }
             // Return the form fields
             return formFields;
@@ -297,13 +309,19 @@ var ItemForm = /** @class */ (function (_super) {
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list..." }));
         }
+        // Ensure the fields are loaded
+        if (this.state.listFields == null) {
+            // Return a spinner
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list fields..." }));
+        }
         // See if we are refreshing the item
         if (this.state.refreshFl) {
+            // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
         }
         // See if there is a custom renderer
         if (this.props.onRender) {
-            // Execute the render event
+            // Render the custom event
             return (React.createElement("div", null,
                 !this.state.saveFl ? null :
                     React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large }),

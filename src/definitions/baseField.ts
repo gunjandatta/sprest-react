@@ -44,9 +44,12 @@ export interface IBaseFieldInfo {
 export interface IBaseFieldProps extends IBaseFieldInfo {
     /** The class name. */
     className?: string;
-    
+
     /** The field control mode. */
     controlMode?: number | Types.SPTypes.ControlMode;
+
+    /** The list field. */
+    field?: Types.IFieldResult | Types.IFieldQueryResult;
 
     /** The on change event */
     onChange?: (value: any) => void;
@@ -98,12 +101,12 @@ export interface IBaseField<Props extends IBaseFieldProps, State extends IBaseFi
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IField, state: IBaseFieldState) => void;
+    onFieldInit?: (field: Types.IField, state: IBaseFieldState) => void;
 
     /**
      * Event triggered after loading the field information.
      */
-    onFieldLoaded: () => void;
+    onFieldLoaded?: () => void;
 
     /**
      * Method to update the value

@@ -48,7 +48,7 @@ export interface IItemFormProps {
 
     /** The render event for the attachment. */
     onAttachmentRender?: (file: IAttachmentFile, controlMode: Types.SPTypes.ControlMode) => void;
-    
+
     /** The on form render event. */
     onRender?: (controlMode: Types.SPTypes.ControlMode) => any;
 
@@ -77,6 +77,9 @@ export interface IItemFormState {
 
     /** The list. */
     list?: Types.IListResult;
+
+    /** The list fields. */
+    listFields?: { [key: string]: Types.IFieldResult | Types.IFieldQueryResult }
 
     /** The refresh flag. */
     refreshFl?: boolean;

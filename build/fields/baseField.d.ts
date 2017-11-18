@@ -12,17 +12,21 @@ export declare abstract class BaseField<Props extends IBaseFieldProps = IBaseFie
      */
     constructor(props: Props);
     /**
+     * Component initialized event
+     */
+    componentWillMount(): void;
+    /**
      * Method to get the field value
      */
     getFieldValue: () => any;
     /**
      * Event triggered after the field information is retrieved from SharePoint
      */
-    onFieldInit: (field: any, state: State) => void;
+    onFieldInit?: (field: any, state: State) => void;
     /**
      * Event triggered after loading the field information
      */
-    onFieldLoaded: () => void;
+    onFieldLoaded?: () => void;
     /**
      * Method to update the value
      * @param value - The field value.
@@ -43,4 +47,5 @@ export declare abstract class BaseField<Props extends IBaseFieldProps = IBaseFie
      * Method to load the field information
      */
     private load;
+    private loadField;
 }

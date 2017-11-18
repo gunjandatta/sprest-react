@@ -30,14 +30,6 @@ var BaseField = /** @class */ (function (_super) {
          */
         _this.getFieldValue = function () { return _this.state.value || _this.state.fieldInfo.defaultValue || ""; };
         /**
-         * Event triggered after the field information is retrieved from SharePoint
-         */
-        _this.onFieldInit = function (field, state) { };
-        /**
-         * Event triggered after loading the field information
-         */
-        _this.onFieldLoaded = function () { };
-        /**
          * Method to update the value
          * @param value - The field value.
          */
@@ -69,53 +61,74 @@ var BaseField = /** @class */ (function (_super) {
          * Method to load the field information
          */
         _this.load = function () {
-            // Default the state
-            var state = {
-                controlMode: _this.props.controlMode,
-                fieldInfo: {
-                    defaultValue: "",
-                    errorMessage: _this.props.errorMessage || "This field requires a value.",
-                    listName: _this.props.listName,
-                    name: _this.props.name,
-                    required: _this.props.required ? true : false,
-                    title: _this.props.title,
-                    webUrl: _this.props.webUrl
-                },
-                initFl: false,
-                showErrorMessage: false,
-                value: _this.props.defaultValue
-            };
-            // Get the web
-            (new gd_sprest_1.Web(state.fieldInfo.webUrl))
-                .Lists(state.fieldInfo.listName)
-                .Fields()
-                .getByInternalNameOrTitle(state.fieldInfo.name)
-                .execute(function (field) {
-                // Update the field information
-                state.fieldInfo.defaultValue = field.DefaultValue;
-                state.fieldInfo.readOnly = field.ReadOnlyField;
-                state.fieldInfo.required = field.Required ? true : false;
-                state.fieldInfo.title = field.Title;
-                state.fieldInfo.type = field.FieldTypeKind;
-                state.fieldInfo.typeAsString = field.TypeAsString;
-                state.initFl = true;
-                state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
-                state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
-                // Call the on initialized event
-                _this.onFieldInit ? _this.onFieldInit(field, state) : null;
+            var state = Object.create(_this.state);
+            // See if the field exists
+            if (_this.props.field) {
+                // Load the field
+                _this.loadField(state, _this.props.field);
                 // Update the state
                 _this.setState(state, function () {
-                    // Call the on loaded event
+                    // Call the field loaded event
                     _this.onFieldLoaded ? _this.onFieldLoaded() : null;
                 });
-            });
-            // Return the state
-            return state;
+            }
+            else {
+                // Get the web
+                (new gd_sprest_1.Web(state.fieldInfo.webUrl))
+                    .Lists(state.fieldInfo.listName)
+                    .Fields()
+                    .getByInternalNameOrTitle(state.fieldInfo.name)
+                    .execute(function (field) {
+                    // Load the field
+                    _this.loadField(state, field);
+                    // Update the state
+                    _this.setState(state, function () {
+                        // Call the on loaded event
+                        _this.onFieldLoaded ? _this.onFieldLoaded() : null;
+                    });
+                });
+            }
+        };
+        // Method to load the field
+        _this.loadField = function (state, field) {
+            // Update the field information
+            state.fieldInfo.defaultValue = field.DefaultValue;
+            state.fieldInfo.readOnly = field.ReadOnlyField;
+            state.fieldInfo.required = field.Required ? true : false;
+            state.fieldInfo.title = field.Title;
+            state.fieldInfo.type = field.FieldTypeKind;
+            state.fieldInfo.typeAsString = field.TypeAsString;
+            state.initFl = true;
+            state.label = (state.fieldInfo.title || state.fieldInfo.name) + ":";
+            state.showErrorMessage = state.fieldInfo.required ? (state.fieldInfo.defaultValue ? false : true) : false;
+            // Call the initialize event
+            _this.onFieldInit ? _this.onFieldInit(field, state) : null;
         };
         // Set the state
-        _this.state = _this.load();
+        _this.state = {
+            controlMode: _this.props.controlMode,
+            fieldInfo: {
+                defaultValue: "",
+                errorMessage: _this.props.errorMessage || "This field requires a value.",
+                listName: _this.props.listName,
+                name: _this.props.name,
+                required: _this.props.required ? true : false,
+                title: _this.props.title,
+                webUrl: _this.props.webUrl
+            },
+            initFl: false,
+            showErrorMessage: false,
+            value: _this.props.defaultValue
+        };
         return _this;
     }
+    /**
+     * Component initialized event
+     */
+    BaseField.prototype.componentWillMount = function () {
+        // Load the data
+        this.load();
+    };
     /**
      * Method to render the component
      */

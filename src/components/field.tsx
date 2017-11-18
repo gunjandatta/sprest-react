@@ -36,7 +36,7 @@ export class Field extends Fields.BaseField {
      * Method to render the field
      */
     renderField = () => {
-        let props: any = this.props || {};
+        let props: IBaseFieldProps = this.props || {} as any;
         let defaultValue = props.defaultValue;
         let fieldInfo = this.state.fieldInfo;
 

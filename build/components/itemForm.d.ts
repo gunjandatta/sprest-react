@@ -30,7 +30,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
     /**
      * Get the control mode
      */
-    readonly ControlMode: Types.SPTypes.ControlMode;
+    readonly ControlMode: number;
     /**
      * Get the form fields
      */

@@ -28,7 +28,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         // See if this is an associated lookup field and we are creating or editing the field
         if (this.state.fieldInfo.readOnly &&
             (this.props.controlMode == SPTypes.ControlMode.Edit || this.props.controlMode == SPTypes.ControlMode.New)) {
-            // Don't render this field in 
+            // Don't render this field
             return null;
         }
 

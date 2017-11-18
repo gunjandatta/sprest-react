@@ -79,14 +79,16 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                     // Parse the users
                     for (var i = 0; i < users.length; i++) {
                         var user_1 = users[i];
-                        // Add the persona
-                        personas.push({
-                            id: user_1.UserName,
-                            itemID: user_1.ID + "",
-                            primaryText: user_1.Title,
-                            secondaryText: user_1.Email,
-                            tertiaryText: user_1.JobTitle,
-                        });
+                        if (user_1.ID) {
+                            // Add the persona
+                            personas.push({
+                                id: user_1.UserName,
+                                itemID: user_1.ID + "",
+                                primaryText: user_1.Title,
+                                secondaryText: user_1.Email,
+                                tertiaryText: user_1.JobTitle,
+                            });
+                        }
                     }
                 }
             }

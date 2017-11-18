@@ -45,7 +45,7 @@ var FieldLookup = /** @class */ (function (_super) {
             // See if this is an associated lookup field and we are creating or editing the field
             if (_this.state.fieldInfo.readOnly &&
                 (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Edit || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.New)) {
-                // Don't render this field in 
+                // Don't render this field
                 return null;
             }
             // Update the properties

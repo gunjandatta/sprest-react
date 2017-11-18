@@ -154,15 +154,16 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
                     let user = users[i] as Types.ComplexTypes.FieldUserValue;
-
-                    // Add the persona
-                    personas.push({
-                        id: user.UserName,
-                        itemID: user.ID + "",
-                        primaryText: user.Title,
-                        secondaryText: user.Email,
-                        tertiaryText: user.JobTitle,
-                    });
+                    if (user.ID) {
+                        // Add the persona
+                        personas.push({
+                            id: user.UserName,
+                            itemID: user.ID + "",
+                            primaryText: user.Title,
+                            secondaryText: user.Email,
+                            tertiaryText: user.JobTitle,
+                        });
+                    }
                 }
             }
         }

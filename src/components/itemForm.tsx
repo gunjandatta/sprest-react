@@ -42,7 +42,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Get the control mode
      */
-    get ControlMode(): Types.SPTypes.ControlMode {
+    get ControlMode(): number {
         let controlMode = this.props.controlMode;
 
         // Default the value
@@ -57,7 +57,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         }
 
         // Return the control mode
-        return controlMode as any;
+        return controlMode;
     }
 
     /**

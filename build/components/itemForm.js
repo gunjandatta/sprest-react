@@ -104,7 +104,16 @@ var ItemForm = /** @class */ (function (_super) {
                 .Lists(_this.props.listName)
                 .execute(function (list) {
                 // Update the state
-                _this.setState({ list: list });
+                _this.setState({ list: list }, function () {
+                    // See if the item id was passed in
+                    if (typeof (_this.state.item) === "number") {
+                        // Get the item
+                        _this.getItem(_this.state.item).then(function (item) {
+                            // Update the state
+                            _this.setState({ item: item });
+                        });
+                    }
+                });
             })
                 .Fields()
                 .execute(function (fields) {
@@ -313,6 +322,11 @@ var ItemForm = /** @class */ (function (_super) {
         if (this.state.listFields == null) {
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list fields..." }));
+        }
+        // Ensure the item is loaded
+        if (typeof (this.state.item) === "number") {
+            // Return a spinner
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the item..." }));
         }
         // See if we are refreshing the item
         if (this.state.refreshFl) {

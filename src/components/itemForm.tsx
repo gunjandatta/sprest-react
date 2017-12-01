@@ -147,10 +147,18 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         }
 
         // Ensure the fields are loaded
-        if(this.state.listFields == null) {
+        if (this.state.listFields == null) {
             // Return a spinner
             return (
                 <Spinner label="Loading the list fields..." />
+            );
+        }
+
+        // Ensure the item is loaded
+        if (typeof (this.state.item) === "number") {
+            // Return a spinner
+            return (
+                <Spinner label="Loading the item..." />
             );
         }
 
@@ -381,7 +389,16 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // Execute this request
             .execute(list => {
                 // Update the state
-                this.setState({ list });
+                this.setState({ list }, () => {
+                    // See if the item id was passed in
+                    if (typeof (this.state.item) === "number") {
+                        // Get the item
+                        this.getItem(this.state.item).then(item => {
+                            // Update the state
+                            this.setState({ item });
+                        });
+                    }
+                });
             })
             // Get the list fields
             .Fields()
@@ -390,7 +407,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 let listFields = {};
 
                 // Parse the fields
-                for(let i=0; i<fields.results.length; i++) {
+                for (let i = 0; i < fields.results.length; i++) {
                     let field = fields.results[i];
 
                     // Add the list field

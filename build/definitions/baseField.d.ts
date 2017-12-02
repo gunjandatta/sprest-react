@@ -34,7 +34,7 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
     /** The class name. */
     className?: string;
     /** The field control mode. */
-    controlMode?: number | Types.SPTypes.ControlMode;
+    controlMode?: number;
     /** The list field. */
     field?: Types.IFieldResult | Types.IFieldQueryResult;
     /** The on change event */
@@ -49,7 +49,7 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
  */
 export interface IBaseFieldState {
     /** The field control mode. */
-    controlMode?: number | Types.SPTypes.ControlMode;
+    controlMode?: number;
     /** The field information. */
     fieldInfo: IBaseFieldInfo;
     /** Flag to determine if the field is initialized. */

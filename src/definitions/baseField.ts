@@ -46,7 +46,7 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
     className?: string;
 
     /** The field control mode. */
-    controlMode?: number | Types.SPTypes.ControlMode;
+    controlMode?: number;
 
     /** The list field. */
     field?: Types.IFieldResult | Types.IFieldQueryResult;
@@ -66,7 +66,7 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
  */
 export interface IBaseFieldState {
     /** The field control mode. */
-    controlMode?: number | Types.SPTypes.ControlMode;
+    controlMode?: number;
 
     /** The field information. */
     fieldInfo: IBaseFieldInfo;

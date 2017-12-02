@@ -17,7 +17,7 @@ export interface IFieldAttachmentsProps {
     /** The class name. */
     className?: string;
     /** The field control mode. */
-    controlMode?: number | Types.SPTypes.ControlMode;
+    controlMode?: number;
     /** The item id. */
     itemId?: number;
     /** The list name. */

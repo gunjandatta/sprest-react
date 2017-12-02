@@ -31,7 +31,7 @@ export interface IFieldAttachmentsProps {
     className?: string;
 
     /** The field control mode. */
-    controlMode?: number | Types.SPTypes.ControlMode;
+    controlMode?: number;
 
     /** The item id. */
     itemId?: number;

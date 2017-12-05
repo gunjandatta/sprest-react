@@ -178,7 +178,7 @@ var FieldLookup = /** @class */ (function (_super) {
                         .query({
                         GetAllItems: true,
                         Select: ["ID", fieldInfo.lookupFieldName],
-                        Top: 500
+                        Top: _this.props.queryTop > 0 && _this.props.queryTop <= 5000 ? _this.props.queryTop : 500
                     })
                         .execute(function (items) {
                         // Update the field information

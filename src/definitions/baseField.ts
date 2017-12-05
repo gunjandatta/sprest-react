@@ -57,6 +57,9 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
     /** The on render method */
     onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
 
+    /** The max number of items to return for the lookup data queries. (Default: 500) */
+    queryTop?: number;
+    
     /** Flag to show a loading indicator. The default value is true. */
     showLoadingFl?: boolean;
 }

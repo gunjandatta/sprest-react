@@ -470,6 +470,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             name={fieldInfo.name}
                             onChange={fieldInfo.onChange}
                             onRender={fieldInfo.onRender}
+                            queryTop={this.props.queryTop}
                             ref={field => { field ? this._fields[field.props.name] = field : null; }}
                             webUrl={this.props.webUrl}
                         />

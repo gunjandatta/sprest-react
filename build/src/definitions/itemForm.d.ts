@@ -42,6 +42,8 @@ export interface IItemFormProps {
     onRenderAttachments?: (files: Array<IAttachmentFile>, controlMode: number) => any;
     /** The item query, used when refreshing the item after a save. */
     query?: Types.ODataQuery;
+    /** The max number of items to return for the lookup data queries. (Default: 500) */
+    queryTop?: number;
     /** Flag to display the attachments. */
     showAttachments?: boolean;
     /** The relative web url containing the list. */

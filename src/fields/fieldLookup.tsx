@@ -180,7 +180,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
                         .query({
                             GetAllItems: true,
                             Select: ["ID", fieldInfo.lookupFieldName],
-                            Top: 500
+                            Top: this.props.queryTop > 0 && this.props.queryTop <= 5000 ? this.props.queryTop : 500
                         })
                         // Execute the request
                         .execute((items) => {

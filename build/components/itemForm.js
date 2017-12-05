@@ -150,7 +150,7 @@ var ItemForm = /** @class */ (function (_super) {
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(_1.Field, { controlMode: _this.ControlMode, defaultValue: item[fieldInfo.name], field: _this.state.listFields && _this.state.listFields[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Field, { controlMode: _this.ControlMode, defaultValue: item[fieldInfo.name], field: _this.state.listFields && _this.state.listFields[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             }
             // Return the form fields
             return formFields;

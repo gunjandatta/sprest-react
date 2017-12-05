@@ -58,6 +58,9 @@ export interface IItemFormProps {
     /** The item query, used when refreshing the item after a save. */
     query?: Types.ODataQuery;
 
+    /** The max number of items to return for the lookup data queries. (Default: 500) */
+    queryTop?: number;
+    
     /** Flag to display the attachments. */
     showAttachments?: boolean;
 

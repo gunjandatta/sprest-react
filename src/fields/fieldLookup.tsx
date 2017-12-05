@@ -116,35 +116,38 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         state.fieldInfo.lookupListName = lookupField.LookupList;
         state.fieldInfo.lookupWebId = lookupField.LookupWebId;
 
-        // Load the lookup data
-        this.loadLookupItems(state.fieldInfo).then((fieldInfo: ILookupFieldInfo) => {
-            let value = null;
+        // Ensure this is not an associated field
+        if (!lookupField.ReadOnlyField) {
+            // Load the lookup data
+            this.loadLookupItems(state.fieldInfo).then((fieldInfo: ILookupFieldInfo) => {
+                let value = null;
 
-            // See if this is a multi-lookup field and a value exists
-            if (fieldInfo.allowMultipleValues) {
-                let results = [];
+                // See if this is a multi-lookup field and a value exists
+                if (fieldInfo.allowMultipleValues) {
+                    let results = [];
 
-                // Parse the values
-                let values = this.props.defaultValue ? this.props.defaultValue.results : [];
-                for (let i = 0; i < values.length; i++) {
-                    // Add the item id
-                    results.push(values[i].ID || values[i]);
+                    // Parse the values
+                    let values = this.props.defaultValue ? this.props.defaultValue.results : [];
+                    for (let i = 0; i < values.length; i++) {
+                        // Add the item id
+                        results.push(values[i].ID || values[i]);
+                    }
+
+                    // Set the default value
+                    value = { results };
+                } else {
+                    // Set the default value
+                    value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
                 }
 
-                // Set the default value
-                value = { results };
-            } else {
-                // Set the default value
-                value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
-            }
-
-            // Update the state
-            this.setState({
-                fieldInfo,
-                options: this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
-                value
+                // Update the state
+                this.setState({
+                    fieldInfo,
+                    options: this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
+                    value
+                });
             });
-        });
+        }
     }
 
     /**

@@ -123,32 +123,35 @@ var FieldLookup = /** @class */ (function (_super) {
             state.fieldInfo.lookupFieldName = lookupField.LookupField;
             state.fieldInfo.lookupListName = lookupField.LookupList;
             state.fieldInfo.lookupWebId = lookupField.LookupWebId;
-            // Load the lookup data
-            _this.loadLookupItems(state.fieldInfo).then(function (fieldInfo) {
-                var value = null;
-                // See if this is a multi-lookup field and a value exists
-                if (fieldInfo.allowMultipleValues) {
-                    var results = [];
-                    // Parse the values
-                    var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
-                    for (var i = 0; i < values.length; i++) {
-                        // Add the item id
-                        results.push(values[i].ID || values[i]);
+            // Ensure this is not an associated field
+            if (!lookupField.ReadOnlyField) {
+                // Load the lookup data
+                _this.loadLookupItems(state.fieldInfo).then(function (fieldInfo) {
+                    var value = null;
+                    // See if this is a multi-lookup field and a value exists
+                    if (fieldInfo.allowMultipleValues) {
+                        var results = [];
+                        // Parse the values
+                        var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
+                        for (var i = 0; i < values.length; i++) {
+                            // Add the item id
+                            results.push(values[i].ID || values[i]);
+                        }
+                        // Set the default value
+                        value = { results: results };
                     }
-                    // Set the default value
-                    value = { results: results };
-                }
-                else {
-                    // Set the default value
-                    value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
-                }
-                // Update the state
-                _this.setState({
-                    fieldInfo: fieldInfo,
-                    options: _this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
-                    value: value
+                    else {
+                        // Set the default value
+                        value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
+                    }
+                    // Update the state
+                    _this.setState({
+                        fieldInfo: fieldInfo,
+                        options: _this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
+                        value: value
+                    });
                 });
-            });
+            }
         };
         /**
          * Methods

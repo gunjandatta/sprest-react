@@ -116,8 +116,11 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         state.fieldInfo.lookupListName = lookupField.LookupList;
         state.fieldInfo.lookupWebId = lookupField.LookupWebId;
 
-        // Ensure this is not an associated field
-        if (!lookupField.ReadOnlyField) {
+        // See if this is an associated lookup field
+        if(lookupField.ReadOnlyField) {
+            // Set the options
+            state.options = [];
+        } else {
             // Load the lookup data
             this.loadLookupItems(state.fieldInfo).then((fieldInfo: ILookupFieldInfo) => {
                 let value = null;

@@ -123,8 +123,12 @@ var FieldLookup = /** @class */ (function (_super) {
             state.fieldInfo.lookupFieldName = lookupField.LookupField;
             state.fieldInfo.lookupListName = lookupField.LookupList;
             state.fieldInfo.lookupWebId = lookupField.LookupWebId;
-            // Ensure this is not an associated field
-            if (!lookupField.ReadOnlyField) {
+            // See if this is an associated lookup field
+            if (lookupField.ReadOnlyField) {
+                // Set the options
+                state.options = [];
+            }
+            else {
                 // Load the lookup data
                 _this.loadLookupItems(state.fieldInfo).then(function (fieldInfo) {
                     var value = null;

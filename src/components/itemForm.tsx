@@ -118,6 +118,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
+     * Method to get the form values
+     */
+    getFormValues<T>() { return this.getValues<T>(); }
+
+    /**
      * Method to refresh the item
      */
     refresh() {

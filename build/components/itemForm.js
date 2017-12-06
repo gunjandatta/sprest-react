@@ -295,6 +295,10 @@ var ItemForm = /** @class */ (function (_super) {
         configurable: true
     });
     /**
+     * Method to get the form values
+     */
+    ItemForm.prototype.getFormValues = function () { return this.getValues(); };
+    /**
      * Method to refresh the item
      */
     ItemForm.prototype.refresh = function () {

@@ -25,7 +25,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: props.files && typeof(props.files) !== "function" ? this.toArray(props.files) : null,
+            files: props.files && typeof (props.files) !== "function" ? this.toArray(props.files) : null,
             loadingFl: false
         };
     }
@@ -249,9 +249,6 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private loadAttachments = () => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Set the state
-            this.setState({ loadingFl: true });
-
             // Ensure the list and item id exists
             if (this.props.listName && this.props.itemId && this.props.itemId > 0) {
                 // Get the web
@@ -267,13 +264,12 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                     .execute(attachments => {
                         // Update the state
                         this.setState({
-                            files: this.toArray(attachments as any),
-                            loadingFl: false
+                            files: this.toArray(attachments as any)
                         });
                     });
             } else {
                 // Set the state
-                this.setState({ files: [], loadingFl: false })
+                this.setState({ files: [] })
             }
         });
     }

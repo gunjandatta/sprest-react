@@ -162,8 +162,6 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.loadAttachments = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Set the state
-                _this.setState({ loadingFl: true });
                 // Ensure the list and item id exists
                 if (_this.props.listName && _this.props.itemId && _this.props.itemId > 0) {
                     // Get the web
@@ -174,14 +172,13 @@ var FieldAttachments = /** @class */ (function (_super) {
                         .execute(function (attachments) {
                         // Update the state
                         _this.setState({
-                            files: _this.toArray(attachments),
-                            loadingFl: false
+                            files: _this.toArray(attachments)
                         });
                     });
                 }
                 else {
                     // Set the state
-                    _this.setState({ files: [], loadingFl: false });
+                    _this.setState({ files: [] });
                 }
             });
         };

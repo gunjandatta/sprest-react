@@ -491,6 +491,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Parse the fields
         for (let i = 0; i < this.state.fields.length; i++) {
             let fieldInfo = this.state.fields[i];
+            let readOnly = false;
 
             // See if we are excluding this field
             if (this.props.excludeFields && this.props.excludeFields.indexOf(fieldInfo.name) >= 0) { continue; }
@@ -498,7 +499,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // See if this is a read-only field
             if (this.props.readOnlyFields && this.props.readOnlyFields.indexOf(fieldInfo.name) >= 0) {
                 // Set the flag
-                fieldInfo.readOnly = true;
+                readOnly = true;
             }
 
             // Add the form field
@@ -506,7 +507,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
                     <div className="ms-Grid-col ms-md12">
                         <Field
-                            controlMode={this.ControlMode}
+                            controlMode={readOnly ? SPTypes.ControlMode.Display : this.ControlMode}
                             defaultValue={item[fieldInfo.name]}
                             field={this.state.listFields && this.state.listFields[fieldInfo.name]}
                             item={item}
@@ -516,7 +517,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             onChange={fieldInfo.onChange}
                             onRender={fieldInfo.onRender}
                             queryTop={this.props.queryTop}
-                            readOnly={fieldInfo.readOnly}
                             ref={field => { field ? this._fields[field.props.name] = field : null; }}
                             webUrl={this.props.webUrl}
                         />

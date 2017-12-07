@@ -143,18 +143,20 @@ var ItemForm = /** @class */ (function (_super) {
             // Parse the fields
             for (var i = 0; i < _this.state.fields.length; i++) {
                 var fieldInfo = _this.state.fields[i];
+                var readOnly = false;
                 // See if we are excluding this field
                 if (_this.props.excludeFields && _this.props.excludeFields.indexOf(fieldInfo.name) >= 0) {
                     continue;
                 }
                 // See if this is a read-only field
                 if (_this.props.readOnlyFields && _this.props.readOnlyFields.indexOf(fieldInfo.name) >= 0) {
-                    fieldInfo.readOnly = true;
+                    // Set the flag
+                    readOnly = true;
                 }
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(_1.Field, { controlMode: _this.ControlMode, defaultValue: item[fieldInfo.name], field: _this.state.listFields && _this.state.listFields[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, queryTop: _this.props.queryTop, readOnly: fieldInfo.readOnly, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Field, { controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: item[fieldInfo.name], field: _this.state.listFields && _this.state.listFields[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onRender: fieldInfo.onRender, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             }
             // Return the form fields
             return formFields;

@@ -13,8 +13,6 @@ export interface IItemFormField {
     onChange?: (value: any) => void;
     /** The on render method */
     onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
-    /** Flag to render the field value only. */
-    readOnly?: boolean;
 }
 /**
  * Properties

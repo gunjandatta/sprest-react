@@ -16,9 +16,6 @@ export interface IItemFormField {
 
     /** The on render method */
     onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
-
-    /** Flag to render the field value only. */
-    readOnly?: boolean;
 }
 
 /**

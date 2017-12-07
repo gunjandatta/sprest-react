@@ -497,6 +497,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
             // See if this is a read-only field
             if (this.props.readOnlyFields && this.props.readOnlyFields.indexOf(fieldInfo.name) >= 0) {
+                // Set the flag
                 fieldInfo.readOnly = true;
             }
 

@@ -381,6 +381,30 @@ var ItemForm = /** @class */ (function (_super) {
         });
     };
     /**
+     * Method to update list form item.
+     */
+    ItemForm.prototype.updateItem = function (fieldValues) {
+        var _this = this;
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Set the state
+            _this.setState({ saveFl: true }, function () {
+                var item = _this.state.item;
+                // Update the item
+                item.update(fieldValues).execute(function (response) {
+                    // Get the item
+                    _this.getItem(item.Id).then(function (item) {
+                        // Update the state
+                        _this.setState({ item: item, saveFl: false }, function () {
+                            // Resolve the promise
+                            resolve(item);
+                        });
+                    });
+                });
+            });
+        });
+    };
+    /**
      * Method to get the form values
      */
     ItemForm.prototype.getValues = function () {

@@ -242,6 +242,31 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
+     * Method to update list form item.
+     */
+    updateItem<IItem = any>(fieldValues): PromiseLike<IItem> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Set the state
+            this.setState({ saveFl: true }, () => {
+                let item = this.state.item as Types.IListItemQueryResult;
+
+                // Update the item
+                item.update(fieldValues).execute(response => {
+                    // Get the item
+                    this.getItem(item.Id).then(item => {
+                        // Update the state
+                        this.setState({ item, saveFl: false }, () => {
+                            // Resolve the promise
+                            resolve(item as IItem);
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    /**
      * Methods
      */
 

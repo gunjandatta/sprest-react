@@ -67,4 +67,6 @@ export interface IItemFormState {
     refreshFl?: boolean;
     /** The save flag. */
     saveFl?: boolean;
+    /** The update flag. */
+    updateFl?: boolean;
 }

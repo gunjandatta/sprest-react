@@ -96,7 +96,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             fields: props.fields,
             item: props.item || {},
             refreshFl: false,
-            saveFl: false
+            saveFl: false,
+            updateFl: false
         };
 
         // Default the query
@@ -175,6 +176,14 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
+        // See if we are updating the item
+        if (this.state.updateFl) {
+            // Return a spinner
+            return (
+                <Spinner label="Updating the Item" size={SpinnerSize.large} />
+            );
+        }
+
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Render the custom event
@@ -248,7 +257,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Set the state
-            this.setState({ saveFl: true }, () => {
+            this.setState({ updateFl: true }, () => {
                 let item = this.state.item as Types.IListItemQueryResult;
 
                 // Update the item
@@ -256,7 +265,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     // Get the item
                     this.getItem(item.Id).then(item => {
                         // Update the state
-                        this.setState({ item, saveFl: false }, () => {
+                        this.setState({ item, updateFl: false }, () => {
                             // Resolve the promise
                             resolve(item as IItem);
                         });

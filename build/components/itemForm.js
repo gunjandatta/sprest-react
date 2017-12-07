@@ -211,7 +211,8 @@ var ItemForm = /** @class */ (function (_super) {
             fields: props.fields,
             item: props.item || {},
             refreshFl: false,
-            saveFl: false
+            saveFl: false,
+            updateFl: false
         };
         // Default the query
         _this._query = props.query || {
@@ -337,6 +338,11 @@ var ItemForm = /** @class */ (function (_super) {
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
         }
+        // See if we are updating the item
+        if (this.state.updateFl) {
+            // Return a spinner
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Updating the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
+        }
         // See if there is a custom renderer
         if (this.props.onRender) {
             // Render the custom event
@@ -388,14 +394,14 @@ var ItemForm = /** @class */ (function (_super) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Set the state
-            _this.setState({ saveFl: true }, function () {
+            _this.setState({ updateFl: true }, function () {
                 var item = _this.state.item;
                 // Update the item
                 item.update(fieldValues).execute(function (response) {
                     // Get the item
                     _this.getItem(item.Id).then(function (item) {
                         // Update the state
-                        _this.setState({ item: item, saveFl: false }, function () {
+                        _this.setState({ item: item, updateFl: false }, function () {
                             // Resolve the promise
                             resolve(item);
                         });

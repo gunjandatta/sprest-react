@@ -89,4 +89,7 @@ export interface IItemFormState {
 
     /** The save flag. */
     saveFl?: boolean;
+
+    /** The update flag. */
+    updateFl?: boolean;
 }

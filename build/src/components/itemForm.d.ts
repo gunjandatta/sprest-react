@@ -72,7 +72,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     save<IItem = any>(): PromiseLike<IItem>;
     /**
-     * Method to update list form item.
+     * Method to update the item.
      */
     updateItem<IItem = any>(fieldValues: any): PromiseLike<IItem>;
     /**

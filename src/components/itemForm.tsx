@@ -229,7 +229,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     .then(this.saveAttachments)
                     // Get the item    
                     .then(this.getItem)
-                    // Resolve the promise
+                    // Update the form
                     .then(item => {
                         // Update the state
                         this.setState({ item, saveFl: false }, () => {
@@ -242,7 +242,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
-     * Method to update list form item.
+     * Method to update the item.
      */
     updateItem<IItem = any>(fieldValues): PromiseLike<IItem> {
         // Return a promise

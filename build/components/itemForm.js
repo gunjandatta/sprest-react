@@ -381,7 +381,7 @@ var ItemForm = /** @class */ (function (_super) {
         });
     };
     /**
-     * Method to update list form item.
+     * Method to update the item.
      */
     ItemForm.prototype.updateItem = function (fieldValues) {
         var _this = this;

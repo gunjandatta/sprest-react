@@ -32,7 +32,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         // See if we are displaying the value
         if (this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display) {
             // Get the html
-            let __html = props.value || "";
+            let __html = this.props.defaultValue || "";
             __html = this.state.fieldInfo.richText ? __html : __html.replace(/\r?\n/g, "<br/>");
 
             // Render the value

@@ -16,6 +16,9 @@ export interface IItemFormField {
 
     /** The on render method */
     onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
+
+    /** Flag to render the field value only. */
+    readOnly?: boolean;
 }
 
 /**
@@ -60,6 +63,9 @@ export interface IItemFormProps {
 
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;
+
+    /** The form fields to make read-only in the form. */
+    readOnlyFields?: Array<string>;
     
     /** Flag to display the attachments. */
     showAttachments?: boolean;

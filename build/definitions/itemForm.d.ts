@@ -13,6 +13,8 @@ export interface IItemFormField {
     onChange?: (value: any) => void;
     /** The on render method */
     onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
+    /** Flag to render the field value only. */
+    readOnly?: boolean;
 }
 /**
  * Properties
@@ -44,6 +46,8 @@ export interface IItemFormProps {
     query?: Types.ODataQuery;
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;
+    /** The form fields to make read-only in the form. */
+    readOnlyFields?: Array<string>;
     /** Flag to display the attachments. */
     showAttachments?: boolean;
     /** The relative web url containing the list. */

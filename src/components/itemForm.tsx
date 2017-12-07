@@ -495,6 +495,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // See if we are excluding this field
             if (this.props.excludeFields && this.props.excludeFields.indexOf(fieldInfo.name) >= 0) { continue; }
 
+            // See if this is a read-only field
+            if (this.props.readOnlyFields && this.props.readOnlyFields.indexOf(fieldInfo.name) >= 0) {
+                fieldInfo.readOnly = true;
+            }
+
             // Add the form field
             formFields.push(
                 <div className="ms-Grid-row" key={"row_" + fieldInfo.name}>
@@ -510,6 +515,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             onChange={fieldInfo.onChange}
                             onRender={fieldInfo.onRender}
                             queryTop={this.props.queryTop}
+                            readOnly={fieldInfo.readOnly}
                             ref={field => { field ? this._fields[field.props.name] = field : null; }}
                             webUrl={this.props.webUrl}
                         />

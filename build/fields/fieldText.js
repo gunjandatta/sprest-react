@@ -50,10 +50,13 @@ var FieldText = /** @class */ (function (_super) {
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
             // See if we are displaying the value
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+                // Get the html
+                var __html = _this.props.defaultValue || "";
+                __html = _this.state.fieldInfo.richText ? __html : __html.replace(/\r?\n/g, "<br/>");
                 // Render the value
                 return (React.createElement("div", null,
                     React.createElement(office_ui_fabric_react_1.Label, null, props.label),
-                    React.createElement("div", { dangerouslySetInnerHTML: { __html: _this.props.defaultValue || "" } })));
+                    React.createElement("div", { dangerouslySetInnerHTML: { __html: __html } })));
             }
             // Return the component
             return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
@@ -75,6 +78,7 @@ var FieldText = /** @class */ (function (_super) {
             }
             // Update the state
             state.fieldInfo.multiline = field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.Note;
+            state.fieldInfo.richText = field.RichText;
             state.fieldInfo.rows = field.NumberOfLines;
         };
         /**

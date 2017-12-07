@@ -7,6 +7,7 @@ import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "..
  */
 export interface ITextFieldInformation extends IBaseFieldInfo {
     multiline?: boolean;
+    richText?: boolean;
     rows?: number;
 }
 

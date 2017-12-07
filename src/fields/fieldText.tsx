@@ -31,11 +31,15 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
 
         // See if we are displaying the value
         if (this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display) {
+            // Get the html
+            let __html = this.props.defaultValue || "";
+            __html = this.state.fieldInfo.richText ? __html : __html.replace(/\r?\n/g, "<br/>");
+
             // Render the value
             return (
                 <div>
                     <Label>{props.label}</Label>
-                    <div dangerouslySetInnerHTML={{ __html: this.props.defaultValue || "" }} />
+                    <div dangerouslySetInnerHTML={{ __html }} />
                 </div>
             );
         }
@@ -65,6 +69,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
 
         // Update the state
         state.fieldInfo.multiline = field.FieldTypeKind == SPTypes.FieldType.Note;
+        state.fieldInfo.richText = (field as Types.IFieldNote).RichText;
         state.fieldInfo.rows = field.NumberOfLines;
     }
 

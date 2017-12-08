@@ -256,7 +256,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             // Add the user
             users.push({
                 id: user.Key,
-                itemID: user.EntityData.SPUserID,
+                itemID: user.EntityData.SPUserID || user.EntityData.SPGroupID,
                 primaryText: user.DisplayText,
                 secondaryText: user.EntityData.Email,
                 tertiaryText: user.Description

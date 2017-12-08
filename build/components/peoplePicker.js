@@ -172,7 +172,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                 // Add the user
                 users.push({
                     id: user.Key,
-                    itemID: user.EntityData.SPUserID,
+                    itemID: user.EntityData.SPUserID || user.EntityData.SPGroupID,
                     primaryText: user.DisplayText,
                     secondaryText: user.EntityData.Email,
                     tertiaryText: user.Description

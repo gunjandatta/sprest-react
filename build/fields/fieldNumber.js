@@ -48,6 +48,11 @@ var FieldNumber = /** @class */ (function (_super) {
             props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
             props.value = _this.getValue();
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
+            // See if this is a percentage
+            if (_this.state.fieldInfo.showAsPercentage) {
+                // Return a slider
+                return (React.createElement(office_ui_fabric_react_1.Slider, { className: props.className, disabled: props.disabled, label: props.label, max: 100, min: 0, onChange: _this.onChange, step: 1, value: props.value }));
+            }
             // Return the component
             return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
         };
@@ -61,11 +66,17 @@ var FieldNumber = /** @class */ (function (_super) {
             var value = _this.getFieldValue();
             // Default the number type
             var numberType = typeof (_this.props.numberType) === "number" ? _this.props.numberType : definitions_1.FieldNumberTypes.Integer;
-            // Ensure a value exists and need to convert it
+            // See if this is a percentage
+            if (_this.state.fieldInfo.showAsPercentage) {
+                // Convert the value to an integer
+                var floatValue = parseFloat(value);
+                value = typeof (floatValue) === "number" ? floatValue * 100 : value;
+            }
+            // See if this is an integer
             if (value && numberType == definitions_1.FieldNumberTypes.Integer) {
                 // Convert the value to an integer
                 var intValue = parseInt(value);
-                value = intValue ? intValue.toString() : value;
+                value = typeof (intValue) === "number" ? intValue.toString() : value;
             }
             // Return the value
             return value;
@@ -75,8 +86,30 @@ var FieldNumber = /** @class */ (function (_super) {
          * @param value - The field value.
          */
         _this.onChange = function (value) {
+            // See if this is a percentage
+            if (_this.state.fieldInfo.showAsPercentage) {
+                value = value != null ? value * .01 : value;
+            }
             // Update the value
             _this.updateValue(value);
+        };
+        /**
+         * The field initialized event
+         * @param field - The field.
+         * @param state - The current state.
+         */
+        _this.onFieldInit = function (field, state) {
+            var numberField = field;
+            // Ensure this is a number field
+            if (numberField.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.Number) {
+                // Log
+                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a number field.");
+                return;
+            }
+            // Update the field information
+            state.fieldInfo.maxValue = numberField.MaximumValue;
+            state.fieldInfo.minValue = numberField.MinimumValue;
+            state.fieldInfo.showAsPercentage = numberField.ShowAsPercentage;
         };
         return _this;
     }

@@ -7,7 +7,22 @@ import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "..
  */
 export enum FieldNumberTypes {
     Decimal = 0,
-    Integer = 1
+    Integer = 1,
+    Percentage = 2
+}
+
+/**
+ * Number Field Information
+ */
+export interface INumberFieldInfo extends IBaseFieldInfo {
+    /** The maximum value. */
+    maxValue?: number;
+
+    /** The minimum value. */
+    minValue?: number;
+
+    /** Flag to determine if the value is a percentage. */
+    showAsPercentage?: boolean;
 }
 
 /**
@@ -27,7 +42,10 @@ export interface IFieldNumberProps extends IBaseFieldProps {
 /**
  * Number Field State
  */
-export interface IFieldNumberState extends IBaseFieldState { }
+export interface IFieldNumberState extends IBaseFieldState {
+    /** The field information. */
+    fieldInfo: INumberFieldInfo;
+}
 
 /**
  * Number Field

@@ -20,5 +20,11 @@ export declare class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumb
      * The on change event
      * @param value - The field value.
      */
-    private onChange;
+    onChange: (value: number) => void;
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
+    onFieldInit: (field: any, state: IFieldNumberState) => void;
 }

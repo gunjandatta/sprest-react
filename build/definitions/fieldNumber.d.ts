@@ -1,12 +1,24 @@
 import { Types } from "gd-sprest";
 import { ITextFieldProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
+import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
 /**
  * Number Field Types
  */
 export declare enum FieldNumberTypes {
     Decimal = 0,
     Integer = 1,
+    Percentage = 2,
+}
+/**
+ * Number Field Information
+ */
+export interface INumberFieldInfo extends IBaseFieldInfo {
+    /** The maximum value. */
+    maxValue?: number;
+    /** The minimum value. */
+    minValue?: number;
+    /** Flag to determine if the value is a percentage. */
+    showAsPercentage?: boolean;
 }
 /**
  * Number Field Properties
@@ -23,6 +35,8 @@ export interface IFieldNumberProps extends IBaseFieldProps {
  * Number Field State
  */
 export interface IFieldNumberState extends IBaseFieldState {
+    /** The field information. */
+    fieldInfo: INumberFieldInfo;
 }
 /**
  * Number Field

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { SPTypes } from "gd-sprest";
-import { TextField, ITextFieldProps } from "office-ui-fabric-react";
+import { SPTypes, Types } from "gd-sprest";
+import { Slider, ISliderProps, TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../definitions";
 import { BaseField } from ".";
 
@@ -28,6 +28,23 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         props.value = this.getValue();
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
 
+        // See if this is a percentage
+        if (this.state.fieldInfo.showAsPercentage) {
+            // Return a slider
+            return (
+                <Slider
+                    className={props.className}
+                    disabled={props.disabled}
+                    label={props.label}
+                    max={100}
+                    min={0}
+                    onChange={this.onChange}
+                    step={1}
+                    value={props.value as any}
+                />
+            );
+        }
+
         // Return the component
         return (
             <TextField {...props as any} />
@@ -47,11 +64,17 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         // Default the number type
         let numberType = typeof (this.props.numberType) === "number" ? this.props.numberType : FieldNumberTypes.Integer;
 
-        // Ensure a value exists and need to convert it
-        if (value && numberType == FieldNumberTypes.Integer) {
+        // See if this is a percentage
+        if (this.state.fieldInfo.showAsPercentage) {
+            // Convert the value to an integer
+            let floatValue = parseFloat(value);
+            value = typeof (floatValue) === "number" ? floatValue * 100 : value;
+        }
+        // Else, see if this is an integer
+        else if (value && numberType == FieldNumberTypes.Integer) {
             // Convert the value to an integer
             let intValue = parseInt(value);
-            value = intValue ? intValue.toString() : value;
+            value = typeof (intValue) === "number" ? intValue.toString() : value;
         }
 
         // Return the value
@@ -62,8 +85,34 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
      * The on change event
      * @param value - The field value.
      */
-    private onChange = (value: number) => {
+    onChange = (value: number) => {
+        // See if this is a percentage
+        if (this.state.fieldInfo.showAsPercentage) {
+            value = value != null ? value * .01 : value;
+        }
+
         // Update the value
         this.updateValue(value);
+    }
+
+    /**
+     * The field initialized event
+     * @param field - The field.
+     * @param state - The current state.
+     */
+    onFieldInit = (field: any, state: IFieldNumberState) => {
+        let numberField = field as Types.IFieldNumber;
+
+        // Ensure this is a number field
+        if (numberField.FieldTypeKind != SPTypes.FieldType.Number) {
+            // Log
+            console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a number field.");
+            return;
+        }
+
+        // Update the field information
+        state.fieldInfo.maxValue = numberField.MaximumValue;
+        state.fieldInfo.minValue = numberField.MinimumValue;
+        state.fieldInfo.showAsPercentage = numberField.ShowAsPercentage;
     }
 }

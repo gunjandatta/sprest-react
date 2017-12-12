@@ -77,6 +77,10 @@ export const Configuration = new Helper.SPConfig({
                     SchemaXml: '<Field ID="{02CD9CA9-2E41-42B1-B487-6017208731FD}" Name="TestNumberInteger" StaticName="TestNumberInteger" DisplayName="Integer" Type="Number" />'
                 },
                 {
+                    Name: "TestNumberPercentage",
+                    SchemaXml: '<Field ID="{38CD9CA9-2E90-42A3-E387-6017208731AB}" Name="TestNumberPercentage" StaticName="TestNumberPercentage" DisplayName="Integer" Type="Number" ShowPercentage="TRUE" />'
+                },
+                {
                     Name: "TestUrl",
                     SchemaXml: '<Field ID="{9983709F-C54C-4816-AC2C-601720A0553B}" Name="TestUrl" StaticName="TestUrl" DisplayName="Url" Type="URL" />'
                 },

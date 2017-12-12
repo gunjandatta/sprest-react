@@ -7,5 +7,6 @@ var FieldNumberTypes;
 (function (FieldNumberTypes) {
     FieldNumberTypes[FieldNumberTypes["Decimal"] = 0] = "Decimal";
     FieldNumberTypes[FieldNumberTypes["Integer"] = 1] = "Integer";
+    FieldNumberTypes[FieldNumberTypes["Percentage"] = 2] = "Percentage";
 })(FieldNumberTypes = exports.FieldNumberTypes || (exports.FieldNumberTypes = {}));
 //# sourceMappingURL=fieldNumber.js.map

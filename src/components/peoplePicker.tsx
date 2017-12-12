@@ -134,12 +134,30 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                 for (let i = 0; i < users.length; i++) {
                     // Get the user
                     web.SiteUsers(users[i]).execute(user => {
-                        // Add the user information
-                        user.existsFl ? userInfo.push({
-                            ID: parseInt(user.Id),
-                            UserName: user.LoginName,
-                            Title: user.Title
-                        }) : null;
+                        // Ensure the user exists
+                        if (user.existsFl) {
+                            // Add the user information
+                            userInfo.push({
+                                ID: parseInt(user.Id),
+                                UserName: user.LoginName,
+                                Title: user.Title
+                            });
+                        }
+                        // Else, see if groups are enabled
+                        else if(this.state.allowGroups) {
+                            // Get the group
+                            web.SiteGroups().getById(users[i]).execute(group => {
+                                // Ensure the group exists
+                                if(group.existsFl) {
+                                    // Add the group information
+                                    userInfo.push({
+                                        ID: parseInt(group.Id),
+                                        UserName: group.LoginName,
+                                        Title: group.Title
+                                    });
+                                }
+                            });
+                        }
                     }, true);
                 }
 

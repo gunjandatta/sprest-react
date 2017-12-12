@@ -53,22 +53,42 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                 var user = users[0];
                 // See if this is an array of user ids
                 if (typeof (user) === "number") {
-                    var web = new gd_sprest_1.Web();
+                    var web_1 = new gd_sprest_1.Web();
                     var userInfo_1 = [];
+                    var _loop_1 = function (i) {
+                        // Get the user
+                        web_1.SiteUsers(users[i]).execute(function (user) {
+                            // Ensure the user exists
+                            if (user.existsFl) {
+                                // Add the user information
+                                userInfo_1.push({
+                                    ID: parseInt(user.Id),
+                                    UserName: user.LoginName,
+                                    Title: user.Title
+                                });
+                            }
+                            else if (_this.state.allowGroups) {
+                                // Get the group
+                                web_1.SiteGroups().getById(users[i]).execute(function (group) {
+                                    // Ensure the group exists
+                                    if (group.existsFl) {
+                                        // Add the group information
+                                        userInfo_1.push({
+                                            ID: parseInt(group.Id),
+                                            UserName: group.LoginName,
+                                            Title: group.Title
+                                        });
+                                    }
+                                });
+                            }
+                        }, true);
+                    };
                     // Parse the users
                     for (var i = 0; i < users.length; i++) {
-                        // Get the user
-                        web.SiteUsers(users[i]).execute(function (user) {
-                            // Add the user information
-                            user.existsFl ? userInfo_1.push({
-                                ID: parseInt(user.Id),
-                                UserName: user.LoginName,
-                                Title: user.Title
-                            }) : null;
-                        }, true);
+                        _loop_1(i);
                     }
                     // Wait for the requests to complete
-                    web.done(function () {
+                    web_1.done(function () {
                         // Update the state
                         _this.setState({
                             personas: _this.convertToPersonas(userInfo_1)

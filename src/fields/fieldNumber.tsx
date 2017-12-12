@@ -29,7 +29,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
 
         // See if this is a percentage
-        if (this.state.fieldInfo.showAsPercentage) {
+        if (this.props.numberType == FieldNumberTypes.Percentage || this.state.fieldInfo.showAsPercentage) {
             // Return a slider
             return (
                 <Slider
@@ -62,7 +62,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         let value = this.getFieldValue();
 
         // Default the number type
-        let numberType = typeof (this.props.numberType) === "number" ? this.props.numberType : FieldNumberTypes.Integer;
+        let numberType = typeof (this.props.numberType) === "number" ? this.props.numberType : -1;
 
         // See if this is a percentage
         if (this.state.fieldInfo.showAsPercentage) {

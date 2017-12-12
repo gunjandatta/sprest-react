@@ -49,7 +49,7 @@ var FieldNumber = /** @class */ (function (_super) {
             props.value = _this.getValue();
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
             // See if this is a percentage
-            if (_this.state.fieldInfo.showAsPercentage) {
+            if (_this.props.numberType == definitions_1.FieldNumberTypes.Percentage || _this.state.fieldInfo.showAsPercentage) {
                 // Return a slider
                 return (React.createElement(office_ui_fabric_react_1.Slider, { className: props.className, disabled: props.disabled, label: props.label, max: 100, min: 0, onChange: _this.onChange, step: 1, value: props.value }));
             }
@@ -65,15 +65,14 @@ var FieldNumber = /** @class */ (function (_super) {
         _this.getValue = function () {
             var value = _this.getFieldValue();
             // Default the number type
-            var numberType = typeof (_this.props.numberType) === "number" ? _this.props.numberType : definitions_1.FieldNumberTypes.Integer;
+            var numberType = typeof (_this.props.numberType) === "number" ? _this.props.numberType : -1;
             // See if this is a percentage
             if (_this.state.fieldInfo.showAsPercentage) {
                 // Convert the value to an integer
                 var floatValue = parseFloat(value);
                 value = typeof (floatValue) === "number" ? floatValue * 100 : value;
             }
-            // See if this is an integer
-            if (value && numberType == definitions_1.FieldNumberTypes.Integer) {
+            else if (value && numberType == definitions_1.FieldNumberTypes.Integer) {
                 // Convert the value to an integer
                 var intValue = parseInt(value);
                 value = typeof (intValue) === "number" ? intValue.toString() : value;

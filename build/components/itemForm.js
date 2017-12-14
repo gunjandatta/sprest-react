@@ -85,9 +85,9 @@ var ItemForm = /** @class */ (function (_super) {
                         }
                         // Add the field name
                         fields.push({ name: field.InternalName });
-                        // Update the state
-                        _this.setState({ fields: fields });
                     }
+                    // Update the state
+                    _this.setState({ fields: fields });
                 }
                 else {
                     console.log("[gd-sprest] Error getting default fields.");

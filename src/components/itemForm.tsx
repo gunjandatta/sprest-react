@@ -404,10 +404,10 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
                         // Add the field name
                         fields.push({ name: field.InternalName });
-
-                        // Update the state
-                        this.setState({ fields });
                     }
+
+                    // Update the state
+                    this.setState({ fields });
                 } else {
                     console.log("[gd-sprest] Error getting default fields.");
                     console.log("[gd-sprest] " + contentTypes["response"]);

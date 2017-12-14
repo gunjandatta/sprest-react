@@ -394,7 +394,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             .execute(contentTypes => {
                 // Ensure the content types exist
                 if (contentTypes.results) {
-                    let fields = [];
+                    let formFields = [];
 
                     // Parse the default content type
                     for (let i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
@@ -407,22 +407,33 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         if (field.Hidden) { continue; }
 
                         // Add the field name
-                        fields.push(field.Name);
+                        formFields.push(field.Name);
                     }
 
                     // Get the fields
-                    list.Fields().query({ Select: fields }).execute(listFields => {
+                    list.Fields().execute(listFields => {
                         let fields: Array<IItemFormField> = [];
 
-                        // Parse the list fields
-                        for (let i = 0; i < listFields.results.length; i++) {
-                            let field = listFields.results[i];
+                        // Parse the form fields
+                        for (let i = 0; i < formFields.length; i++) {
+                            let formField = formFields[i];
 
-                            // Skip hidden fields
-                            if (field.Hidden) { continue; }
+                            // Parse the list fields
+                            for (let j = 0; j < listFields.results.length; j++) {
+                                let field = listFields.results[j];
 
-                            // Add the field
-                            fields.push({ name: field.InternalName });
+                                // See if this is the target field
+                                if (field.InternalName == formField) { continue; }
+
+                                // Skip hidden fields
+                                if (field.Hidden) { continue; }
+
+                                // Add the field
+                                fields.push({ name: field.InternalName });
+
+                                // Break from the loop
+                                break;
+                            }
                         }
 
                         // Update the state

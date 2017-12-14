@@ -73,7 +73,7 @@ var ItemForm = /** @class */ (function (_super) {
                 .execute(function (contentTypes) {
                 // Ensure the content types exist
                 if (contentTypes.results) {
-                    var fields = [];
+                    var formFields_1 = [];
                     // Parse the default content type
                     for (var i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
                         var field = contentTypes.results[0].FieldLinks.results[i];
@@ -86,20 +86,30 @@ var ItemForm = /** @class */ (function (_super) {
                             continue;
                         }
                         // Add the field name
-                        fields.push(field.Name);
+                        formFields_1.push(field.Name);
                     }
                     // Get the fields
-                    list.Fields().query({ Select: fields }).execute(function (listFields) {
+                    list.Fields().execute(function (listFields) {
                         var fields = [];
-                        // Parse the list fields
-                        for (var i = 0; i < listFields.results.length; i++) {
-                            var field = listFields.results[i];
-                            // Skip hidden fields
-                            if (field.Hidden) {
-                                continue;
+                        // Parse the form fields
+                        for (var i = 0; i < formFields_1.length; i++) {
+                            var formField = formFields_1[i];
+                            // Parse the list fields
+                            for (var j = 0; j < listFields.results.length; j++) {
+                                var field = listFields.results[j];
+                                // See if this is the target field
+                                if (field.InternalName == formField) {
+                                    continue;
+                                }
+                                // Skip hidden fields
+                                if (field.Hidden) {
+                                    continue;
+                                }
+                                // Add the field
+                                fields.push({ name: field.InternalName });
+                                // Break from the loop
+                                break;
                             }
-                            // Add the field
-                            fields.push({ name: field.InternalName });
                         }
                         // Update the state
                         _this.setState({ fields: fields });

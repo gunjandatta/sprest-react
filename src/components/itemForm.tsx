@@ -378,21 +378,23 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Method to load the fields
      */
     private loadDefaultFields = () => {
-        // Load the web
-        (new Web(this.props.webUrl))
+        // Get the web
+        let list = new Web(this.props.webUrl)
             // Load the list
-            .Lists(this.props.listName)
-            // Get the content types
-            .ContentTypes()
+            .Lists(this.props.listName);
+
+        // Get the default content type
+        list.ContentTypes()
             // Query the content types
             .query({
-                Expand: ["FieldLinks"]
+                Expand: ["FieldLinks"],
+                Top: 1
             })
             // Execute the request
             .execute(contentTypes => {
                 // Ensure the content types exist
                 if (contentTypes.results) {
-                    let fields: Array<IItemFormField> = [];
+                    let fields = [];
 
                     // Parse the default content type
                     for (let i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
@@ -404,17 +406,33 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         // Skip hidden fields
                         if (field.Hidden) { continue; }
 
-                        // Add the field
-                        fields.push({ name: field.Name });
+                        // Add the field name
+                        fields.push(field.Name);
                     }
 
-                    // Update the state
-                    this.setState({ fields });
+                    // Get the fields
+                    list.Fields().query({ Select: fields }).execute(listFields => {
+                        let fields: Array<IItemFormField> = [];
+
+                        // Parse the list fields
+                        for (let i = 0; i < listFields.results.length; i++) {
+                            let field = listFields.results[i];
+
+                            // Skip hidden fields
+                            if (field.Hidden) { continue; }
+
+                            // Add the field
+                            fields.push({ name: field.InternalName });
+                        }
+
+                        // Update the state
+                        this.setState({ fields });
+                    });
                 } else {
                     console.log("[gd-sprest] Error getting default fields.");
                     console.log("[gd-sprest] " + contentTypes["response"]);
                 }
-            });
+            }, true);
     }
 
     /**

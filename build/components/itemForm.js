@@ -61,12 +61,14 @@ var ItemForm = /** @class */ (function (_super) {
          * Method to load the fields
          */
         _this.loadDefaultFields = function () {
-            // Load the web
-            (new gd_sprest_1.Web(_this.props.webUrl))
-                .Lists(_this.props.listName)
-                .ContentTypes()
+            // Get the web
+            var list = new gd_sprest_1.Web(_this.props.webUrl)
+                .Lists(_this.props.listName);
+            // Get the default content type
+            list.ContentTypes()
                 .query({
-                Expand: ["FieldLinks"]
+                Expand: ["FieldLinks"],
+                Top: 1
             })
                 .execute(function (contentTypes) {
                 // Ensure the content types exist
@@ -83,17 +85,31 @@ var ItemForm = /** @class */ (function (_super) {
                         if (field.Hidden) {
                             continue;
                         }
-                        // Add the field
-                        fields.push({ name: field.Name });
+                        // Add the field name
+                        fields.push(field.Name);
                     }
-                    // Update the state
-                    _this.setState({ fields: fields });
+                    // Get the fields
+                    list.Fields().query({ Select: fields }).execute(function (listFields) {
+                        var fields = [];
+                        // Parse the list fields
+                        for (var i = 0; i < listFields.results.length; i++) {
+                            var field = listFields.results[i];
+                            // Skip hidden fields
+                            if (field.Hidden) {
+                                continue;
+                            }
+                            // Add the field
+                            fields.push({ name: field.InternalName });
+                        }
+                        // Update the state
+                        _this.setState({ fields: fields });
+                    });
                 }
                 else {
                     console.log("[gd-sprest] Error getting default fields.");
                     console.log("[gd-sprest] " + contentTypes["response"]);
                 }
-            });
+            }, true);
         };
         /**
          * Method to load the list

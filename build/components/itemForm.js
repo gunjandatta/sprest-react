@@ -61,11 +61,8 @@ var ItemForm = /** @class */ (function (_super) {
          * Method to load the fields
          */
         _this.loadDefaultFields = function () {
-            // Get the web
-            var list = new gd_sprest_1.Web(_this.props.webUrl)
-                .Lists(_this.props.listName);
             // Get the default content type
-            list.ContentTypes()
+            _this.state.list.ContentTypes()
                 .query({
                 Expand: ["FieldLinks"],
                 Top: 1
@@ -73,12 +70,13 @@ var ItemForm = /** @class */ (function (_super) {
                 .execute(function (contentTypes) {
                 // Ensure the content types exist
                 if (contentTypes.results) {
-                    var formFields_1 = [];
+                    var fields = [];
                     // Parse the default content type
                     for (var i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
-                        var field = contentTypes.results[0].FieldLinks.results[i];
+                        var fieldLink = contentTypes.results[0].FieldLinks.results[i];
+                        var field = _this.state.listFields[fieldLink.Name];
                         // Skip the content type field
-                        if (field.Name == "ContentType") {
+                        if (field.InternalName == "ContentType") {
                             continue;
                         }
                         // Skip hidden fields
@@ -86,34 +84,10 @@ var ItemForm = /** @class */ (function (_super) {
                             continue;
                         }
                         // Add the field name
-                        formFields_1.push(field.Name);
-                    }
-                    // Get the fields
-                    list.Fields().execute(function (listFields) {
-                        var fields = [];
-                        // Parse the form fields
-                        for (var i = 0; i < formFields_1.length; i++) {
-                            var formField = formFields_1[i];
-                            // Parse the list fields
-                            for (var j = 0; j < listFields.results.length; j++) {
-                                var field = listFields.results[j];
-                                // See if this is the target field
-                                if (field.InternalName == formField) {
-                                    continue;
-                                }
-                                // Skip hidden fields
-                                if (field.Hidden) {
-                                    continue;
-                                }
-                                // Add the field
-                                fields.push({ name: field.InternalName });
-                                // Break from the loop
-                                break;
-                            }
-                        }
+                        fields.push({ name: field.InternalName });
                         // Update the state
                         _this.setState({ fields: fields });
-                    });
+                    }
                 }
                 else {
                     console.log("[gd-sprest] Error getting default fields.");

@@ -378,14 +378,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Method to load the fields
      */
     private loadDefaultFields = () => {
-        // Get the web
-        let list = new Web(this.props.webUrl)
-            // Load the list
-            .Lists(this.props.listName);
-
         // Get the default content type
-        list.ContentTypes()
-            // Query the content types
+        this.state.list.ContentTypes()
+            // Query for the default content type and field links
             .query({
                 Expand: ["FieldLinks"],
                 Top: 1
@@ -394,51 +389,25 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             .execute(contentTypes => {
                 // Ensure the content types exist
                 if (contentTypes.results) {
-                    let formFields = [];
+                    let fields: Array<IItemFormField> = [];
 
                     // Parse the default content type
                     for (let i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
-                        let field = contentTypes.results[0].FieldLinks.results[i];
+                        let fieldLink = contentTypes.results[0].FieldLinks.results[i];
+                        let field = this.state.listFields[fieldLink.Name];
 
                         // Skip the content type field
-                        if (field.Name == "ContentType") { continue; }
+                        if (field.InternalName == "ContentType") { continue; }
 
                         // Skip hidden fields
                         if (field.Hidden) { continue; }
 
                         // Add the field name
-                        formFields.push(field.Name);
-                    }
-
-                    // Get the fields
-                    list.Fields().execute(listFields => {
-                        let fields: Array<IItemFormField> = [];
-
-                        // Parse the form fields
-                        for (let i = 0; i < formFields.length; i++) {
-                            let formField = formFields[i];
-
-                            // Parse the list fields
-                            for (let j = 0; j < listFields.results.length; j++) {
-                                let field = listFields.results[j];
-
-                                // See if this is the target field
-                                if (field.InternalName == formField) { continue; }
-
-                                // Skip hidden fields
-                                if (field.Hidden) { continue; }
-
-                                // Add the field
-                                fields.push({ name: field.InternalName });
-
-                                // Break from the loop
-                                break;
-                            }
-                        }
+                        fields.push({ name: field.InternalName });
 
                         // Update the state
                         this.setState({ fields });
-                    });
+                    }
                 } else {
                     console.log("[gd-sprest] Error getting default fields.");
                     console.log("[gd-sprest] " + contentTypes["response"]);

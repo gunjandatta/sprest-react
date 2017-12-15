@@ -214,50 +214,53 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
         _this.loadTerms = function (fieldInfo) {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Ensure the taxonomy script is loaded
-                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                    // Load the terms
-                    var context = SP.ClientContext.get_current();
-                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    var termStore = session.get_termStores().getById(fieldInfo.termStoreId);
-                    var termSet = termStore.getTermSet(fieldInfo.termSetId);
-                    var terms = termSet.getAllTerms();
-                    context.load(terms);
-                    // Execute the request
-                    context.executeQueryAsync(
-                    // Success
-                    function () {
-                        // Clear the terms
-                        fieldInfo.terms = [];
-                        // Parse the terms
-                        var enumerator = terms.getEnumerator();
-                        while (enumerator.moveNext()) {
-                            var term = enumerator.get_current();
-                            // Add the term information
-                            fieldInfo.terms.push({
-                                id: term.get_id().toString(),
-                                name: term.get_name(),
-                                path: term.get_pathOfTerm().replace(/;/g, "/")
+                // Ensure the utility class is loaded
+                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
+                    // Ensure the taxonomy script is loaded
+                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
+                        // Load the terms
+                        var context = SP.ClientContext.get_current();
+                        var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                        var termStore = session.get_termStores().getById(fieldInfo.termStoreId);
+                        var termSet = termStore.getTermSet(fieldInfo.termSetId);
+                        var terms = termSet.getAllTerms();
+                        context.load(terms);
+                        // Execute the request
+                        context.executeQueryAsync(
+                        // Success
+                        function () {
+                            // Clear the terms
+                            fieldInfo.terms = [];
+                            // Parse the terms
+                            var enumerator = terms.getEnumerator();
+                            while (enumerator.moveNext()) {
+                                var term = enumerator.get_current();
+                                // Add the term information
+                                fieldInfo.terms.push({
+                                    id: term.get_id().toString(),
+                                    name: term.get_name(),
+                                    path: term.get_pathOfTerm().replace(/;/g, "/")
+                                });
+                            }
+                            // Sort the terms
+                            fieldInfo.terms.sort(function (a, b) {
+                                if (a.path < b.path) {
+                                    return -1;
+                                }
+                                if (a.path > b.path) {
+                                    return 1;
+                                }
+                                return 0;
                             });
-                        }
-                        // Sort the terms
-                        fieldInfo.terms.sort(function (a, b) {
-                            if (a.path < b.path) {
-                                return -1;
-                            }
-                            if (a.path > b.path) {
-                                return 1;
-                            }
-                            return 0;
+                            // Resolve the request
+                            resolve(fieldInfo);
+                        }, 
+                        // Error
+                        function () {
+                            // Log
+                            console.log("[gd-sprest] Error getting the term set terms.");
                         });
-                        // Resolve the request
-                        resolve(fieldInfo);
-                    }, 
-                    // Error
-                    function () {
-                        // Log
-                        console.log("[gd-sprest] Error getting the term set terms.");
                     });
                 });
             });

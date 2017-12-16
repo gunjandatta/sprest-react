@@ -134,7 +134,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
 
                 // See if this is a multi-lookup field and a value exists
                 if (fieldInfo.allowMultipleValues) {
-                    let results = [];
+                    let results:Array<Types.ComplexTypes.FieldManagedMetadataValue> = [];
 
                     // Parse the values
                     let values = this.props.defaultValue ? this.props.defaultValue.results : [];

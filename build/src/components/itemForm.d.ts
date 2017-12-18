@@ -68,6 +68,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     render(): JSX.Element;
     /**
+     * Component Initialized Event
+     */
+    componentDidMount(): void;
+    /**
      * Method to save the item form
      */
     save<IItem = any>(): PromiseLike<IItem>;

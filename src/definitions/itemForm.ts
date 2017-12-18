@@ -49,6 +49,9 @@ export interface IItemFormProps {
     /** The render event for the attachment. */
     onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => void;
 
+    /** The initialized event. */
+    onInit?: () => void;
+
     /** The on form render event. */
     onRender?: (controlMode: number) => any;
 
@@ -63,7 +66,7 @@ export interface IItemFormProps {
 
     /** The form fields to make read-only in the form. */
     readOnlyFields?: Array<string>;
-    
+
     /** Flag to display the attachments. */
     showAttachments?: boolean;
 

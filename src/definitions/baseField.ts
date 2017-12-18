@@ -55,7 +55,7 @@ export interface IBaseFieldProps extends IBaseFieldInfo {
     onChange?: (value: any) => void;
 
     /** The field render event. */
-    onFieldRender?: (field: JSX.Element) => void;
+    onFieldRender?: (fieldInfo: IBaseFieldInfo, field: JSX.Element) => void;
 
     /** The render event of the field component */
     onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;

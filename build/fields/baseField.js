@@ -145,7 +145,7 @@ var BaseField = /** @class */ (function (_super) {
                 // Render the field
                 elField = this.renderField();
                 // Call the field render event
-                this.props.onFieldRender ? this.props.onFieldRender(this.state.fieldInfo, elField) : null;
+                elField = (this.props.onFieldRender ? this.props.onFieldRender(this.state.fieldInfo, elField) : null) || elField;
             }
             // Return the field
             return elField;

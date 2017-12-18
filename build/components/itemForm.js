@@ -371,13 +371,6 @@ var ItemForm = /** @class */ (function (_super) {
             React.createElement("div", { hidden: this.state.saveFl }, this.renderFields())));
     };
     /**
-     * Component Initialized Event
-     */
-    ItemForm.prototype.componentDidMount = function () {
-        // Call the initialized event
-        this.props.onInit ? this.props.onInit() : null;
-    };
-    /**
      * Method to save the item form
      */
     ItemForm.prototype.save = function () {

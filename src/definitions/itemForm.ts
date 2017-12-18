@@ -49,9 +49,6 @@ export interface IItemFormProps {
     /** The render event for the attachment. */
     onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => void;
 
-    /** The initialized event. */
-    onInit?: () => void;
-
     /** The on form render event. */
     onRender?: (controlMode: number) => any;
 

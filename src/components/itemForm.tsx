@@ -226,14 +226,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
-     * Component Initialized Event
-     */
-    componentDidMount() {
-        // Call the initialized event
-        this.props.onInit ? this.props.onInit() : null;
-    }
-
-    /**
      * Method to save the item form
      */
     save<IItem = any>(): PromiseLike<IItem> {

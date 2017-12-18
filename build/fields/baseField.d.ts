@@ -35,7 +35,7 @@ export declare abstract class BaseField<Props extends IBaseFieldProps = IBaseFie
     /**
      * Method to render the component
      */
-    render(): JSX.Element;
+    render(): any;
     /**
      * Method to render the field
      */

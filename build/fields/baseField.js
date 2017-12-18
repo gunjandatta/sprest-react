@@ -135,8 +135,20 @@ var BaseField = /** @class */ (function (_super) {
     BaseField.prototype.render = function () {
         // See if the field is initialized
         if (this.state.initFl) {
-            // Render the field
-            return this.props.onRender ? this.props.onRender(this.state.fieldInfo) : this.renderField();
+            var elField = null;
+            // See if there is a custom render event
+            if (this.props.onRender) {
+                // Call the event
+                elField = this.props.onRender(this.state.fieldInfo);
+            }
+            else {
+                // Render the field
+                elField = this.renderField();
+                // Call the field render event
+                this.props.onFieldRender ? this.props.onFieldRender(elField) : null;
+            }
+            // Return the field
+            return elField;
         }
         // Determine if we are showing a spinner
         var showFl = typeof (this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;

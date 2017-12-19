@@ -108,7 +108,15 @@ var FieldNumber = /** @class */ (function (_super) {
             // Update the field information
             state.fieldInfo.maxValue = numberField.MaximumValue;
             state.fieldInfo.minValue = numberField.MinimumValue;
-            state.fieldInfo.showAsPercentage = numberField.ShowAsPercentage;
+            // See if the show as percentage property exists
+            if (numberField.ShowAsPercentage != undefined) {
+                // Update the property
+                state.fieldInfo.showAsPercentage = numberField.ShowAsPercentage;
+            }
+            else {
+                // Check the schema xml
+                state.fieldInfo.showAsPercentage = numberField.SchemaXml.indexOf('Percentage="TRUE"') > 0;
+            }
         };
         return _this;
     }

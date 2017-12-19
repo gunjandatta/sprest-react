@@ -36,29 +36,29 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     render() {
         let elAttachments = null;
 
+        // See if we are loading the attachments
+        if (this.state.loadingFl) {
+            // Render a loading dialog
+            return (
+                <Spinner label="Loading..." />
+            );
+        }
+
+        // Ensure the files exist
+        if (this.state.files == null) {
+            // Load the attachments
+            this.loadAttachments();
+
+            // Render a loading dialog
+            return (
+                <Spinner label="Loading..." />
+            );
+        }
+
         // See if the render method exists
         if (this.props.onRender) {
             elAttachments = this.props.onRender(this.state.files);
         } else {
-            // See if we are loading the attachments
-            if (this.state.loadingFl) {
-                // Render a loading dialog
-                return (
-                    <Spinner label="Loading..." />
-                );
-            }
-
-            // Ensure the files exist
-            if (this.state.files == null) {
-                // Load the attachments
-                this.loadAttachments();
-
-                // Render a loading dialog
-                return (
-                    <Spinner label="Loading..." />
-                );
-            }
-
             // See if this is the display mode
             if (this.props.controlMode == SPTypes.ControlMode.Display) {
                 // Render the attachments in display mode

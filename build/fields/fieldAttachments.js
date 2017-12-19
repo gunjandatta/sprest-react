@@ -347,23 +347,23 @@ var FieldAttachments = /** @class */ (function (_super) {
     FieldAttachments.prototype.render = function () {
         var _this = this;
         var elAttachments = null;
+        // See if we are loading the attachments
+        if (this.state.loadingFl) {
+            // Render a loading dialog
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
+        }
+        // Ensure the files exist
+        if (this.state.files == null) {
+            // Load the attachments
+            this.loadAttachments();
+            // Render a loading dialog
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
+        }
         // See if the render method exists
         if (this.props.onRender) {
             elAttachments = this.props.onRender(this.state.files);
         }
         else {
-            // See if we are loading the attachments
-            if (this.state.loadingFl) {
-                // Render a loading dialog
-                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
-            }
-            // Ensure the files exist
-            if (this.state.files == null) {
-                // Load the attachments
-                this.loadAttachments();
-                // Render a loading dialog
-                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
-            }
             // See if this is the display mode
             if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Render the attachments in display mode

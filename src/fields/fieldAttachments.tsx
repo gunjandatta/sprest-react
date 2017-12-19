@@ -150,7 +150,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             reader.onloadend = (ev: any) => {
                 let newFl = true;
                 let attachment: IAttachmentFile = null;
-                let files = this.state.files;
+                let files = this.state.files || [];
 
                 // Parse the attachments
                 for (let i = 0; i < files.length; i++) {
@@ -228,8 +228,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             let web = new Web(this.props.webUrl);
 
             // Parse the files
-            for (let i = 0; i < this.state.files.length; i++) {
-                let file = this.state.files[i];
+            let files = this.state.files || [];
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
 
                 // See if we are deleting the file
                 if (file.deleteFl) {
@@ -294,7 +295,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             let fileName = ev.currentTarget.getAttribute("data-filename");
 
             // Parse the attachments
-            let files = this.state.files;
+            let files = this.state.files || [];
             for (let i = 0; i < files.length; i++) {
                 let file = files[i];
 
@@ -322,7 +323,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         let fileName = ev.currentTarget.getAttribute("data-filename");
 
         // Parse the attachments
-        let files = this.state.files;
+        let files = this.state.files || [];
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
 
@@ -350,11 +351,12 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Method to render the attachments
      */
     private renderAttachments = () => {
-        let files = [];
+        let attachments = [];
 
         // Parse the files
-        for (let i = 0; i < this.state.files.length; i++) {
-            let file = this.state.files[i];
+        let files = this.state.files || [];
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
 
             // Ensure we are not deleting this field
             if (file.deleteFl) { continue; }
@@ -367,7 +369,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             }
 
             // Add the attachment
-            files.push(attachment ||
+            attachments.push(attachment ||
                 <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-filename={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
                     <span className="ms-fontSize-m">{file.name}</span>
                     {
@@ -378,8 +380,8 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             );
         }
 
-        // Return the files
-        return files;
+        // Return the attachments
+        return attachments;
     }
 
     /**
@@ -397,8 +399,9 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 .Items(itemId);
 
             // Parse the files
-            for (let i = 0; i < this.state.files.length; i++) {
-                let file = this.state.files[i];
+            let files = this.state.files || [];
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
 
                 // See if we are deleting the file
                 if (file.deleteFl) { continue; }

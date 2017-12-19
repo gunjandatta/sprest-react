@@ -71,7 +71,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                 reader.onloadend = function (ev) {
                     var newFl = true;
                     var attachment = null;
-                    var files = _this.state.files;
+                    var files = _this.state.files || [];
                     // Parse the attachments
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
@@ -135,8 +135,9 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Get the web
                 var web = new gd_sprest_1.Web(_this.props.webUrl);
                 // Parse the files
-                for (var i = 0; i < _this.state.files.length; i++) {
-                    var file = _this.state.files[i];
+                var files = _this.state.files || [];
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
                     // See if we are deleting the file
                     if (file.deleteFl) {
                         // Get the file
@@ -193,7 +194,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Get the file name
                 var fileName = ev.currentTarget.getAttribute("data-filename");
                 // Parse the attachments
-                var files = _this.state.files;
+                var files = _this.state.files || [];
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
                     // See if this is the attachment to remove
@@ -216,7 +217,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             // Get the file name
             var fileName = ev.currentTarget.getAttribute("data-filename");
             // Parse the attachments
-            var files = _this.state.files;
+            var files = _this.state.files || [];
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 // See if this is the attachment to remove
@@ -241,10 +242,11 @@ var FieldAttachments = /** @class */ (function (_super) {
          * Method to render the attachments
          */
         _this.renderAttachments = function () {
-            var files = [];
+            var attachments = [];
             // Parse the files
-            for (var i = 0; i < _this.state.files.length; i++) {
-                var file = _this.state.files[i];
+            var files = _this.state.files || [];
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
                 // Ensure we are not deleting this field
                 if (file.deleteFl) {
                     continue;
@@ -256,14 +258,14 @@ var FieldAttachments = /** @class */ (function (_super) {
                     attachment = _this.props.onFileRender(file);
                 }
                 // Add the attachment
-                files.push(attachment ||
+                attachments.push(attachment ||
                     React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-filename": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
                         React.createElement("span", { className: "ms-fontSize-m" }, file.name),
                         _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display ? null :
                             React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-filename": file.name.toLowerCase(), onClick: _this.removeAttachment })));
             }
-            // Return the files
-            return files;
+            // Return the attachments
+            return attachments;
         };
         /**
          * Method to save the attachments
@@ -277,8 +279,9 @@ var FieldAttachments = /** @class */ (function (_super) {
                     .Lists(_this.props.listName)
                     .Items(itemId);
                 // Parse the files
-                for (var i = 0; i < _this.state.files.length; i++) {
-                    var file = _this.state.files[i];
+                var files = _this.state.files || [];
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
                     // See if we are deleting the file
                     if (file.deleteFl) {
                         continue;

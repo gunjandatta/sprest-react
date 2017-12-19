@@ -49,7 +49,7 @@ var BaseField = /** @class */ (function (_super) {
             // See if we are displaying the field
             if (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Render the field name and value
-                return (React.createElement(office_ui_fabric_react_1.Label, null, _this.state.fieldInfo.title + ": " + _this.state.value));
+                return (React.createElement(office_ui_fabric_react_1.Label, null, _this.state.fieldInfo.title + ": " + (_this.state.value || "")));
             }
             // Render nothing
             return null;

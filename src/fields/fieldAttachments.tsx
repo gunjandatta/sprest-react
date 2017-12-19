@@ -34,73 +34,70 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Method to render the component
      */
     render() {
+        let elAttachments = null;
+
         // See if the render method exists
         if (this.props.onRender) {
-            return this.props.onRender(this.state.files);
-        }
-
-        // See if we are loading the attachments
-        if (this.state.loadingFl) {
-            // Render a loading dialog
-            return (
-                <Spinner label="Loading..." />
-            );
-        }
-
-        // Ensure the files exist
-        if (this.state.files == null) {
-            // Load the attachments
-            this.loadAttachments();
-
-            // Render a loading dialog
-            return (
-                <Spinner label="Loading..." />
-            );
-        }
-
-        // See if this is the display mode
-        let elAttachments = null;
-        if (this.props.controlMode == SPTypes.ControlMode.Display) {
-            // Render the attachments in display mode
-            elAttachments = (
-                <div>
-                    <div className={(this.props.className || "")}>{this.renderAttachments()}</div>
-                    <input
-                        type="file"
-                        hidden={true}
-                        onChange={this.addAttachment}
-                        ref={file => { this._file = file; }}
-                    />
-                </div>
-            );
+            elAttachments = this.props.onRender(this.state.files);
         } else {
-            // Render the attachments in edit mode
-            elAttachments = (
-                <div className={(this.props.className || "")}>
-                    {this.renderAttachments()}
-                    <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
-                    {
-                        this.state.errorMessage == "" ? null :
-                            <span className="ms-fontSize-m ms-fontColor-redDark">{this.state.errorMessage}</span>
-                    }
-                    <input
-                        type="file"
-                        hidden={true}
-                        onChange={this.addAttachment}
-                        ref={file => { this._file = file; }}
-                    />
-                </div>
-            );
-        }
+            // See if we are loading the attachments
+            if (this.state.loadingFl) {
+                // Render a loading dialog
+                return (
+                    <Spinner label="Loading..." />
+                );
+            }
 
-        // See if the field render event exists
-        if (this.props.onAttachmentsRender) {
-            // Call the event
-            elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
+            // Ensure the files exist
+            if (this.state.files == null) {
+                // Load the attachments
+                this.loadAttachments();
+
+                // Render a loading dialog
+                return (
+                    <Spinner label="Loading..." />
+                );
+            }
+
+            // See if this is the display mode
+            if (this.props.controlMode == SPTypes.ControlMode.Display) {
+                // Render the attachments in display mode
+                elAttachments = (
+                    <div className={(this.props.className || "")}>{this.renderAttachments()}</div>
+                );
+            } else {
+                // Render the attachments in edit mode
+                elAttachments = (
+                    <div className={(this.props.className || "")}>
+                        {this.renderAttachments()}
+                        <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
+                        {
+                            this.state.errorMessage == "" ? null :
+                                <span className="ms-fontSize-m ms-fontColor-redDark">{this.state.errorMessage}</span>
+                        }
+                    </div>
+                );
+            }
+
+            // See if the field render event exists
+            if (this.props.onAttachmentsRender) {
+                // Call the event
+                elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
+            }
         }
 
         // Render the attachments
-        return elAttachments;
+        return (
+            <div>
+                {elAttachments}
+                <input
+                    type="file"
+                    hidden={true}
+                    onChange={this.addAttachment}
+                    ref={file => { this._file = file; }}
+                />
+            </div>
+        );
     }
 
     /**

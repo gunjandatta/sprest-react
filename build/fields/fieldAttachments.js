@@ -343,46 +343,47 @@ var FieldAttachments = /** @class */ (function (_super) {
      */
     FieldAttachments.prototype.render = function () {
         var _this = this;
+        var elAttachments = null;
         // See if the render method exists
         if (this.props.onRender) {
-            return this.props.onRender(this.state.files);
-        }
-        // See if we are loading the attachments
-        if (this.state.loadingFl) {
-            // Render a loading dialog
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
-        }
-        // Ensure the files exist
-        if (this.state.files == null) {
-            // Load the attachments
-            this.loadAttachments();
-            // Render a loading dialog
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
-        }
-        // See if this is the display mode
-        var elAttachments = null;
-        if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Render the attachments in display mode
-            elAttachments = (React.createElement("div", null,
-                React.createElement("div", { className: (this.props.className || "") }, this.renderAttachments()),
-                React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
+            elAttachments = this.props.onRender(this.state.files);
         }
         else {
-            // Render the attachments in edit mode
-            elAttachments = (React.createElement("div", { className: (this.props.className || "") },
-                this.renderAttachments(),
-                React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
-                this.state.errorMessage == "" ? null :
-                    React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage),
-                React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
-        }
-        // See if the field render event exists
-        if (this.props.onAttachmentsRender) {
-            // Call the event
-            elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
+            // See if we are loading the attachments
+            if (this.state.loadingFl) {
+                // Render a loading dialog
+                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
+            }
+            // Ensure the files exist
+            if (this.state.files == null) {
+                // Load the attachments
+                this.loadAttachments();
+                // Render a loading dialog
+                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
+            }
+            // See if this is the display mode
+            if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
+                // Render the attachments in display mode
+                elAttachments = (React.createElement("div", { className: (this.props.className || "") }, this.renderAttachments()));
+            }
+            else {
+                // Render the attachments in edit mode
+                elAttachments = (React.createElement("div", { className: (this.props.className || "") },
+                    this.renderAttachments(),
+                    React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
+                    this.state.errorMessage == "" ? null :
+                        React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage)));
+            }
+            // See if the field render event exists
+            if (this.props.onAttachmentsRender) {
+                // Call the event
+                elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
+            }
         }
         // Render the attachments
-        return elAttachments;
+        return (React.createElement("div", null,
+            elAttachments,
+            React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
     };
     return FieldAttachments;
 }(React.Component));

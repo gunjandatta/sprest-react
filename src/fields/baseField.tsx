@@ -119,7 +119,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         if (this.props.controlMode == SPTypes.ControlMode.Display) {
             // Render the field name and value
             return (
-                <Label>{this.state.fieldInfo.title + ": " + this.state.value}</Label>
+                <Label>{this.state.fieldInfo.title + ": " + (this.state.value || "")}</Label>
             );
         }
 

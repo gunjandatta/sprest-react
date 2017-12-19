@@ -474,6 +474,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                             key={"Attachments"}
                             itemId={item.Id}
                             listName={this.props.listName}
+                            onAttachmentsRender={attachments => { this.props.onFieldRender ? this.props.onFieldRender({ listName: this.props.listName, name: "Attachments" }, attachments) : null; }}
                             onFileAdded={this.props.onAttachmentAdded}
                             onFileClick={this.props.onAttachmentClick ? (file) => { return this.props.onAttachmentClick(file, this.ControlMode); } : null}
                             onFileRender={this.props.onAttachmentRender ? (file) => { return this.props.onAttachmentRender(file, this.ControlMode); } : null}

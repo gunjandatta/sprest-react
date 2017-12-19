@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Types } from "gd-sprest";
 /**
  * Attachment File
@@ -24,6 +25,8 @@ export interface IFieldAttachmentsProps {
     listName: string;
     /** The existing attachment files. */
     files?: any | Types.IAttachmentFiles;
+    /** The attachments render event. */
+    onAttachmentsRender?: (attachments: JSX.Element) => any;
     /** The attachment file added event. */
     onFileAdded?: (file: IAttachmentFile) => any;
     /** The click event for the file link. */

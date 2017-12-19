@@ -360,19 +360,29 @@ var FieldAttachments = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
         }
         // See if this is the display mode
+        var elAttachments = null;
         if (this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
-            // Render the attachments
-            return (React.createElement("div", null,
+            // Render the attachments in display mode
+            elAttachments = (React.createElement("div", null,
                 React.createElement("div", { className: (this.props.className || "") }, this.renderAttachments()),
                 React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
         }
+        else {
+            // Render the attachments in edit mode
+            elAttachments = (React.createElement("div", { className: (this.props.className || "") },
+                this.renderAttachments(),
+                React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
+                this.state.errorMessage == "" ? null :
+                    React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage),
+                React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
+        }
+        // See if the field render event exists
+        if (this.props.onAttachmentsRender) {
+            // Call the event
+            elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
+        }
         // Render the attachments
-        return (React.createElement("div", { className: (this.props.className || "") },
-            this.renderAttachments(),
-            React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
-            this.state.errorMessage == "" ? null :
-                React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage),
-            React.createElement("input", { type: "file", hidden: true, onChange: this.addAttachment, ref: function (file) { _this._file = file; } })));
+        return elAttachments;
     };
     return FieldAttachments;
 }(React.Component));

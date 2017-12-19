@@ -59,9 +59,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         }
 
         // See if this is the display mode
+        let elAttachments = null;
         if (this.props.controlMode == SPTypes.ControlMode.Display) {
-            // Render the attachments
-            return (
+            // Render the attachments in display mode
+            elAttachments = (
                 <div>
                     <div className={(this.props.className || "")}>{this.renderAttachments()}</div>
                     <input
@@ -72,25 +73,34 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                     />
                 </div>
             );
+        } else {
+            // Render the attachments in edit mode
+            elAttachments = (
+                <div className={(this.props.className || "")}>
+                    {this.renderAttachments()}
+                    <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
+                    {
+                        this.state.errorMessage == "" ? null :
+                            <span className="ms-fontSize-m ms-fontColor-redDark">{this.state.errorMessage}</span>
+                    }
+                    <input
+                        type="file"
+                        hidden={true}
+                        onChange={this.addAttachment}
+                        ref={file => { this._file = file; }}
+                    />
+                </div>
+            );
+        }
+
+        // See if the field render event exists
+        if (this.props.onAttachmentsRender) {
+            // Call the event
+            elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
         }
 
         // Render the attachments
-        return (
-            <div className={(this.props.className || "")}>
-                {this.renderAttachments()}
-                <Link className="ms-AttachmentLink" onClick={this.showFileDialog}>Add an attachment</Link>
-                {
-                    this.state.errorMessage == "" ? null :
-                        <span className="ms-fontSize-m ms-fontColor-redDark">{this.state.errorMessage}</span>
-                }
-                <input
-                    type="file"
-                    hidden={true}
-                    onChange={this.addAttachment}
-                    ref={file => { this._file = file; }}
-                />
-            </div>
-        );
+        return elAttachments;
     }
 
     /**

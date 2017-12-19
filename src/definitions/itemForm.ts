@@ -50,7 +50,7 @@ export interface IItemFormProps {
     onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => void;
 
     /** The field render event */
-    onFieldRender?: (fieldInfo: IBaseFieldInfo, field: JSX.Element) => void;
+    onFieldRender?: (fieldInfo: IBaseFieldInfo, field: JSX.Element) => any;
 
     /** The on form render event. */
     onRender?: (controlMode: number) => any;

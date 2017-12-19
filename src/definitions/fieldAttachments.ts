@@ -42,12 +42,15 @@ export interface IFieldAttachmentsProps {
     /** The existing attachment files. */
     files?: any | Types.IAttachmentFiles;
 
+    /** The attachments render event. */
+    onAttachmentsRender?: (attachments: JSX.Element) => any;
+
     /** The attachment file added event. */
     onFileAdded?: (file: IAttachmentFile) => any;
 
     /** The click event for the file link. */
     onFileClick?: (file: IAttachmentFile) => void;
-    
+
     /** The attachment file render event. */
     onFileRender?: (file: IAttachmentFile) => any;
 

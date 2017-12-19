@@ -51,7 +51,7 @@ var FieldNumber = /** @class */ (function (_super) {
             // See if this is a percentage
             if (_this.props.numberType == definitions_1.FieldNumberTypes.Percentage || _this.state.fieldInfo.showAsPercentage) {
                 // Return a slider
-                return (React.createElement(office_ui_fabric_react_1.Slider, { className: props.className, disabled: props.disabled, label: props.label, max: 100, min: 0, onChange: _this.onChange, step: 1, value: props.value }));
+                return (React.createElement(office_ui_fabric_react_1.Slider, { className: props.className, disabled: props.disabled, label: props.label, max: 100, min: 0, onChange: _this.onChange, step: 1, value: props.value || 0 }));
             }
             // Return the component
             return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));

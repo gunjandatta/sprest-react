@@ -40,7 +40,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
                     min={0}
                     onChange={this.onChange}
                     step={1}
-                    value={props.value as any}
+                    value={props.value || 0 as any}
                 />
             );
         }

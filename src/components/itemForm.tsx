@@ -400,7 +400,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         if (field.InternalName == "ContentType") { continue; }
 
                         // Skip hidden fields
-                        if (field.Hidden) { continue; }
+                        if (field.Hidden || fieldLink.Hidden) { continue; }
 
                         // Add the field name
                         fields.push({ name: field.InternalName });

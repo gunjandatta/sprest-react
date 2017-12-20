@@ -80,7 +80,7 @@ var ItemForm = /** @class */ (function (_super) {
                             continue;
                         }
                         // Skip hidden fields
-                        if (field.Hidden) {
+                        if (field.Hidden || fieldLink.Hidden) {
                             continue;
                         }
                         // Add the field name

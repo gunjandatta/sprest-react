@@ -88,7 +88,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
                 elField = this.renderField();
 
                 // Call the field render event
-                elField = (this.props.onFieldRender ? this.props.onFieldRender(this.state.fieldInfo, elField) : null) || elField;
+                elField = this.props.onFieldRender ? this.props.onFieldRender(this.state.fieldInfo, elField) : elField;
             }
 
             // Return the field

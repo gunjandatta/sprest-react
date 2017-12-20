@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IFieldUserProps, IFieldUserState } from "../definitions";
 import { BaseField } from ".";
 /**
@@ -8,7 +7,7 @@ export declare class FieldUser extends BaseField<IFieldUserProps, IFieldUserStat
     /**
      * Render the field
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Events
      */

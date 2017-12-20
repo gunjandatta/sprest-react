@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IDropdownOption } from "office-ui-fabric-react";
 import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState } from "../definitions";
 import { BaseField } from ".";
@@ -9,7 +8,7 @@ export declare class FieldManagedMetadata extends BaseField<IFieldManagedMetadat
     /**
      * Render the field
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Events
      */

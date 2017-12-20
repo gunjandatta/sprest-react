@@ -79,11 +79,8 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 );
             }
 
-            // See if the field render event exists
-            if (this.props.onAttachmentsRender) {
-                // Call the event
-                elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
-            }
+            // Call the render event
+            elAttachments = this.props.onAttachmentsRender ? this.props.onAttachmentsRender(elAttachments) : elAttachments;
         }
 
         // Render the attachments
@@ -361,23 +358,27 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             // Ensure we are not deleting this field
             if (file.deleteFl) { continue; }
 
-            // See if the render event exists
+            // See if the file render event exists
             let attachment = null;
             if (this.props.onFileRender) {
                 // Set the attachment
                 attachment = this.props.onFileRender(file);
+                if (attachment) {
+                    // Add the attachment
+                    attachments.push(attachment);
+                }
+            } else {
+                // Add the attachment
+                attachments.push(
+                    <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-filename={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
+                        <span className="ms-fontSize-m">{file.name}</span>
+                        {
+                            this.props.controlMode == SPTypes.ControlMode.Display ? null :
+                                <i className="ms-Icon ms-Icon--Delete" data-filename={file.name.toLowerCase()} onClick={this.removeAttachment} />
+                        }
+                    </Link>
+                );
             }
-
-            // Add the attachment
-            attachments.push(attachment ||
-                <Link className="ms-AttachmentLink" key={file.name} href={file.url} data-filename={file.name.toLowerCase()} download={true} onClick={this.linkClick}>
-                    <span className="ms-fontSize-m">{file.name}</span>
-                    {
-                        this.props.controlMode == SPTypes.ControlMode.Display ? null :
-                            <i className="ms-Icon ms-Icon--Delete" data-filename={file.name.toLowerCase()} onClick={this.removeAttachment} />
-                    }
-                </Link>
-            );
         }
 
         // Return the attachments

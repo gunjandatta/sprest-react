@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "../definitions";
 import { BaseField } from ".";
 /**
@@ -12,7 +11,7 @@ export declare class FieldDateTime extends BaseField<IFieldDateTimeProps, IField
     /**
      * Render the field
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Events
      */

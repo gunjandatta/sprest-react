@@ -35,7 +35,7 @@ export interface IItemFormProps {
     /** The click event for the attachment. */
     onAttachmentClick?: (file: IAttachmentFile, controlMode: number) => void;
     /** The render event for the attachment. */
-    onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => void;
+    onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => any;
     /** The field render event */
     onFieldRender?: (fieldInfo: IBaseFieldInfo, field: JSX.Element) => any;
     /** The on form render event. */

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IFieldTextProps, IFieldTextState } from "../definitions";
 import { BaseField } from ".";
 /**
@@ -8,7 +7,7 @@ export declare class FieldText extends BaseField<IFieldTextProps, IFieldTextStat
     /**
      * Render the component
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Events
      */

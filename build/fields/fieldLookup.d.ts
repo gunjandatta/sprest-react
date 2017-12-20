@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IDropdownOption } from "office-ui-fabric-react";
 import { IFieldLookup, IFieldLookupProps, IFieldLookupState } from "../definitions";
 import { BaseField } from ".";
@@ -9,7 +8,7 @@ export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLook
     /**
      * Render the field
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Events
      */

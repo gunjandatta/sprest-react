@@ -251,18 +251,23 @@ var FieldAttachments = /** @class */ (function (_super) {
                 if (file.deleteFl) {
                     continue;
                 }
-                // See if the render event exists
+                // See if the file render event exists
                 var attachment = null;
                 if (_this.props.onFileRender) {
                     // Set the attachment
                     attachment = _this.props.onFileRender(file);
+                    if (attachment) {
+                        // Add the attachment
+                        attachments.push(attachment);
+                    }
                 }
-                // Add the attachment
-                attachments.push(attachment ||
-                    React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-filename": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
+                else {
+                    // Add the attachment
+                    attachments.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-filename": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
                         React.createElement("span", { className: "ms-fontSize-m" }, file.name),
                         _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display ? null :
                             React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-filename": file.name.toLowerCase(), onClick: _this.removeAttachment })));
+                }
             }
             // Return the attachments
             return attachments;
@@ -377,11 +382,8 @@ var FieldAttachments = /** @class */ (function (_super) {
                     this.state.errorMessage == "" ? null :
                         React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage)));
             }
-            // See if the field render event exists
-            if (this.props.onAttachmentsRender) {
-                // Call the event
-                elAttachments = this.props.onAttachmentsRender(elAttachments) || elAttachments;
-            }
+            // Call the render event
+            elAttachments = this.props.onAttachmentsRender ? this.props.onAttachmentsRender(elAttachments) : elAttachments;
         }
         // Render the attachments
         return (React.createElement("div", null,

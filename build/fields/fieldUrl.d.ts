@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IFieldUrlProps, IFieldUrlState } from "../definitions";
 import { BaseField } from ".";
 /**
@@ -8,7 +7,7 @@ export declare class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> 
     /**
      * Render the component
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Events
      */

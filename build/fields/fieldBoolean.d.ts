@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../definitions";
 import { BaseField } from ".";
 /**
@@ -8,7 +7,7 @@ export declare class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBo
     /**
      * Render the field
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Method to get the value
      */

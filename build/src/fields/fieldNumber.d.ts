@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { IFieldNumberProps, IFieldNumberState } from "../definitions";
 import { BaseField } from ".";
 /**
@@ -8,7 +7,7 @@ export declare class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumb
     /**
      * Render the component
      */
-    renderField: () => JSX.Element;
+    renderField: () => any;
     /**
      * Methods
      */

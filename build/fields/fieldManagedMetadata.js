@@ -260,6 +260,8 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                         function () {
                             // Log
                             console.log("[gd-sprest] Error getting the term set terms.");
+                            // Resolve the request
+                            resolve(fieldInfo);
                         });
                     });
                 });

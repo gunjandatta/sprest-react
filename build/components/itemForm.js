@@ -309,16 +309,8 @@ var ItemForm = /** @class */ (function (_super) {
      * Method to refresh the item
      */
     ItemForm.prototype.refresh = function () {
-        var _this = this;
-        var itemId = this.state.item.Id;
         // Update the state
-        this.setState({ item: null, refreshFl: true }, function () {
-            // Get the item
-            _this.getItem(itemId).then(function (item) {
-                // Update the state
-                _this.setState({ item: item, refreshFl: false });
-            });
-        });
+        this.setState({ item: this.state.item.Id });
     };
     /**
      * Render the component

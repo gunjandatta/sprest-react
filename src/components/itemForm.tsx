@@ -127,16 +127,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Method to refresh the item
      */
     refresh() {
-        let itemId = this.state.item.Id;
-
         // Update the state
-        this.setState({ item: null, refreshFl: true }, () => {
-            // Get the item
-            this.getItem(itemId).then(item => {
-                // Update the state
-                this.setState({ item, refreshFl: false });
-            });
-        });
+        this.setState({ item: this.state.item.Id });
     }
 
     /**

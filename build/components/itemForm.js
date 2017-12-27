@@ -310,12 +310,14 @@ var ItemForm = /** @class */ (function (_super) {
      */
     ItemForm.prototype.refresh = function () {
         var _this = this;
+        var itemId = this.state.item.Id;
         // Update the state
-        this.setState({ refreshFl: true });
-        // Get the item
-        this.getItem(this.state.item.Id).then(function (item) {
-            // Update the state
-            _this.setState({ item: item, refreshFl: false });
+        this.setState({ item: null, refreshFl: true }, function () {
+            // Get the item
+            _this.getItem(itemId).then(function (item) {
+                // Update the state
+                _this.setState({ item: item, refreshFl: false });
+            });
         });
     };
     /**

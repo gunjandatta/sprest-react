@@ -105,7 +105,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                                 id: user_1.UserName,
                                 itemID: user_1.ID + "",
                                 primaryText: user_1.Title,
-                                secondaryText: user_1.Email,
+                                secondaryText: user_1.EMail,
                                 tertiaryText: user_1.JobTitle,
                             });
                         }

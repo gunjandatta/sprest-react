@@ -178,7 +178,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                             id: user.UserName,
                             itemID: user.ID + "",
                             primaryText: user.Title,
-                            secondaryText: user.Email,
+                            secondaryText: user.EMail,
                             tertiaryText: user.JobTitle,
                         });
                     }

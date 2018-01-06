@@ -9,145 +9,100 @@ export const Configuration = new Helper.SPConfig({
         {
             CustomFields: [
                 {
-                    FieldInfo: {
-                        defaultValue: "0",
-                        name: "TestBoolean",
-                        title: "Boolean",
-                        type: Helper.Types.SPCfgFieldType.Boolean
-                    },
-                    Name: "TestBoolean"
+                    defaultValue: "0",
+                    name: "TestBoolean",
+                    title: "Boolean",
+                    type: Helper.Types.SPCfgFieldType.Boolean
                 },
                 {
-                    FieldInfo: {
-                        defaultValue: "Choice 3",
-                        name: "TestChoice",
-                        title: "Choice",
-                        type: Helper.Types.SPCfgFieldType.Choice,
-                        choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                    } as Types.SPConfig.ISPConfigFieldInfoChoice,
-                    Name: "TestChoice"
+                    defaultValue: "Choice 3",
+                    name: "TestChoice",
+                    title: "Choice",
+                    type: Helper.Types.SPCfgFieldType.Choice,
+                    choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
+                } as Types.SPConfig.ISPConfigFieldInfoChoice,
+                {
+                    name: "TestComments",
+                    title: "Comments",
+                    type: Helper.Types.SPCfgFieldType.Note
                 },
                 {
-                    FieldInfo: {
-                        name: "TestComments",
-                        title: "Comments",
-                        type: Helper.Types.SPCfgFieldType.Note
-                    },
-                    Name: "TestComments"
+                    format: SPTypes.DateFormat.DateOnly,
+                    name: "TestDate",
+                    title: "Date Only",
+                    type: Helper.Types.SPCfgFieldType.Date
+                } as Types.SPConfig.ISPConfigFieldInfoDate,
+                {
+                    format: SPTypes.DateFormat.DateTime,
+                    name: "TestDateTime",
+                    title: "Date/Time",
+                    type: Helper.Types.SPCfgFieldType.Date
+                } as Types.SPConfig.ISPConfigFieldInfoDate,
+                {
+                    listName: "SPReact",
+                    name: "TestLookup",
+                    title: "Lookup",
+                    showField: "Title",
+                    type: Helper.Types.SPCfgFieldType.Lookup
+                } as Types.SPConfig.ISPConfigFieldInfoLookup,
+                {
+                    defaultValue: "Choice 3",
+                    multi: true,
+                    name: "TestMultiChoice",
+                    title: "Multi-Choice",
+                    type: Helper.Types.SPCfgFieldType.Choice,
+                    choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
+                } as Types.SPConfig.ISPConfigFieldInfoChoice,
+                {
+                    listName: "SPReact",
+                    multi: true,
+                    name: "TestMultiLookup",
+                    title: "Multi-Lookup",
+                    showField: "Title",
+                    type: Helper.Types.SPCfgFieldType.Lookup
+                } as Types.SPConfig.ISPConfigFieldInfoLookup,
+                {
+                    multi: true,
+                    name: "TestMultiUser",
+                    title: "Multi-User",
+                    type: Helper.Types.SPCfgFieldType.User,
+                    selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
+                } as Types.SPConfig.ISPConfigFieldInfoUser,
+                {
+                    name: "TestNote",
+                    title: "Note",
+                    type: Helper.Types.SPCfgFieldType.Note
+                } as Types.SPConfig.ISPConfigFieldInfoNote,
+                {
+                    decimals: 2,
+                    numberType: SPTypes.FieldNumberType.Decimal,
+                    name: "TestNumberDecimal",
+                    title: "Decimal",
+                    type: Helper.Types.SPCfgFieldType.Number
+                } as Types.SPConfig.ISPConfigFieldInfoNumber,
+                {
+                    numberType: SPTypes.FieldNumberType.Integer,
+                    name: "TestNumberInteger",
+                    title: "Integer",
+                    type: Helper.Types.SPCfgFieldType.Number
+                } as Types.SPConfig.ISPConfigFieldInfoNumber,
+                {
+                    numberType: SPTypes.FieldNumberType.Percentage,
+                    name: "TestNumberPercentage",
+                    title: "Percentage",
+                    type: Helper.Types.SPCfgFieldType.Number
+                } as Types.SPConfig.ISPConfigFieldInfoNumber,
+                {
+                    name: "TestUrl",
+                    title: "Url",
+                    type: Helper.Types.SPCfgFieldType.Url
                 },
                 {
-                    FieldInfo: {
-                        format: SPTypes.DateFormat.DateOnly,
-                        name: "TestDate",
-                        title: "Date Only",
-                        type: Helper.Types.SPCfgFieldType.Date
-                    } as Types.SPConfig.ISPConfigFieldInfoDate,
-                    Name: "TestDate"
-                },
-                {
-                    FieldInfo: {
-                        format: SPTypes.DateFormat.DateTime,
-                        name: "TestDateTime",
-                        title: "Date/Time",
-                        type: Helper.Types.SPCfgFieldType.Date
-                    } as Types.SPConfig.ISPConfigFieldInfoDate,
-                    Name: "TestDateTime"
-                },
-                {
-                    FieldInfo: {
-                        listName: "SPReact",
-                        name: "TestLookup",
-                        title: "Lookup",
-                        showField: "Title",
-                        type: Helper.Types.SPCfgFieldType.Lookup
-                    } as Types.SPConfig.ISPConfigFieldInfoLookup,
-                    Name: "TestLookup"
-                },
-                {
-                    FieldInfo: {
-                        defaultValue: "Choice 3",
-                        multi: true,
-                        name: "TestMultiChoice",
-                        title: "Multi-Choice",
-                        type: Helper.Types.SPCfgFieldType.Choice,
-                        choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                    } as Types.SPConfig.ISPConfigFieldInfoChoice,
-                    Name: "TestMultiChoice"
-                },
-                {
-                    FieldInfo: {
-                        listName: "SPReact",
-                        multi: true,
-                        name: "TestMultiLookup",
-                        title: "Multi-Lookup",
-                        showField: "Title",
-                        type: Helper.Types.SPCfgFieldType.Lookup
-                    } as Types.SPConfig.ISPConfigFieldInfoLookup,
-                    Name: "TestMultiLookup"
-                },
-                {
-                    FieldInfo: {
-                        multi: true,
-                        name: "TestMultiUser",
-                        title: "Multi-User",
-                        type: Helper.Types.SPCfgFieldType.User,
-                        selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                    } as Types.SPConfig.ISPConfigFieldInfoUser,
-                    Name: "TestMultiUser"
-                },
-                {
-                    FieldInfo: {
-                        name: "TestNote",
-                        title: "Note",
-                        type: Helper.Types.SPCfgFieldType.Note
-                    } as Types.SPConfig.ISPConfigFieldInfoNote,
-                    Name: "TestNote"
-                },
-                {
-                    FieldInfo: {
-                        decimals: 2,
-                        numberType: SPTypes.FieldNumberType.Decimal,
-                        name: "TestNumberDecimal",
-                        title: "Decimal",
-                        type: Helper.Types.SPCfgFieldType.Number
-                    } as Types.SPConfig.ISPConfigFieldInfoNumber,
-                    Name: "TestNumberDecimal"
-                },
-                {
-                    FieldInfo: {
-                        numberType: SPTypes.FieldNumberType.Integer,
-                        name: "TestNumberInteger",
-                        title: "Integer",
-                        type: Helper.Types.SPCfgFieldType.Number
-                    } as Types.SPConfig.ISPConfigFieldInfoNumber,
-                    Name: "TestNumberInteger"
-                },
-                {
-                    FieldInfo: {
-                        numberType: SPTypes.FieldNumberType.Percentage,
-                        name: "TestNumberPercentage",
-                        title: "Percentage",
-                        type: Helper.Types.SPCfgFieldType.Number
-                    } as Types.SPConfig.ISPConfigFieldInfoNumber,
-                    Name: "TestNumberPercentage"
-                },
-                {
-                    FieldInfo: {
-                        name: "TestUrl",
-                        title: "Url",
-                        type: Helper.Types.SPCfgFieldType.Url
-                    },
-                    Name: "TestUrl"
-                },
-                {
-                    FieldInfo: {
-                        name: "TestUser",
-                        title: "User",
-                        type: Helper.Types.SPCfgFieldType.User,
-                        selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                    } as Types.SPConfig.ISPConfigFieldInfoUser,
-                    Name: "TestUser"
-                },
+                    name: "TestUser",
+                    title: "User",
+                    type: Helper.Types.SPCfgFieldType.User,
+                    selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
+                } as Types.SPConfig.ISPConfigFieldInfoUser
             ],
             ListInformation: {
                 BaseTemplate: SPTypes.ListTemplateType.GenericList,

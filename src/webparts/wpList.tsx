@@ -179,6 +179,9 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             // Log
             console.log("[gd-sprest] Error: The list query failed.");
             console.log("[gd-sprest] " + items["response"]);
+
+            // Update the state
+            this.setState({ items: [] });
         }
     }
 

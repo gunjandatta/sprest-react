@@ -168,7 +168,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
         // Update the state
         this.setState({
-            items: items.results,
+            items: items.results || [],
             searchTerms,
             selectedTags: [],
             tagMapper

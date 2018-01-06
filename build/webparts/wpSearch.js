@@ -115,7 +115,7 @@ var WebPartSearch = /** @class */ (function (_super) {
             });
             // Update the state
             _this.setState({
-                items: items.results,
+                items: items.results || [],
                 searchTerms: searchTerms,
                 selectedTags: [],
                 tagMapper: tagMapper

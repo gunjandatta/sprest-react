@@ -126,6 +126,8 @@ var WebPartList = /** @class */ (function (_super) {
                 // Log
                 console.log("[gd-sprest] Error: The list query failed.");
                 console.log("[gd-sprest] " + items["response"]);
+                // Update the state
+                _this.setState({ items: [] });
             }
         };
         /**

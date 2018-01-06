@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types, Web } from "gd-sprest";
+import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "../definitions";
 import { WebPartList } from ".";
@@ -282,6 +282,23 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Include the id field
         this._query.Select.push("ID");
 
+        // See if we are loading the items from cache
+        if (this._cacheFl) {
+            // See if the items exist
+            let cache = localStorage.getItem(this._key);
+            let items = cache ? Helper.parse(cache) : null;
+            if (items) {
+                new Promise((resolve, reject) => {
+                    // Generate the mapper
+                    this.generateMapper(items as any);
+                });
+                return;
+            } else {
+                // Clear the storage
+                localStorage.removeItem(this._key);
+            }
+        }
+
         // Ensure fields exist
         if (this.props.cfg.Fields) {
             // Parse the search fields
@@ -314,7 +331,16 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 // Query the list
                 .query(this._query)
                 // Execute the request
-                .execute(this.generateMapper);
+                .execute(items => {
+                    // See if we are caching the results
+                    if (this._cacheFl) {
+                        // Save the items to cache
+                        localStorage.setItem(this._key, items.stringify());
+                    }
+
+                    // Generate the mapper
+                    this.generateMapper(items);
+                });
         }
     }
 

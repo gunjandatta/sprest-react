@@ -32,6 +32,14 @@ var WebPartList = /** @class */ (function (_super) {
          */
         _this._caml = null;
         /**
+         * Flag to cache the items
+         */
+        _this._cacheFl = false;
+        /**
+         * The key used for storing the data in cache.
+         */
+        _this._key = null;
+        /**
          * The OData query (Default)
          */
         _this._query = null;
@@ -68,6 +76,23 @@ var WebPartList = /** @class */ (function (_super) {
          * Method to load the list data
          */
         _this.load = function () {
+            // See if we are loading the items from cache
+            if (_this._cacheFl) {
+                // See if the items exist
+                var cache = localStorage.getItem(_this._key);
+                var items_1 = cache ? gd_sprest_1.Helper.parse(cache) : null;
+                if (items_1) {
+                    new Promise(function () {
+                        // Update the state
+                        _this.setState({ items: items_1 });
+                    });
+                    return;
+                }
+                else {
+                    // Clear the storage
+                    localStorage.removeItem(_this._key);
+                }
+            }
             // See if we are using the CAML query
             if (_this._caml) {
                 _this.loadCAML();
@@ -89,7 +114,15 @@ var WebPartList = /** @class */ (function (_super) {
                     (new gd_sprest_1.Web(_this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue }))
                         .Lists(_this.props.cfg.ListName)
                         .getItemsByQuery(_this._caml)
-                        .execute(_this.onLoadData);
+                        .execute(function (items) {
+                        // See if we are storing the items in cache
+                        if (_this._cacheFl) {
+                            // Save the items to cache
+                            localStorage.setItem(_this._key, items.stringify());
+                        }
+                        // Load the data
+                        _this.onLoadData(items);
+                    });
                 });
             }
             else {
@@ -97,7 +130,15 @@ var WebPartList = /** @class */ (function (_super) {
                 (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
                     .Lists(_this.props.cfg.ListName)
                     .getItemsByQuery(_this._caml)
-                    .execute(_this.onLoadData);
+                    .execute(function (items) {
+                    // See if we are storing the items in cache
+                    if (_this._cacheFl) {
+                        // Save the items to cache
+                        localStorage.setItem(_this._key, items.stringify());
+                    }
+                    // Load the data
+                    _this.onLoadData(items);
+                });
             }
         };
         /**
@@ -109,7 +150,15 @@ var WebPartList = /** @class */ (function (_super) {
                 .Lists(_this.props.cfg.ListName)
                 .Items()
                 .query(_this._query)
-                .execute(_this.onLoadData);
+                .execute(function (items) {
+                // See if we are storing the items in cache
+                if (_this._cacheFl) {
+                    // Save the items to cache
+                    localStorage.setItem(_this._key, items.stringify());
+                }
+                // Load the data
+                _this.onLoadData(items);
+            });
         };
         /**
          * Method to update the state
@@ -162,6 +211,9 @@ var WebPartList = /** @class */ (function (_super) {
         _this.state = {
             items: null
         };
+        // Update the cache properties
+        _this._cacheFl = _this._cacheFl ? true : false;
+        _this._key = _this.props.cfg.WebPartId || "gd-sprest-items";
         // Set the default query to use ODATA
         _this._query = {
             Expand: [],

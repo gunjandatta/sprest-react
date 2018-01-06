@@ -51,6 +51,9 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
     constructor(props) {
         super(props);
 
+        // Enable caching
+        this._cacheFl = true;
+
         // Update the query
         this._query.Expand = ["AttachmentFiles", "TestLookup", "TestMultiLookup", "TestMultiUser", "TestUser"];
         this._query.OrderBy = ["Title"];

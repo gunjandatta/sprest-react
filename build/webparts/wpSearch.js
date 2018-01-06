@@ -210,6 +210,23 @@ var WebPartSearch = /** @class */ (function (_super) {
         _this.load = function () {
             // Include the id field
             _this._query.Select.push("ID");
+            // See if we are loading the items from cache
+            if (_this._cacheFl) {
+                // See if the items exist
+                var cache = localStorage.getItem(_this._key);
+                var items_1 = cache ? gd_sprest_1.Helper.parse(cache) : null;
+                if (items_1) {
+                    new Promise(function (resolve, reject) {
+                        // Generate the mapper
+                        _this.generateMapper(items_1);
+                    });
+                    return;
+                }
+                else {
+                    // Clear the storage
+                    localStorage.removeItem(_this._key);
+                }
+            }
             // Ensure fields exist
             if (_this.props.cfg.Fields) {
                 // Parse the search fields
@@ -236,7 +253,15 @@ var WebPartSearch = /** @class */ (function (_super) {
                     .Lists(_this.props.cfg.ListName)
                     .Items()
                     .query(_this._query)
-                    .execute(_this.generateMapper);
+                    .execute(function (items) {
+                    // See if we are caching the results
+                    if (_this._cacheFl) {
+                        // Save the items to cache
+                        localStorage.setItem(_this._key, items.stringify());
+                    }
+                    // Generate the mapper
+                    _this.generateMapper(items);
+                });
             }
         };
         /**

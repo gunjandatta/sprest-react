@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ContextInfo, SPTypes, Types, Web } from "gd-sprest";
+import { ContextInfo, Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner } from "office-ui-fabric-react";
 import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../definitions";
 
@@ -17,6 +17,16 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     protected _caml: string = null;
 
     /**
+     * Flag to cache the items
+     */
+    protected _cacheFl: boolean = false;
+
+    /**
+     * The key used for storing the data in cache.
+     */
+    protected _key: string = null;
+
+    /**
      * The OData query (Default)
      */
     protected _query: Types.ODataQuery = null;
@@ -32,6 +42,10 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         this.state = {
             items: null
         } as State;
+
+        // Update the cache properties
+        this._cacheFl = this._cacheFl ? true : false;
+        this._key = this.props.cfg.WebPartId || "gd-sprest-items";
 
         // Set the default query to use ODATA
         this._query = {
@@ -113,6 +127,23 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * Method to load the list data
      */
     protected load = () => {
+        // See if we are loading the items from cache
+        if (this._cacheFl) {
+            // See if the items exist
+            let cache = localStorage.getItem(this._key);
+            let items = cache ? Helper.parse(cache) : null;
+            if (items) {
+                new Promise(() => {
+                    // Update the state
+                    this.setState({ items: items as any });
+                });
+                return;
+            } else {
+                // Clear the storage
+                localStorage.removeItem(this._key);
+            }
+        }
+
         // See if we are using the CAML query
         if (this._caml) { this.loadCAML(); }
         // Else, load using the ODATA query
@@ -135,7 +166,16 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                     // Query the items
                     .getItemsByQuery(this._caml)
                     // Execute the request
-                    .execute(this.onLoadData);
+                    .execute(items => {
+                        // See if we are storing the items in cache
+                        if (this._cacheFl) {
+                            // Save the items to cache
+                            localStorage.setItem(this._key, items.stringify());
+                        }
+
+                        // Load the data
+                        this.onLoadData(items);
+                    });
             });
         } else {
             // Get the web
@@ -145,7 +185,16 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                 // Query the items
                 .getItemsByQuery(this._caml)
                 // Execute the request
-                .execute(this.onLoadData);
+                .execute(items => {
+                    // See if we are storing the items in cache
+                    if (this._cacheFl) {
+                        // Save the items to cache
+                        localStorage.setItem(this._key, items.stringify());
+                    }
+
+                    // Load the data
+                    this.onLoadData(items);
+                });
         }
     }
 
@@ -162,7 +211,16 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             // Query the list
             .query(this._query)
             // Execute the request
-            .execute(this.onLoadData);
+            .execute((items) => {
+                // See if we are storing the items in cache
+                if (this._cacheFl) {
+                    // Save the items to cache
+                    localStorage.setItem(this._key, items.stringify());
+                }
+
+                // Load the data
+                this.onLoadData(items);
+            });
     }
 
     /**

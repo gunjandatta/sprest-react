@@ -14,6 +14,14 @@ export declare class WebPartList<Props extends IWebPartListProps = IWebPartListP
      */
     protected _caml: string;
     /**
+     * Flag to cache the items
+     */
+    protected _cacheFl: boolean;
+    /**
+     * The key used for storing the data in cache.
+     */
+    protected _key: string;
+    /**
      * The OData query (Default)
      */
     protected _query: Types.ODataQuery;

@@ -291,7 +291,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 if (items) {
                     // Check the last refresh
                     let diff = Math.abs(((new Date(Date.now())).getTime() - this.state.lastRefresh.getTime()) / 1000);
-                    if (diff < this.props.cacheTimeout) {
+                    if (diff < this._cacheTimeout) {
                         // Generate the mapper
                         this.generateMapper(items as any);
                         return;

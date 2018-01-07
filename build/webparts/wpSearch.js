@@ -221,7 +221,7 @@ var WebPartSearch = /** @class */ (function (_super) {
                     if (items) {
                         // Check the last refresh
                         var diff = Math.abs(((new Date(Date.now())).getTime() - _this.state.lastRefresh.getTime()) / 1000);
-                        if (diff < _this.props.cacheTimeout) {
+                        if (diff < _this._cacheTimeout) {
                             // Generate the mapper
                             _this.generateMapper(items);
                             return;

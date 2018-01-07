@@ -116,6 +116,7 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Update the state
             _this.setState({
                 items: items.results || [],
+                lastRefresh: new Date(Date.now()),
                 searchTerms: searchTerms,
                 selectedTags: [],
                 tagMapper: tagMapper
@@ -212,17 +213,20 @@ var WebPartSearch = /** @class */ (function (_super) {
             _this._query.Select.push("ID");
             // See if we are loading the items from cache
             if (_this._cacheFl) {
-                // See if the items exist
+                // See data from cache
                 var cache = localStorage.getItem(_this._key);
-                var items_1 = cache ? gd_sprest_1.Helper.parse(cache) : null;
-                if (items_1) {
-                    new Promise(function (resolve, reject) {
-                        // Generate the mapper
-                        _this.generateMapper(items_1);
-                    });
-                    return;
-                }
-                else {
+                if (cache) {
+                    // Convert the items back to an object
+                    var items = cache ? gd_sprest_1.Helper.parse(cache) : null;
+                    if (items) {
+                        // Check the last refresh
+                        var diff = Math.abs(((new Date(Date.now())).getTime() - _this.state.lastRefresh.getTime()) / 1000);
+                        if (diff < _this.props.cacheTimeout) {
+                            // Generate the mapper
+                            _this.generateMapper(items);
+                            return;
+                        }
+                    }
                     // Clear the storage
                     localStorage.removeItem(_this._key);
                 }
@@ -328,6 +332,7 @@ var WebPartSearch = /** @class */ (function (_super) {
         // Set the state
         _this.state = {
             items: null,
+            lastRefresh: new Date(Date.now()),
             searchFilter: "",
             searchTerms: [],
             selectedTags: [],
@@ -349,8 +354,6 @@ var WebPartSearch = /** @class */ (function (_super) {
     WebPartSearch.prototype.render = function () {
         // Ensure the component has been initialized
         if (this.state.items == null) {
-            // Load the items
-            this.load();
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
         }

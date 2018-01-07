@@ -18,6 +18,10 @@ export declare class WebPartList<Props extends IWebPartListProps = IWebPartListP
      */
     protected _cacheFl: boolean;
     /**
+     * The number of seconds to refresh the data
+     */
+    protected _cacheTimeout: number;
+    /**
      * The key used for storing the data in cache.
      */
     protected _key: string;
@@ -33,6 +37,7 @@ export declare class WebPartList<Props extends IWebPartListProps = IWebPartListP
     /**
      * Events
      */
+    componentDidMount(): void;
     /**
      * The render container event
      * @param items - An array of webpart list items.

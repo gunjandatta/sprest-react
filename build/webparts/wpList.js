@@ -44,9 +44,6 @@ var WebPartList = /** @class */ (function (_super) {
          */
         _this._query = null;
         /**
-         * Events
-         */
-        /**
          * The render container event
          * @param items - An array of webpart list items.
          */
@@ -78,17 +75,20 @@ var WebPartList = /** @class */ (function (_super) {
         _this.load = function () {
             // See if we are loading the items from cache
             if (_this._cacheFl) {
-                // See if the items exist
+                // See data from cache
                 var cache = localStorage.getItem(_this._key);
-                var items_1 = cache ? gd_sprest_1.Helper.parse(cache) : null;
-                if (items_1) {
-                    new Promise(function () {
-                        // Update the state
-                        _this.setState({ items: items_1 });
-                    });
-                    return;
-                }
-                else {
+                if (cache) {
+                    // Convert the items back to an object
+                    var items = cache ? gd_sprest_1.Helper.parse(cache) : null;
+                    if (items) {
+                        // Check the last refresh
+                        var diff = Math.abs(((new Date(Date.now())).getTime() - _this.state.lastRefresh.getTime()) / 1000);
+                        if (diff < _this._cacheTimeout) {
+                            // Update the state and return
+                            _this.setState({ items: items });
+                            return;
+                        }
+                    }
                     // Clear the storage
                     localStorage.removeItem(_this._key);
                 }
@@ -168,7 +168,8 @@ var WebPartList = /** @class */ (function (_super) {
             if (items.results) {
                 // Update the state
                 _this.setState({
-                    items: items.results
+                    items: items.results,
+                    lastRefresh: new Date(Date.now())
                 });
             }
             else {
@@ -209,10 +210,12 @@ var WebPartList = /** @class */ (function (_super) {
         };
         // Set the state
         _this.state = {
-            items: null
+            items: null,
+            lastRefresh: new Date(Date.now())
         };
         // Update the cache properties
-        _this._cacheFl = _this._cacheFl ? true : false;
+        _this._cacheFl = _this.props.cacheItemsFl ? true : false;
+        _this._cacheTimeout = _this.props.cacheTimeout > 0 ? _this.props.cacheTimeout : 300;
         _this._key = _this.props.cfg.WebPartId || "gd-sprest-items";
         // Set the default query to use ODATA
         _this._query = {
@@ -225,6 +228,14 @@ var WebPartList = /** @class */ (function (_super) {
         return _this;
     }
     /**
+     * Events
+     */
+    // Component initialized event
+    WebPartList.prototype.componentDidMount = function () {
+        // Load the items
+        this.load();
+    };
+    /**
      * Render the component
      */
     WebPartList.prototype.render = function () {
@@ -232,8 +243,6 @@ var WebPartList = /** @class */ (function (_super) {
         if (this.state.items == null) {
             // Ensure the list name exists
             if (this.props.cfg && this.props.cfg.ListName) {
-                // Load the items
-                this.load();
                 // Return a spinner
                 return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
             }

@@ -20,6 +20,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Set the state
         this.state = {
             items: null,
+            lastRefresh: new Date(Date.now()),
             searchFilter: "",
             searchTerms: [],
             selectedTags: [],
@@ -42,9 +43,6 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     render() {
         // Ensure the component has been initialized
         if (this.state.items == null) {
-            // Load the items
-            this.load();
-
             // Return a spinner
             return (
                 <Spinner label="Loading the items..." />
@@ -169,6 +167,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Update the state
         this.setState({
             items: items.results || [],
+            lastRefresh: new Date(Date.now()),
             searchTerms,
             selectedTags: [],
             tagMapper
@@ -284,16 +283,21 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
         // See if we are loading the items from cache
         if (this._cacheFl) {
-            // See if the items exist
+            // See data from cache
             let cache = localStorage.getItem(this._key);
-            let items = cache ? Helper.parse(cache) : null;
-            if (items) {
-                new Promise((resolve, reject) => {
-                    // Generate the mapper
-                    this.generateMapper(items as any);
-                });
-                return;
-            } else {
+            if (cache) {
+                // Convert the items back to an object
+                let items = cache ? Helper.parse(cache) : null;
+                if (items) {
+                    // Check the last refresh
+                    let diff = Math.abs(((new Date(Date.now())).getTime() - this.state.lastRefresh.getTime()) / 1000);
+                    if (diff < this.props.cacheTimeout) {
+                        // Generate the mapper
+                        this.generateMapper(items as any);
+                        return;
+                    }
+                }
+
                 // Clear the storage
                 localStorage.removeItem(this._key);
             }

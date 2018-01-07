@@ -22,6 +22,11 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     protected _cacheFl: boolean = false;
 
     /**
+     * The number of seconds to refresh the data
+     */
+    protected _cacheTimeout: number;
+
+    /**
      * The key used for storing the data in cache.
      */
     protected _key: string = null;
@@ -40,11 +45,13 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
 
         // Set the state
         this.state = {
-            items: null
+            items: null,
+            lastRefresh: new Date(Date.now())
         } as State;
 
         // Update the cache properties
-        this._cacheFl = this._cacheFl ? true : false;
+        this._cacheFl = this.props.cacheItemsFl ? true : false;
+        this._cacheTimeout = this.props.cacheTimeout > 0 ? this.props.cacheTimeout : 300;
         this._key = this.props.cfg.WebPartId || "gd-sprest-items";
 
         // Set the default query to use ODATA
@@ -60,6 +67,12 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     /**
      * Events
      */
+
+    // Component initialized event
+    componentDidMount() {
+        // Load the items
+        this.load();
+    }
 
     /**
      * The render container event
@@ -96,9 +109,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         if (this.state.items == null) {
             // Ensure the list name exists
             if (this.props.cfg && this.props.cfg.ListName) {
-                // Load the items
-                this.load();
-
                 // Return a spinner
                 return (
                     <Spinner label="Loading the items..." />
@@ -129,16 +139,21 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     protected load = () => {
         // See if we are loading the items from cache
         if (this._cacheFl) {
-            // See if the items exist
+            // See data from cache
             let cache = localStorage.getItem(this._key);
-            let items = cache ? Helper.parse(cache) : null;
-            if (items) {
-                new Promise(() => {
-                    // Update the state
-                    this.setState({ items: items as any });
-                });
-                return;
-            } else {
+            if (cache) {
+                // Convert the items back to an object
+                let items = cache ? Helper.parse(cache) : null;
+                if (items) {
+                    // Check the last refresh
+                    let diff = Math.abs(((new Date(Date.now())).getTime() - this.state.lastRefresh.getTime()) / 1000);
+                    if (diff < this._cacheTimeout) {
+                        // Update the state and return
+                        this.setState({ items: items as any });
+                        return;
+                    }
+                }
+
                 // Clear the storage
                 localStorage.removeItem(this._key);
             }
@@ -231,7 +246,8 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         if (items.results) {
             // Update the state
             this.setState({
-                items: items.results as Array<IWebPartListItem>
+                items: items.results as Array<IWebPartListItem>,
+                lastRefresh: new Date(Date.now())
             });
         } else {
             // Log

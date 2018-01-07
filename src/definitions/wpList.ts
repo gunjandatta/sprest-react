@@ -80,4 +80,5 @@ export interface IWebPartListProps {
  */
 export interface IWebPartListState {
     items?: Array<IWebPartListItem>;
+    lastRefresh?: Date;
 }

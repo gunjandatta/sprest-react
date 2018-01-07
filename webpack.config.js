@@ -44,16 +44,16 @@ module.exports = {
                 // Define the compiler to use
                 use: [
                     {
-                        // Use the "babel-loader" library
+                        // Compile the JSX code to javascript
                         loader: "babel-loader",
                         // Options
                         options: {
-                            // Use the 'babel-preset-es2015' library
+                            // Ensure the javascript will work in legacy browsers
                             presets: ["es2015"]
                         }
                     },
                     {
-                        // Use the "ts-loader" library
+                        // Compile the typescript code to JSX
                         loader: "ts-loader"
                     }
                 ]

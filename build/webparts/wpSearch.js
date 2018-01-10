@@ -52,24 +52,31 @@ var WebPartSearch = /** @class */ (function (_super) {
                         var fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                         for (var k = 0; k < fieldValues.length; k++) {
                             var fldLookup = null;
+                            var fldUser = null;
                             fieldValue = fieldValues[k];
                             // Update the field value based on the type
-                            switch (field.FieldTypeKind) {
-                                case gd_sprest_1.SPTypes.FieldType.Choice:
-                                case gd_sprest_1.SPTypes.FieldType.MultiChoice:
-                                    break;
-                                case gd_sprest_1.SPTypes.FieldType.Lookup:
-                                    // Update the field
-                                    fldLookup = field;
-                                    break;
-                                case gd_sprest_1.SPTypes.FieldType.URL:
-                                    // Update the field value
-                                    fieldValue = item[field.InternalName].Description;
-                                    break;
-                                default:
-                                    // This is a managed metadata field
-                                    fieldValue = fieldValue.split("|")[0];
-                                    break;
+                            if (fieldValue) {
+                                switch (field.FieldTypeKind) {
+                                    case gd_sprest_1.SPTypes.FieldType.Choice:
+                                    case gd_sprest_1.SPTypes.FieldType.MultiChoice:
+                                        break;
+                                    case gd_sprest_1.SPTypes.FieldType.Lookup:
+                                        // Set the field
+                                        fldLookup = field;
+                                        break;
+                                    case gd_sprest_1.SPTypes.FieldType.URL:
+                                        // Update the field value
+                                        fieldValue = item[field.InternalName].Description;
+                                        break;
+                                    case gd_sprest_1.SPTypes.FieldType.User:
+                                        // Set the field
+                                        fldUser = field;
+                                        break;
+                                    default:
+                                        // This is a managed metadata field
+                                        fieldValue = fieldValue.split("|")[0];
+                                        break;
+                                }
                             }
                             // Parse the results
                             var results = fieldValue.results || [fieldValue];
@@ -79,6 +86,11 @@ var WebPartSearch = /** @class */ (function (_super) {
                                 if (fldLookup) {
                                     // Update the value
                                     result = result ? result[fldLookup.LookupField] : result;
+                                }
+                                // See if this is a user field
+                                if (fldUser) {
+                                    // Update the value
+                                    result = result ? result["Title"] : result;
                                 }
                                 // Ensure a value exists
                                 if (result == null || result == "") {
@@ -239,9 +251,15 @@ var WebPartSearch = /** @class */ (function (_super) {
                     // Add the field, based on the type
                     switch (field.FieldTypeKind) {
                         case gd_sprest_1.SPTypes.FieldType.Lookup:
-                            // Select the lookup field value
+                            // Expand the lookup information
                             _this._query.Expand.push(field.InternalName);
                             _this._query.Select.push(field.InternalName + "/" + field.LookupField);
+                            break;
+                        case gd_sprest_1.SPTypes.FieldType.User:
+                            // Expand the user information
+                            _this._query.Expand.push(field.InternalName);
+                            _this._query.Select.push(field.InternalName + "/ID");
+                            _this._query.Select.push(field.InternalName + "/Title");
                             break;
                         default:
                             // Select the field

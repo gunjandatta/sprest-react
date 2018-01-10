@@ -102,25 +102,32 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                     for (let k = 0; k < fieldValues.length; k++) {
                         let fldLookup: Types.IFieldLookup = null;
+                        let fldUser: Types.IFieldUser = null;
                         fieldValue = fieldValues[k];
 
                         // Update the field value based on the type
-                        switch (field.FieldTypeKind) {
-                            case SPTypes.FieldType.Choice:
-                            case SPTypes.FieldType.MultiChoice:
-                                break;
-                            case SPTypes.FieldType.Lookup:
-                                // Update the field
-                                fldLookup = field as Types.IFieldLookup;
-                                break;
-                            case SPTypes.FieldType.URL:
-                                // Update the field value
-                                fieldValue = (item[field.InternalName] as Types.ComplexTypes.FieldUrlValue).Description;
-                                break;
-                            default:
-                                // This is a managed metadata field
-                                fieldValue = fieldValue.split("|")[0];
-                                break;
+                        if (fieldValue) {
+                            switch (field.FieldTypeKind) {
+                                case SPTypes.FieldType.Choice:
+                                case SPTypes.FieldType.MultiChoice:
+                                    break;
+                                case SPTypes.FieldType.Lookup:
+                                    // Set the field
+                                    fldLookup = field as Types.IFieldLookup;
+                                    break;
+                                case SPTypes.FieldType.URL:
+                                    // Update the field value
+                                    fieldValue = (item[field.InternalName] as Types.ComplexTypes.FieldUrlValue).Description;
+                                    break;
+                                case SPTypes.FieldType.User:
+                                    // Set the field
+                                    fldUser = field as Types.IFieldUser;
+                                    break;
+                                default:
+                                    // This is a managed metadata field
+                                    fieldValue = fieldValue.split("|")[0];
+                                    break;
+                            }
                         }
 
                         // Parse the results
@@ -132,6 +139,12 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                             if (fldLookup) {
                                 // Update the value
                                 result = result ? result[fldLookup.LookupField] : result;
+                            }
+
+                            // See if this is a user field
+                            if (fldUser) {
+                                // Update the value
+                                result = result ? result["Title"] : result;
                             }
 
                             // Ensure a value exists
@@ -312,9 +325,15 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 // Add the field, based on the type
                 switch (field.FieldTypeKind) {
                     case SPTypes.FieldType.Lookup:
-                        // Select the lookup field value
+                        // Expand the lookup information
                         this._query.Expand.push(field.InternalName);
                         this._query.Select.push(field.InternalName + "/" + (field as Types.IFieldLookup).LookupField);
+                        break;
+                    case SPTypes.FieldType.User:
+                        // Expand the user information
+                        this._query.Expand.push(field.InternalName);
+                        this._query.Select.push(field.InternalName + "/ID");
+                        this._query.Select.push(field.InternalName + "/Title");
                         break;
                     default:
                         // Select the field

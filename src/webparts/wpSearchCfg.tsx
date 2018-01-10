@@ -43,6 +43,7 @@ export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSea
                         case SPTypes.FieldType.Lookup:
                         case SPTypes.FieldType.Text:
                         case SPTypes.FieldType.URL:
+                        case SPTypes.FieldType.User:
                             addField = true;
                             break;
                         default:

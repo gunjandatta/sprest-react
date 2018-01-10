@@ -50,6 +50,7 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
                             case gd_sprest_1.SPTypes.FieldType.Lookup:
                             case gd_sprest_1.SPTypes.FieldType.Text:
                             case gd_sprest_1.SPTypes.FieldType.URL:
+                            case gd_sprest_1.SPTypes.FieldType.User:
                                 addField = true;
                                 break;
                             default:

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { IWebPartCfg } from "gd-sp-webpart";
+import { Types } from "gd-sprest";
 import { Panel } from "..";
 /**
  * WebPart Configuration Panel
@@ -7,21 +7,21 @@ import { Panel } from "..";
 export interface IWebPartCfgPanel {
     _errorMessage: HTMLDivElement;
     _panel: Panel;
-    onRenderContents: (cfg: IWebPartCfg) => JSX.Element | Array<JSX.Element>;
+    onRenderContents: (cfg: Types.Helper.WebPart.IWebPartCfg) => JSX.Element | Array<JSX.Element>;
     onRenderFooter: () => JSX.Element | Array<JSX.Element>;
     onRenderHeader: () => JSX.Element | Array<JSX.Element>;
-    saveConfiguration: (wpCfg: IWebPartCfg) => void;
+    saveConfiguration: (wpCfg: Types.Helper.WebPart.IWebPartCfg) => void;
 }
 /**
  * WebPart Configuration Properties
  */
 export interface IWebPartCfgProps {
-    cfg?: IWebPartCfg;
+    cfg?: Types.Helper.WebPart.IWebPartCfg;
     cfgElementId?: string;
 }
 /**
  * WebPart Configuration State
  */
 export interface IWebPartCfgState {
-    cfg?: IWebPartCfg;
+    cfg?: Types.Helper.WebPart.IWebPartCfg;
 }

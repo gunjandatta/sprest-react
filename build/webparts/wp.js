@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_dom_1 = require("react-dom");
-var gd_sp_webpart_1 = require("gd-sp-webpart");
+var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
  * Fabric Web Part
@@ -36,7 +36,7 @@ exports.FabricWebPart = function (props) {
         }
     };
     // Create an instance of the webpart
-    new gd_sp_webpart_1.WebPart({
+    new gd_sprest_1.Helper.WebPart({
         cfgElementId: props.cfgElementId,
         elementId: props.targetElementId,
         helpProps: {
@@ -45,7 +45,7 @@ exports.FabricWebPart = function (props) {
         },
         onPostRender: props.onPostRender,
         onRenderDisplay: renderDisplay,
-        onRenderEditElement: renderEdit
+        onRenderEdit: renderEdit
     });
 };
 //# sourceMappingURL=wp.js.map

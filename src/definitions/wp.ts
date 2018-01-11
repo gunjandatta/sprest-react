@@ -1,10 +1,10 @@
-import { IWebPart, IWebPartCfg } from "gd-sp-webpart";
+import { Types } from "gd-sprest";
 
 /**
  * Fabric Web Part Information
  */
 export interface IFabricWebPartInfo {
-    cfg?: IWebPartCfg;
+    cfg?: Types.Helper.WebPart.IWebPartCfg;
 }
 
 /**
@@ -16,8 +16,8 @@ export interface IFabricWebPartProps {
     editElement?: React.ComponentClass<any>;
     helpTitle?: string;
     helpUrl?: string;
-    onPostRender?: (targetInfo?: IWebPart) => void;
-    onRenderDisplayElement?: (targetInfo: IWebPart) => any;
-    onRenderEditElement?: (targetInfo: IWebPart) => any;
+    onPostRender?: (targetInfo?: Types.Helper.WebPart.IWebPart) => void;
+    onRenderDisplayElement?: (targetInfo: Types.Helper.WebPart.IWebPart) => any;
+    onRenderEditElement?: (targetInfo: Types.Helper.WebPart.IWebPart) => any;
     targetElementId: string;
 }

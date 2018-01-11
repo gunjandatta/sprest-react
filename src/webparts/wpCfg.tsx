@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { IWebPartCfg } from "gd-sp-webpart";
 import { Dropdown, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { Page } from "../common";
 import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "../definitions";
@@ -41,7 +40,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => any;
+    abstract onRenderContents: (cfg: Types.Helper.WebPart.IWebPartCfg) => any;
 
     /**
      * Events

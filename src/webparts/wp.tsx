@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { WebPart, IWebPartCfg, IWebPart } from "gd-sp-webpart";
+import { Helper, Types } from "gd-sprest";
 import { Fabric } from "office-ui-fabric-react";
 import { IFabricWebPartInfo, IFabricWebPartProps } from "../definitions";
 
@@ -11,7 +11,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     let element = null;
 
     // The render display component
-    let renderDisplay = (wp: IWebPart) => {
+    let renderDisplay = (wp: Types.Helper.WebPart.IWebPart) => {
         let element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;
         if (element == null) {
             // Default the element
@@ -26,7 +26,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     };
 
     // The render edit component
-    let renderEdit = (wp: IWebPart) => {
+    let renderEdit = (wp: Types.Helper.WebPart.IWebPart) => {
         let element = props.onRenderEditElement ? props.onRenderEditElement(wp) : null;
         if (element) {
             // Default the element
@@ -41,7 +41,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     };
 
     // Create an instance of the webpart
-    new WebPart({
+    new Helper.WebPart({
         cfgElementId: props.cfgElementId,
         elementId: props.targetElementId,
         helpProps: {
@@ -50,6 +50,6 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
         },
         onPostRender: props.onPostRender,
         onRenderDisplay: renderDisplay,
-        onRenderEditElement: renderEdit
+        onRenderEdit: renderEdit
     });
 }

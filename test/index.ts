@@ -2,7 +2,7 @@ import "core-js/es6/map";
 import "core-js/es6/promise";
 import "core-js/es6/set";
 import { initializeIcons } from "@uifabric/icons";
-import { WebPart, WebPartSearchCfg, WebPartTabs } from "../src";
+import { FabricWebPart, WebPartSearchCfg, WebPartTabs } from "../src";
 import { Configuration } from "./cfg";
 import { ListWebpart } from "./wp";
 import "./list.scss";
@@ -22,8 +22,8 @@ class Demo {
      * Constructor
      */
     constructor() {
-        // Create an instance of the webpart
-        new WebPart({
+        // Create an instance of the list webpart
+        new FabricWebPart({
             cfgElementId: "wp-listCfg",
             displayElement: ListWebpart,
             editElement: WebPartSearchCfg,
@@ -31,7 +31,7 @@ class Demo {
         });
 
         // Create an instance of the webpart tabs
-        new WebPart({
+        new FabricWebPart({
             cfgElementId: "wp-tabsCfg",
             displayElement: WebPartTabs,
             targetElementId: "wp-tabs"

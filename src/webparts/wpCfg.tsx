@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
+import { IWebPartCfg } from "gd-sp-webpart";
 import { Dropdown, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { Page } from "../common";
-import { IWebPartCfgPanel, IWebPartCfg, IWebPartCfgProps, IWebPartCfgState } from "../definitions";
+import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "../definitions";
 import { Panel } from '..';
 declare var SP;
 

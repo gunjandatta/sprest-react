@@ -1,11 +1,6 @@
 /// <reference types="react" />
+import { IWebPartCfg } from "gd-sp-webpart";
 import { Panel } from "..";
-/**
- * WebPart Configuration
- */
-export interface IWebPartCfg {
-    WebPartId?: string;
-}
 /**
  * WebPart Configuration Panel
  */

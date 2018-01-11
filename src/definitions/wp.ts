@@ -1,31 +1,23 @@
-import { IWebPartCfg } from ".";
+import { IWebPart, IWebPartCfg } from "gd-sp-webpart";
 
 /**
- * Web Part Information
+ * Fabric Web Part Information
  */
-export interface IWebPartInfo {
+export interface IFabricWebPartInfo {
     cfg?: IWebPartCfg;
 }
 
 /**
- * Web Part Properties
+ * Fabric Web Part Properties
  */
-export interface IWebPartProps {
+export interface IFabricWebPartProps {
     cfgElementId?: string;
     displayElement?: React.ComponentClass<any>;
     editElement?: React.ComponentClass<any>;
     helpTitle?: string;
     helpUrl?: string;
-    onPostRender?: (targetInfo?: IWebPartTargetInfo) => void;
-    onRenderDisplayElement?: (targetInfo: IWebPartTargetInfo) => any;
-    onRenderEditElement?: (targetInfo: IWebPartTargetInfo) => any;
+    onPostRender?: (targetInfo?: IWebPart) => void;
+    onRenderDisplayElement?: (targetInfo: IWebPart) => any;
+    onRenderEditElement?: (targetInfo: IWebPart) => any;
     targetElementId: string;
-}
-
-/**
- * Web Part Target Information
- */
-export interface IWebPartTargetInfo {
-    cfg?: IWebPartCfg;
-    element: HTMLElement;
 }

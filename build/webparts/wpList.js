@@ -76,7 +76,7 @@ var WebPartList = /** @class */ (function (_super) {
             // See if we are loading the items from cache
             if (_this._cacheFl) {
                 // See data from cache
-                var cache = localStorage.getItem(_this._key);
+                var cache = sessionStorage.getItem(_this._key);
                 if (cache) {
                     // Convert the items back to an object
                     var items = cache ? gd_sprest_1.Helper.parse(cache) : null;
@@ -90,7 +90,7 @@ var WebPartList = /** @class */ (function (_super) {
                         }
                     }
                     // Clear the storage
-                    localStorage.removeItem(_this._key);
+                    sessionStorage.removeItem(_this._key);
                 }
             }
             // See if we are using the CAML query
@@ -118,7 +118,7 @@ var WebPartList = /** @class */ (function (_super) {
                         // See if we are storing the items in cache
                         if (_this._cacheFl) {
                             // Save the items to cache
-                            localStorage.setItem(_this._key, items.stringify());
+                            sessionStorage.setItem(_this._key, items.stringify());
                         }
                         // Load the data
                         _this.onLoadData(items);
@@ -134,7 +134,7 @@ var WebPartList = /** @class */ (function (_super) {
                     // See if we are storing the items in cache
                     if (_this._cacheFl) {
                         // Save the items to cache
-                        localStorage.setItem(_this._key, items.stringify());
+                        sessionStorage.setItem(_this._key, items.stringify());
                     }
                     // Load the data
                     _this.onLoadData(items);
@@ -154,7 +154,7 @@ var WebPartList = /** @class */ (function (_super) {
                 // See if we are storing the items in cache
                 if (_this._cacheFl) {
                     // Save the items to cache
-                    localStorage.setItem(_this._key, items.stringify());
+                    sessionStorage.setItem(_this._key, items.stringify());
                 }
                 // Load the data
                 _this.onLoadData(items);

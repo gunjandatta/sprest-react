@@ -297,7 +297,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // See if we are loading the items from cache
         if (this._cacheFl) {
             // See data from cache
-            let cache = localStorage.getItem(this._key);
+            let cache = sessionStorage.getItem(this._key);
             if (cache) {
                 // Convert the items back to an object
                 let items = cache ? Helper.parse(cache) : null;
@@ -312,7 +312,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 }
 
                 // Clear the storage
-                localStorage.removeItem(this._key);
+                sessionStorage.removeItem(this._key);
             }
         }
 
@@ -358,7 +358,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     // See if we are caching the results
                     if (this._cacheFl) {
                         // Save the items to cache
-                        localStorage.setItem(this._key, items.stringify());
+                        sessionStorage.setItem(this._key, items.stringify());
                     }
 
                     // Generate the mapper

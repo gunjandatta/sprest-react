@@ -28,7 +28,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     // The render edit component
     let renderEdit = (wp: Types.Helper.WebPart.IWebPart) => {
         let element = props.onRenderEditElement ? props.onRenderEditElement(wp) : null;
-        if (element) {
+        if (element == null) {
             // Default the element
             element = props.editElement ? <props.editElement cfg={wp.cfg} cfgElementId={props.cfgElementId} /> : null;
         }

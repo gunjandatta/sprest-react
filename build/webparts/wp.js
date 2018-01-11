@@ -25,7 +25,7 @@ exports.FabricWebPart = function (props) {
     // The render edit component
     var renderEdit = function (wp) {
         var element = props.onRenderEditElement ? props.onRenderEditElement(wp) : null;
-        if (element) {
+        if (element == null) {
             // Default the element
             element = props.editElement ? React.createElement(props.editElement, { cfg: wp.cfg, cfgElementId: props.cfgElementId }) : null;
         }

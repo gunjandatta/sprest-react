@@ -1,12 +1,11 @@
 /// <reference types="react" />
 import { Types } from "gd-sprest";
-import { IWebPartCfg } from "gd-sp-webpart";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel } from ".";
 /**
  * List Configuration
  */
-export interface IWebPartListCfg extends IWebPartCfg {
+export interface IWebPartListCfg extends Types.Helper.WebPart.IWebPartCfg {
     ListName?: string;
     WebUrl?: string;
 }

@@ -20,7 +20,7 @@ export const Configuration = new Helper.SPConfig({
                     title: "Choice",
                     type: Helper.Types.SPCfgFieldType.Choice,
                     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                } as Types.SPConfig.ISPConfigFieldInfoChoice,
+                } as Types.Helper.SPConfig.IFieldInfoChoice,
                 {
                     name: "TestComments",
                     title: "Comments",
@@ -31,20 +31,20 @@ export const Configuration = new Helper.SPConfig({
                     name: "TestDate",
                     title: "Date Only",
                     type: Helper.Types.SPCfgFieldType.Date
-                } as Types.SPConfig.ISPConfigFieldInfoDate,
+                } as Types.Helper.SPConfig.IFieldInfoDate,
                 {
                     format: SPTypes.DateFormat.DateTime,
                     name: "TestDateTime",
                     title: "Date/Time",
                     type: Helper.Types.SPCfgFieldType.Date
-                } as Types.SPConfig.ISPConfigFieldInfoDate,
+                } as Types.Helper.SPConfig.IFieldInfoDate,
                 {
                     listName: "SPReact",
                     name: "TestLookup",
                     title: "Lookup",
                     showField: "Title",
                     type: Helper.Types.SPCfgFieldType.Lookup
-                } as Types.SPConfig.ISPConfigFieldInfoLookup,
+                } as Types.Helper.SPConfig.IFieldInfoLookup,
                 {
                     defaultValue: "Choice 3",
                     multi: true,
@@ -52,7 +52,7 @@ export const Configuration = new Helper.SPConfig({
                     title: "Multi-Choice",
                     type: Helper.Types.SPCfgFieldType.Choice,
                     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                } as Types.SPConfig.ISPConfigFieldInfoChoice,
+                } as Types.Helper.SPConfig.IFieldInfoChoice,
                 {
                     listName: "SPReact",
                     multi: true,
@@ -60,38 +60,38 @@ export const Configuration = new Helper.SPConfig({
                     title: "Multi-Lookup",
                     showField: "Title",
                     type: Helper.Types.SPCfgFieldType.Lookup
-                } as Types.SPConfig.ISPConfigFieldInfoLookup,
+                } as Types.Helper.SPConfig.IFieldInfoLookup,
                 {
                     multi: true,
                     name: "TestMultiUser",
                     title: "Multi-User",
                     type: Helper.Types.SPCfgFieldType.User,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                } as Types.SPConfig.ISPConfigFieldInfoUser,
+                } as Types.Helper.SPConfig.IFieldInfoUser,
                 {
                     name: "TestNote",
                     title: "Note",
                     type: Helper.Types.SPCfgFieldType.Note
-                } as Types.SPConfig.ISPConfigFieldInfoNote,
+                } as Types.Helper.SPConfig.IFieldInfoNote,
                 {
                     decimals: 2,
                     numberType: SPTypes.FieldNumberType.Decimal,
                     name: "TestNumberDecimal",
                     title: "Decimal",
                     type: Helper.Types.SPCfgFieldType.Number
-                } as Types.SPConfig.ISPConfigFieldInfoNumber,
+                } as Types.Helper.SPConfig.IFieldInfoNumber,
                 {
                     numberType: SPTypes.FieldNumberType.Integer,
                     name: "TestNumberInteger",
                     title: "Integer",
                     type: Helper.Types.SPCfgFieldType.Number
-                } as Types.SPConfig.ISPConfigFieldInfoNumber,
+                } as Types.Helper.SPConfig.IFieldInfoNumber,
                 {
                     numberType: SPTypes.FieldNumberType.Percentage,
                     name: "TestNumberPercentage",
                     title: "Percentage",
                     type: Helper.Types.SPCfgFieldType.Number
-                } as Types.SPConfig.ISPConfigFieldInfoNumber,
+                } as Types.Helper.SPConfig.IFieldInfoNumber,
                 {
                     name: "TestUrl",
                     title: "Url",
@@ -102,7 +102,7 @@ export const Configuration = new Helper.SPConfig({
                     title: "User",
                     type: Helper.Types.SPCfgFieldType.User,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                } as Types.SPConfig.ISPConfigFieldInfoUser
+                } as Types.Helper.SPConfig.IFieldInfoUser
             ],
             ListInformation: {
                 BaseTemplate: SPTypes.ListTemplateType.GenericList,

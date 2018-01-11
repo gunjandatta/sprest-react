@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IWebPartCfg } from "gd-sp-webpart";
+import { Types } from "gd-sprest";
 import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "../definitions";
 import { Panel } from '..';
 /**
@@ -25,7 +25,7 @@ export declare abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = I
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: IWebPartCfg) => any;
+    abstract onRenderContents: (cfg: Types.Helper.WebPart.IWebPartCfg) => any;
     /**
      * Events
      */

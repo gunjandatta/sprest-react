@@ -2,5 +2,7 @@ dist
 node_modules
 src
 test
+*.log
+*-lock.json
 tsconfig.json
-webpack*.js
+webpack.config.js

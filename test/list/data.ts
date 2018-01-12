@@ -1,5 +1,5 @@
 import { Types, Web } from "gd-sprest";
-import { IWebPartListCfg } from "../src";
+import { IWebPartListCfg } from "../../src";
 
 /**
  * Test Item Information

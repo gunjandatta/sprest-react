@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { ItemForm, Panel, WebPartSearch, IWebPartSearchProps, IWebPartSearchState } from "../src";
 import { PrimaryButton } from "office-ui-fabric-react";
+import { ItemForm, Panel, WebPartSearch, IWebPartSearchProps, IWebPartSearchState } from "../../src";
 declare var SP;
 
 /**

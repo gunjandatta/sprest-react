@@ -7,7 +7,7 @@ import { IAttachmentFile, IBaseFieldInfo } from ".";
 export interface IItemFormField {
     /** The form control mode. */
     controlMode?: number;
-    /** The internal field name. */
+    /** The field name. */
     name: string;
     /** The on change event */
     onChange?: (value: any) => void;
@@ -28,6 +28,8 @@ export interface IItemFormProps {
     fields?: Array<IItemFormField>;
     /** The existing item. */
     item?: any;
+    /** The item id */
+    itemId?: number;
     /** The list display name. */
     listName: string;
     /** The attachment added event. */
@@ -57,16 +59,12 @@ export interface IItemFormProps {
  * State
  */
 export interface IItemFormState {
+    /** The list information */
+    listInfo?: Types.Helper.ListForm.IListFormResult;
+    /** The item id. */
+    itemId?: number;
     /** The form fields. */
     fields?: Array<IItemFormField>;
-    /** The existing item. */
-    item?: any;
-    /** The list. */
-    list?: Types.IListResult;
-    /** The list fields. */
-    listFields?: {
-        [key: string]: Types.IFieldResult | Types.IFieldQueryResult;
-    };
     /** The refresh flag. */
     refreshFl?: boolean;
     /** The save flag. */

@@ -16,7 +16,7 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var __1 = require("..");
 var _1 = require(".");
 /**
- * Item Form WebPart
+ * Item Form
  */
 var ItemForm = /** @class */ (function (_super) {
     __extends(ItemForm, _super);
@@ -29,103 +29,40 @@ var ItemForm = /** @class */ (function (_super) {
          * Reference to the attachments field
          */
         _this._attachmentField = null;
+        /** The list form */
+        _this._listForm = null;
         /**
          * Reference to the form fields
          */
-        _this._fields = {};
+        _this._formFields = {};
         /**
          * Reference to the query used to refresh the item
          */
         _this._query = null;
         /**
-         * Methods
+         * Method to load the list information
          */
-        /**
-         * Method to get the item
-         * @param itemId - The item id.
-         */
-        _this.getItem = function (itemId) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Set the filter
-                _this._query.Filter = "ID eq " + itemId;
-                // Get the item
-                _this.state.list.Items().query(_this._query)
-                    .execute(function (items) {
-                    // Resolve the promise
-                    resolve(items.results ? items.results[0] : null);
-                });
-            });
-        };
-        /**
-         * Method to load the fields
-         */
-        _this.loadDefaultFields = function () {
-            // Get the default content type
-            _this.state.list.ContentTypes()
-                .query({
-                Expand: ["FieldLinks"],
-                Top: 1
-            })
-                .execute(function (contentTypes) {
-                // Ensure the content types exist
-                if (contentTypes.results) {
-                    var fields = [];
-                    // Parse the default content type
-                    for (var i = 0; i < contentTypes.results[0].FieldLinks.results.length; i++) {
-                        var fieldLink = contentTypes.results[0].FieldLinks.results[i];
-                        var field = _this.state.listFields[fieldLink.Name];
-                        // Skip the content type field
-                        if (field.InternalName == "ContentType") {
-                            continue;
-                        }
-                        // Skip hidden fields
-                        if (field.Hidden || fieldLink.Hidden) {
-                            continue;
-                        }
-                        // Add the field name
-                        fields.push({ name: field.InternalName });
-                    }
-                    // Update the state
-                    _this.setState({ fields: fields });
-                }
-                else {
-                    console.log("[gd-sprest] Error getting default fields.");
-                    console.log("[gd-sprest] " + contentTypes["response"]);
-                }
-            }, true);
-        };
-        /**
-         * Method to load the list
-         */
-        _this.loadList = function () {
-            // Get the web
-            (new gd_sprest_1.Web(_this.props.webUrl))
-                .Lists(_this.props.listName)
-                .execute(function (list) {
-                // Update the state
-                _this.setState({ list: list }, function () {
-                    // See if the item id was passed in
-                    if (typeof (_this.state.item) === "number") {
-                        // Get the item
-                        _this.getItem(_this.state.item).then(function (item) {
-                            // Update the state
-                            _this.setState({ item: item });
-                        });
-                    }
-                });
-            })
-                .Fields()
-                .execute(function (fields) {
-                var listFields = {};
+        _this.loadListInfo = function () {
+            var fields = null;
+            var formFields = _this.props.fields;
+            // Ensure the fields exist
+            if (formFields) {
+                fields = [];
                 // Parse the fields
-                for (var i = 0; i < fields.results.length; i++) {
-                    var field = fields.results[i];
-                    // Add the list field
-                    listFields[field.InternalName] = field;
+                for (var i = 0; i < formFields.length; i++) {
+                    // Add the field
+                    fields.push(formFields[i].name);
                 }
+            }
+            // Create an instance of the list form
+            new gd_sprest_1.Helper.ListForm({
+                fields: fields,
+                itemId: _this.props.item ? _this.props.item.Id : _this.props.itemId,
+                listName: _this.props.listName,
+                webUrl: _this.props.webUrl
+            }).then(function (listInfo) {
                 // Update the state
-                _this.setState({ listFields: listFields });
+                _this.setState({ listInfo: listInfo });
             });
         };
         /**
@@ -133,30 +70,37 @@ var ItemForm = /** @class */ (function (_super) {
          */
         _this.renderFields = function () {
             var formFields = [];
-            var item = _this.state.item;
+            var item = _this.state.listInfo.item;
             // See if we are displaying attachments
             if (_this.props.showAttachments) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item.AttachmentFiles, key: "Attachments", itemId: item.Id, listName: _this.props.listName, onAttachmentsRender: _this.props.onFieldRender == null ? null : function (attachments) { return _this.props.onFieldRender({ listName: _this.props.listName, name: "Attachments" }, attachments); }, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick == null ? null : function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); }, onFileRender: _this.props.onAttachmentRender == null ? null : function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); }, onRender: _this.props.onRenderAttachments == null ? null : function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); }, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item ? item.AttachmentFiles : null, key: "Attachments", itemId: item.Id, listName: _this.props.listName, onAttachmentsRender: _this.props.onFieldRender == null ? null : function (attachments) { return _this.props.onFieldRender({ listName: _this.props.listName, name: "Attachments" }, attachments); }, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick == null ? null : function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); }, onFileRender: _this.props.onAttachmentRender == null ? null : function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); }, onRender: _this.props.onRenderAttachments == null ? null : function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); }, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
-            // Parse the fields
-            for (var i = 0; i < _this.state.fields.length; i++) {
-                var fieldInfo = _this.state.fields[i];
+            var _loop_1 = function (fieldName) {
+                var field = _this.state.listInfo.fields[fieldName];
                 var readOnly = false;
                 // See if we are excluding this field
-                if (_this.props.excludeFields && _this.props.excludeFields.indexOf(fieldInfo.name) >= 0) {
-                    continue;
+                if (_this.props.excludeFields && _this.props.excludeFields.indexOf(fieldName) >= 0) {
+                    return "continue";
                 }
                 // See if this is a read-only field
-                if (_this.props.readOnlyFields && _this.props.readOnlyFields.indexOf(fieldInfo.name) >= 0) {
+                if (_this.props.readOnlyFields && _this.props.readOnlyFields.indexOf(fieldName) >= 0) {
                     // Set the flag
                     readOnly = true;
                 }
+                // Find the field information
+                var fieldInfo = (_this.props.fields || []).find(function (fieldInfo) {
+                    return fieldInfo.name == fieldName;
+                });
                 // Add the form field
-                formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldInfo.name },
+                formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldName },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(_1.Field, { controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: item[fieldInfo.name], field: _this.state.listFields && _this.state.listFields[fieldInfo.name], item: item, listName: _this.props.listName, key: fieldInfo.name, name: fieldInfo.name, onChange: fieldInfo.onChange, onFieldRender: _this.props.onFieldRender, onRender: fieldInfo.onRender, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._fields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Field, { controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: item[field.InternalName], field: field, item: item, listName: _this.props.listName, key: field.InternalName, name: field.InternalName, onChange: fieldInfo ? fieldInfo.onChange : null, onFieldRender: _this.props.onFieldRender, onRender: fieldInfo ? fieldInfo.onRender : null, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._formFields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+            };
+            // Parse the fields
+            for (var fieldName in _this.state.listInfo.fields) {
+                _loop_1(fieldName);
             }
             // Return the form fields
             return formFields;
@@ -173,67 +117,22 @@ var ItemForm = /** @class */ (function (_super) {
                     // Save the attachments
                     _this._attachmentField.save(itemId).then(function () {
                         // Resolve the promise
-                        resolve(itemId);
+                        resolve();
                     });
                 }
                 else {
                     // Resolve the promise
-                    resolve(itemId);
-                }
-            });
-        };
-        /**
-         * Method to save the item
-         */
-        _this.saveItem = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                var item = _this.state.item;
-                // Get the item
-                var formValues = _this.getValues();
-                // See if this is an existing item
-                if (item && item.update) {
-                    // Update the item
-                    item.update(formValues).execute(function (response) {
-                        // Resolve the request
-                        resolve(item.Id);
-                    });
-                }
-                else {
-                    // Set the metadata type
-                    formValues["__metadata"] = { type: _this.state.list.ListItemEntityTypeFullName };
-                    // Get the items
-                    _this.state.list.Items()
-                        .add(formValues)
-                        .execute(function (item) {
-                        // Resolve the request
-                        resolve(item.Id);
-                    });
+                    resolve();
                 }
             });
         };
         // Set the state
         _this.state = {
-            fields: props.fields,
-            item: props.item || {},
+            listInfo: null,
             refreshFl: false,
             saveFl: false,
             updateFl: false
         };
-        // Default the query
-        _this._query = props.query || {
-            Select: ["*"]
-        };
-        // See if we are showing attachments
-        if (props.showAttachments) {
-            // Expand the attachment files
-            _this._query.Expand = _this._query.Expand || [];
-            _this._query.Expand.push("AttachmentFiles");
-            // Get the attachment files
-            _this._query.Select = _this._query.Select || [];
-            _this._query.Select.push("Attachments");
-            _this._query.Select.push("AttachmentFiles");
-        }
         return _this;
     }
     Object.defineProperty(ItemForm.prototype, "AttachmentField", {
@@ -261,7 +160,7 @@ var ItemForm = /** @class */ (function (_super) {
             // See if we are editing the form
             if (controlMode == gd_sprest_1.SPTypes.ControlMode.Edit) {
                 // Ensure the item exists
-                controlMode = this.state.item && this.state.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New;
+                controlMode = this.state.listInfo.item && this.state.listInfo.item.Id > 0 ? gd_sprest_1.SPTypes.ControlMode.Edit : gd_sprest_1.SPTypes.ControlMode.New;
             }
             // Return the control mode
             return controlMode;
@@ -273,11 +172,15 @@ var ItemForm = /** @class */ (function (_super) {
         /**
          * Get the form fields
          */
-        get: function () { return this._fields; },
+        get: function () { return this._formFields; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ItemForm.prototype, "Item", {
         /**
-         * Set the form fields
+         * The list item
          */
-        set: function (fields) { this._fields = fields; },
+        get: function () { return this.state.listInfo.item; },
         enumerable: true,
         configurable: true
     });
@@ -285,7 +188,7 @@ var ItemForm = /** @class */ (function (_super) {
         /**
          * Get the list
          */
-        get: function () { return this.state.list; },
+        get: function () { return this.state.listInfo.list; },
         enumerable: true,
         configurable: true
     });
@@ -310,31 +213,33 @@ var ItemForm = /** @class */ (function (_super) {
      */
     ItemForm.prototype.refresh = function () {
         // Update the state
-        this.setState({ item: this.state.item.Id });
+        this.setState({ refreshFl: true });
     };
     /**
      * Render the component
      */
     ItemForm.prototype.render = function () {
-        // See if the list exists
-        if (this.state.list == null) {
-            // Load the list
-            this.loadList();
+        var _this = this;
+        // See if the list has been loaded
+        if (this.state.listInfo == null) {
+            // Load the list information
+            this.loadListInfo();
             // Return a spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list..." }));
-        }
-        // Ensure the fields are loaded
-        if (this.state.listFields == null) {
-            // Return a spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list fields..." }));
-        }
-        // Ensure the item is loaded
-        if (typeof (this.state.item) === "number") {
-            // Return a spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the item..." }));
+            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the list information..." }));
         }
         // See if we are refreshing the item
         if (this.state.refreshFl) {
+            // Reload the item
+            gd_sprest_1.Helper.ListForm.refreshItem(this.state.listInfo).then(function (item) {
+                // Update the item
+                var listInfo = _this.state.listInfo;
+                listInfo.item = item;
+                // Update the state
+                _this.setState({
+                    listInfo: listInfo,
+                    refreshFl: false
+                });
+            });
             // Return a spinner
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
         }
@@ -351,13 +256,6 @@ var ItemForm = /** @class */ (function (_super) {
                     React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the Item", size: office_ui_fabric_react_1.SpinnerSize.large }),
                 React.createElement("div", { hidden: this.state.saveFl }, this.props.onRender(this.ControlMode))));
         }
-        // See if the fields have been defined
-        if (this.state.fields == null) {
-            // Load the default fields
-            this.loadDefaultFields();
-            // Return a spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the fields..." }));
-        }
         // Render the fields
         return (React.createElement("div", { className: "ms-Grid " + (this.props.className || "") },
             !this.state.saveFl ? null :
@@ -369,18 +267,29 @@ var ItemForm = /** @class */ (function (_super) {
      */
     ItemForm.prototype.save = function () {
         var _this = this;
+        // Return a promise
         return new Promise(function (resolve, reject) {
             // Set the state
             _this.setState({ saveFl: true }, function () {
+                var listInfo = _this.state.listInfo;
                 // Save the item
-                _this.saveItem()
-                    .then(_this.saveAttachments)
-                    .then(_this.getItem)
+                gd_sprest_1.Helper.ListForm.saveItem(_this.getFormValues(), _this.List)
                     .then(function (item) {
-                    // Update the state
-                    _this.setState({ item: item, saveFl: false }, function () {
-                        // Resolve the promise
-                        resolve(item);
+                    // Update the list information
+                    listInfo.item = item;
+                    // Save the attachments
+                    _this.saveAttachments(item.Id);
+                })
+                    .then(function (item) {
+                    // Refresh the item
+                    gd_sprest_1.Helper.ListForm.refreshItem(listInfo).then(function (item) {
+                        // Update the list information
+                        listInfo.item = item;
+                        // Update the state
+                        _this.setState({ listInfo: listInfo, saveFl: false }, function () {
+                            // Resolve the promise
+                            resolve(item);
+                        });
                     });
                 });
             });
@@ -395,29 +304,30 @@ var ItemForm = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             // Set the state
             _this.setState({ updateFl: true }, function () {
-                var item = _this.state.item;
+                var listInfo = _this.state.listInfo;
                 // Update the item
-                item.update(fieldValues).execute(function (response) {
-                    // Get the item
-                    _this.getItem(item.Id).then(function (item) {
-                        // Update the state
-                        _this.setState({ item: item, updateFl: false }, function () {
-                            // Resolve the promise
-                            resolve(item);
-                        });
-                    });
+                gd_sprest_1.Helper.ListForm.saveItem(listInfo, fieldValues).then(function (item) {
+                    // Update the item
+                    listInfo.item = item;
+                    // Update the state
+                    _this.setState({ listInfo: listInfo, updateFl: false });
+                    // Resolve the promise
+                    resolve(item);
                 });
             });
         });
     };
+    /**
+     * Methods
+     */
     /**
      * Method to get the form values
      */
     ItemForm.prototype.getValues = function () {
         var formValues = {};
         // Parse the fields
-        for (var fieldName in this._fields) {
-            var field = this._fields[fieldName];
+        for (var fieldName in this._formFields) {
+            var field = this._formFields[fieldName];
             // Ensure the field exists
             if (field == null) {
                 continue;

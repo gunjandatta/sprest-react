@@ -16,8 +16,8 @@ export interface IFabricWebPartProps {
     editElement?: React.ComponentClass<any>;
     helpTitle?: string;
     helpUrl?: string;
-    onPostRender?: (targetInfo?: Types.Helper.WebPart.IWebPart) => void;
-    onRenderDisplayElement?: (targetInfo: Types.Helper.WebPart.IWebPart) => any;
-    onRenderEditElement?: (targetInfo: Types.Helper.WebPart.IWebPart) => any;
+    onPostRender?: (targetInfo?: Types.Helper.WebPart.IWebPartInfo) => void;
+    onRenderDisplayElement?: (targetInfo: Types.Helper.WebPart.IWebPartInfo) => any;
+    onRenderEditElement?: (targetInfo: Types.Helper.WebPart.IWebPartInfo) => any;
     targetElementId: string;
 }

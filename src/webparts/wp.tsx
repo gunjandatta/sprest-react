@@ -11,7 +11,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     let element = null;
 
     // The render display component
-    let renderDisplay = (wp: Types.Helper.WebPart.IWebPart) => {
+    let renderDisplay = (wp: Types.Helper.WebPart.IWebPartInfo) => {
         let element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;
         if (element == null) {
             // Default the element
@@ -26,7 +26,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     };
 
     // The render edit component
-    let renderEdit = (wp: Types.Helper.WebPart.IWebPart) => {
+    let renderEdit = (wp: Types.Helper.WebPart.IWebPartInfo) => {
         let element = props.onRenderEditElement ? props.onRenderEditElement(wp) : null;
         if (element == null) {
             // Default the element

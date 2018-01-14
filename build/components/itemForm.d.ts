@@ -5,17 +5,19 @@ import { IItemFormProps, IItemFormState } from "../definitions";
 import { Fields } from "..";
 import { Field } from ".";
 /**
- * Item Form WebPart
+ * Item Form
  */
 export declare class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Reference to the attachments field
      */
     private _attachmentField;
+    /** The list form */
+    private _listForm;
     /**
      * Reference to the form fields
      */
-    private _fields;
+    private _formFields;
     /**
      * Reference to the query used to refresh the item
      */
@@ -34,12 +36,13 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
     /**
      * Get the form fields
      */
-    /**
-     * Set the form fields
-     */
-    FormFields: {
+    readonly FormFields: {
         [key: string]: Field;
     };
+    /**
+     * The list item
+     */
+    readonly Item: Types.IListItemQueryResult;
     /**
      * Get the list
      */
@@ -79,22 +82,13 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Methods
      */
     /**
-     * Method to get the item
-     * @param itemId - The item id.
-     */
-    private getItem;
-    /**
      * Method to get the form values
      */
     private getValues<IItem>();
     /**
-     * Method to load the fields
+     * Method to load the list information
      */
-    private loadDefaultFields;
-    /**
-     * Method to load the list
-     */
-    private loadList;
+    private loadListInfo;
     /**
      * Method to render the fields
      */
@@ -104,8 +98,4 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * @param itemId - The item id.
      */
     private saveAttachments;
-    /**
-     * Method to save the item
-     */
-    private saveItem;
 }

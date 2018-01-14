@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper, Types } from "gd-sprest";
 import { IAttachmentFile, IBaseFieldInfo, IFieldAttachment } from ".";
 
 /**
@@ -8,7 +8,7 @@ export interface IItemFormField {
     /** The form control mode. */
     controlMode?: number;
 
-    /** The internal field name. */
+    /** The field name. */
     name: string;
 
     /** The on change event */
@@ -36,6 +36,9 @@ export interface IItemFormProps {
 
     /** The existing item. */
     item?: any;
+
+    /** The item id */
+    itemId?: number;
 
     /** The list display name. */
     listName: string;
@@ -78,17 +81,14 @@ export interface IItemFormProps {
  * State
  */
 export interface IItemFormState {
+    /** The list information */
+    listInfo?: Types.Helper.ListForm.IListFormResult;
+
+    /** The item id. */
+    itemId?: number;
+    
     /** The form fields. */
     fields?: Array<IItemFormField>;
-
-    /** The existing item. */
-    item?: any;
-
-    /** The list. */
-    list?: Types.IListResult;
-
-    /** The list fields. */
-    listFields?: { [key: string]: Types.IFieldResult | Types.IFieldQueryResult }
 
     /** The refresh flag. */
     refreshFl?: boolean;

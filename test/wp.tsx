@@ -83,6 +83,7 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
                             ref={panel => { this._panel = panel; }}>
                             <div className="">{this.state.errorMessage || ""}</div>
                             <ItemForm
+                                cacheKey="SPReactDemoListForm"
                                 controlMode={this.state.controlMode}
                                 item={this.state.item}
                                 listName={this.props.cfg.ListName}

@@ -2,8 +2,6 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { IItemFormProps, IItemFormState } from "../definitions";
-import { Fields } from "..";
-import { Field } from ".";
 /**
  * Item Form
  */
@@ -16,48 +14,18 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Reference to the attachments field
      */
     private _attachmentField;
-    /** The list form */
-    private _listForm;
     /**
      * Reference to the form fields
      */
     private _formFields;
     /**
-     * Reference to the query used to refresh the item
-     */
-    private _query;
-    /**
-     * Get the attachment field
-     */
-    /**
-     * Set the attachment field
-     */
-    AttachmentField: Fields.FieldAttachments;
-    /**
-     * Get the control mode
+     * Form Control Mode
      */
     readonly ControlMode: number;
     /**
-     * Get the form fields
+     * Get the form information
      */
-    readonly FormFields: {
-        [key: string]: Field;
-    };
-    /**
-     * The list item
-     */
-    readonly Item: Types.IListItemQueryResult;
-    /**
-     * Get the list
-     */
-    readonly List: Types.IListResult;
-    /**
-     * Get the item query
-     */
-    /**
-     * Set the item query
-     */
-    ItemQuery: Types.ODataQuery;
+    readonly FormInfo: Types.Helper.ListForm.IListFormResult;
     /**
      * Render the component
      */

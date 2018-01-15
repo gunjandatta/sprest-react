@@ -29,16 +29,10 @@ var ItemForm = /** @class */ (function (_super) {
          * Reference to the attachments field
          */
         _this._attachmentField = null;
-        /** The list form */
-        _this._listForm = null;
         /**
          * Reference to the form fields
          */
         _this._formFields = {};
-        /**
-         * Reference to the query used to refresh the item
-         */
-        _this._query = null;
         /**
          * Method to load the list information
          */
@@ -56,6 +50,7 @@ var ItemForm = /** @class */ (function (_super) {
             }
             // Create an instance of the list form
             new gd_sprest_1.Helper.ListForm({
+                cacheKey: _this.props.cacheKey,
                 fields: fields,
                 itemId: _this.props.item ? _this.props.item.Id : _this.props.itemId,
                 listName: _this.props.listName,
@@ -106,7 +101,7 @@ var ItemForm = /** @class */ (function (_super) {
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
                         React.createElement(_1.Field, { controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: item[field.InternalName], field: field, item: item, listName: _this.props.listName, key: field.InternalName, name: field.InternalName, onChange: fieldInfo ? fieldInfo.onChange : null, onFieldRender: _this.props.onFieldRender, onRender: fieldInfo ? fieldInfo.onRender : null, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._formFields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             };
-            // Parse the fields
+            // Parse the form fields
             for (var fieldName in _this.state.formInfo.fields) {
                 _loop_1(fieldName);
             }
@@ -145,21 +140,9 @@ var ItemForm = /** @class */ (function (_super) {
         };
         return _this;
     }
-    Object.defineProperty(ItemForm.prototype, "AttachmentField", {
-        /**
-         * Get the attachment field
-         */
-        get: function () { return this._attachmentField; },
-        /**
-         * Set the attachment field
-         */
-        set: function (field) { this._attachmentField = field; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ItemForm.prototype, "ControlMode", {
         /**
-         * Get the control mode
+         * Form Control Mode
          */
         get: function () {
             var controlMode = this.props.controlMode;
@@ -178,39 +161,11 @@ var ItemForm = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ItemForm.prototype, "FormFields", {
+    Object.defineProperty(ItemForm.prototype, "FormInfo", {
         /**
-         * Get the form fields
+         * Get the form information
          */
-        get: function () { return this._formFields; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemForm.prototype, "Item", {
-        /**
-         * The list item
-         */
-        get: function () { return this.state.formInfo.item; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemForm.prototype, "List", {
-        /**
-         * Get the list
-         */
-        get: function () { return this.state.formInfo.list; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemForm.prototype, "ItemQuery", {
-        /**
-         * Get the item query
-         */
-        get: function () { return this._query; },
-        /**
-         * Set the item query
-         */
-        set: function (query) { this._query = query; },
+        get: function () { return this.state.formInfo; },
         enumerable: true,
         configurable: true
     });

@@ -9,6 +9,10 @@ import { Field } from ".";
  */
 export declare class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
+     * Constructor
+     */
+    constructor(props: IItemFormProps);
+    /**
      * Reference to the attachments field
      */
     private _attachmentField;
@@ -55,47 +59,43 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     ItemQuery: Types.ODataQuery;
     /**
-     * Constructor
-     */
-    constructor(props: IItemFormProps);
-    /**
-     * Method to get the form values
-     */
-    getFormValues<T>(): any;
-    /**
-     * Method to refresh the item
-     */
-    refresh(): void;
-    /**
      * Render the component
      */
     render(): JSX.Element;
-    /**
-     * Method to save the item form
-     */
-    save<IItem = any>(): PromiseLike<IItem>;
-    /**
-     * Method to update the item.
-     */
-    updateItem<IItem = any>(fieldValues: any): PromiseLike<IItem>;
     /**
      * Methods
      */
     /**
      * Method to get the form values
      */
-    private getValues<IItem>();
+    getFormValues<IItem = any>(): any;
     /**
      * Method to load the list information
      */
-    private loadListInfo;
+    private loadformInfo;
+    /**
+     * Method to refresh the item
+     */
+    refresh(): void;
+    /**
+     * Method to render the attachments field
+     */
+    private renderAttachmentsField;
     /**
      * Method to render the fields
      */
     private renderFields;
     /**
+     * Method to save the item form
+     */
+    save<IItem = any>(): PromiseLike<IItem>;
+    /**
      * Method to save the item attachments
      * @param itemId - The item id.
      */
     private saveAttachments;
+    /**
+     * Method to update the item.
+     */
+    updateItem<IItem = any>(fieldValues: any): PromiseLike<IItem>;
 }

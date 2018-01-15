@@ -81,8 +81,8 @@ export interface IItemFormProps {
  * State
  */
 export interface IItemFormState {
-    /** The list information */
-    listInfo?: Types.Helper.ListForm.IListFormResult;
+    /** The form information */
+    formInfo?: Types.Helper.ListForm.IListFormResult;
 
     /** The item id. */
     itemId?: number;

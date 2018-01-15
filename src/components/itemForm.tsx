@@ -15,12 +15,26 @@ import { Field } from ".";
  */
 export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
+     * Constructor
+     */
+    constructor(props: IItemFormProps) {
+        super(props);
+
+        // Set the state
+        this.state = {
+            fields: null,
+            itemId: null,
+            formInfo: null,
+            refreshFl: false,
+            saveFl: false,
+            updateFl: false
+        };
+    }
+
+    /**
      * Reference to the attachments field
      */
     private _attachmentField: Fields.FieldAttachments = null;
-
-    /** The list form */
-    private _listForm = null;
 
     /**
      * Reference to the form fields
@@ -28,22 +42,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private _formFields: { [key: string]: Field } = {};
 
     /**
-     * Reference to the query used to refresh the item
-     */
-    private _query: Types.ODataQuery = null;
-
-    /**
-     * Get the attachment field
-     */
-    get AttachmentField(): Fields.FieldAttachments { return this._attachmentField; }
-
-    /**
-     * Set the attachment field
-     */
-    set AttachmentField(field: Fields.FieldAttachments) { this._attachmentField = field; }
-
-    /**
-     * Get the control mode
+     * Form Control Mode
      */
     get ControlMode(): number {
         let controlMode = this.props.controlMode;
@@ -56,7 +55,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if we are editing the form
         if (controlMode == SPTypes.ControlMode.Edit) {
             // Ensure the item exists
-            controlMode = this.state.listInfo.item && this.state.listInfo.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New;
+            controlMode = this.state.formInfo.item && this.state.formInfo.item.Id > 0 ? SPTypes.ControlMode.Edit : SPTypes.ControlMode.New;
         }
 
         // Return the control mode
@@ -64,66 +63,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
-     * Get the form fields
+     * Get the form information
      */
-    get FormFields(): { [key: string]: Field } { return this._formFields; }
-
-    /**
-     * The list item
-     */
-    get Item(): Types.IListItemQueryResult { return this.state.listInfo.item as any; }
-
-    /**
-     * Get the list
-     */
-    get List(): Types.IListResult { return this.state.listInfo.list; }
-
-    /**
-     * Get the item query
-     */
-    get ItemQuery(): Types.ODataQuery { return this._query; }
-
-    /**
-     * Set the item query
-     */
-    set ItemQuery(query: Types.ODataQuery) { this._query = query; }
-
-    /**
-     * Constructor
-     */
-    constructor(props: IItemFormProps) {
-        super(props);
-
-        // Set the state
-        this.state = {
-            listInfo: null,
-            refreshFl: false,
-            saveFl: false,
-            updateFl: false
-        };
-    }
-
-    /**
-     * Method to get the form values
-     */
-    getFormValues<T>() { return this.getValues<T>(); }
-
-    /**
-     * Method to refresh the item
-     */
-    refresh() {
-        // Update the state
-        this.setState({ refreshFl: true });
-    }
+    get FormInfo(): Types.Helper.ListForm.IListFormResult { return this.state.formInfo; }
 
     /**
      * Render the component
      */
     render() {
+        let spinner = null;
+
         // See if the list has been loaded
-        if (this.state.listInfo == null) {
+        if (this.state.formInfo == null) {
             // Load the list information
-            this.loadListInfo();
+            this.loadformInfo();
 
             // Return a spinner
             return (
@@ -134,28 +87,30 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // See if we are refreshing the item
         if (this.state.refreshFl) {
             // Reload the item
-            Helper.ListForm.refreshItem(this.state.listInfo).then(item => {
-                // Update the item
-                let listInfo = this.state.listInfo;
-                listInfo.item = item;
-
+            Helper.ListForm.refreshItem(this.state.formInfo).then(formInfo => {
                 // Update the state
                 this.setState({
-                    listInfo,
+                    formInfo,
                     refreshFl: false
                 });
             });
 
-            // Return a spinner
-            return (
+            // Set the spinner
+            spinner = (
                 <Spinner label="Refreshing the Item" size={SpinnerSize.large} />
             );
         }
-
-        // See if we are updating the item
-        if (this.state.updateFl) {
-            // Return a spinner
-            return (
+        // Else, see if we are saving the item
+        else if (this.state.saveFl) {
+            // Set the spinner
+            spinner = (
+                <Spinner label="Saving the item" size={SpinnerSize.large} />
+            );
+        }
+        // Else, see if we are updating the item
+        else if (this.state.updateFl) {
+            // Set the spinner
+            spinner = (
                 <Spinner label="Updating the Item" size={SpinnerSize.large} />
             );
         }
@@ -165,11 +120,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // Render the custom event
             return (
                 <div>
-                    {
-                        !this.state.saveFl ? null :
-                            <Spinner label="Saving the Item" size={SpinnerSize.large} />
-                    }
-                    <div hidden={this.state.saveFl}>
+                    {spinner}
+                    <div hidden={spinner ? true : false}>
                         {this.props.onRender(this.ControlMode)}
                     </div>
                 </div>
@@ -184,73 +136,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         <Spinner label="Saving the Item" size={SpinnerSize.large} />
                 }
                 <div hidden={this.state.saveFl}>
+                    {this.renderAttachmentsField()}
                     {this.renderFields()}
                 </div>
             </div>
         );
-    }
-
-    /**
-     * Method to save the item form
-     */
-    save<IItem = any>(): PromiseLike<IItem> {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Set the state
-            this.setState({ saveFl: true }, () => {
-                let listInfo = this.state.listInfo;
-
-                // Save the item
-                Helper.ListForm.saveItem(this.getFormValues(), this.List)
-                    // Save the attachments
-                    .then((item) => {
-                        // Update the list information
-                        listInfo.item = item;
-
-                        // Save the attachments
-                        this.saveAttachments(item.Id);
-                    })
-                    // Update the form
-                    .then(item => {
-                        // Refresh the item
-                        Helper.ListForm.refreshItem(listInfo).then(item => {
-                            // Update the list information
-                            listInfo.item = item;
-
-                            // Update the state
-                            this.setState({ listInfo, saveFl: false }, () => {
-                                // Resolve the promise
-                                resolve(item as any);
-                            });
-                        });
-                    });
-            });
-        });
-    }
-
-    /**
-     * Method to update the item.
-     */
-    updateItem<IItem = any>(fieldValues): PromiseLike<IItem> {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Set the state
-            this.setState({ updateFl: true }, () => {
-                let listInfo = this.state.listInfo;
-
-                // Update the item
-                Helper.ListForm.saveItem(listInfo, fieldValues).then(item => {
-                    // Update the item
-                    listInfo.item = item;
-
-                    // Update the state
-                    this.setState({ listInfo, updateFl: false });
-
-                    // Resolve the promise
-                    resolve(item as any);
-                });
-            });
-        });
     }
 
     /**
@@ -260,7 +150,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Method to get the form values
      */
-    private getValues<IItem = any>() {
+    getFormValues<IItem = any>() {
         let formValues: any = {};
 
         // Parse the fields
@@ -335,7 +225,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Method to load the list information
      */
-    private loadListInfo = () => {
+    private loadformInfo = () => {
         let fields = null;
         let formFields = this.props.fields;
 
@@ -356,22 +246,29 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             itemId: this.props.item ? this.props.item.Id : this.props.itemId,
             listName: this.props.listName,
             webUrl: this.props.webUrl
-        }).then(listInfo => {
+        }).then(formInfo => {
             // Update the state
-            this.setState({ listInfo });
+            this.setState({ formInfo });
         });
     }
 
     /**
-     * Method to render the fields
+     * Method to refresh the item
      */
-    private renderFields = () => {
-        let formFields = [];
-        let item = this.state.listInfo.item;
+    refresh() {
+        // Update the state
+        this.setState({ refreshFl: true });
+    }
+
+    /**
+     * Method to render the attachments field
+     */
+    private renderAttachmentsField = () => {
+        let item = this.state.formInfo.item;
 
         // See if we are displaying attachments
         if (this.props.showAttachments) {
-            formFields.push(
+            return (
                 <div className="ms-Grid-row" key={"row_Attachments"}>
                     <div className="ms-Grid-col-md12">
                         <Fields.FieldAttachments
@@ -393,9 +290,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             );
         }
 
-        // Parse the fields
-        for (let fieldName in this.state.listInfo.fields) {
-            let field = this.state.listInfo.fields[fieldName];
+        // Render nothing
+        return null;
+    }
+
+    /**
+     * Method to render the fields
+     */
+    private renderFields = () => {
+        let formFields = [];
+        let item = this.state.formInfo.item;
+
+        // Parse the form fields
+        for (let fieldName in this.state.formInfo.fields) {
+            let field = this.state.formInfo.fields[fieldName];
             let readOnly = false;
 
             // See if we are excluding this field
@@ -441,6 +349,34 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     }
 
     /**
+     * Method to save the item form
+     */
+    save<IItem = any>(): PromiseLike<IItem> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Set the state
+            this.setState({ saveFl: true }, () => {
+                // Save the item
+                Helper.ListForm.saveItem(this.state.formInfo, this.getFormValues())
+                    // Wait for the item to be saved
+                    .then((formInfo) => {
+                        // Save the attachments
+                        this.saveAttachments(formInfo.item.Id).then(() => {
+                            // Refresh the item
+                            Helper.ListForm.refreshItem(formInfo).then(formInfo => {
+                                // Update the state
+                                this.setState({ formInfo, saveFl: false }, () => {
+                                    // Resolve the promise
+                                    resolve(formInfo.item as any);
+                                });
+                            });
+                        });
+                    });
+            });
+        });
+    }
+
+    /**
      * Method to save the item attachments
      * @param itemId - The item id.
      */
@@ -458,6 +394,28 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 // Resolve the promise
                 resolve();
             }
+        });
+    }
+
+    /**
+     * Method to update the item.
+     */
+    updateItem<IItem = any>(fieldValues): PromiseLike<IItem> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Set the state
+            this.setState({ updateFl: true }, () => {
+                let formInfo = this.state.formInfo;
+
+                // Update the item
+                Helper.ListForm.saveItem(formInfo, fieldValues).then(formInfo => {
+                    // Update the state
+                    this.setState({ formInfo, updateFl: false }, () => {
+                        // Resolve the promise
+                        resolve(formInfo.item as any);
+                    });
+                });
+            });
         });
     }
 }

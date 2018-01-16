@@ -42,8 +42,8 @@ var FieldNumber = /** @class */ (function (_super) {
             var props = _this.props.props || {};
             props.className = (_this.props.className || "");
             props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
-            props.label = props.label ? props.label : _this.state.label;
+            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.errorMessage;
+            props.label = props.label ? props.label : _this.state.fieldInfo.title;
             props.onChanged = _this.updateValue;
             props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
             props.value = _this.getValue();
@@ -91,32 +91,6 @@ var FieldNumber = /** @class */ (function (_super) {
             }
             // Update the value
             _this.updateValue(value);
-        };
-        /**
-         * The field initialized event
-         * @param field - The field.
-         * @param state - The current state.
-         */
-        _this.onFieldInit = function (field, state) {
-            var numberField = field;
-            // Ensure this is a number field
-            if (numberField.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.Number) {
-                // Log
-                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a number field.");
-                return;
-            }
-            // Update the field information
-            state.fieldInfo.maxValue = numberField.MaximumValue;
-            state.fieldInfo.minValue = numberField.MinimumValue;
-            // See if the show as percentage property exists
-            if (numberField.ShowAsPercentage != undefined) {
-                // Update the property
-                state.fieldInfo.showAsPercentage = numberField.ShowAsPercentage;
-            }
-            else {
-                // Check the schema xml
-                state.fieldInfo.showAsPercentage = numberField.SchemaXml.indexOf('Percentage="TRUE"') > 0;
-            }
         };
         return _this;
     }

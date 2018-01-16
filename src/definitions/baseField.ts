@@ -1,70 +1,47 @@
 import { Types } from "gd-sprest";
 
 /**
- * Base Field Information
- */
-export interface IBaseFieldInfo {
-    /** The default value. */
-    defaultValue?: any;
-
-    /** The error message to display. This requires the "required" property to be set to true. */
-    errorMessage?: string;
-
-    /** The list item. */
-    item?: object;
-
-    /** The list name. */
-    listName: string;
-
-    /** The internal name of the field. */
-    name: string;
-
-    /** Flag indicating if the field is read-only. */
-    readOnly?: boolean;
-
-    /** True indicates a required field type. */
-    required?: boolean;
-
-    /** The display name of the field. */
-    title?: string;
-
-    /** The field type. */
-    type?: number;
-
-    /** The field type as a string. */
-    typeAsString?: string;
-
-    /** The relative web url containing the list. */
-    webUrl?: string;
-}
-
-/**
  * Base Field Properties
  */
-export interface IBaseFieldProps extends IBaseFieldInfo {
+export interface IBaseFieldProps {
     /** The class name. */
     className?: string;
 
     /** The field control mode. */
     controlMode?: number;
 
-    /** The list field. */
-    field?: Types.IFieldResult | Types.IFieldQueryResult;
+    /** The field information. */
+    fieldInfo?: Types.Helper.ListForm.IListFormFieldInfo;
+
+    /** The default field value. */
+    defaultValue?: any;
+
+    /** The field. */
+    field: Types.IFieldResult | Types.IFieldQueryResult;
+
+    /** The list name containing the field. */
+    listName: string;
+
+    /** The field name. */
+    name: string;
 
     /** The on change event */
     onChange?: (value: any) => void;
 
     /** The field render event. */
-    onFieldRender?: (fieldInfo: IBaseFieldInfo, field: JSX.Element) => any;
+    onFieldRender?: (fieldInfo: Types.Helper.ListForm.IListFormFieldInfo, field: JSX.Element) => any;
 
     /** The render event of the field component */
-    onRender?: (fieldInfo: IBaseFieldInfo) => any;
+    onRender?: (fieldInfo: Types.Helper.ListForm.IListFormFieldInfo) => any;
 
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;
 
     /** Flag to show a loading indicator. The default value is true. */
     showLoadingFl?: boolean;
+
+    /** The relative url of the web containing the field. */
+    webUrl?: string;
 }
 
 /**
@@ -74,14 +51,14 @@ export interface IBaseFieldState {
     /** The field control mode. */
     controlMode?: number;
 
+    /** The error message. */
+    errorMessage?: string;
+
     /** The field information. */
-    fieldInfo: IBaseFieldInfo;
+    fieldInfo: Types.Helper.ListForm.IListFormFieldInfo;
 
     /** Flag to determine if the field is initialized. */
     initFl?: boolean;
-
-    /** The field label. */
-    label?: string;
 
     /** The change event */
     onChange?: (value: any) => void;
@@ -105,14 +82,9 @@ export interface IBaseField<Props extends IBaseFieldProps, State extends IBaseFi
     getFieldValue: () => any;
 
     /**
-     * Event triggered after the field information is retrieved from SharePoint.
-     */
-    onFieldInit?: (field: Types.IField, state: IBaseFieldState) => void;
-
-    /**
      * Event triggered after loading the field information.
      */
-    onFieldLoaded?: () => void;
+    onFieldLoaded?: (info: any, state: IBaseFieldState) => void;
 
     /**
      * Method to update the value

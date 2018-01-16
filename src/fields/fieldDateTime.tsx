@@ -32,7 +32,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         props.disabled = this.props.controlMode == SPTypes.ControlMode.Display;
         props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : DayOfWeek.Sunday;
         props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : this.state.fieldInfo.required;
-        props.label = this.state.label;
+        props.label = this.state.fieldInfo.title;
         props.onSelectDate = this.state.fieldInfo.showTime ? this.onDateChanged : this.updateValue;
         props.placeholder = props.placeholder || "Date";
         props.strings = props.strings || DatePickerStrings;
@@ -48,17 +48,28 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
     }
 
     /**
-     * Events
+     * Methods
      */
 
     /**
-     * The field initialized event
-     * @param field - The field.
-     * @param state - The current state.
+     * Method to get the value
      */
-    onFieldInit = (field: any, state: IFieldDateTimeState) => {
-        // Update the state
-        state.fieldInfo.showTime = field.DisplayFormat == SPTypes.DateFormat.DateTime;
+    private getValue = () => {
+        // Get the value
+        let value = this.getFieldValue();
+        if (value && typeof (value) === "string") {
+            // See if the default value is set to today
+            if (value == "[today]") {
+                // Return the current date/time
+                return new Date(Date.now());
+            } else {
+                // Convert the value
+                return new Date(value);
+            }
+        }
+
+        // Return the value
+        return value;
     }
 
     /**
@@ -93,31 +104,6 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // Update the value
         this.updateValue(date);
-    }
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Method to get the value
-     */
-    private getValue = () => {
-        // Get the value
-        let value = this.getFieldValue();
-        if (value && typeof (value) === "string") {
-            // See if the default value is set to today
-            if (value == "[today]") {
-                // Return the current date/time
-                return new Date(Date.now());
-            } else {
-                // Convert the value
-                return new Date(value);
-            }
-        }
-
-        // Return the value
-        return value;
     }
 
     /**

@@ -1,17 +1,6 @@
 import { Types } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
-
-/**
- * Choice Field Information
- */
-export interface IChoiceFieldInfo extends IBaseFieldInfo {
-    /** The dropdown choices. */
-    choices: Types.ComplexTypes.FieldMultiChoiceValue;
-
-    /** Flag to determine if this is a multi-choice field. */
-    multiChoice?: boolean;
-}
+import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
 
 /**
  * Choice Field Properties
@@ -29,7 +18,7 @@ export interface IFieldChoiceProps extends IBaseFieldProps {
  */
 export interface IFieldChoiceState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: IChoiceFieldInfo;
+    fieldInfo: Types.Helper.ListForm.IListFormChoiceFieldInfo;
 
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
@@ -42,5 +31,5 @@ export interface IFieldChoice extends IBaseField<IFieldChoiceProps, IFieldChoice
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldChoice | Types.IFieldMultiChoice, state: IBaseFieldState) => void;
+    onFieldLoaded: (fieldInfo: Types.Helper.ListForm.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
 }

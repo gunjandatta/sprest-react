@@ -27,7 +27,7 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
             // Return the value
             return (
                 <div className={(this.props.className || "")}>
-                    <Label>{props.label || this.state.label}</Label>
+                    <Label>{props.label || this.state.fieldInfo.title}</Label>
                     <div>{this.getValue() ? "Yes" : "No"}</div>
                 </div>
             );
@@ -36,11 +36,15 @@ export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanSta
         // Render the component
         return (
             <div className={(this.props.className || "")}>
-                <Label>{props.label || this.state.label}</Label>
+                <Label>{props.label || this.state.fieldInfo.title}</Label>
                 <Checkbox {...props as any} />
             </div>
         );
     }
+
+    /**
+     * Methods
+     */
 
     /**
      * Method to get the value

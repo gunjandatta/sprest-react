@@ -1,14 +1,6 @@
 import { Types } from "gd-sprest";
 import { ITextFieldProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
-/**
- * Text Field Information
- */
-export interface ITextFieldInformation extends IBaseFieldInfo {
-    multiline?: boolean;
-    richText?: boolean;
-    rows?: number;
-}
+import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
 /**
  * Text Field Properties
  */
@@ -22,7 +14,8 @@ export interface IFieldTextProps extends IBaseFieldProps {
  * Text Field State
  */
 export interface IFieldTextState extends IBaseFieldState {
-    fieldInfo: ITextFieldInformation;
+    /** The field information */
+    fieldInfo: Types.Helper.ListForm.IListFormTextFieldInfo;
 }
 /**
  * Text Field
@@ -31,5 +24,5 @@ export interface IFieldText extends IBaseField<IFieldTextProps, IFieldTextState>
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldNote | Types.IFieldText, state: IBaseFieldState) => void;
+    onFieldLoaded?: (info: any, state: IBaseFieldState) => void;
 }

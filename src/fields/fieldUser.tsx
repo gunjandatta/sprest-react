@@ -30,11 +30,11 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
         // Render the component
         return (
             <div className={(this.props.className || "")}>
-                <Label {...lblProps as any}>{lblProps.defaultValue || this.state.label}</Label>
+                <Label {...lblProps as any}>{lblProps.defaultValue || this.state.fieldInfo.title}</Label>
                 <SPPeoplePicker
                     allowGroups={this.state.fieldInfo.allowGroups}
-                    allowMultiple={this.state.fieldInfo.allowMultiple}
-                    fieldValue={this.props.defaultValue ? this.props.defaultValue.results || [this.props.defaultValue] : null}
+                    allowMultiple={this.state.fieldInfo.multi}
+                    fieldValue={this.state.value ? this.state.value.results || [this.state.value] : null}
                     props={props}
                 />
             </div>
@@ -42,7 +42,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
     }
 
     /**
-     * Events
+     * Methods
      */
 
     /**
@@ -51,34 +51,26 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      */
     onChange = (personas) => {
         // Update the field value
-        this.updateValue(SPPeoplePicker.convertToFieldValue(personas, this.state.fieldInfo.allowMultiple));
+        this.updateValue(SPPeoplePicker.convertToFieldValue(personas, this.state.fieldInfo.multi));
     }
 
     /**
-     * The field initialized event
-     * @param field - The field.
+     * The field loaded event
+     * @param info - The field information.
      * @param state - The current state.
      */
-    onFieldInit = (field: any, state: IFieldUserState) => {
-        let userField = field as Types.IFieldUser;
+    onFieldLoaded = (info, state: IFieldUserState) => {
+        let fldInfo = info as Types.Helper.ListForm.IListFormUserFieldInfo;
 
-        // Ensure this is a lookup field
-        if (userField.FieldTypeKind != SPTypes.FieldType.User) {
-            // Log
-            console.warn("[gd-sprest] The field '" + userField.InternalName + "' is not a user field.");
-            return;
-        }
-
-        // Update the state
-        state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
-        state.fieldInfo.allowGroups = userField.SelectionMode == SPTypes.FieldUserSelectionType.PeopleAndGroups;
+        // Default the value
+        state.value = this.props.defaultValue || fldInfo.defaultValue;
 
         // See if this is a multi-lookup field
-        if (state.fieldInfo.allowMultiple) {
+        if (fldInfo.multi) {
             let results = [];
 
             // Parse the users
-            let users = (this.props.defaultValue ? this.props.defaultValue.results : this.props.defaultValue) || [];
+            let users = (state.value ? state.value.results : state.value) || [];
             for (let i = 0; i < users.length; i++) {
                 // Add the item id
                 results.push(users[i].ID || users[i]);
@@ -88,7 +80,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
             state.value = { results };
         } else {
             // Set the value
-            state.value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
+            state.value = state.value || state.value.ID;
         }
     }
 }

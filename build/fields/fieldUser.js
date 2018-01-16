@@ -47,11 +47,11 @@ var FieldUser = /** @class */ (function (_super) {
             props.onChange = _this.onChange;
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
-                React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.label),
-                React.createElement(__1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.allowMultiple, fieldValue: _this.props.defaultValue ? _this.props.defaultValue.results || [_this.props.defaultValue] : null, props: props })));
+                React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.fieldInfo.title),
+                React.createElement(__1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.multi, fieldValue: _this.state.value ? _this.state.value.results || [_this.state.value] : null, props: props })));
         };
         /**
-         * Events
+         * Methods
          */
         /**
          * The change event
@@ -59,29 +59,22 @@ var FieldUser = /** @class */ (function (_super) {
          */
         _this.onChange = function (personas) {
             // Update the field value
-            _this.updateValue(__1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.allowMultiple));
+            _this.updateValue(__1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.multi));
         };
         /**
-         * The field initialized event
-         * @param field - The field.
+         * The field loaded event
+         * @param info - The field information.
          * @param state - The current state.
          */
-        _this.onFieldInit = function (field, state) {
-            var userField = field;
-            // Ensure this is a lookup field
-            if (userField.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.User) {
-                // Log
-                console.warn("[gd-sprest] The field '" + userField.InternalName + "' is not a user field.");
-                return;
-            }
-            // Update the state
-            state.fieldInfo.allowMultiple = userField.AllowMultipleValues;
-            state.fieldInfo.allowGroups = userField.SelectionMode == gd_sprest_1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
+        _this.onFieldLoaded = function (info, state) {
+            var fldInfo = info;
+            // Default the value
+            state.value = _this.props.defaultValue || fldInfo.defaultValue;
             // See if this is a multi-lookup field
-            if (state.fieldInfo.allowMultiple) {
+            if (fldInfo.multi) {
                 var results = [];
                 // Parse the users
-                var users = (_this.props.defaultValue ? _this.props.defaultValue.results : _this.props.defaultValue) || [];
+                var users = (state.value ? state.value.results : state.value) || [];
                 for (var i = 0; i < users.length; i++) {
                     // Add the item id
                     results.push(users[i].ID || users[i]);
@@ -91,7 +84,7 @@ var FieldUser = /** @class */ (function (_super) {
             }
             else {
                 // Set the value
-                state.value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
+                state.value = state.value || state.value.ID;
             }
         };
         return _this;

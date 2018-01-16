@@ -1,6 +1,6 @@
 import { Types } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
+import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
 
 /**
  * Managed Metadata Term Information
@@ -9,26 +9,6 @@ export interface IManagedMetadataTermInfo {
     id: string;
     name: string;
     path: string;
-}
-
-/**
- * Managed Metadata Field Information
- */
-export interface IManagedMetadataFieldInfo extends IBaseFieldInfo {
-    /** Flag to allow multiple items to be selected. */
-    allowMultipleValues: boolean;
-
-    /** The terms. */
-    terms: Array<IManagedMetadataTermInfo>;
-
-    /** The term set id. */
-    termSetId: string;
-
-    /** The term store id. */
-    termStoreId: string;
-
-    /** The value field. */
-    valueField?: string;
 }
 
 /**
@@ -47,10 +27,13 @@ export interface IFieldManagedMetadataProps extends IBaseFieldProps {
  */
 export interface IFieldManagedMetadataState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: IManagedMetadataFieldInfo;
+    fieldInfo: Types.Helper.ListForm.IListFormMMSFieldInfo;
 
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
+
+    /** The hidden value field. */
+    valueField?: Types.IFieldManagedMetadata;
 }
 
 /**
@@ -60,5 +43,5 @@ export interface IFieldManagedMetadata extends IBaseField<IFieldManagedMetadataP
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldManagedMetadata, state: IFieldManagedMetadataState) => void;
+    onFieldLoaded?: (info: any, state: IBaseFieldState) => void;
 }

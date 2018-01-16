@@ -9,6 +9,9 @@ export declare class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBo
      */
     renderField: () => any;
     /**
+     * Methods
+     */
+    /**
      * Method to get the value
      */
     private getValue;

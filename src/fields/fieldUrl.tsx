@@ -25,7 +25,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
         urlProps.disabled = this.props.controlMode == SPTypes.ControlMode.Display;
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
-        urlProps.label = urlProps.label || this.state.label;
+        urlProps.label = urlProps.label || this.state.fieldInfo.title;
         urlProps.onChanged = this.onUrlChanged;
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
 
@@ -33,7 +33,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         let descProps: ITextFieldProps = this.props.descProps || {};
         descProps.defaultValue = defaultValue ? defaultValue.Description : "";
         descProps.disabled = this.props.controlMode == SPTypes.ControlMode.Display;
-        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.fieldInfo.errorMessage;
+        descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
         descProps.onChanged = this.onDescChanged;
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
@@ -61,7 +61,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
     }
 
     /**
-     * Events
+     * Methods
      */
 
     /**

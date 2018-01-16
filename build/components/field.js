@@ -41,14 +41,6 @@ var Field = /** @class */ (function (_super) {
             var props = _this.props || {};
             var defaultValue = props.defaultValue;
             var fieldInfo = _this.state.fieldInfo;
-            // See if this is a user or lookup field
-            if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup || fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
-                // Ensure the default value is set
-                if (_this.props.defaultValue == null && _this.props.item) {
-                    // Update the default value
-                    defaultValue = _this.props.item[fieldInfo.name + "Id"];
-                }
-            }
             // Return the field component, based on the type
             switch (fieldInfo.type) {
                 // Boolean

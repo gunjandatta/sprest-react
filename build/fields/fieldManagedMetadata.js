@@ -46,14 +46,14 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             var props = _this.props.props || {};
             props.className = (_this.props.className || "");
             props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
+            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.errorMessage;
             props.errorMessage = _this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
-            props.label = props.label ? props.label : _this.state.label;
-            props.multiSelect = _this.state.fieldInfo.allowMultipleValues;
+            props.multiSelect = _this.state.fieldInfo.multi;
+            props.label = props.label ? props.label : _this.state.fieldInfo.title;
             props.onChanged = _this.onChanged;
             props.options = _this.state.options;
             props.required = props.required || _this.state.fieldInfo.required;
-            // See if this is a multi-choice
+            // See if we are allowing multiple values
             if (props.multiSelect) {
                 var keys = [];
                 // Parse the results
@@ -72,7 +72,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
         };
         /**
-         * Events
+         * Methods
          */
         /**
          * The change event for the dropdown list
@@ -81,7 +81,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
          */
         _this.onChanged = function (option, idx) {
             // See if this is a multi-choice field
-            if (_this.state.fieldInfo.allowMultipleValues) {
+            if (_this.state.fieldInfo.multi) {
                 var fieldValue = _this.state.value;
                 // Append the option if it was selected
                 if (option.isSelected || option.selected) {
@@ -115,29 +115,19 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             }
         };
         /**
-         * The field initialized event
-         * @param field - The field.
+         * The field loaded event
+         * @param info - The field information.
          * @param state - The current state.
          */
-        _this.onFieldInit = function (field, state) {
-            var mmsField = field;
-            // Ensure this is a lookup field
-            if (mmsField.TypeAsString != state.fieldInfo.typeAsString) {
-                // Log
-                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a lookup field.");
-                return;
-            }
-            // Update the field information
-            state.fieldInfo.allowMultipleValues = mmsField.AllowMultipleValues;
-            state.fieldInfo.termSetId = mmsField.TermSetId;
-            state.fieldInfo.termStoreId = mmsField.SspId;
-            // Load the hidden field
-            _this.loadValueField(state.fieldInfo).then(function (fieldInfo) {
-                // Load the value field
-                _this.loadTerms(state.fieldInfo).then(function (fieldInfo) {
+        _this.onFieldLoaded = function (info, state) {
+            var fldInfo = info;
+            // Load the value field
+            gd_sprest_1.Helper.ListFormField.loadMMSValueField(fldInfo).then(function (valueField) {
+                // Load the terms
+                gd_sprest_1.Helper.ListFormField.loadMMSData(fldInfo).then(function (terms) {
                     var value = null;
                     // See if this is a multi-lookup field and a value exists
-                    if (fieldInfo.allowMultipleValues) {
+                    if (fldInfo.multi) {
                         var results = [];
                         // Parse the values
                         var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
@@ -157,112 +147,15 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                     }
                     else {
                         // Set the default value
-                        value = _this.props.defaultValue ? _this.props.defaultValue : null;
+                        value = fldInfo.defaultValue ? fldInfo.defaultValue : null;
                     }
                     // Add the metadata
                     value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
                     // Update the state
                     _this.setState({
-                        fieldInfo: fieldInfo,
-                        options: _this.toOptions(fieldInfo.terms),
-                        value: value
-                    });
-                });
-            });
-        };
-        /**
-         * Methods
-         */
-        /**
-         * Method to load the value field
-         * @param fieldInfo - The field information.
-         */
-        _this.loadValueField = function (fieldInfo) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if we are allowing multiple values
-                if (fieldInfo.allowMultipleValues) {
-                    // Get the web
-                    (new gd_sprest_1.Web(fieldInfo.webUrl))
-                        .Lists(fieldInfo.listName)
-                        .Fields()
-                        .getByInternalNameOrTitle(fieldInfo.name + "_0")
-                        .execute(function (field) {
-                        // See if the field exists
-                        if (field.existsFl) {
-                            // Set the value field
-                            fieldInfo.valueField = field.InternalName;
-                            // Resolve the promise
-                            resolve(fieldInfo);
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest] Unable to find the hidden value field for '" + fieldInfo.name + "'.");
-                        }
-                    });
-                }
-                else {
-                    // Resolve the promise
-                    resolve(fieldInfo);
-                }
-            });
-        };
-        /**
-         * Method to load the terms
-         * @param fieldInfo - The field information.
-         */
-        _this.loadTerms = function (fieldInfo) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the utility class is loaded
-                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
-                    // Ensure the taxonomy script is loaded
-                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                        // Load the terms
-                        var context = SP.ClientContext.get_current();
-                        var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                        var termStore = session.get_termStores().getById(fieldInfo.termStoreId);
-                        var termSet = termStore.getTermSet(fieldInfo.termSetId);
-                        var terms = termSet.getAllTerms();
-                        context.load(terms);
-                        // Execute the request
-                        context.executeQueryAsync(
-                        // Success
-                        function () {
-                            // Clear the terms
-                            fieldInfo.terms = [];
-                            // Parse the terms
-                            var enumerator = terms.getEnumerator();
-                            while (enumerator.moveNext()) {
-                                var term = enumerator.get_current();
-                                // Add the term information
-                                fieldInfo.terms.push({
-                                    id: term.get_id().toString(),
-                                    name: term.get_name(),
-                                    path: term.get_pathOfTerm().replace(/;/g, "/")
-                                });
-                            }
-                            // Sort the terms
-                            fieldInfo.terms.sort(function (a, b) {
-                                if (a.path < b.path) {
-                                    return -1;
-                                }
-                                if (a.path > b.path) {
-                                    return 1;
-                                }
-                                return 0;
-                            });
-                            // Resolve the request
-                            resolve(fieldInfo);
-                        }, 
-                        // Error
-                        function () {
-                            // Log
-                            console.log("[gd-sprest] Error getting the term set terms.");
-                            // Resolve the request
-                            resolve(fieldInfo);
-                        });
+                        options: _this.toOptions(terms),
+                        value: value,
+                        valueField: valueField
                     });
                 });
             });
@@ -275,7 +168,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             if (terms === void 0) { terms = []; }
             var options = [];
             // See if this is not a required multi-lookup field
-            if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.allowMultipleValues) {
+            if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.multi) {
                 // Add a blank option
                 options.push({
                     key: null,

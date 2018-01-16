@@ -41,14 +41,14 @@ var FieldChoice = /** @class */ (function (_super) {
             var props = _this.props.props || {};
             props.className = (_this.props.className || "");
             props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
+            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.errorMessage;
             props.errorMessage = _this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
-            props.label = props.label || _this.state.label;
-            props.multiSelect = _this.state.fieldInfo.multiChoice;
+            props.label = props.label || _this.state.fieldInfo.title;
+            props.multiSelect = _this.state.fieldInfo.multi;
             props.onChanged = _this.onChanged;
             props.options = _this.state.options;
             props.required = props.required || _this.state.fieldInfo.required;
-            // See if this is a multi-choice
+            // See if we are allowing multiple values
             if (props.multiSelect) {
                 // Set the selected keys
                 props.defaultSelectedKeys = _this.state.value.results;
@@ -61,7 +61,7 @@ var FieldChoice = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
         };
         /**
-         * Events
+         * Methods
          */
         /**
          * The change event for the dropdown list
@@ -70,7 +70,7 @@ var FieldChoice = /** @class */ (function (_super) {
          */
         _this.onChanged = function (option, idx) {
             // See if this is a multi-choice field
-            if (_this.state.fieldInfo.multiChoice) {
+            if (_this.state.fieldInfo.multi) {
                 var fieldValue = _this.state.value;
                 // Append the option if it was selected
                 if (option.isSelected || option.selected) {
@@ -95,46 +95,34 @@ var FieldChoice = /** @class */ (function (_super) {
             }
         };
         /**
-         * The field initialized event
-         * @param field - The field.
+         * The field loaded
+         * @param field - The field information.
          * @param state - The current state.
          */
-        _this.onFieldInit = function (field, state) {
-            var choiceField = field;
-            // Ensure this is a choice field
-            if (field.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.Choice && field.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.MultiChoice) {
-                // Log
-                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a choice field.");
-                return;
-            }
-            // Update the state
-            state.fieldInfo.choices = choiceField.Choices;
-            state.fieldInfo.multiChoice = choiceField.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.MultiChoice;
-            state.options = _this.toOptions();
-            // See if the default value is provided
-            if (_this.props.defaultValue) {
+        _this.onFieldLoaded = function (info, state) {
+            var fldInfo = info;
+            // Set the choices
+            state.options = _this.toOptions(fldInfo);
+            // Set the default value
+            state.value = _this.props.defaultValue;
+            // See if this is a new form, and a default value exists
+            if (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.New && fldInfo.field.DefaultValue) {
                 // Set the value
-                state.value = _this.props.defaultValue;
+                state.value = state.value || (fldInfo.multi ? { results: [fldInfo.field.DefaultValue] } : fldInfo.field.DefaultValue);
             }
-            else if (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.New && choiceField.DefaultValue) {
-                // Set the value
-                state.value = state.fieldInfo.multiChoice ? { results: [choiceField.DefaultValue] } : choiceField.DefaultValue;
-            }
-            else {
-                // Set the default value
-                state.value = state.fieldInfo.multiChoice ? { results: [] } : null;
+            // See if no value exists for a multi choice field
+            if (state.value == null && info.multi) {
+                // Set a default value
+                state.value = { results: [] };
             }
         };
         /**
-         * Methods
-         */
-        /**
          * Method to convert the field value to options
          */
-        _this.toOptions = function () {
+        _this.toOptions = function (fldInfo) {
             var options = [];
             // See if this is not a required multi-choice field
-            if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.multiChoice) {
+            if (!fldInfo.required && !fldInfo.multi) {
                 // Add a blank option
                 options.push({
                     key: null,
@@ -142,8 +130,8 @@ var FieldChoice = /** @class */ (function (_super) {
                 });
             }
             // Parse the choices
-            for (var i = 0; i < _this.state.fieldInfo.choices.results.length; i++) {
-                var choice = _this.state.fieldInfo.choices.results[i];
+            for (var i = 0; i < fldInfo.choices.length; i++) {
+                var choice = fldInfo.choices[i];
                 // Add the option
                 options.push({
                     key: choice,

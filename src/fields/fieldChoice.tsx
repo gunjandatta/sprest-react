@@ -21,15 +21,15 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         let props: IDropdownProps = this.props.props || {};
         props.className = (this.props.className || "");
         props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
-        props.label = props.label || this.state.label;
-        props.multiSelect = this.state.fieldInfo.multiChoice;
+        props.label = props.label || this.state.fieldInfo.title;
+        props.multiSelect = this.state.fieldInfo.multi;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
         props.required = props.required || this.state.fieldInfo.required;
 
-        // See if this is a multi-choice
+        // See if we are allowing multiple values
         if (props.multiSelect) {
             // Set the selected keys
             props.defaultSelectedKeys = this.state.value.results;
@@ -45,7 +45,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     }
 
     /**
-     * Events
+     * Methods
      */
 
     /**
@@ -55,7 +55,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
      */
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // See if this is a multi-choice field
-        if (this.state.fieldInfo.multiChoice) {
+        if (this.state.fieldInfo.multi) {
             let fieldValue = this.state.value;
 
             // Append the option if it was selected
@@ -81,52 +81,40 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     }
 
     /**
-     * The field initialized event
-     * @param field - The field.
+     * The field loaded
+     * @param field - The field information.
      * @param state - The current state.
      */
-    onFieldInit = (field: any, state: IFieldChoiceState) => {
-        let choiceField = field as Types.IFieldChoice;
+    onFieldLoaded = (info, state: IFieldChoiceState) => {
+        let fldInfo = info as Types.Helper.ListForm.IListFormChoiceFieldInfo;
 
-        // Ensure this is a choice field
-        if (field.FieldTypeKind != SPTypes.FieldType.Choice && field.FieldTypeKind != SPTypes.FieldType.MultiChoice) {
-            // Log
-            console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a choice field.");
-            return;
+        // Set the choices
+        state.options = this.toOptions(fldInfo);
+
+        // Set the default value
+        state.value = this.props.defaultValue;
+
+        // See if this is a new form, and a default value exists
+        if (this.props.controlMode == SPTypes.ControlMode.New && fldInfo.field.DefaultValue) {
+            // Set the value
+            state.value = state.value || (fldInfo.multi ? { results: [fldInfo.field.DefaultValue] } : fldInfo.field.DefaultValue);
         }
 
-        // Update the state
-        state.fieldInfo.choices = choiceField.Choices;
-        state.fieldInfo.multiChoice = choiceField.FieldTypeKind == SPTypes.FieldType.MultiChoice;
-        state.options = this.toOptions();
-
-        // See if the default value is provided
-        if (this.props.defaultValue) {
-            // Set the value
-            state.value = this.props.defaultValue;
-        }
-        // Else, see if this is a new form, and a default value exists
-        else if (this.props.controlMode == SPTypes.ControlMode.New && choiceField.DefaultValue) {
-            // Set the value
-            state.value = state.fieldInfo.multiChoice ? { results: [choiceField.DefaultValue] } : choiceField.DefaultValue;
-        } else {
-            // Set the default value
-            state.value = state.fieldInfo.multiChoice ? { results: [] } : null;
+        // See if no value exists for a multi choice field
+        if (state.value == null && info.multi) {
+            // Set a default value
+            state.value = { results: [] };
         }
     }
 
     /**
-     * Methods
-     */
-
-    /**
      * Method to convert the field value to options
      */
-    private toOptions = () => {
+    private toOptions = (fldInfo: Types.Helper.ListForm.IListFormChoiceFieldInfo) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-choice field
-        if (!this.state.fieldInfo.required && !this.state.fieldInfo.multiChoice) {
+        if (!fldInfo.required && !fldInfo.multi) {
             // Add a blank option
             options.push({
                 key: null,
@@ -135,8 +123,8 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
         }
 
         // Parse the choices
-        for (let i = 0; i < this.state.fieldInfo.choices.results.length; i++) {
-            let choice = this.state.fieldInfo.choices.results[i];
+        for (let i = 0; i < fldInfo.choices.length; i++) {
+            let choice = fldInfo.choices[i];
 
             // Add the option
             options.push({

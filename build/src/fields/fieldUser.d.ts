@@ -9,7 +9,7 @@ export declare class FieldUser extends BaseField<IFieldUserProps, IFieldUserStat
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
     /**
      * The change event
@@ -17,9 +17,9 @@ export declare class FieldUser extends BaseField<IFieldUserProps, IFieldUserStat
      */
     onChange: (personas: any) => void;
     /**
-     * The field initialized event
-     * @param field - The field.
+     * The field loaded event
+     * @param info - The field information.
      * @param state - The current state.
      */
-    onFieldInit: (field: any, state: IFieldUserState) => void;
+    onFieldLoaded: (info: any, state: IFieldUserState) => void;
 }

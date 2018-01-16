@@ -47,7 +47,7 @@ var FieldDateTime = /** @class */ (function (_super) {
             props.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;
             props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : _this.state.fieldInfo.required;
-            props.label = _this.state.label;
+            props.label = _this.state.fieldInfo.title;
             props.onSelectDate = _this.state.fieldInfo.showTime ? _this.onDateChanged : _this.updateValue;
             props.placeholder = props.placeholder || "Date";
             props.strings = props.strings || common_1.DatePickerStrings;
@@ -58,16 +58,27 @@ var FieldDateTime = /** @class */ (function (_super) {
                 _this.renderTime(props.value)));
         };
         /**
-         * Events
+         * Methods
          */
         /**
-         * The field initialized event
-         * @param field - The field.
-         * @param state - The current state.
+         * Method to get the value
          */
-        _this.onFieldInit = function (field, state) {
-            // Update the state
-            state.fieldInfo.showTime = field.DisplayFormat == gd_sprest_1.SPTypes.DateFormat.DateTime;
+        _this.getValue = function () {
+            // Get the value
+            var value = _this.getFieldValue();
+            if (value && typeof (value) === "string") {
+                // See if the default value is set to today
+                if (value == "[today]") {
+                    // Return the current date/time
+                    return new Date(Date.now());
+                }
+                else {
+                    // Convert the value
+                    return new Date(value);
+                }
+            }
+            // Return the value
+            return value;
         };
         /**
          * The date changed event
@@ -97,29 +108,6 @@ var FieldDateTime = /** @class */ (function (_super) {
             date.setMinutes(minutes);
             // Update the value
             _this.updateValue(date);
-        };
-        /**
-         * Methods
-         */
-        /**
-         * Method to get the value
-         */
-        _this.getValue = function () {
-            // Get the value
-            var value = _this.getFieldValue();
-            if (value && typeof (value) === "string") {
-                // See if the default value is set to today
-                if (value == "[today]") {
-                    // Return the current date/time
-                    return new Date(Date.now());
-                }
-                else {
-                    // Convert the value
-                    return new Date(value);
-                }
-            }
-            // Return the value
-            return value;
         };
         /**
          * Method to render the time component

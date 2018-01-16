@@ -9,14 +9,8 @@ export declare class FieldText extends BaseField<IFieldTextProps, IFieldTextStat
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
-    /**
-     * The field initialized event
-     * @param field - The field.
-     * @param state - The current state.
-     */
-    onFieldInit: (field: any, state: IFieldTextState) => void;
     /**
      * The on change event
      * @param value - The field value.

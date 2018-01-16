@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
+import { Types } from "gd-sprest";
 import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
 /**
  * Base Field
@@ -12,40 +13,27 @@ export declare abstract class BaseField<Props extends IBaseFieldProps = IBaseFie
      */
     constructor(props: Props);
     /**
-     * Component initialized event
+     * Method to render the component
      */
-    componentWillMount(): void;
+    render(): any;
+    /**
+     * Methods
+     */
     /**
      * Method to get the field value
      */
     getFieldValue: () => any;
     /**
-     * Event triggered after the field information is retrieved from SharePoint
-     */
-    onFieldInit?: (field: any, state: State) => void;
-    /**
      * Event triggered after loading the field information
      */
-    onFieldLoaded?: () => void;
-    /**
-     * Method to update the value
-     * @param value - The field value.
-     */
-    updateValue: (value: any) => void;
-    /**
-     * Method to render the component
-     */
-    render(): any;
+    onFieldLoaded?: (info: Types.Helper.ListForm.IListFormFieldInfo, state: State) => void;
     /**
      * Method to render the field
      */
     renderField: () => JSX.Element;
     /**
-     * Methods
+     * Method to update the value
+     * @param value - The field value.
      */
-    /**
-     * Method to load the field information
-     */
-    private load;
-    private loadField;
+    updateValue: (value: any) => void;
 }

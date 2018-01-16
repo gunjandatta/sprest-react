@@ -44,14 +44,14 @@ var FieldUrl = /** @class */ (function (_super) {
             urlProps.defaultValue = defaultValue ? defaultValue.Url : "";
             urlProps.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
-            urlProps.label = urlProps.label || _this.state.label;
+            urlProps.label = urlProps.label || _this.state.fieldInfo.title;
             urlProps.onChanged = _this.onUrlChanged;
             urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : _this.state.fieldInfo.required;
             // Update the description properties
             var descProps = _this.props.descProps || {};
             descProps.defaultValue = defaultValue ? defaultValue.Description : "";
             descProps.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-            descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : _this.state.fieldInfo.errorMessage;
+            descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : _this.state.errorMessage;
             descProps.errorMessage = _this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
             descProps.onChanged = _this.onDescChanged;
             descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
@@ -66,7 +66,7 @@ var FieldUrl = /** @class */ (function (_super) {
                 React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps))));
         };
         /**
-         * Events
+         * Methods
          */
         /**
          * The change event for the description field

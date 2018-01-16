@@ -10,7 +10,7 @@ export declare class FieldManagedMetadata extends BaseField<IFieldManagedMetadat
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
     /**
      * The change event for the dropdown list
@@ -19,24 +19,11 @@ export declare class FieldManagedMetadata extends BaseField<IFieldManagedMetadat
      */
     protected onChanged: (option: IDropdownOption, idx: number) => void;
     /**
-     * The field initialized event
-     * @param field - The field.
+     * The field loaded event
+     * @param info - The field information.
      * @param state - The current state.
      */
-    onFieldInit: (field: any, state: IFieldManagedMetadataState) => void;
-    /**
-     * Methods
-     */
-    /**
-     * Method to load the value field
-     * @param fieldInfo - The field information.
-     */
-    private loadValueField;
-    /**
-     * Method to load the terms
-     * @param fieldInfo - The field information.
-     */
-    private loadTerms;
+    onFieldLoaded: (info: any, state: IFieldManagedMetadataState) => void;
     /**
      * Method to convert the field value to options
      * @param terms - The managed metadata terms.

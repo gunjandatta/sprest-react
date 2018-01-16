@@ -1,13 +1,6 @@
 import { Types } from "gd-sprest";
 import { ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
-/**
- * User Field Information
- */
-export interface IUserFieldInfo extends IBaseFieldInfo {
-    allowGroups?: boolean;
-    allowMultiple?: boolean;
-}
+import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
 /**
  * User Field Properties
  */
@@ -23,7 +16,8 @@ export interface IFieldUserProps extends IBaseFieldProps {
  * User Field State
  */
 export interface IFieldUserState extends IBaseFieldState {
-    fieldInfo: IUserFieldInfo;
+    /** The field information */
+    fieldInfo: Types.Helper.ListForm.IListFormUserFieldInfo;
 }
 /**
  * User Field
@@ -32,5 +26,5 @@ export interface IFieldUser extends IBaseField<IFieldUserProps, IFieldUserState>
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldUser, state: IBaseFieldState) => void;
+    onFieldLoaded?: (info: any, state: IBaseFieldState) => void;
 }

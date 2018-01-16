@@ -9,7 +9,7 @@ export declare class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> 
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
     /**
      * The change event for the description field

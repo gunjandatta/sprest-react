@@ -1,12 +1,6 @@
 import { Types } from "gd-sprest";
 import { IDatePickerProps, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState, IBaseFieldInfo } from "../definitions";
-/**
- * Date/Time Field Information
- */
-export interface IDateTimeFieldInfo extends IBaseFieldInfo {
-    showTime?: boolean;
-}
+import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
 /**
  * Date/Time Field Properties
  */
@@ -22,7 +16,8 @@ export interface IFieldDateTimeProps extends IBaseFieldProps {
  * Date/Time Field State
  */
 export interface IFieldDateTimeState extends IBaseFieldState {
-    fieldInfo: IDateTimeFieldInfo;
+    /** The field information */
+    fieldInfo: Types.Helper.ListForm.IListFormDateFieldInfo;
 }
 /**
  * Date/Time Field
@@ -31,5 +26,5 @@ export interface IFieldDateTime extends IBaseField<IFieldDateTimeProps, IFieldDa
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldInit: (field: Types.IFieldDateTime, state: IBaseFieldState) => void;
+    onFieldLoaded?: (info: any, state: IBaseFieldState) => void;
 }

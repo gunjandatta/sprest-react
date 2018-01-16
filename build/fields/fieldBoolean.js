@@ -45,14 +45,17 @@ var FieldBoolean = /** @class */ (function (_super) {
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
                 return (React.createElement("div", { className: (_this.props.className || "") },
-                    React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.label),
+                    React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.fieldInfo.title),
                     React.createElement("div", null, _this.getValue() ? "Yes" : "No")));
             }
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
-                React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.label),
+                React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.fieldInfo.title),
                 React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props))));
         };
+        /**
+         * Methods
+         */
         /**
          * Method to get the value
          */

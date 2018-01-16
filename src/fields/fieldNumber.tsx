@@ -21,8 +21,8 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         let props: ITextFieldProps = this.props.props || {};
         props.className = (this.props.className || "");
         props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
-        props.label = props.label ? props.label : this.state.label;
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.errorMessage;
+        props.label = props.label ? props.label : this.state.fieldInfo.title;
         props.onChanged = this.updateValue;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.value = this.getValue();
@@ -93,34 +93,5 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
 
         // Update the value
         this.updateValue(value);
-    }
-
-    /**
-     * The field initialized event
-     * @param field - The field.
-     * @param state - The current state.
-     */
-    onFieldInit = (field: any, state: IFieldNumberState) => {
-        let numberField = field as Types.IFieldNumber;
-
-        // Ensure this is a number field
-        if (numberField.FieldTypeKind != SPTypes.FieldType.Number) {
-            // Log
-            console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a number field.");
-            return;
-        }
-
-        // Update the field information
-        state.fieldInfo.maxValue = numberField.MaximumValue;
-        state.fieldInfo.minValue = numberField.MinimumValue;
-
-        // See if the show as percentage property exists
-        if (numberField.ShowAsPercentage != undefined) {
-            // Update the property
-            state.fieldInfo.showAsPercentage = numberField.ShowAsPercentage;
-        } else {
-            // Check the schema xml
-            state.fieldInfo.showAsPercentage = numberField.SchemaXml.indexOf('Percentage="TRUE"') > 0;
-        }
     }
 }

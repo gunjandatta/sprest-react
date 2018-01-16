@@ -96,10 +96,16 @@ var ItemForm = /** @class */ (function (_super) {
                 var fieldInfo = (_this.props.fields || []).find(function (fieldInfo) {
                     return fieldInfo.name == fieldName;
                 });
+                // Set the default value
+                var defaultValue = item[field.InternalName];
+                if (defaultValue == null && (field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.Lookup || field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.User)) {
+                    // Try to set it to the "Id" field value
+                    defaultValue = item[field.InternalName + "Id"];
+                }
                 // Add the form field
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldName },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
-                        React.createElement(_1.Field, { controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: item[field.InternalName], field: field, item: item, listName: _this.props.listName, key: field.InternalName, name: field.InternalName, onChange: fieldInfo ? fieldInfo.onChange : null, onFieldRender: _this.props.onFieldRender, onRender: fieldInfo ? fieldInfo.onRender : null, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._formFields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(_1.Field, { className: _this.props.fieldClassName, controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: defaultValue, field: field, listName: _this.props.listName, key: field.InternalName, name: field.InternalName, onChange: fieldInfo ? fieldInfo.onChange : null, onFieldRender: _this.props.onFieldRender, onRender: fieldInfo ? fieldInfo.onRender : null, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._formFields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
             };
             // Parse the form fields
             for (var fieldName in _this.state.formInfo.fields) {
@@ -229,13 +235,14 @@ var ItemForm = /** @class */ (function (_super) {
         // Parse the fields
         for (var fieldName in this._formFields) {
             var field = this._formFields[fieldName];
-            // Ensure the field exists
-            if (field == null) {
+            var fieldInfo = field ? field.state.fieldInfo : null;
+            // Ensure the field information exists
+            if (fieldInfo == null) {
                 continue;
             }
             // See if this is a lookup or user field
-            if (field.Info.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
-                field.Info.type == gd_sprest_1.SPTypes.FieldType.User) {
+            if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
                 // Ensure the field name is the "Id" field
                 fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
@@ -249,7 +256,7 @@ var ItemForm = /** @class */ (function (_super) {
                     for (var i = 0; i < fieldValue.results.length; i++) {
                         var result = fieldValue.results[i];
                         // See if this is a taxonomy field with multiple values
-                        if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                        if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
                             // Add the term
                             results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
                         }
@@ -259,9 +266,13 @@ var ItemForm = /** @class */ (function (_super) {
                         }
                     }
                     // See if this is a taxonomy field with multiple values
-                    if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                    if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
                         // Set the hidden field name
-                        formValues[field.Info.valueField] = results.join(";#");
+                        var valueField = field.state.valueField;
+                        if (valueField) {
+                            // Update the value field
+                            formValues[valueField.InternalName] = results.join(";#");
+                        }
                         // Continue the loop
                         continue;
                     }
@@ -270,15 +281,11 @@ var ItemForm = /** @class */ (function (_super) {
                         fieldValue = { results: results };
                     }
                 }
-                else if (field.Info.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
-                    field.Info.type == gd_sprest_1.SPTypes.FieldType.User) {
+                else if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
+                    fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
                     // Clear the value if it doesn't exist
                     fieldValue = fieldValue > 0 ? fieldValue : null;
                 }
-            }
-            else if (field.Info.type == gd_sprest_1.SPTypes.FieldType.MultiChoice) {
-                // Default the value
-                fieldValue = { results: [] };
             }
             // Set the field value
             formValues[fieldName] = fieldValue;

@@ -3,8 +3,7 @@ import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
 import {
     IAttachmentFile,
-    IBaseFieldInfo,
-    IManagedMetadataFieldInfo,
+    IBaseField,
     IItemFormField, IItemFormProps, IItemFormState
 } from "../definitions";
 import { Fields } from "..";
@@ -156,13 +155,14 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         // Parse the fields
         for (let fieldName in this._formFields) {
             let field = this._formFields[fieldName];
+            let fieldInfo = field ? field.state.fieldInfo : null;
 
-            // Ensure the field exists
-            if (field == null) { continue; }
+            // Ensure the field information exists
+            if (fieldInfo == null) { continue; }
 
             // See if this is a lookup or user field
-            if (field.Info.type == SPTypes.FieldType.Lookup ||
-                field.Info.type == SPTypes.FieldType.User) {
+            if (fieldInfo.type == SPTypes.FieldType.Lookup ||
+                fieldInfo.type == SPTypes.FieldType.User) {
                 // Ensure the field name is the "Id" field
                 fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
@@ -179,7 +179,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                         let result = fieldValue.results[i];
 
                         // See if this is a taxonomy field with multiple values
-                        if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                        if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
                             // Add the term
                             results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
                         } else {
@@ -189,9 +189,13 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     }
 
                     // See if this is a taxonomy field with multiple values
-                    if (field.Info.typeAsString == "TaxonomyFieldTypeMulti") {
+                    if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
                         // Set the hidden field name
-                        formValues[(field.Info as IManagedMetadataFieldInfo).valueField] = results.join(";#");
+                        let valueField = ((field as any) as Fields.FieldManagedMetadata).state.valueField
+                        if (valueField) {
+                            // Update the value field
+                            formValues[valueField.InternalName] = results.join(";#");
+                        }
 
                         // Continue the loop
                         continue;
@@ -201,17 +205,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     }
                 }
                 // See if this is a lookup or user field
-                else if (field.Info.type == SPTypes.FieldType.Lookup ||
-                    field.Info.type == SPTypes.FieldType.User) {
+                else if (fieldInfo.type == SPTypes.FieldType.Lookup ||
+                    fieldInfo.type == SPTypes.FieldType.User) {
                     // Clear the value if it doesn't exist
                     fieldValue = fieldValue > 0 ? fieldValue : null;
                 }
-            }
-            // Else, see if this is a multi-choice field
-            // TODO: Is this check still needed?
-            else if (field.Info.type == SPTypes.FieldType.MultiChoice) {
-                // Default the value
-                fieldValue = { results: [] };
             }
 
             // Set the field value
@@ -321,15 +319,22 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 return fieldInfo.name == fieldName;
             });
 
+            // Set the default value
+            let defaultValue = item[field.InternalName];
+            if (defaultValue == null && (field.FieldTypeKind == SPTypes.FieldType.Lookup || field.FieldTypeKind == SPTypes.FieldType.User)) {
+                // Try to set it to the "Id" field value
+                defaultValue = item[field.InternalName + "Id"];
+            }
+
             // Add the form field
             formFields.push(
                 <div className="ms-Grid-row" key={"row_" + fieldName}>
                     <div className="ms-Grid-col ms-md12">
                         <Field
+                            className={this.props.fieldClassName}
                             controlMode={readOnly ? SPTypes.ControlMode.Display : this.ControlMode}
-                            defaultValue={item[field.InternalName]}
+                            defaultValue={defaultValue}
                             field={field}
-                            item={item}
                             listName={this.props.listName}
                             key={field.InternalName}
                             name={field.InternalName}

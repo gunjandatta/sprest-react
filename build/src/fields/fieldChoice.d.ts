@@ -10,7 +10,7 @@ export declare class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoi
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
     /**
      * The change event for the dropdown list
@@ -19,14 +19,11 @@ export declare class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoi
      */
     protected onChanged: (option: IDropdownOption, idx: number) => void;
     /**
-     * The field initialized event
-     * @param field - The field.
+     * The field loaded
+     * @param field - The field information.
      * @param state - The current state.
      */
-    onFieldInit: (field: any, state: IFieldChoiceState) => void;
-    /**
-     * Methods
-     */
+    onFieldLoaded: (info: any, state: IFieldChoiceState) => void;
     /**
      * Method to convert the field value to options
      */

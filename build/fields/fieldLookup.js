@@ -52,17 +52,17 @@ var FieldLookup = /** @class */ (function (_super) {
             var props = _this.props.props || {};
             props.className = (_this.props.className || "");
             props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.fieldInfo.errorMessage;
+            props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.errorMessage;
             props.errorMessage = _this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
-            props.label = props.label ? props.label : _this.state.label;
-            props.multiSelect = _this.state.fieldInfo.allowMultipleValues;
+            props.label = props.label ? props.label : _this.state.fieldInfo.title;
+            props.multiSelect = _this.state.fieldInfo.multi;
             props.onChanged = _this.onChanged;
             props.options = _this.state.options;
             props.required = props.required || _this.state.fieldInfo.required;
-            // See if this is a multi-choice
+            // See if we are allowing multiple values
             if (props.multiSelect) {
                 // Set the selected keys
-                props.defaultSelectedKeys = _this.state.value.results;
+                props.defaultSelectedKeys = _this.state.value ? _this.state.value.results : null;
             }
             else {
                 // Set the selected key
@@ -72,7 +72,7 @@ var FieldLookup = /** @class */ (function (_super) {
             return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
         };
         /**
-         * Events
+         * Methods
          */
         /**
          * The change event for the dropdown list
@@ -81,7 +81,7 @@ var FieldLookup = /** @class */ (function (_super) {
          */
         _this.onChanged = function (option, idx) {
             // See if this is a multi-choice field
-            if (_this.state.fieldInfo.allowMultipleValues) {
+            if (_this.state.fieldInfo.multi) {
                 var fieldValue = _this.state.value;
                 // Append the option if it was selected
                 if (option.isSelected || option.selected) {
@@ -107,87 +107,27 @@ var FieldLookup = /** @class */ (function (_super) {
         };
         /**
          * The field initialized event
-         * @param field - The field.
+         * @param field - The field information.
          * @param state - The current state.
          */
-        _this.onFieldInit = function (field, state) {
-            var lookupField = field;
-            // Ensure this is a lookup field
-            if (lookupField.FieldTypeKind != gd_sprest_1.SPTypes.FieldType.Lookup) {
-                // Log
-                console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a lookup field.");
-                return;
-            }
-            // Update the field information
-            state.fieldInfo.allowMultipleValues = lookupField.AllowMultipleValues;
-            state.fieldInfo.lookupFieldName = lookupField.LookupField;
-            state.fieldInfo.lookupListName = lookupField.LookupList;
-            state.fieldInfo.lookupWebId = lookupField.LookupWebId;
+        _this.onFieldLoaded = function (info, state) {
+            var fldInfo = info;
+            // Set the value
+            state.value = _this.props.defaultValue || fldInfo.defaultValue;
             // See if this is an associated lookup field
-            if (lookupField.ReadOnlyField) {
+            if (fldInfo.readOnly) {
                 // Set the options
                 state.options = [];
             }
             else {
                 // Load the lookup data
-                _this.loadLookupItems(state.fieldInfo).then(function (fieldInfo) {
-                    var value = null;
-                    // See if this is a multi-lookup field and a value exists
-                    if (fieldInfo.allowMultipleValues) {
-                        var results = [];
-                        // Parse the values
-                        var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
-                        for (var i = 0; i < values.length; i++) {
-                            // Add the item id
-                            results.push(values[i].ID || values[i]);
-                        }
-                        // Set the default value
-                        value = { results: results };
-                    }
-                    else {
-                        // Set the default value
-                        value = _this.props.defaultValue ? _this.props.defaultValue.ID || _this.props.defaultValue : null;
-                    }
+                gd_sprest_1.Helper.ListFormField.loadLookupData(fldInfo).then(function (items) {
                     // Update the state
                     _this.setState({
-                        fieldInfo: fieldInfo,
-                        options: _this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
-                        value: value
+                        options: _this.toOptions(items, fldInfo.lookupField)
                     });
                 });
             }
-        };
-        /**
-         * Methods
-         */
-        /**
-         * Method to load the lookup items
-         * @param fieldInfo - The field information.
-         */
-        _this.loadLookupItems = function (fieldInfo) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the current site collection
-                (new gd_sprest_1.Site())
-                    .openWebById(fieldInfo.lookupWebId)
-                    .execute(function (web) {
-                    // Get the list
-                    web.Lists()
-                        .getById(fieldInfo.lookupListName)
-                        .Items()
-                        .query({
-                        GetAllItems: true,
-                        Select: ["ID", fieldInfo.lookupFieldName],
-                        Top: _this.props.queryTop > 0 && _this.props.queryTop <= 5000 ? _this.props.queryTop : 500
-                    })
-                        .execute(function (items) {
-                        // Update the field information
-                        fieldInfo.items = items.results || [];
-                        // Resolve the promise
-                        resolve(fieldInfo);
-                    });
-                });
-            });
         };
         /**
          * Method to convert the field value to options
@@ -198,7 +138,7 @@ var FieldLookup = /** @class */ (function (_super) {
             if (items === void 0) { items = []; }
             var options = [];
             // See if this is not a required multi-lookup field
-            if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.allowMultipleValues) {
+            if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.multi) {
                 // Add a blank option
                 options.push({
                     key: null,

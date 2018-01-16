@@ -1,5 +1,5 @@
 import { Helper, Types } from "gd-sprest";
-import { IAttachmentFile, IBaseFieldInfo, IFieldAttachment } from ".";
+import { IAttachmentFile, IFieldAttachment } from ".";
 
 /**
  * Field Information
@@ -15,7 +15,7 @@ export interface IItemFormField {
     onChange?: (value: any) => void;
 
     /** The on render method */
-    onRender?: (fieldInfo: IBaseFieldInfo) => JSX.Element;
+    onRender?: (fieldInfo: Types.Helper.ListForm.IListFormFieldInfo) => JSX.Element;
 }
 
 /**
@@ -33,6 +33,9 @@ export interface IItemFormProps {
 
     /** The form fields to exclude from the form. */
     excludeFields?: Array<string>;
+
+    /** The field class name to apply to the field elements. */
+    fieldClassName?: string;
 
     /** The form fields. */
     fields?: Array<IItemFormField>;
@@ -56,7 +59,7 @@ export interface IItemFormProps {
     onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => any;
 
     /** The field render event */
-    onFieldRender?: (fieldInfo: IBaseFieldInfo, field: JSX.Element) => any;
+    onFieldRender?: (fieldInfo: Types.Helper.ListForm.IListFormFieldInfo, field: JSX.Element) => any;
 
     /** The on form render event. */
     onRender?: (controlMode: number) => any;
@@ -89,7 +92,7 @@ export interface IItemFormState {
 
     /** The item id. */
     itemId?: number;
-    
+
     /** The form fields. */
     fields?: Array<IItemFormField>;
 

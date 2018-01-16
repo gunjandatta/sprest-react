@@ -1,5 +1,6 @@
 /// <reference types="react" />
-import { IBaseFieldInfo, IBaseFieldProps } from "../definitions";
+import { Types } from "gd-sprest";
+import { IBaseFieldProps } from "../definitions";
 import { Fields } from "..";
 /**
  * Field
@@ -15,7 +16,7 @@ export declare class Field extends Fields.BaseField {
     /**
      * Get the field information
      */
-    readonly Info: IBaseFieldInfo;
+    readonly Info: Types.Helper.ListForm.IListFormFieldInfo;
     /**
      * Get the field value
      */

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { SPTypes, Site, Types } from "gd-sprest";
+import { Helper, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps, Spinner } from "office-ui-fabric-react";
-import { IFieldLookup, IFieldLookupProps, IFieldLookupState, ILookupFieldInfo } from "../definitions";
+import { IFieldLookup, IFieldLookupProps, IFieldLookupState } from "../definitions";
 import { BaseField } from ".";
 
 /**
@@ -36,18 +36,18 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         let props: IDropdownProps = this.props.props || {};
         props.className = (this.props.className || "");
         props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
-        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.fieldInfo.errorMessage;
+        props.errorMessage = props.errorMessage ? props.errorMessage : this.state.errorMessage;
         props.errorMessage = this.state.showErrorMessage ? (props.selectedKey ? "" : props.errorMessage) : "";
-        props.label = props.label ? props.label : this.state.label;
-        props.multiSelect = this.state.fieldInfo.allowMultipleValues;
+        props.label = props.label ? props.label : this.state.fieldInfo.title;
+        props.multiSelect = this.state.fieldInfo.multi;
         props.onChanged = this.onChanged;
         props.options = this.state.options;
         props.required = props.required || this.state.fieldInfo.required;
 
-        // See if this is a multi-choice
+        // See if we are allowing multiple values
         if (props.multiSelect) {
             // Set the selected keys
-            props.defaultSelectedKeys = this.state.value.results;
+            props.defaultSelectedKeys = this.state.value ? this.state.value.results : null;
         } else {
             // Set the selected key
             props.defaultSelectedKey = this.state.value;
@@ -60,7 +60,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
     }
 
     /**
-     * Events
+     * Methods
      */
 
     /**
@@ -70,7 +70,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      */
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // See if this is a multi-choice field
-        if (this.state.fieldInfo.allowMultipleValues) {
+        if (this.state.fieldInfo.multi) {
             let fieldValue = this.state.value;
 
             // Append the option if it was selected
@@ -97,101 +97,28 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
 
     /**
      * The field initialized event
-     * @param field - The field.
+     * @param field - The field information.
      * @param state - The current state.
      */
-    onFieldInit = (field: any, state: IFieldLookupState) => {
-        let lookupField = field as Types.IFieldLookup;
+    onFieldLoaded = (info, state: IFieldLookupState) => {
+        let fldInfo = info as Types.Helper.ListForm.IListFormLookupFieldInfo;
 
-        // Ensure this is a lookup field
-        if (lookupField.FieldTypeKind != SPTypes.FieldType.Lookup) {
-            // Log
-            console.warn("[gd-sprest] The field '" + field.InternalName + "' is not a lookup field.");
-            return;
-        }
-
-        // Update the field information
-        state.fieldInfo.allowMultipleValues = lookupField.AllowMultipleValues;
-        state.fieldInfo.lookupFieldName = lookupField.LookupField;
-        state.fieldInfo.lookupListName = lookupField.LookupList;
-        state.fieldInfo.lookupWebId = lookupField.LookupWebId;
+        // Set the value
+        state.value = this.props.defaultValue || fldInfo.defaultValue;
 
         // See if this is an associated lookup field
-        if(lookupField.ReadOnlyField) {
+        if (fldInfo.readOnly) {
             // Set the options
             state.options = [];
         } else {
             // Load the lookup data
-            this.loadLookupItems(state.fieldInfo).then((fieldInfo: ILookupFieldInfo) => {
-                let value = null;
-
-                // See if this is a multi-lookup field and a value exists
-                if (fieldInfo.allowMultipleValues) {
-                    let results = [];
-
-                    // Parse the values
-                    let values = this.props.defaultValue ? this.props.defaultValue.results : [];
-                    for (let i = 0; i < values.length; i++) {
-                        // Add the item id
-                        results.push(values[i].ID || values[i]);
-                    }
-
-                    // Set the default value
-                    value = { results };
-                } else {
-                    // Set the default value
-                    value = this.props.defaultValue ? this.props.defaultValue.ID || this.props.defaultValue : null;
-                }
-
+            Helper.ListFormField.loadLookupData(fldInfo).then(items => {
                 // Update the state
                 this.setState({
-                    fieldInfo,
-                    options: this.toOptions(fieldInfo.items, fieldInfo.lookupFieldName),
-                    value
+                    options: this.toOptions(items, fldInfo.lookupField)
                 });
             });
         }
-    }
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Method to load the lookup items
-     * @param fieldInfo - The field information.
-     */
-    private loadLookupItems = (fieldInfo: ILookupFieldInfo) => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Get the current site collection
-            (new Site())
-                // Get the web containing the lookup list
-                .openWebById(fieldInfo.lookupWebId)
-                // Execute the request
-                .execute((web) => {
-                    // Get the list
-                    web.Lists()
-                        // Get the list by id
-                        .getById(fieldInfo.lookupListName)
-                        // Get the items
-                        .Items()
-                        // Set the query
-                        .query({
-                            GetAllItems: true,
-                            Select: ["ID", fieldInfo.lookupFieldName],
-                            Top: this.props.queryTop > 0 && this.props.queryTop <= 5000 ? this.props.queryTop : 500
-                        })
-                        // Execute the request
-                        .execute((items) => {
-                            // Update the field information
-                            fieldInfo.items = items.results || [];
-
-                            // Resolve the promise
-                            resolve(fieldInfo);
-                        });
-                });
-        });
     }
 
     /**
@@ -203,7 +130,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-lookup field
-        if (!this.state.fieldInfo.required && !this.state.fieldInfo.allowMultipleValues) {
+        if (!this.state.fieldInfo.required && !this.state.fieldInfo.multi) {
             // Add a blank option
             options.push({
                 key: null,

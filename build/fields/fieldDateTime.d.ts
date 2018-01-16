@@ -13,14 +13,12 @@ export declare class FieldDateTime extends BaseField<IFieldDateTimeProps, IField
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
     /**
-     * The field initialized event
-     * @param field - The field.
-     * @param state - The current state.
+     * Method to get the value
      */
-    onFieldInit: (field: any, state: IFieldDateTimeState) => void;
+    private getValue;
     /**
      * The date changed event
      * @param date - The date value.
@@ -31,13 +29,6 @@ export declare class FieldDateTime extends BaseField<IFieldDateTimeProps, IField
      * @param option - The time dropdown option.
      */
     private onTimeChanged;
-    /**
-     * Methods
-     */
-    /**
-     * Method to get the value
-     */
-    private getValue;
     /**
      * Method to render the time component
      * @param date - The date/time value

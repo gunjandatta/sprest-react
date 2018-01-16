@@ -10,7 +10,7 @@ export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLook
      */
     renderField: () => any;
     /**
-     * Events
+     * Methods
      */
     /**
      * The change event for the dropdown list
@@ -20,18 +20,10 @@ export declare class FieldLookup extends BaseField<IFieldLookupProps, IFieldLook
     protected onChanged: (option: IDropdownOption, idx: number) => void;
     /**
      * The field initialized event
-     * @param field - The field.
+     * @param field - The field information.
      * @param state - The current state.
      */
-    onFieldInit: (field: any, state: IFieldLookupState) => void;
-    /**
-     * Methods
-     */
-    /**
-     * Method to load the lookup items
-     * @param fieldInfo - The field information.
-     */
-    private loadLookupItems;
+    onFieldLoaded: (info: any, state: IFieldLookupState) => void;
     /**
      * Method to convert the field value to options
      * @param items - The lookup items.

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { SPTypes } from "gd-sprest";
-import { IBaseFieldInfo, IBaseFieldProps, IBaseFieldState } from "../definitions";
+import { SPTypes, Types } from "gd-sprest";
+import { IBaseFieldProps, IBaseFieldState } from "../definitions";
 import { Fields } from "..";
 
 /**
@@ -25,7 +25,7 @@ export class Field extends Fields.BaseField {
     /**
      * Get the field information
      */
-    get Info(): IBaseFieldInfo { return this._field.state.fieldInfo; }
+    get Info(): Types.Helper.ListForm.IListFormFieldInfo { return this._field.state.fieldInfo; }
 
     /**
      * Get the field value
@@ -39,15 +39,6 @@ export class Field extends Fields.BaseField {
         let props: IBaseFieldProps = this.props || {} as any;
         let defaultValue = props.defaultValue;
         let fieldInfo = this.state.fieldInfo;
-
-        // See if this is a user or lookup field
-        if (fieldInfo.type == SPTypes.FieldType.Lookup || fieldInfo.type == SPTypes.FieldType.User) {
-            // Ensure the default value is set
-            if (this.props.defaultValue == null && this.props.item) {
-                // Update the default value
-                defaultValue = this.props.item[fieldInfo.name + "Id"];
-            }
-        }
 
         // Return the field component, based on the type
         switch (fieldInfo.type) {

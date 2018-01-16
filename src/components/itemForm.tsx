@@ -41,6 +41,11 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private _formFields: { [key: string]: Field } = {};
 
     /**
+     * Attachments Field
+     */
+    get AttachmentsField(): Fields.FieldAttachments { return this._attachmentField; }
+
+    /**
      * Form Control Mode
      */
     get ControlMode(): number {

@@ -146,6 +146,14 @@ var ItemForm = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Object.defineProperty(ItemForm.prototype, "AttachmentsField", {
+        /**
+         * Attachments Field
+         */
+        get: function () { return this._attachmentField; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ItemForm.prototype, "ControlMode", {
         /**
          * Form Control Mode

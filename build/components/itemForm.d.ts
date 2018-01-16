@@ -2,6 +2,7 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { IItemFormProps, IItemFormState } from "../definitions";
+import { Fields } from "..";
 /**
  * Item Form
  */
@@ -18,6 +19,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      * Reference to the form fields
      */
     private _formFields;
+    /**
+     * Attachments Field
+     */
+    readonly AttachmentsField: Fields.FieldAttachments;
     /**
      * Form Control Mode
      */

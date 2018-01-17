@@ -320,13 +320,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             }
 
             // Find the field information
-            let fieldInfo = (this.props.fields || []).find((fieldInfo) => {
-                return fieldInfo.name == fieldName;
-            });
+            let fieldInfo = null;
+            let fields = this.props.fields || [];
+            for (let i = 0; i < fields.length; i++) {
+                // See if this is the field we are looking for
+                if (fields[i].name == fieldName) {
+                    // Set the field information and break from the loop
+                    fieldInfo = fields[i];
+                    break;
+                }
+            }
 
             // Set the default value
-            let defaultValue = item[field.InternalName];
-            if (defaultValue == null && (field.FieldTypeKind == SPTypes.FieldType.Lookup || field.FieldTypeKind == SPTypes.FieldType.User)) {
+            let defaultValue = item ? item[field.InternalName] : null;
+            if (item && defaultValue == null && (field.FieldTypeKind == SPTypes.FieldType.Lookup || field.FieldTypeKind == SPTypes.FieldType.User)) {
                 // Try to set it to the "Id" field value
                 defaultValue = item[field.InternalName + "Id"];
             }

@@ -80,12 +80,13 @@ var ItemForm = /** @class */ (function (_super) {
         _this.renderFields = function () {
             var formFields = [];
             var item = _this.state.formInfo.item;
-            var _loop_1 = function (fieldName) {
+            // Parse the form fields
+            for (var fieldName in _this.state.formInfo.fields) {
                 var field = _this.state.formInfo.fields[fieldName];
                 var readOnly = false;
                 // See if we are excluding this field
                 if (_this.props.excludeFields && _this.props.excludeFields.indexOf(fieldName) >= 0) {
-                    return "continue";
+                    continue;
                 }
                 // See if this is a read-only field
                 if (_this.props.readOnlyFields && _this.props.readOnlyFields.indexOf(fieldName) >= 0) {
@@ -93,12 +94,19 @@ var ItemForm = /** @class */ (function (_super) {
                     readOnly = true;
                 }
                 // Find the field information
-                var fieldInfo = (_this.props.fields || []).find(function (fieldInfo) {
-                    return fieldInfo.name == fieldName;
-                });
+                var fieldInfo = null;
+                var fields = _this.props.fields || [];
+                for (var i = 0; i < fields.length; i++) {
+                    // See if this is the field we are looking for
+                    if (fields[i].name == fieldName) {
+                        // Set the field information and break from the loop
+                        fieldInfo = fields[i];
+                        break;
+                    }
+                }
                 // Set the default value
-                var defaultValue = item[field.InternalName];
-                if (defaultValue == null && (field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.Lookup || field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.User)) {
+                var defaultValue = item ? item[field.InternalName] : null;
+                if (item && defaultValue == null && (field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.Lookup || field.FieldTypeKind == gd_sprest_1.SPTypes.FieldType.User)) {
                     // Try to set it to the "Id" field value
                     defaultValue = item[field.InternalName + "Id"];
                 }
@@ -106,10 +114,6 @@ var ItemForm = /** @class */ (function (_super) {
                 formFields.push(React.createElement("div", { className: "ms-Grid-row", key: "row_" + fieldName },
                     React.createElement("div", { className: "ms-Grid-col ms-md12" },
                         React.createElement(_1.Field, { className: _this.props.fieldClassName, controlMode: readOnly ? gd_sprest_1.SPTypes.ControlMode.Display : _this.ControlMode, defaultValue: defaultValue, field: field, listName: _this.props.listName, key: field.InternalName, name: field.InternalName, onChange: fieldInfo ? fieldInfo.onChange : null, onFieldRender: _this.props.onFieldRender, onRender: fieldInfo ? fieldInfo.onRender : null, queryTop: _this.props.queryTop, ref: function (field) { field ? _this._formFields[field.props.name] = field : null; }, webUrl: _this.props.webUrl }))));
-            };
-            // Parse the form fields
-            for (var fieldName in _this.state.formInfo.fields) {
-                _loop_1(fieldName);
             }
             // Return the form fields
             return formFields;

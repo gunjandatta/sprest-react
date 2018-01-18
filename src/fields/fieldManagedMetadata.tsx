@@ -114,6 +114,9 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
     onFieldLoaded = (info, state: IFieldManagedMetadataState) => {
         let fldInfo = info as Types.Helper.ListForm.IListFormMMSFieldInfo;
 
+        // Set the value
+        state.value = this.props.defaultValue || fldInfo.defaultValue;
+
         // Load the value field
         Helper.ListFormField.loadMMSValueField(fldInfo).then(valueField => {
             // Load the terms

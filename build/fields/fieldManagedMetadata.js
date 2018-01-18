@@ -121,6 +121,8 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
          */
         _this.onFieldLoaded = function (info, state) {
             var fldInfo = info;
+            // Set the value
+            state.value = _this.props.defaultValue || fldInfo.defaultValue;
             // Load the value field
             gd_sprest_1.Helper.ListFormField.loadMMSValueField(fldInfo).then(function (valueField) {
                 // Load the terms

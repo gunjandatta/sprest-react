@@ -114,47 +114,50 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
     onFieldLoaded = (info, state: IFieldManagedMetadataState) => {
         let fldInfo = info as Types.Helper.ListForm.IListFormMMSFieldInfo;
 
-        // Set the value
-        state.value = this.props.defaultValue || fldInfo.defaultValue;
+        // See if the default value exists
+        if (this.props.defaultValue) {
+            // Set the value
+            state.value = this.props.defaultValue;
+        }
+        // Else, see if a default value exists
+        else {
+            // Get the default values
+            let values = (fldInfo.defaultValue || "").split(";#")
+            let results = [];
+            for (let i = 1; i < values.length; i += 2) {
+                let value = values[i].split("|");
+                if (value.length == 2) {
+                    // Add the value
+                    results.push({
+                        Label: value[0],
+                        TermGuid: value[1]
+                    });
+                }
+            }
+
+            // See if results exist
+            if (results.length > 0) {
+                // See if this is a multi value
+                if (fldInfo.multi) {
+                    // Set the value
+                    state.value = { results };
+                } else {
+                    // Set the value
+                    state.value = results[0];
+                }
+
+                // Add the metadata
+                state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
+            }
+        }
 
         // Load the value field
         Helper.ListFormField.loadMMSValueField(fldInfo).then(valueField => {
             // Load the terms
             Helper.ListFormField.loadMMSData(fldInfo).then(terms => {
-                let value = null;
-
-                // See if this is a multi-lookup field and a value exists
-                if (fldInfo.multi) {
-                    let results: Array<Types.ComplexTypes.FieldManagedMetadataValue> = [];
-
-                    // Parse the values
-                    let values = this.props.defaultValue ? this.props.defaultValue.results : [];
-                    for (let i = 0; i < values.length; i++) {
-                        let result = values[i];
-                        results.push({
-                            Label: result.Label,
-                            TermGuid: result.TermGuid,
-                            WssId: result.WssId
-                        });
-                    }
-
-                    // Set the default value
-                    value = {
-                        __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
-                        results
-                    };
-                } else {
-                    // Set the default value
-                    value = fldInfo.defaultValue ? fldInfo.defaultValue : null;
-                }
-
-                // Add the metadata
-                value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
-
                 // Update the state
                 this.setState({
                     options: this.toOptions(terms),
-                    value,
                     valueField: valueField as any
                 });
             });

@@ -121,42 +121,47 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
          */
         _this.onFieldLoaded = function (info, state) {
             var fldInfo = info;
-            // Set the value
-            state.value = _this.props.defaultValue || fldInfo.defaultValue;
+            // See if the default value exists
+            if (_this.props.defaultValue) {
+                // Set the value
+                state.value = _this.props.defaultValue;
+            }
+            else {
+                // Get the default values
+                var values = (fldInfo.defaultValue || "").split(";#");
+                var results = [];
+                for (var i = 1; i < values.length; i += 2) {
+                    var value = values[i].split("|");
+                    if (value.length == 2) {
+                        // Add the value
+                        results.push({
+                            Label: value[0],
+                            TermGuid: value[1]
+                        });
+                    }
+                }
+                // See if results exist
+                if (results.length > 0) {
+                    // See if this is a multi value
+                    if (fldInfo.multi) {
+                        // Set the value
+                        state.value = { results: results };
+                    }
+                    else {
+                        // Set the value
+                        state.value = results[0];
+                    }
+                    // Add the metadata
+                    state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
+                }
+            }
             // Load the value field
             gd_sprest_1.Helper.ListFormField.loadMMSValueField(fldInfo).then(function (valueField) {
                 // Load the terms
                 gd_sprest_1.Helper.ListFormField.loadMMSData(fldInfo).then(function (terms) {
-                    var value = null;
-                    // See if this is a multi-lookup field and a value exists
-                    if (fldInfo.multi) {
-                        var results = [];
-                        // Parse the values
-                        var values = _this.props.defaultValue ? _this.props.defaultValue.results : [];
-                        for (var i = 0; i < values.length; i++) {
-                            var result = values[i];
-                            results.push({
-                                Label: result.Label,
-                                TermGuid: result.TermGuid,
-                                WssId: result.WssId
-                            });
-                        }
-                        // Set the default value
-                        value = {
-                            __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
-                            results: results
-                        };
-                    }
-                    else {
-                        // Set the default value
-                        value = fldInfo.defaultValue ? fldInfo.defaultValue : null;
-                    }
-                    // Add the metadata
-                    value ? value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" } : null;
                     // Update the state
                     _this.setState({
                         options: _this.toOptions(terms),
-                        value: value,
                         valueField: valueField
                     });
                 });

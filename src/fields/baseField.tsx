@@ -53,7 +53,8 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         (new Helper.ListFormField({
             field: this.props.field,
             listName: this.props.listName,
-            name: this.props.name
+            name: this.props.name,
+            webUrl: this.props.webUrl
         })).then(fieldInfo => {
             // Call the field loaded event
             this.onFieldLoaded ? this.onFieldLoaded(fieldInfo, this.state) : null;

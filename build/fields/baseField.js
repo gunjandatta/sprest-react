@@ -93,7 +93,8 @@ var BaseField = /** @class */ (function (_super) {
         (new gd_sprest_1.Helper.ListFormField({
             field: this.props.field,
             listName: this.props.listName,
-            name: this.props.name
+            name: this.props.name,
+            webUrl: this.props.webUrl
         })).then(function (fieldInfo) {
             // Call the field loaded event
             _this.onFieldLoaded ? _this.onFieldLoaded(fieldInfo, _this.state) : null;

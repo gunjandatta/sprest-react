@@ -27,6 +27,13 @@ var FieldAttachments = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this._file = null;
         /**
+         * Method to refresh the attachments.
+         */
+        _this.refresh = function () {
+            // Load the attachments
+            return _this.loadAttachments();
+        };
+        /**
          * Method to save the attachments to the item
          * @param itemId - The item id.
          */
@@ -175,11 +182,15 @@ var FieldAttachments = /** @class */ (function (_super) {
                         _this.setState({
                             files: _this.toArray(attachments)
                         });
+                        // Resolve the promise
+                        resolve();
                     });
                 }
                 else {
                     // Set the state
                     _this.setState({ files: [] });
+                    // Resolve the promise
+                    resolve();
                 }
             });
         };

@@ -230,26 +230,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     private refreshItem = () => {
         // Reload the item
         Helper.ListForm.refreshItem(this.state.formInfo).then(formInfo => {
-            // See if we are loading attachments
-            if (this.props.showAttachments) {
-                // Reload the attachments
-                Helper.ListForm.loadAttachments(formInfo).then(attachments => {
-                    // Update the item
-                    formInfo.item.AttachmentFiles = { results: attachments } as any;
-
-                    // Update the state
-                    this.setState({
-                        formInfo,
-                        refreshFl: false
+            // Update the state
+            this.setState({ formInfo }, () => {
+                // See if we are loading attachments
+                if (this.props.showAttachments) {
+                    // Refresh the attachments field
+                    this._attachmentField.refresh().then(() => {
+                        // Update the state
+                        this.setState({ refreshFl: false });
                     });
-                })
-            } else {
-                // Update the state
-                this.setState({
-                    formInfo,
-                    refreshFl: false
-                });
-            }
+                } else {
+                    // Update the state
+                    this.setState({ refreshFl: false });
+                }
+            });
         });
     }
 

@@ -17,6 +17,10 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      */
     render(): JSX.Element;
     /**
+     * Method to refresh the attachments.
+     */
+    refresh: () => PromiseLike<void>;
+    /**
      * Method to save the attachments to the item
      * @param itemId - The item id.
      */

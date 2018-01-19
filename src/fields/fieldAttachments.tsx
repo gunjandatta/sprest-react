@@ -98,6 +98,14 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
+     * Method to refresh the attachments.
+     */
+    refresh = (): PromiseLike<void> => {
+        // Load the attachments
+        return this.loadAttachments();
+    }
+
+    /**
      * Method to save the attachments to the item
      * @param itemId - The item id.
      */
@@ -251,7 +259,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     /**
      * Method to load the attachment files from the item.
      */
-    private loadAttachments = () => {
+    private loadAttachments = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list and item id exists
@@ -262,7 +270,6 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                     .Lists(this.props.listName)
                     // Get the item
                     .Items(this.props.itemId)
-                    // Query
                     // Get the attachment files
                     .AttachmentFiles()
                     // Execute the request
@@ -271,10 +278,16 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                         this.setState({
                             files: this.toArray(attachments as any)
                         });
+
+                        // Resolve the promise
+                        resolve();
                     });
             } else {
                 // Set the state
                 this.setState({ files: [] })
+
+                // Resolve the promise
+                resolve();
             }
         });
     }

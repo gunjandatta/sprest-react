@@ -67,21 +67,18 @@ var ItemForm = /** @class */ (function (_super) {
         _this.refreshItem = function () {
             // Reload the item
             gd_sprest_1.Helper.ListForm.refreshItem(_this.state.formInfo).then(function (formInfo) {
-                // Update the state
-                _this.setState({ formInfo: formInfo }, function () {
-                    // See if we are loading attachments
-                    if (_this.props.showAttachments) {
-                        // Refresh the attachments field
-                        _this._attachmentField.refresh().then(function () {
-                            // Update the state
-                            _this.setState({ refreshFl: false });
-                        });
-                    }
-                    else {
+                // See if we are loading attachments
+                if (_this.props.showAttachments) {
+                    // Refresh the attachments field
+                    _this._attachmentField.refresh().then(function () {
                         // Update the state
-                        _this.setState({ refreshFl: false });
-                    }
-                });
+                        _this.setState({ formInfo: formInfo, refreshFl: false });
+                    });
+                }
+                else {
+                    // Update the state
+                    _this.setState({ formInfo: formInfo, refreshFl: false });
+                }
             });
         };
         /**

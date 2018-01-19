@@ -64,6 +64,41 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      */
 
     /**
+     * The get field value method
+     */
+    getFieldValue = () => {
+        let fieldValue = this.state.value;
+
+        // See if results exist
+        if (fieldValue.results) {
+            let results = [];
+
+            // Parse the results
+            for (let i = 0; i < fieldValue.results.length; i++) {
+                let lookupValue = fieldValue.results[i];
+
+                // Add the lookup id
+                results.push(lookupValue.Id || lookupValue);
+            }
+
+            // See if results exist
+            if (results.length > 0) {
+                // Update the field value
+                fieldValue.results = results;
+            } else {
+                // Update the field value
+                fieldValue = null;
+            }
+        } else {
+            // Ensure the value is valid
+            fieldValue = fieldValue > 0 ? fieldValue : null;
+        }
+
+        // Return the field value
+        return fieldValue;
+    }
+
+    /**
      * The change event for the dropdown list
      * @param option - The dropdown option.
      * @param idx - The dropdown option number.

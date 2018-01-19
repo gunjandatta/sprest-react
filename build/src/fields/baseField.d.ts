@@ -22,7 +22,7 @@ export declare abstract class BaseField<Props extends IBaseFieldProps = IBaseFie
     /**
      * Method to get the field value
      */
-    getFieldValue: () => any;
+    getFieldValue: () => State["value"];
     /**
      * Event triggered after loading the field information
      */

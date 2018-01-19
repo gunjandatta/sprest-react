@@ -12,6 +12,10 @@ export declare class FieldUser extends BaseField<IFieldUserProps, IFieldUserStat
      * Methods
      */
     /**
+     * The get field value method
+     */
+    getFieldValue: () => any;
+    /**
      * The change event
      * @param personas - The user personas.
      */

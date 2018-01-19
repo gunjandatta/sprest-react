@@ -54,6 +54,37 @@ var FieldUser = /** @class */ (function (_super) {
          * Methods
          */
         /**
+         * The get field value method
+         */
+        _this.getFieldValue = function () {
+            var fieldValue = _this.state.value;
+            // See if results exist
+            if (fieldValue.results) {
+                var results = [];
+                // Parse the results
+                for (var i = 0; i < fieldValue.results.length; i++) {
+                    var lookupValue = fieldValue.results[i];
+                    // Add the lookup id
+                    results.push(lookupValue.Id || lookupValue);
+                }
+                // See if results exist
+                if (results.length > 0) {
+                    // Update the field value
+                    fieldValue.results = results;
+                }
+                else {
+                    // Update the field value
+                    fieldValue = null;
+                }
+            }
+            else {
+                // Ensure the value is valid
+                fieldValue = fieldValue > 0 ? fieldValue : null;
+            }
+            // Return the field value
+            return fieldValue;
+        };
+        /**
          * The change event
          * @param personas - The user personas.
          */

@@ -161,6 +161,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         for (let fieldName in this._formFields) {
             let field = this._formFields[fieldName];
             let fieldInfo = field ? field.state.fieldInfo : null;
+            let fieldValue = field.Value;
 
             // Ensure the field information exists
             if (fieldInfo == null) { continue; }
@@ -172,52 +173,16 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
 
-            // Get the field value
-            let fieldValue: any = field.Value;
-            if (fieldValue) {
-                // See if this is a multi-value field
-                if (fieldValue.results) {
-                    let results = [];
+            // See if this is a multi-value taxonomy field
+            if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
+                let valueField = field.getField<Fields.FieldManagedMetadata>().state.valueField;
 
-                    // Parse the results
-                    for (let i = 0; i < fieldValue.results.length; i++) {
-                        let result = fieldValue.results[i];
-
-                        // See if this is a taxonomy field with multiple values
-                        if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
-                            // Add the term
-                            results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
-                        } else {
-                            // Add the lookup id if it exists
-                            results.push(result.ID || result);
-                        }
-                    }
-
-                    // See if this is a taxonomy field with multiple values
-                    if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
-                        // Set the hidden field name
-                        let valueField = ((field as any) as Fields.FieldManagedMetadata).state.valueField
-                        if (valueField) {
-                            // Update the value field
-                            formValues[valueField.InternalName] = results.join(";#");
-                        }
-
-                        // Continue the loop
-                        continue;
-                    } else {
-                        // Set the field value
-                        fieldValue = { results };
-                    }
-                }
-                // See if this is a lookup or user field
-                else if (fieldInfo.type == SPTypes.FieldType.Lookup ||
-                    fieldInfo.type == SPTypes.FieldType.User) {
-                    // Clear the value if it doesn't exist
-                    fieldValue = fieldValue > 0 ? fieldValue : null;
-                }
+                // Update the hidden form field
+                fieldName = valueField.InternalName;
+                fieldValue = fieldValue.results.join(";#");
             }
 
-            // Set the field value
+            // Update the form field value
             formValues[fieldName] = fieldValue;
         }
 

@@ -31,7 +31,7 @@ var BaseField = /** @class */ (function (_super) {
         /**
          * Method to get the field value
          */
-        _this.getFieldValue = function () { return _this.state.value || _this.state.fieldInfo.defaultValue || ""; };
+        _this.getFieldValue = function () { return _this.state.value; };
         /**
          * Method to render the field
          */

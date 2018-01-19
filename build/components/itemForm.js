@@ -249,6 +249,7 @@ var ItemForm = /** @class */ (function (_super) {
         for (var fieldName in this._formFields) {
             var field = this._formFields[fieldName];
             var fieldInfo = field ? field.state.fieldInfo : null;
+            var fieldValue = field.Value;
             // Ensure the field information exists
             if (fieldInfo == null) {
                 continue;
@@ -259,48 +260,14 @@ var ItemForm = /** @class */ (function (_super) {
                 // Ensure the field name is the "Id" field
                 fieldName += fieldName.lastIndexOf("Id") == fieldName.length - 2 ? "" : "Id";
             }
-            // Get the field value
-            var fieldValue = field.Value;
-            if (fieldValue) {
-                // See if this is a multi-value field
-                if (fieldValue.results) {
-                    var results = [];
-                    // Parse the results
-                    for (var i = 0; i < fieldValue.results.length; i++) {
-                        var result = fieldValue.results[i];
-                        // See if this is a taxonomy field with multiple values
-                        if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
-                            // Add the term
-                            results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
-                        }
-                        else {
-                            // Add the lookup id if it exists
-                            results.push(result.ID || result);
-                        }
-                    }
-                    // See if this is a taxonomy field with multiple values
-                    if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
-                        // Set the hidden field name
-                        var valueField = field.state.valueField;
-                        if (valueField) {
-                            // Update the value field
-                            formValues[valueField.InternalName] = results.join(";#");
-                        }
-                        // Continue the loop
-                        continue;
-                    }
-                    else {
-                        // Set the field value
-                        fieldValue = { results: results };
-                    }
-                }
-                else if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
-                    fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
-                    // Clear the value if it doesn't exist
-                    fieldValue = fieldValue > 0 ? fieldValue : null;
-                }
+            // See if this is a multi-value taxonomy field
+            if (fieldInfo.typeAsString == "TaxonomyFieldTypeMulti") {
+                var valueField = field.getField().state.valueField;
+                // Update the hidden form field
+                fieldName = valueField.InternalName;
+                fieldValue = fieldValue.results.join(";#");
             }
-            // Set the field value
+            // Update the form field value
             formValues[fieldName] = fieldValue;
         }
         // Return the form values

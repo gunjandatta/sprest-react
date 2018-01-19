@@ -86,7 +86,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     /**
      * Method to get the field value
      */
-    getFieldValue = () => { return this.state.value || this.state.fieldInfo.defaultValue || ""; }
+    getFieldValue = () => { return this.state.value; }
 
     /**
      * Event triggered after loading the field information

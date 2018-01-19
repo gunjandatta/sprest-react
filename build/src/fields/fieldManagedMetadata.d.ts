@@ -13,6 +13,10 @@ export declare class FieldManagedMetadata extends BaseField<IFieldManagedMetadat
      * Methods
      */
     /**
+     * The get field value method
+     */
+    getFieldValue: () => any;
+    /**
      * The change event for the dropdown list
      * @param option - The dropdown option.
      * @param idx - The dropdown option index.

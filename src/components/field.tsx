@@ -30,7 +30,12 @@ export class Field extends Fields.BaseField {
     /**
      * Get the field value
      */
-    get Value(): any { return this._field.state.value; }
+    get Value(): any { return this._field.getFieldValue(); }
+
+    /**
+     * Get the field
+     */
+    getField<T = Fields.BaseField>(): T { return this._field as any; }
 
     /**
      * Method to render the field

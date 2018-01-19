@@ -66,6 +66,32 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      */
 
     /**
+     * The get field value method
+     */
+    getFieldValue = () => {
+        let fieldValue = this.state.value;
+
+        // See if results exist
+        if (fieldValue && fieldValue.results) {
+            let results = [];
+
+            // Parse the results
+            for (let i = 0; i < fieldValue.results.length; i++) {
+                let result = fieldValue.results[i];
+
+                // Add the term
+                results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
+            }
+
+            // Update the field value
+            fieldValue.results = results
+        }
+
+        // Return the field value
+        return fieldValue;
+    }
+
+    /**
      * The change event for the dropdown list
      * @param option - The dropdown option.
      * @param idx - The dropdown option index.
@@ -97,7 +123,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             this.updateValue(fieldValue);
         } else {
             // Update the field value
-            this.updateValue(option ? {
+            this.updateValue(option && option.key ? {
                 __metadata: { type: "SP.Taxonomy.TaxonomyFieldValue" },
                 Label: option.data,
                 TermGuid: option.key,
@@ -140,14 +166,17 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
                 // See if this is a multi value
                 if (fldInfo.multi) {
                     // Set the value
-                    state.value = { results };
+                    state.value = {
+                        __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                        results
+                    };
                 } else {
                     // Set the value
                     state.value = results[0];
-                }
 
-                // Add the metadata
-                state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
+                    // Add the metadata
+                    state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
+                }
             }
         }
 

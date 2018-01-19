@@ -33,7 +33,7 @@ export interface IFieldManagedMetadataState extends IBaseFieldState {
     options?: Array<IDropdownOption>;
 
     /** The hidden value field. */
-    valueField?: Types.IFieldManagedMetadata;
+    valueField?: Types.IFieldNote;
 }
 
 /**

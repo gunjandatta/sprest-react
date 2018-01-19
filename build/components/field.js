@@ -101,10 +101,14 @@ var Field = /** @class */ (function (_super) {
         /**
          * Get the field value
          */
-        get: function () { return this._field.state.value; },
+        get: function () { return this._field.getFieldValue(); },
         enumerable: true,
         configurable: true
     });
+    /**
+     * Get the field
+     */
+    Field.prototype.getField = function () { return this._field; };
     return Field;
 }(__1.Fields.BaseField));
 exports.Field = Field;

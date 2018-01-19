@@ -22,6 +22,10 @@ export declare class Field extends Fields.BaseField {
      */
     readonly Value: any;
     /**
+     * Get the field
+     */
+    getField<T = Fields.BaseField>(): T;
+    /**
      * Method to render the field
      */
     renderField: () => JSX.Element;

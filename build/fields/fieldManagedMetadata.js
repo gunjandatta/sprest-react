@@ -56,10 +56,11 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             // See if we are allowing multiple values
             if (props.multiSelect) {
                 var keys = [];
+                var results = _this.state.value.results || [];
                 // Parse the results
-                for (var i = 0; i < _this.state.value.results.length; i++) {
+                for (var i = 0; i < results.length; i++) {
                     // Add the key
-                    keys.push(_this.state.value.results[i].TermGuid);
+                    keys.push(results[i].TermGuid);
                 }
                 // Set the selected keys
                 props.defaultSelectedKeys = keys;

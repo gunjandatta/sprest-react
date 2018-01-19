@@ -247,7 +247,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         new Helper.ListForm({
             cacheKey: this.props.cacheKey,
             fields: fields,
-            itemId: this.props.item ? this.props.item.Id : this.props.itemId,
+            item: this.props.item,
+            itemId: this.props.itemId,
             listName: this.props.listName,
             webUrl: this.props.webUrl
         }).then(formInfo => {

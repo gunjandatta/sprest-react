@@ -52,7 +52,8 @@ var ItemForm = /** @class */ (function (_super) {
             new gd_sprest_1.Helper.ListForm({
                 cacheKey: _this.props.cacheKey,
                 fields: fields,
-                itemId: _this.props.item ? _this.props.item.Id : _this.props.itemId,
+                item: _this.props.item,
+                itemId: _this.props.itemId,
                 listName: _this.props.listName,
                 webUrl: _this.props.webUrl
             }).then(function (formInfo) {

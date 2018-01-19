@@ -94,7 +94,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                 else {
                     // Parse the results
                     for (var i = 0; i < fieldValue.results.length; i++) {
-                        if (fieldValue.results[i] == option.key) {
+                        if (fieldValue.results[i].TermGuid == option.key) {
                             // Remove the selected option
                             fieldValue.results.splice(i, 1);
                             break;

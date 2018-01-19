@@ -146,7 +146,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                 // Set the value
                 state.value = _this.props.defaultValue;
             }
-            else {
+            else if (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.New) {
                 // Get the default values
                 var values = (fldInfo.defaultValue || "").split(";#");
                 var results = [];

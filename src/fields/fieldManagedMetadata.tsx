@@ -145,8 +145,8 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             // Set the value
             state.value = this.props.defaultValue;
         }
-        // Else, see if a default value exists
-        else {
+        // Else, see if this is a new form
+        else if (this.props.controlMode == SPTypes.ControlMode.New) {
             // Get the default values
             let values = (fldInfo.defaultValue || "").split(";#")
             let results = [];

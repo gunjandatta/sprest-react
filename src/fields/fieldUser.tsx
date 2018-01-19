@@ -63,14 +63,8 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
                 results.push(lookupValue.Id || lookupValue);
             }
 
-            // See if results exist
-            if (results.length > 0) {
-                // Update the field value
-                fieldValue.results = results;
-            } else {
-                // Update the field value
-                fieldValue = null;
-            }
+            // Update the field value
+            fieldValue.results = results;
         } else {
             // Ensure the value is valid
             fieldValue = fieldValue > 0 ? fieldValue : null;

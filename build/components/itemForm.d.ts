@@ -51,6 +51,10 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
      */
     refresh(): void;
     /**
+     * Method to refresh the item
+     */
+    private refreshItem;
+    /**
      * Method to render the attachments field
      */
     private renderAttachmentsField;

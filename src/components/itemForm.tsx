@@ -90,14 +90,8 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // See if we are refreshing the item
         if (this.state.refreshFl) {
-            // Reload the item
-            Helper.ListForm.refreshItem(this.state.formInfo).then(formInfo => {
-                // Update the state
-                this.setState({
-                    formInfo,
-                    refreshFl: false
-                });
-            });
+            // Refresh the item
+            this.refreshItem();
 
             // Set the spinner
             spinner = (
@@ -228,6 +222,35 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     refresh() {
         // Update the state
         this.setState({ refreshFl: true });
+    }
+
+    /**
+     * Method to refresh the item
+     */
+    private refreshItem = () => {
+        // Reload the item
+        Helper.ListForm.refreshItem(this.state.formInfo).then(formInfo => {
+            // See if we are loading attachments
+            if (this.props.showAttachments) {
+                // Reload the attachments
+                Helper.ListForm.loadAttachments(formInfo).then(attachments => {
+                    // Update the item
+                    formInfo.item.AttachmentFiles = { results: attachments } as any;
+
+                    // Update the state
+                    this.setState({
+                        formInfo,
+                        refreshFl: false
+                    });
+                })
+            } else {
+                // Update the state
+                this.setState({
+                    formInfo,
+                    refreshFl: false
+                });
+            }
+        });
     }
 
     /**

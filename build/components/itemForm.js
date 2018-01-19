@@ -62,6 +62,34 @@ var ItemForm = /** @class */ (function (_super) {
             });
         };
         /**
+         * Method to refresh the item
+         */
+        _this.refreshItem = function () {
+            // Reload the item
+            gd_sprest_1.Helper.ListForm.refreshItem(_this.state.formInfo).then(function (formInfo) {
+                // See if we are loading attachments
+                if (_this.props.showAttachments) {
+                    // Reload the attachments
+                    gd_sprest_1.Helper.ListForm.loadAttachments(formInfo).then(function (attachments) {
+                        // Update the item
+                        formInfo.item.AttachmentFiles = { results: attachments };
+                        // Update the state
+                        _this.setState({
+                            formInfo: formInfo,
+                            refreshFl: false
+                        });
+                    });
+                }
+                else {
+                    // Update the state
+                    _this.setState({
+                        formInfo: formInfo,
+                        refreshFl: false
+                    });
+                }
+            });
+        };
+        /**
          * Method to render the attachments field
          */
         _this.renderAttachmentsField = function () {
@@ -192,7 +220,6 @@ var ItemForm = /** @class */ (function (_super) {
      * Render the component
      */
     ItemForm.prototype.render = function () {
-        var _this = this;
         var spinner = null;
         // See if the list has been loaded
         if (this.state.formInfo == null) {
@@ -203,14 +230,8 @@ var ItemForm = /** @class */ (function (_super) {
         }
         // See if we are refreshing the item
         if (this.state.refreshFl) {
-            // Reload the item
-            gd_sprest_1.Helper.ListForm.refreshItem(this.state.formInfo).then(function (formInfo) {
-                // Update the state
-                _this.setState({
-                    formInfo: formInfo,
-                    refreshFl: false
-                });
-            });
+            // Refresh the item
+            this.refreshItem();
             // Set the spinner
             spinner = (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
         }

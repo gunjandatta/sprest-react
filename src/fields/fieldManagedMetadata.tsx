@@ -41,7 +41,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         // See if we are allowing multiple values
         if (props.multiSelect) {
             let keys = [];
-            let results = this.state.value.results || [];
+            let results = (this.state.value ? this.state.value.results : null) || [];
 
             // Parse the results
             for (let i = 0; i < results.length; i++) {

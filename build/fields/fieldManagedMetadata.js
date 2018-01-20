@@ -56,7 +56,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             // See if we are allowing multiple values
             if (props.multiSelect) {
                 var keys = [];
-                var results = _this.state.value.results || [];
+                var results = (_this.state.value ? _this.state.value.results : null) || [];
                 // Parse the results
                 for (var i = 0; i < results.length; i++) {
                     // Add the key

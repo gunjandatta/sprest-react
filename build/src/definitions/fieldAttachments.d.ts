@@ -44,8 +44,10 @@ export interface IFieldAttachmentsProps {
 export interface IFieldAttachmentsState {
     /** Error Message */
     errorMessage?: string;
-    /** The file attachments. */
+    /** The file attachments */
     files: Array<IAttachmentFile>;
+    /** The list information */
+    listInfo: Types.Helper.ListForm.IListFormProps;
     /** Loading Flag */
     loadingFl?: boolean;
 }

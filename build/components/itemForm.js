@@ -90,7 +90,7 @@ var ItemForm = /** @class */ (function (_super) {
             if (_this.props.showAttachments) {
                 return (React.createElement("div", { className: "ms-Grid-row", key: "row_Attachments" },
                     React.createElement("div", { className: "ms-Grid-col-md12" },
-                        React.createElement(__1.Fields.FieldAttachments, { controlMode: _this.ControlMode, files: item ? item.AttachmentFiles : null, key: "Attachments", itemId: item.Id, listName: _this.props.listName, onAttachmentsRender: _this.props.onFieldRender == null ? null : function (attachments) { return _this.props.onFieldRender({ listName: _this.props.listName, name: "Attachments" }, attachments); }, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick == null ? null : function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); }, onFileRender: _this.props.onAttachmentRender == null ? null : function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); }, onRender: _this.props.onRenderAttachments == null ? null : function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); }, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
+                        React.createElement(__1.Fields.FieldAttachments, { className: _this.props.fieldClassName, controlMode: _this.ControlMode, files: item ? item.AttachmentFiles : null, key: "Attachments", itemId: item.Id, listName: _this.props.listName, onAttachmentsRender: _this.props.onFieldRender == null ? null : function (attachments) { return _this.props.onFieldRender({ listName: _this.props.listName, name: "Attachments" }, attachments); }, onFileAdded: _this.props.onAttachmentAdded, onFileClick: _this.props.onAttachmentClick == null ? null : function (file) { return _this.props.onAttachmentClick(file, _this.ControlMode); }, onFileRender: _this.props.onAttachmentRender == null ? null : function (file) { return _this.props.onAttachmentRender(file, _this.ControlMode); }, onRender: _this.props.onRenderAttachments == null ? null : function (files) { return _this.props.onRenderAttachments(files, _this.ControlMode); }, ref: function (field) { _this._attachmentField = field; }, webUrl: _this.props.webUrl }))));
             }
             // Render nothing
             return null;
@@ -143,13 +143,13 @@ var ItemForm = /** @class */ (function (_super) {
          * Method to save the item attachments
          * @param itemId - The item id.
          */
-        _this.saveAttachments = function (itemId) {
+        _this.saveAttachments = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
                 // See if attachments exist
                 if (_this._attachmentField) {
                     // Save the attachments
-                    _this._attachmentField.save(itemId).then(function () {
+                    _this._attachmentField.save().then(function () {
                         // Resolve the promise
                         resolve();
                     });
@@ -306,7 +306,7 @@ var ItemForm = /** @class */ (function (_super) {
                 gd_sprest_1.Helper.ListForm.saveItem(_this.state.formInfo, _this.getFormValues())
                     .then(function (formInfo) {
                     // Save the attachments
-                    _this.saveAttachments(formInfo.item.Id).then(function () {
+                    _this.saveAttachments().then(function () {
                         // Refresh the item
                         gd_sprest_1.Helper.ListForm.refreshItem(formInfo).then(function (formInfo) {
                             // Update the state

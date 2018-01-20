@@ -256,6 +256,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                 <div className="ms-Grid-row" key={"row_Attachments"}>
                     <div className="ms-Grid-col-md12">
                         <Fields.FieldAttachments
+                            className={this.props.fieldClassName}
                             controlMode={this.ControlMode}
                             files={item ? item.AttachmentFiles : null}
                             key={"Attachments"}
@@ -359,7 +360,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
                     // Wait for the item to be saved
                     .then((formInfo) => {
                         // Save the attachments
-                        this.saveAttachments(formInfo.item.Id).then(() => {
+                        this.saveAttachments().then(() => {
                             // Refresh the item
                             Helper.ListForm.refreshItem(formInfo).then(formInfo => {
                                 // Update the state
@@ -378,13 +379,13 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
      * Method to save the item attachments
      * @param itemId - The item id.
      */
-    private saveAttachments = (itemId: number): PromiseLike<void> => {
+    private saveAttachments = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if attachments exist
             if (this._attachmentField) {
                 // Save the attachments
-                this._attachmentField.save(itemId).then(() => {
+                this._attachmentField.save().then(() => {
                     // Resolve the promise
                     resolve();
                 });

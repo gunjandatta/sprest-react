@@ -1,11 +1,12 @@
 import * as React from "react";
-import { SPTypes, Types, Web } from "gd-sprest";
+import { Helper, SPTypes, Types } from "gd-sprest";
 import {
     Label, Link,
     Spinner
 } from "office-ui-fabric-react";
 import {
-    IAttachmentFile, IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState
+    IAttachmentFile,
+    IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState
 } from "../definitions";
 import "../../sass/fieldAttachments.scss";
 
@@ -26,6 +27,11 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         this.state = {
             errorMessage: "",
             files: props.files && typeof (props.files) !== "function" ? this.toArray(props.files) : null,
+            listInfo: {
+                itemId: this.props.itemId,
+                listName: this.props.listName,
+                webUrl: this.props.webUrl
+            },
             loadingFl: false
         };
     }
@@ -107,17 +113,16 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
     /**
      * Method to save the attachments to the item
-     * @param itemId - The item id.
      */
-    save = (itemId: number): PromiseLike<any> => {
+    save = (): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Delete the attachments
             this.deleteAttachments().then(() => {
                 // Save the attachments
-                this.saveAttachments(itemId).then(() => {
+                this.saveAttachments().then(attachments => {
                     // Resolve the promise
-                    resolve();
+                    resolve(attachments);
                 });
             });
         });
@@ -229,30 +234,30 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private deleteAttachments = () => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Get the web
-            let web = new Web(this.props.webUrl);
+            let files: Array<Types.IAttachment> = [];
 
-            // Parse the files
-            let files = this.state.files || [];
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
+            // Parse the files to delete
+            for (let i = 0; i < this.state.files.length; i++) {
+                let file = this.state.files[i];
 
-                // See if we are deleting the file
-                if (file.deleteFl) {
-                    // Get the file
-                    web.getFileByServerRelativeUrl(file.url)
-                        // Delete the file
-                        .delete()
-                        // Execute the request
-                        .execute(true);
-                }
+                // add the file
+                files.push({
+                    FileName: file.name,
+                    ServerRelativeUrl: file.url
+                } as any);
             }
 
-            // Wait for the requests to complete
-            web.done((...args) => {
-                // Resolve the proimse
-                resolve(args);
-            })
+            // Ensure files exist
+            if (files.length > 0) {
+                // Remove the attachments
+                Helper.ListForm.removeAttachments(this.state.listInfo, files).then(() => {
+                    // Resolve the promise
+                    resolve();
+                });
+            } else {
+                // Resolve the promise
+                resolve();
+            }
         });
     }
 
@@ -262,33 +267,16 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private loadAttachments = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Ensure the list and item id exists
-            if (this.props.listName && this.props.itemId && this.props.itemId > 0) {
-                // Get the web
-                (new Web(this.props.webUrl))
-                    // Get the list
-                    .Lists(this.props.listName)
-                    // Get the item
-                    .Items(this.props.itemId)
-                    // Get the attachment files
-                    .AttachmentFiles()
-                    // Execute the request
-                    .execute(attachments => {
-                        // Update the state
-                        this.setState({
-                            files: this.toArray(attachments as any)
-                        });
-
-                        // Resolve the promise
-                        resolve();
-                    });
-            } else {
-                // Set the state
-                this.setState({ files: [] })
+            // Load the attachments
+            Helper.ListForm.loadAttachments(this.state.listInfo).then(attachments => {
+                // Update the state
+                this.setState({
+                    files: this.toArray(attachments as any)
+                });
 
                 // Resolve the promise
                 resolve();
-            }
+            });
         });
     }
 
@@ -400,42 +388,40 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
     /**
      * Method to save the attachments
-     * @param itemId - The item id.
      */
-    private saveAttachments = (itemId: number) => {
+    private saveAttachments = (): PromiseLike<Array<Types.IAttachment>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Get the list item
-            let item = (new Web(this.props.webUrl))
-                // Get the list
-                .Lists(this.props.listName)
-                // Get the item
-                .Items(itemId);
+            let files: Array<Types.Helper.ListForm.IListFormAttachmentInfo> = [];
 
-            // Parse the files
-            let files = this.state.files || [];
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
+            // Parse the files to delete
+            for (let i = 0; i < this.state.files.length; i++) {
+                let file = this.state.files[i];
 
-                // See if we are deleting the file
+                // See if we are deleting this file
                 if (file.deleteFl) { continue; }
 
-                // See if the binary data exists
+                // See if data exists
                 if (file.data) {
-                    // Get the item attachments
-                    item.AttachmentFiles()
-                        // Add the item
-                        .add(file.name, file.data)
-                        // Execute the request, waiting for the previous one to complete
-                        .execute(true);
+                    // add the file
+                    files.push({
+                        data: file.data,
+                        name: file.name
+                    });
                 }
             }
 
-            // Wait for the requests to complete
-            item.done((...args) => {
+            // Ensure files exist
+            if (files.length > 0) {
+                // Save the attachments
+                Helper.ListForm.saveAttachments(this.state.listInfo, files).then(attachments => {
+                    // Resolve the promise
+                    resolve(attachments);
+                });
+            } else {
                 // Resolve the promise
-                resolve(args);
-            });
+                resolve([]);
+            }
         });
     }
 

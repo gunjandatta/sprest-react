@@ -35,17 +35,16 @@ var FieldAttachments = /** @class */ (function (_super) {
         };
         /**
          * Method to save the attachments to the item
-         * @param itemId - The item id.
          */
-        _this.save = function (itemId) {
+        _this.save = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
                 // Delete the attachments
                 _this.deleteAttachments().then(function () {
                     // Save the attachments
-                    _this.saveAttachments(itemId).then(function () {
+                    _this.saveAttachments().then(function (attachments) {
                         // Resolve the promise
-                        resolve();
+                        resolve(attachments);
                     });
                 });
             });
@@ -139,29 +138,28 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.deleteAttachments = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Get the web
-                var web = new gd_sprest_1.Web(_this.props.webUrl);
-                // Parse the files
-                var files = _this.state.files || [];
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    // See if we are deleting the file
-                    if (file.deleteFl) {
-                        // Get the file
-                        web.getFileByServerRelativeUrl(file.url)
-                            .delete()
-                            .execute(true);
-                    }
+                var files = [];
+                // Parse the files to delete
+                for (var i = 0; i < _this.state.files.length; i++) {
+                    var file = _this.state.files[i];
+                    // add the file
+                    files.push({
+                        FileName: file.name,
+                        ServerRelativeUrl: file.url
+                    });
                 }
-                // Wait for the requests to complete
-                web.done(function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
-                    // Resolve the proimse
-                    resolve(args);
-                });
+                // Ensure files exist
+                if (files.length > 0) {
+                    // Remove the attachments
+                    gd_sprest_1.Helper.ListForm.removeAttachments(_this.state.listInfo, files).then(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                }
+                else {
+                    // Resolve the promise
+                    resolve();
+                }
             });
         };
         /**
@@ -170,28 +168,15 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.loadAttachments = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Ensure the list and item id exists
-                if (_this.props.listName && _this.props.itemId && _this.props.itemId > 0) {
-                    // Get the web
-                    (new gd_sprest_1.Web(_this.props.webUrl))
-                        .Lists(_this.props.listName)
-                        .Items(_this.props.itemId)
-                        .AttachmentFiles()
-                        .execute(function (attachments) {
-                        // Update the state
-                        _this.setState({
-                            files: _this.toArray(attachments)
-                        });
-                        // Resolve the promise
-                        resolve();
+                // Load the attachments
+                gd_sprest_1.Helper.ListForm.loadAttachments(_this.state.listInfo).then(function (attachments) {
+                    // Update the state
+                    _this.setState({
+                        files: _this.toArray(attachments)
                     });
-                }
-                else {
-                    // Set the state
-                    _this.setState({ files: [] });
                     // Resolve the promise
                     resolve();
-                }
+                });
             });
         };
         /**
@@ -285,40 +270,39 @@ var FieldAttachments = /** @class */ (function (_super) {
         };
         /**
          * Method to save the attachments
-         * @param itemId - The item id.
          */
-        _this.saveAttachments = function (itemId) {
+        _this.saveAttachments = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Get the list item
-                var item = (new gd_sprest_1.Web(_this.props.webUrl))
-                    .Lists(_this.props.listName)
-                    .Items(itemId);
-                // Parse the files
-                var files = _this.state.files || [];
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    // See if we are deleting the file
+                var files = [];
+                // Parse the files to delete
+                for (var i = 0; i < _this.state.files.length; i++) {
+                    var file = _this.state.files[i];
+                    // See if we are deleting this file
                     if (file.deleteFl) {
                         continue;
                     }
-                    // See if the binary data exists
+                    // See if data exists
                     if (file.data) {
-                        // Get the item attachments
-                        item.AttachmentFiles()
-                            .add(file.name, file.data)
-                            .execute(true);
+                        // add the file
+                        files.push({
+                            data: file.data,
+                            name: file.name
+                        });
                     }
                 }
-                // Wait for the requests to complete
-                item.done(function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
+                // Ensure files exist
+                if (files.length > 0) {
+                    // Save the attachments
+                    gd_sprest_1.Helper.ListForm.saveAttachments(_this.state.listInfo, files).then(function (attachments) {
+                        // Resolve the promise
+                        resolve(attachments);
+                    });
+                }
+                else {
                     // Resolve the promise
-                    resolve(args);
-                });
+                    resolve([]);
+                }
             });
         };
         /**
@@ -353,6 +337,11 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.state = {
             errorMessage: "",
             files: props.files && typeof (props.files) !== "function" ? _this.toArray(props.files) : null,
+            listInfo: {
+                itemId: _this.props.itemId,
+                listName: _this.props.listName,
+                webUrl: _this.props.webUrl
+            },
             loadingFl: false
         };
         return _this;

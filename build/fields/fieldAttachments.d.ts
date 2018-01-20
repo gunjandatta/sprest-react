@@ -22,9 +22,8 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
     refresh: () => PromiseLike<void>;
     /**
      * Method to save the attachments to the item
-     * @param itemId - The item id.
      */
-    save: (itemId: number) => PromiseLike<any>;
+    save: () => PromiseLike<any>;
     /**
      * Method to show the file dialog
      */
@@ -60,7 +59,6 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
     private renderAttachments;
     /**
      * Method to save the attachments
-     * @param itemId - The item id.
      */
     private saveAttachments;
     /**

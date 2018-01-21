@@ -218,7 +218,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             options.push({
                 data: item.name,
                 key: item.id,
-                text: item.pathAsString
+                text: item.pathAsString.replace(/\;/g, "/")
             });
         }
 

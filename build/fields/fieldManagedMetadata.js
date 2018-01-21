@@ -109,7 +109,11 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
         _this.onChanged = function (option, idx) {
             // See if this is a multi-choice field
             if (_this.state.fieldInfo.multi) {
-                var fieldValue = _this.state.value;
+                // Default the value if it doesn't exist
+                var fieldValue = _this.state.value || {
+                    __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                    results: []
+                };
                 // Append the option if it was selected
                 if (option.isSelected || option.selected) {
                     fieldValue.results.push({

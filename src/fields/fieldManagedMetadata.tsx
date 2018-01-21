@@ -104,7 +104,11 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
     protected onChanged = (option: IDropdownOption, idx: number) => {
         // See if this is a multi-choice field
         if (this.state.fieldInfo.multi) {
-            let fieldValue = this.state.value;
+            // Default the value if it doesn't exist
+            let fieldValue = this.state.value || {
+                __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                results: []
+            };
 
             // Append the option if it was selected
             if (option.isSelected || option.selected) {

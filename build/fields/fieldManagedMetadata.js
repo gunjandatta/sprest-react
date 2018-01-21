@@ -213,7 +213,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                 options.push({
                     data: item.name,
                     key: item.id,
-                    text: item.path
+                    text: item.pathAsString
                 });
             }
             // Return the options

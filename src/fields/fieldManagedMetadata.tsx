@@ -198,7 +198,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * Method to convert the field value to options
      * @param terms - The managed metadata terms.
      */
-    private toOptions = (terms: Array<IManagedMetadataTermInfo> = []) => {
+    private toOptions = (terms: Array<Types.Helper.Taxonomy.ITermInfo> = []) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-lookup field
@@ -218,7 +218,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             options.push({
                 data: item.name,
                 key: item.id,
-                text: item.path
+                text: item.pathAsString
             });
         }
 

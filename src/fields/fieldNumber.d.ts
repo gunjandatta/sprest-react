@@ -3,15 +3,6 @@ import { ITextFieldProps } from "office-ui-fabric-react";
 import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
 /**
- * Number Field Types
- */
-export enum FieldNumberTypes {
-    Decimal = 0,
-    Integer = 1,
-    Percentage = 2
-}
-
-/**
  * Number Field Properties
  */
 export interface IFieldNumberProps extends IBaseFieldProps {
@@ -19,7 +10,7 @@ export interface IFieldNumberProps extends IBaseFieldProps {
     onChange?: (value: number) => void;
 
     /** The type of number. */
-    numberType?: FieldNumberTypes;
+    numberType?: number;
 
     /** The textfield properties. */
     props?: ITextFieldProps;

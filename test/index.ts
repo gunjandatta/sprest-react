@@ -1,5 +1,5 @@
 import { initializeIcons } from "@uifabric/icons";
-import { FabricWebPart, WebPartSearchCfg, WebPartTabs } from "../src";
+import { WebParts } from "../src";
 import { Configuration } from "./cfg";
 import { ListWebpart } from "./wp";
 import "./list.scss";
@@ -20,17 +20,17 @@ export class Demo {
      */
     constructor() {
         // Create an instance of the list webpart
-        new FabricWebPart({
+        new WebParts.FabricWebPart({
             cfgElementId: "wp-listCfg",
             displayElement: ListWebpart,
-            editElement: WebPartSearchCfg,
+            editElement: WebParts.WebPartSearchCfg,
             targetElementId: "wp-list",
         });
 
         // Create an instance of the webpart tabs
-        new FabricWebPart({
+        new WebParts.FabricWebPart({
             cfgElementId: "wp-tabsCfg",
-            displayElement: WebPartTabs,
+            displayElement: WebParts.WebPartTabs,
             targetElementId: "wp-tabs"
         });
     }

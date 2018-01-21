@@ -1,5 +1,5 @@
 import { Types, Web } from "gd-sprest";
-import { IWebPartListCfg } from "../src";
+import { WebParts } from "../src";
 
 /**
  * Test Item Information
@@ -35,7 +35,7 @@ export class DataSource {
      */
 
     // Configuration
-    private _cfg: IWebPartListCfg = null;
+    private _cfg: WebParts.IWebPartListCfg = null;
 
     // List Item Entity Type Name (Required for complex field item add operation)
     private _listItemEntityTypeFullName = "";
@@ -43,8 +43,8 @@ export class DataSource {
     /**
      * Constructor
      */
-    constructor(cfg: IWebPartListCfg) {
-        // Save the configuration        
+    constructor(cfg: WebParts.IWebPartListCfg) {
+        // Save the configuration
         this._cfg = cfg;
 
         // Get the web

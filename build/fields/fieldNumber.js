@@ -23,6 +23,15 @@ var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var _1 = require(".");
 /**
+ * Number Field Types
+ */
+var FieldNumberTypes;
+(function (FieldNumberTypes) {
+    FieldNumberTypes[FieldNumberTypes["Decimal"] = 0] = "Decimal";
+    FieldNumberTypes[FieldNumberTypes["Integer"] = 1] = "Integer";
+    FieldNumberTypes[FieldNumberTypes["Percentage"] = 2] = "Percentage";
+})(FieldNumberTypes = exports.FieldNumberTypes || (exports.FieldNumberTypes = {}));
+/**
  * Number Field
  */
 var FieldNumber = /** @class */ (function (_super) {
@@ -48,7 +57,7 @@ var FieldNumber = /** @class */ (function (_super) {
             props.value = _this.getValue() || "";
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
             // See if this is a percentage
-            if (_this.props.numberType == _1.FieldNumberTypes.Percentage || _this.state.fieldInfo.showAsPercentage) {
+            if (_this.props.numberType == FieldNumberTypes.Percentage || _this.state.fieldInfo.showAsPercentage) {
                 // Return a slider
                 return (React.createElement(office_ui_fabric_react_1.Slider, { className: props.className, disabled: props.disabled, label: props.label, max: 100, min: 0, onChange: _this.onChange, step: 1, value: props.value || 0 }));
             }
@@ -71,7 +80,7 @@ var FieldNumber = /** @class */ (function (_super) {
                 var floatValue = parseFloat(value);
                 value = typeof (floatValue) === "number" ? floatValue * 100 : value;
             }
-            else if (value && numberType == _1.FieldNumberTypes.Integer) {
+            else if (value && numberType == FieldNumberTypes.Integer) {
                 // Convert the value to an integer
                 var intValue = parseInt(value);
                 value = typeof (intValue) === "number" ? intValue.toString() : value;

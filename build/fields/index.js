@@ -11,7 +11,6 @@ __export(require("./fieldDateTime"));
 __export(require("./fieldLookup"));
 __export(require("./fieldManagedMetadata"));
 __export(require("./fieldNumber"));
-__export(require("./fieldNumber.d"));
 __export(require("./fieldText"));
 __export(require("./fieldUrl"));
 __export(require("./fieldUser"));

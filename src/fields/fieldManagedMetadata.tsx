@@ -71,21 +71,25 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      */
     getFieldValue = () => {
         let fieldValue = this.state.value;
+        if (fieldValue) {
+            // See if results exist
+            if (fieldValue.results) {
+                let results = [];
 
-        // See if results exist
-        if (fieldValue && fieldValue.results) {
-            let results = [];
+                // Parse the results
+                for (let i = 0; i < fieldValue.results.length; i++) {
+                    let result = fieldValue.results[i] as Types.ComplexTypes.FieldManagedMetadataValue;
 
-            // Parse the results
-            for (let i = 0; i < fieldValue.results.length; i++) {
-                let result = fieldValue.results[i];
+                    // Add the term
+                    results.push((result.WssId || "") + ";#" + result.Label + "|" + result.TermGuid);
+                }
 
-                // Add the term
-                results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
+                // Update the field value
+                fieldValue.results = results
+            } else {
+                // Ensure the wss id exists
+                fieldValue.WssId = fieldValue.WssId || -1;
             }
-
-            // Update the field value
-            fieldValue.results = results
         }
 
         // Return the field value

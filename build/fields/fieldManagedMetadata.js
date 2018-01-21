@@ -80,17 +80,23 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
          */
         _this.getFieldValue = function () {
             var fieldValue = _this.state.value;
-            // See if results exist
-            if (fieldValue && fieldValue.results) {
-                var results = [];
-                // Parse the results
-                for (var i = 0; i < fieldValue.results.length; i++) {
-                    var result = fieldValue.results[i];
-                    // Add the term
-                    results.push(result.WssId + ";#" + result.Label + "|" + result.TermGuid);
+            if (fieldValue) {
+                // See if results exist
+                if (fieldValue.results) {
+                    var results = [];
+                    // Parse the results
+                    for (var i = 0; i < fieldValue.results.length; i++) {
+                        var result = fieldValue.results[i];
+                        // Add the term
+                        results.push((result.WssId || "") + ";#" + result.Label + "|" + result.TermGuid);
+                    }
+                    // Update the field value
+                    fieldValue.results = results;
                 }
-                // Update the field value
-                fieldValue.results = results;
+                else {
+                    // Ensure the wss id exists
+                    fieldValue.WssId = fieldValue.WssId || -1;
+                }
             }
             // Return the field value
             return fieldValue;

@@ -1,6 +1,5 @@
 /// <reference types="react" />
-import { IWebPartSearchProps, IWebPartSearchState } from "../definitions";
-import { WebPartList } from ".";
+import { WebPartList, IWebPartSearchProps, IWebPartSearchState } from ".";
 /**
  * WebPart Search
  */

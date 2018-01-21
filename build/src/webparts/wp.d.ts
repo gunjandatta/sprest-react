@@ -1,4 +1,4 @@
-import { IFabricWebPartProps } from "../definitions";
+import { IFabricWebPartProps } from ".";
 /**
  * Fabric Web Part
  */

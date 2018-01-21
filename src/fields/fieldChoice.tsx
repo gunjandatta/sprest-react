@@ -1,8 +1,10 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../definitions";
-import { BaseField } from ".";
+import {
+    BaseField,
+    IFieldChoice, IFieldChoiceProps, IFieldChoiceState
+} from ".";
 
 /**
  * Choice field

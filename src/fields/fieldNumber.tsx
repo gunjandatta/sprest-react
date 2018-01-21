@@ -1,8 +1,10 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { Slider, ISliderProps, TextField, ITextFieldProps } from "office-ui-fabric-react";
-import { FieldNumberTypes, IFieldNumberProps, IFieldNumberState } from "../definitions";
-import { BaseField } from ".";
+import {
+    BaseField,
+    FieldNumberTypes, IFieldNumberProps, IFieldNumberState
+} from ".";
 
 /**
  * Number Field

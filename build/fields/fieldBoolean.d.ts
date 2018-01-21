@@ -1,5 +1,4 @@
-import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "../definitions";
-import { BaseField } from ".";
+import { BaseField, IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from ".";
 /**
  * Boolean field
  */

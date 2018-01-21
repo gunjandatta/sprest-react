@@ -1,6 +1,5 @@
 import { IDropdownOption } from "office-ui-fabric-react";
-import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "../definitions";
-import { BaseField } from ".";
+import { BaseField, IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from ".";
 /**
  * Choice field
  */

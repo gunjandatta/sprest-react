@@ -1,5 +1,4 @@
-import { IFieldUserProps, IFieldUserState } from "../definitions";
-import { BaseField } from ".";
+import { BaseField, IFieldUserProps, IFieldUserState } from ".";
 /**
  * User Field
  */

@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState } from "../definitions";
+import { IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState } from ".";
 import "../../sass/fieldAttachments.scss";
 /**
  * Attachments field

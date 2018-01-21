@@ -1,27 +1,7 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
-import {
-    NormalPeoplePicker, IPeoplePickerProps, IPersonaProps
-} from "office-ui-fabric-react";
-
-/**
- * Properties
- */
-export interface ISPPeoplePickerProps {
-    allowMultiple?: boolean;
-    allowGroups?: boolean;
-    fieldValue?: Array<Types.ComplexTypes.FieldUserValue>;
-    props?: IPeoplePickerProps;
-}
-
-/**
- * State
- */
-export interface ISPPeoplePickerState {
-    allowGroups?: boolean;
-    fieldValue?: number | Array<number>;
-    personas?: Array<IPersonaProps>;
-}
+import { NormalPeoplePicker, IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
+import { ISPPeoplePickerProps, ISPPeoplePickerState } from "."
 
 /**
  * SharePoint People Picker
@@ -144,11 +124,11 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                             });
                         }
                         // Else, see if groups are enabled
-                        else if(this.state.allowGroups) {
+                        else if (this.state.allowGroups) {
                             // Get the group
                             web.SiteGroups().getById(users[i]).execute(group => {
                                 // Ensure the group exists
-                                if(group.existsFl) {
+                                if (group.existsFl) {
                                     // Add the group information
                                     userInfo.push({
                                         ID: parseInt(group.Id),

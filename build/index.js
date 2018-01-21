@@ -10,6 +10,5 @@ var Fields = require("./fields");
 exports.Fields = Fields;
 __export(require("./common"));
 __export(require("./components"));
-__export(require("./definitions"));
 __export(require("./webparts"));
 //# sourceMappingURL=index.js.map

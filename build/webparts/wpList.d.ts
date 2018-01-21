@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "../definitions";
+import { IWebPartListItem, IWebPartListProps, IWebPartListState } from ".";
 /**
  * WebPart List
  */

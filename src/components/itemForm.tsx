@@ -1,13 +1,8 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
-import {
-    IAttachmentFile,
-    IBaseField,
-    IItemFormField, IItemFormProps, IItemFormState
-} from "../definitions";
 import { Fields } from "..";
-import { Field } from ".";
+import { Field, IItemFormField, IItemFormProps, IItemFormState } from ".";
 
 /**
  * Item Form

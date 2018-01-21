@@ -1,8 +1,10 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { Label, TextField, ITextFieldProps } from "office-ui-fabric-react";
-import { IFieldTextProps, IFieldTextState } from "../definitions";
-import { BaseField } from ".";
+import {
+    BaseField,
+    IFieldTextProps, IFieldTextState
+} from ".";
 
 /**
  * Text Field

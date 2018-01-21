@@ -1,6 +1,5 @@
 /// <reference types="react" />
 import { Types } from "gd-sprest";
-import { IBaseFieldProps } from "../definitions";
 import { Fields } from "..";
 /**
  * Field
@@ -12,7 +11,7 @@ export declare class Field extends Fields.BaseField {
      * Constructor
      * @param props - The field properties.
      */
-    constructor(props: IBaseFieldProps);
+    constructor(props: Fields.IBaseFieldProps);
     /**
      * Get the field information
      */

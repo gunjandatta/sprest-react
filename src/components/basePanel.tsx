@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Panel, PanelType } from "office-ui-fabric-react";
-import { IBasePanelProps, IBasePanelState } from "../definitions";
+import { IBasePanelProps, IBasePanelState } from ".";
 
 /**
  * Base Panel

@@ -2,8 +2,7 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
-import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "../definitions";
-import { WebPartCfgPanel } from ".";
+import { WebPartCfgPanel, IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from ".";
 /**
  * WebPart List Configuration Panel
  */

@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from "../definitions";
+import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 /**
  * Base Field
  * This is the base field class, inherited by all field types.

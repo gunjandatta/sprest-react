@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IBasePanelProps, IBasePanelState } from "../definitions";
+import { IBasePanelProps, IBasePanelState } from ".";
 /**
  * Base Panel
  */

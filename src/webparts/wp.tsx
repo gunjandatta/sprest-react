@@ -2,7 +2,7 @@ import * as React from "react";
 import { render } from "react-dom";
 import { Helper, Types } from "gd-sprest";
 import { Fabric } from "office-ui-fabric-react";
-import { IFabricWebPartInfo, IFabricWebPartProps } from "../definitions";
+import { IFabricWebPartInfo, IFabricWebPartProps } from ".";
 
 /**
  * Fabric Web Part

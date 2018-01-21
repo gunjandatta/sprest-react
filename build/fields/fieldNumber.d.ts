@@ -1,5 +1,4 @@
-import { IFieldNumberProps, IFieldNumberState } from "../definitions";
-import { BaseField } from ".";
+import { BaseField, IFieldNumberProps, IFieldNumberState } from ".";
 /**
  * Number Field
  */

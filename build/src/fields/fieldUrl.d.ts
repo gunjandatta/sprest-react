@@ -1,5 +1,4 @@
-import { IFieldUrlProps, IFieldUrlState } from "../definitions";
-import { BaseField } from ".";
+import { BaseField, IFieldUrlProps, IFieldUrlState } from ".";
 /**
  * URL Field
  */

@@ -28,7 +28,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             errorMessage: "",
             files: {
                 Delete: [],
-                Existing: props.files,
+                Existing: props.files && typeof (props.files) != "function" ? props.files : null,
                 New: []
             },
             listInfo: null,

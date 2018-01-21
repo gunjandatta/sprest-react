@@ -363,7 +363,7 @@ var FieldAttachments = /** @class */ (function (_super) {
             errorMessage: "",
             files: {
                 Delete: [],
-                Existing: props.files,
+                Existing: props.files && typeof (props.files) != "function" ? props.files : null,
                 New: []
             },
             listInfo: null,

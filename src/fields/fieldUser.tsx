@@ -52,7 +52,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
         let fieldValue = this.state.value;
 
         // See if results exist
-        if (fieldValue.results) {
+        if (fieldValue && fieldValue.results) {
             let results = [];
 
             // Parse the results

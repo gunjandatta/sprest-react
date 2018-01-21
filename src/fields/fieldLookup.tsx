@@ -70,7 +70,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         let fieldValue = this.state.value;
 
         // See if results exist
-        if (fieldValue.results) {
+        if (fieldValue && fieldValue.results) {
             let results = [];
 
             // Parse the results

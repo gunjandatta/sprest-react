@@ -80,7 +80,7 @@ var FieldLookup = /** @class */ (function (_super) {
         _this.getFieldValue = function () {
             var fieldValue = _this.state.value;
             // See if results exist
-            if (fieldValue.results) {
+            if (fieldValue && fieldValue.results) {
                 var results = [];
                 // Parse the results
                 for (var i = 0; i < fieldValue.results.length; i++) {

@@ -25,7 +25,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         props.label = props.label ? props.label : this.state.fieldInfo.title;
         props.onChanged = this.updateValue;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
-        props.value = this.getValue();
+        props.value = this.getValue() || "";
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
 
         // See if this is a percentage

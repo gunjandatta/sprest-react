@@ -26,7 +26,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         props.onChanged = this.onChange;
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
-        props.value = this.getFieldValue();
+        props.value = this.getFieldValue() || "";
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
 
         // See if we are displaying the value

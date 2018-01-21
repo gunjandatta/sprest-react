@@ -46,7 +46,7 @@ var FieldNumber = /** @class */ (function (_super) {
             props.label = props.label ? props.label : _this.state.fieldInfo.title;
             props.onChanged = _this.updateValue;
             props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
-            props.value = _this.getValue();
+            props.value = _this.getValue() || "";
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
             // See if this is a percentage
             if (_this.props.numberType == definitions_1.FieldNumberTypes.Percentage || _this.state.fieldInfo.showAsPercentage) {

@@ -46,7 +46,7 @@ var FieldText = /** @class */ (function (_super) {
             props.onChanged = _this.onChange;
             props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
             props.rows = props.rows ? props.rows : _this.state.fieldInfo.rows;
-            props.value = _this.getFieldValue();
+            props.value = _this.getFieldValue() || "";
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";
             // See if we are displaying the value
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {

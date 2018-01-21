@@ -5,8 +5,6 @@ import { Types } from "gd-sprest";
  */
 export interface IAttachmentFile {
     data?: any;
-    deleteFl?: boolean;
-    existsFl?: boolean;
     ext: string;
     name: string;
     url?: string;
@@ -44,10 +42,14 @@ export interface IFieldAttachmentsProps {
 export interface IFieldAttachmentsState {
     /** Error Message */
     errorMessage?: string;
-    /** The file attachments */
-    files: Array<IAttachmentFile>;
+    /** The attachment files */
+    files: {
+        Delete: Array<IAttachmentFile>;
+        New: Array<IAttachmentFile>;
+        Existing: Array<IAttachmentFile>;
+    };
     /** The list information */
-    listInfo: Types.Helper.ListForm.IListFormProps;
+    listInfo: Types.Helper.ListForm.IListFormResult;
     /** Loading Flag */
     loadingFl?: boolean;
 }
@@ -56,10 +58,13 @@ export interface IFieldAttachmentsState {
  */
 export interface IFieldAttachment {
     /**
+     * Refreshes the item attachments.
+     */
+    refresh: () => PromiseLike<void>;
+    /**
      * Saves the item attachments.
-     * @param itemId - The item id.
     */
-    save: (itemId: number) => PromiseLike<any>;
+    save: () => PromiseLike<void>;
     /**
      * Displays the file upload dialog.
      */

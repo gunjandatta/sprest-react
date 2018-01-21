@@ -27,36 +27,6 @@ var FieldAttachments = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this._file = null;
         /**
-         * Method to refresh the attachments.
-         */
-        _this.refresh = function () {
-            // Load the attachments
-            return _this.loadAttachments();
-        };
-        /**
-         * Method to save the attachments to the item
-         */
-        _this.save = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Delete the attachments
-                _this.deleteAttachments().then(function () {
-                    // Save the attachments
-                    _this.saveAttachments().then(function (attachments) {
-                        // Resolve the promise
-                        resolve(attachments);
-                    });
-                });
-            });
-        };
-        /**
-         * Method to show the file dialog
-         */
-        _this.showFileDialog = function () {
-            // Show the file dialog
-            _this._file.click();
-        };
-        /**
          * Methods
          */
         /**
@@ -77,22 +47,40 @@ var FieldAttachments = /** @class */ (function (_super) {
                 reader.onloadend = function (ev) {
                     var newFl = true;
                     var attachment = null;
-                    var files = _this.state.files || [];
+                    var state = _this.state;
                     // Parse the attachments
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
+                    for (var i = 0; i < _this.state.files.Existing.length; i++) {
+                        var file = _this.state.files.Existing[i];
                         // See if the file already exists
                         if (file.name.toLowerCase() == srcFile.name.toLowerCase()) {
+                            var deleteFl = true;
                             // Set the flag
                             newFl = false;
-                            // Update the file
-                            file.data = ev.target.result;
-                            file.deleteFl = false;
-                            file.name = srcFile.name;
-                            file.ext = file.name.split(".");
-                            file.ext = file.ext[file.ext.length - 1].toLowerCase();
-                            // Set the attachment
-                            attachment = file;
+                            // Delete the file
+                            for (var j = 0; j < _this.state.files.Delete.length; j++) {
+                                // See if this file is already flagged to be deleted
+                                if (_this.state.files.Delete[j].name == file.name) {
+                                    // Set the flag
+                                    deleteFl = false;
+                                }
+                            }
+                            // See if we are deleting the file
+                            if (deleteFl) {
+                                // Delete the file
+                                _this.state.files.Delete.push(file);
+                            }
+                            else {
+                                // Parse the files to add
+                                for (var j = 0; j < _this.state.files.New.length; j++) {
+                                    var newFile = _this.state.files.New[j];
+                                    // See if this is the file
+                                    if (newFile.name == file.name) {
+                                        // Update the file
+                                        newFile.data = ev.target.result;
+                                        newFile.name = srcFile.name;
+                                    }
+                                }
+                            }
                             // Break from the loop
                             break;
                         }
@@ -101,31 +89,23 @@ var FieldAttachments = /** @class */ (function (_super) {
                     if (newFl) {
                         var ext = srcFile.name.split(".");
                         ext = ext[ext.length - 1].toLowerCase();
-                        // Set the attachment
-                        attachment = {
+                        // Add the attachment
+                        state.files.New.push({
                             data: ev.target.result,
-                            deleteFl: false,
-                            existsFl: false,
                             ext: ext,
                             name: srcFile.name
-                        };
-                        // Add the file
-                        files.push(attachment);
+                        });
                     }
                     // Call the file added event
                     _this.props.onFileAdded ? _this.props.onFileAdded(attachment) : null;
                     // Update the state
-                    _this.setState({
-                        files: files,
-                        loadingFl: false
-                    });
+                    _this.setState(state);
                 };
                 // Set the error
                 reader.onerror = function (ev) {
                     // Update the state
                     _this.setState({
-                        errorMessage: ev.target.error,
-                        loadingFl: false
+                        errorMessage: ev.target.error
                     });
                 };
                 // Read the file
@@ -135,13 +115,13 @@ var FieldAttachments = /** @class */ (function (_super) {
         /**
          * Method to delete the attachments
          */
-        _this.deleteAttachments = function () {
+        _this.deleteAttachments = function (state) {
             // Return a promise
             return new Promise(function (resolve, reject) {
                 var files = [];
                 // Parse the files to delete
-                for (var i = 0; i < _this.state.files.length; i++) {
-                    var file = _this.state.files[i];
+                for (var i = 0; i < _this.state.files.Delete.length; i++) {
+                    var file = _this.state.files.Delete[i];
                     // add the file
                     files.push({
                         FileName: file.name,
@@ -151,14 +131,20 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Ensure files exist
                 if (files.length > 0) {
                     // Remove the attachments
-                    gd_sprest_1.Helper.ListForm.removeAttachments(_this.state.listInfo, files).then(function () {
+                    gd_sprest_1.Helper.ListForm.removeAttachments({
+                        itemId: _this.props.itemId,
+                        listName: _this.props.listName,
+                        webUrl: _this.props.webUrl
+                    }, files).then(function () {
+                        // Clear the delete array
+                        state.files.Delete = [];
                         // Resolve the promise
-                        resolve();
+                        resolve(state);
                     });
                 }
                 else {
                     // Resolve the promise
-                    resolve();
+                    resolve(state);
                 }
             });
         };
@@ -166,16 +152,21 @@ var FieldAttachments = /** @class */ (function (_super) {
          * Method to load the attachment files from the item.
          */
         _this.loadAttachments = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Load the attachments
-                gd_sprest_1.Helper.ListForm.loadAttachments(_this.state.listInfo).then(function (attachments) {
-                    // Update the state
-                    _this.setState({
-                        files: _this.toArray(attachments)
-                    });
-                    // Resolve the promise
-                    resolve();
+            // Create the list information
+            (new gd_sprest_1.Helper.ListForm({
+                itemId: _this.props.itemId,
+                listName: _this.props.listName,
+                loadAttachments: true,
+                webUrl: _this.props.webUrl
+            })).then(function (listInfo) {
+                // Update the state
+                _this.setState({
+                    files: {
+                        Delete: [],
+                        Existing: _this.toArray(listInfo.attachments),
+                        New: []
+                    },
+                    listInfo: listInfo
                 });
             });
         };
@@ -190,9 +181,8 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Get the file name
                 var fileName = ev.currentTarget.getAttribute("data-filename");
                 // Parse the attachments
-                var files = _this.state.files || [];
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
+                for (var i = 0; i < _this.state.files.Existing.length; i++) {
+                    var file = _this.state.files.Existing[i];
                     // See if this is the attachment to remove
                     if (file.name.toLowerCase() == fileName) {
                         // Execute the event
@@ -203,6 +193,20 @@ var FieldAttachments = /** @class */ (function (_super) {
                 }
             }
         };
+        // Refresh the attachments
+        _this.refresh = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Clear the existing items
+                var state = _this.state;
+                state.files.Existing = null;
+                // Update the state
+                _this.setState(state, function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
         /**
          * Event triggered by clicking on the attachment delete icon
          * @param ev - The button click event.
@@ -211,28 +215,21 @@ var FieldAttachments = /** @class */ (function (_super) {
             // Prevent postback
             ev.preventDefault();
             // Get the file name
-            var fileName = ev.currentTarget.getAttribute("data-filename");
+            var fileName = ev.currentTarget.getAttribute("data-filename").toLowerCase();
             // Parse the attachments
-            var files = _this.state.files || [];
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
+            for (var i = 0; i < _this.state.files.Existing.length; i++) {
+                var file = _this.state.files.Existing[i];
                 // See if this is the attachment to remove
                 if (file.name.toLowerCase() == fileName) {
-                    // See if this item exists
-                    if (file.existsFl) {
-                        // Set the delete flag
-                        file.deleteFl = true;
-                    }
-                    else {
-                        // Remove the file
-                        files.splice(i, 1);
-                    }
+                    var files = _this.state.files;
+                    // Delete the attachment
+                    files.Delete.push(file);
+                    // Update the state
+                    _this.setState({ files: files });
                     // Break from the loop
                     break;
                 }
             }
-            // Update the state
-            _this.setState({ files: files });
         };
         /**
          * Method to render the attachments
@@ -240,13 +237,8 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.renderAttachments = function () {
             var attachments = [];
             // Parse the files
-            var files = _this.state.files || [];
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                // Ensure we are not deleting this field
-                if (file.deleteFl) {
-                    continue;
-                }
+            for (var i = 0; i < _this.state.files.Existing.length; i++) {
+                var file = _this.state.files.Existing[i];
                 // See if the file render event exists
                 var attachment = null;
                 if (_this.props.onFileRender) {
@@ -269,19 +261,39 @@ var FieldAttachments = /** @class */ (function (_super) {
             return attachments;
         };
         /**
+         * Method to save the attachments to the item
+         */
+        _this.save = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Update the state
+                _this.setState({ loadingFl: true }, function () {
+                    // Delete the attachments
+                    _this.deleteAttachments(_this.state).then(function (state) {
+                        // Save the attachments
+                        _this.saveAttachments(state).then(function (state) {
+                            // Set the loading flag
+                            state.loadingFl = false;
+                            // Update the state
+                            _this.setState(state, function () {
+                                // Resolve the promise
+                                resolve();
+                            });
+                        });
+                    });
+                });
+            });
+        };
+        /**
          * Method to save the attachments
          */
-        _this.saveAttachments = function () {
+        _this.saveAttachments = function (state) {
             // Return a promise
             return new Promise(function (resolve, reject) {
                 var files = [];
-                // Parse the files to delete
-                for (var i = 0; i < _this.state.files.length; i++) {
-                    var file = _this.state.files[i];
-                    // See if we are deleting this file
-                    if (file.deleteFl) {
-                        continue;
-                    }
+                // Parse the new files
+                for (var i = 0; i < state.files.New.length; i++) {
+                    var file = state.files.New[i];
                     // See if data exists
                     if (file.data) {
                         // add the file
@@ -291,19 +303,34 @@ var FieldAttachments = /** @class */ (function (_super) {
                         });
                     }
                 }
+                // Clear the new items
+                state.files.New = [];
                 // Ensure files exist
                 if (files.length > 0) {
                     // Save the attachments
-                    gd_sprest_1.Helper.ListForm.saveAttachments(_this.state.listInfo, files).then(function (attachments) {
+                    gd_sprest_1.Helper.ListForm.saveAttachments({
+                        itemId: _this.props.itemId,
+                        listName: _this.props.listName,
+                        webUrl: _this.props.webUrl
+                    }, files).then(function (attachments) {
+                        // Update the attachments
+                        state.listInfo.attachments = attachments;
                         // Resolve the promise
-                        resolve(attachments);
+                        resolve(state);
                     });
                 }
                 else {
                     // Resolve the promise
-                    resolve([]);
+                    resolve(state);
                 }
             });
+        };
+        /**
+         * Method to show the file dialog
+         */
+        _this.showFileDialog = function () {
+            // Show the file dialog
+            _this._file.click();
         };
         /**
          * Method to convert the item value to the attachment file array
@@ -312,18 +339,16 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.toArray = function (attachments) {
             var files = [];
             // Ensure attachments exist
-            if (attachments && attachments.results) {
+            if (attachments) {
                 // Parse the attachments
-                for (var i = 0; i < attachments.results.length; i++) {
-                    var attachment = attachments.results[i];
+                for (var i = 0; i < attachments.length; i++) {
+                    var attachment = attachments[i];
                     // Set the file extension
                     var ext = attachment.FileName.split(".");
                     ext = ext[ext.length - 1].toLowerCase();
                     // Add the file
                     files.push({
                         data: null,
-                        deleteFl: false,
-                        existsFl: true,
                         ext: ext,
                         name: attachment.FileName,
                         url: attachment.ServerRelativeUrl
@@ -336,37 +361,36 @@ var FieldAttachments = /** @class */ (function (_super) {
         // Update the state
         _this.state = {
             errorMessage: "",
-            files: props.files && typeof (props.files) !== "function" ? _this.toArray(props.files) : null,
-            listInfo: {
-                itemId: _this.props.itemId,
-                listName: _this.props.listName,
-                webUrl: _this.props.webUrl
+            files: {
+                Delete: [],
+                Existing: props.files,
+                New: []
             },
+            listInfo: null,
             loadingFl: false
         };
         return _this;
     }
-    /**
-     * Method to render the component
-     */
+    // Render the component
     FieldAttachments.prototype.render = function () {
         var _this = this;
         var elAttachments = null;
-        // See if we are loading the attachments
-        if (this.state.loadingFl) {
-            // Render a loading dialog
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
-        }
-        // Ensure the files exist
-        if (this.state.files == null) {
+        var loadingFl = this.state.loadingFl;
+        // Ensure the attachments have been loaded
+        if (this.state.files.Existing == null) {
             // Load the attachments
             this.loadAttachments();
+            // Set the flag
+            loadingFl = true;
+        }
+        // See if we are loading the attachments
+        if (loadingFl) {
             // Render a loading dialog
             return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
         }
         // See if the render method exists
         if (this.props.onRender) {
-            elAttachments = this.props.onRender(this.state.files);
+            elAttachments = this.props.onRender(this.state.files.Existing);
         }
         else {
             // See if this is the display mode

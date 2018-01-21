@@ -7,12 +7,6 @@ export interface IAttachmentFile {
     // The file binary data
     data?: any;
 
-    // Flag to delete the item
-    deleteFl?: boolean;
-
-    // Flag to determine if it already exists
-    existsFl?: boolean;
-
     // The file extension
     ext: string;
 
@@ -68,11 +62,20 @@ export interface IFieldAttachmentsState {
     /** Error Message */
     errorMessage?: string;
 
-    /** The file attachments */
-    files: Array<IAttachmentFile>;
+    /** The attachment files */
+    files: {
+        // Files to Delete
+        Delete: Array<IAttachmentFile>;
+
+        // New Files
+        New: Array<IAttachmentFile>;
+
+        // Existing
+        Existing: Array<IAttachmentFile>;
+    };
 
     /** The list information */
-    listInfo: Types.Helper.ListForm.IListFormProps;
+    listInfo: Types.Helper.ListForm.IListFormResult;
 
     /** Loading Flag */
     loadingFl?: boolean;
@@ -83,10 +86,14 @@ export interface IFieldAttachmentsState {
  */
 export interface IFieldAttachment {
     /**
+     * Refreshes the item attachments.
+     */
+    refresh: () => PromiseLike<void>;
+
+    /**
      * Saves the item attachments.
-     * @param itemId - The item id.
     */
-    save: (itemId: number) => PromiseLike<any>
+    save: () => PromiseLike<void>;
 
     /**
      * Displays the file upload dialog.

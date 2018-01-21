@@ -26,35 +26,32 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         // Update the state
         this.state = {
             errorMessage: "",
-            files: props.files && typeof (props.files) !== "function" ? this.toArray(props.files) : null,
-            listInfo: {
-                itemId: this.props.itemId,
-                listName: this.props.listName,
-                webUrl: this.props.webUrl
+            files: {
+                Delete: [],
+                Existing: props.files,
+                New: []
             },
+            listInfo: null,
             loadingFl: false
         };
     }
 
-    /**
-     * Method to render the component
-     */
+    // Render the component
     render() {
         let elAttachments = null;
+        let loadingFl = this.state.loadingFl;
 
-        // See if we are loading the attachments
-        if (this.state.loadingFl) {
-            // Render a loading dialog
-            return (
-                <Spinner label="Loading..." />
-            );
-        }
-
-        // Ensure the files exist
-        if (this.state.files == null) {
+        // Ensure the attachments have been loaded
+        if (this.state.files.Existing == null) {
             // Load the attachments
             this.loadAttachments();
 
+            // Set the flag
+            loadingFl = true;
+        }
+
+        // See if we are loading the attachments
+        if (loadingFl) {
             // Render a loading dialog
             return (
                 <Spinner label="Loading..." />
@@ -63,7 +60,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
 
         // See if the render method exists
         if (this.props.onRender) {
-            elAttachments = this.props.onRender(this.state.files);
+            elAttachments = this.props.onRender(this.state.files.Existing);
         } else {
             // See if this is the display mode
             if (this.props.controlMode == SPTypes.ControlMode.Display) {
@@ -104,39 +101,6 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
-     * Method to refresh the attachments.
-     */
-    refresh = (): PromiseLike<void> => {
-        // Load the attachments
-        return this.loadAttachments();
-    }
-
-    /**
-     * Method to save the attachments to the item
-     */
-    save = (): PromiseLike<any> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Delete the attachments
-            this.deleteAttachments().then(() => {
-                // Save the attachments
-                this.saveAttachments().then(attachments => {
-                    // Resolve the promise
-                    resolve(attachments);
-                });
-            });
-        });
-    }
-
-    /**
-     * Method to show the file dialog
-     */
-    showFileDialog = () => {
-        // Show the file dialog
-        this._file.click();
-    }
-
-    /**
      * Methods
      */
 
@@ -160,26 +124,45 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             reader.onloadend = (ev: any) => {
                 let newFl = true;
                 let attachment: IAttachmentFile = null;
-                let files = this.state.files || [];
+                let state = this.state;
 
                 // Parse the attachments
-                for (let i = 0; i < files.length; i++) {
-                    let file = files[i];
+                for (let i = 0; i < this.state.files.Existing.length; i++) {
+                    let file = this.state.files.Existing[i];
 
                     // See if the file already exists
                     if (file.name.toLowerCase() == srcFile.name.toLowerCase()) {
+                        let deleteFl = true;
+
                         // Set the flag
                         newFl = false;
 
-                        // Update the file
-                        file.data = ev.target.result;
-                        file.deleteFl = false;
-                        file.name = srcFile.name;
-                        file.ext = file.name.split(".") as any;
-                        file.ext = file.ext[file.ext.length - 1].toLowerCase();
+                        // Delete the file
+                        for (let j = 0; j < this.state.files.Delete.length; j++) {
+                            // See if this file is already flagged to be deleted
+                            if (this.state.files.Delete[j].name == file.name) {
+                                // Set the flag
+                                deleteFl = false;
+                            }
+                        }
 
-                        // Set the attachment
-                        attachment = file;
+                        // See if we are deleting the file
+                        if (deleteFl) {
+                            // Delete the file
+                            this.state.files.Delete.push(file);
+                        } else {
+                            // Parse the files to add
+                            for (let j = 0; j < this.state.files.New.length; j++) {
+                                let newFile = this.state.files.New[j];
+
+                                // See if this is the file
+                                if (newFile.name == file.name) {
+                                    // Update the file
+                                    newFile.data = ev.target.result;
+                                    newFile.name = srcFile.name;
+                                }
+                            }
+                        }
 
                         // Break from the loop
                         break;
@@ -191,35 +174,26 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                     let ext = srcFile.name.split(".") as any;
                     ext = ext[ext.length - 1].toLowerCase();
 
-                    // Set the attachment
-                    attachment = {
+                    // Add the attachment
+                    state.files.New.push({
                         data: ev.target.result,
-                        deleteFl: false,
-                        existsFl: false,
                         ext,
                         name: srcFile.name
-                    };
-
-                    // Add the file
-                    files.push(attachment);
+                    });
                 }
 
                 // Call the file added event
                 this.props.onFileAdded ? this.props.onFileAdded(attachment) : null;
 
                 // Update the state
-                this.setState({
-                    files,
-                    loadingFl: false
-                });
+                this.setState(state);
             }
 
             // Set the error
             reader.onerror = (ev: any) => {
                 // Update the state
                 this.setState({
-                    errorMessage: ev.target.error,
-                    loadingFl: false
+                    errorMessage: ev.target.error
                 });
             }
 
@@ -231,14 +205,14 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     /**
      * Method to delete the attachments
      */
-    private deleteAttachments = () => {
+    private deleteAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let files: Array<Types.IAttachment> = [];
 
             // Parse the files to delete
-            for (let i = 0; i < this.state.files.length; i++) {
-                let file = this.state.files[i];
+            for (let i = 0; i < this.state.files.Delete.length; i++) {
+                let file = this.state.files.Delete[i];
 
                 // add the file
                 files.push({
@@ -250,13 +224,20 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             // Ensure files exist
             if (files.length > 0) {
                 // Remove the attachments
-                Helper.ListForm.removeAttachments(this.state.listInfo, files).then(() => {
+                Helper.ListForm.removeAttachments({
+                    itemId: this.props.itemId,
+                    listName: this.props.listName,
+                    webUrl: this.props.webUrl
+                }, files).then(() => {
+                    // Clear the delete array
+                    state.files.Delete = [];
+
                     // Resolve the promise
-                    resolve();
+                    resolve(state);
                 });
             } else {
                 // Resolve the promise
-                resolve();
+                resolve(state);
             }
         });
     }
@@ -264,18 +245,22 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     /**
      * Method to load the attachment files from the item.
      */
-    private loadAttachments = (): PromiseLike<void> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Load the attachments
-            Helper.ListForm.loadAttachments(this.state.listInfo).then(attachments => {
-                // Update the state
-                this.setState({
-                    files: this.toArray(attachments as any)
-                });
-
-                // Resolve the promise
-                resolve();
+    private loadAttachments = () => {
+        // Create the list information
+        (new Helper.ListForm({
+            itemId: this.props.itemId,
+            listName: this.props.listName,
+            loadAttachments: true,
+            webUrl: this.props.webUrl
+        })).then(listInfo => {
+            // Update the state
+            this.setState({
+                files: {
+                    Delete: [],
+                    Existing: this.toArray(listInfo.attachments),
+                    New: []
+                },
+                listInfo
             });
         });
     }
@@ -293,9 +278,8 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             let fileName = ev.currentTarget.getAttribute("data-filename");
 
             // Parse the attachments
-            let files = this.state.files || [];
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
+            for (let i = 0; i < this.state.files.Existing.length; i++) {
+                let file = this.state.files.Existing[i];
 
                 // See if this is the attachment to remove
                 if (file.name.toLowerCase() == fileName) {
@@ -309,6 +293,22 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         }
     }
 
+    // Refresh the attachments
+    refresh = (): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Clear the existing items
+            let state = this.state;
+            state.files.Existing = null;
+
+            // Update the state
+            this.setState(state, () => {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    }
+
     /**
      * Event triggered by clicking on the attachment delete icon
      * @param ev - The button click event.
@@ -318,31 +318,26 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         ev.preventDefault();
 
         // Get the file name
-        let fileName = ev.currentTarget.getAttribute("data-filename");
+        let fileName = ev.currentTarget.getAttribute("data-filename").toLowerCase();
 
         // Parse the attachments
-        let files = this.state.files || [];
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
+        for (let i = 0; i < this.state.files.Existing.length; i++) {
+            let file = this.state.files.Existing[i];
 
             // See if this is the attachment to remove
             if (file.name.toLowerCase() == fileName) {
-                // See if this item exists
-                if (file.existsFl) {
-                    // Set the delete flag
-                    file.deleteFl = true;
-                } else {
-                    // Remove the file
-                    files.splice(i, 1);
-                }
+                let files = this.state.files;
+
+                // Delete the attachment
+                files.Delete.push(file);
+
+                // Update the state
+                this.setState({ files });
 
                 // Break from the loop
                 break;
             }
         }
-
-        // Update the state
-        this.setState({ files });
     }
 
     /**
@@ -352,12 +347,8 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
         let attachments = [];
 
         // Parse the files
-        let files = this.state.files || [];
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
-
-            // Ensure we are not deleting this field
-            if (file.deleteFl) { continue; }
+        for (let i = 0; i < this.state.files.Existing.length; i++) {
+            let file = this.state.files.Existing[i];
 
             // See if the file render event exists
             let attachment = null;
@@ -387,19 +378,42 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     }
 
     /**
+     * Method to save the attachments to the item
+     */
+    save = (): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Update the state
+            this.setState({ loadingFl: true }, () => {
+                // Delete the attachments
+                this.deleteAttachments(this.state).then(state => {
+                    // Save the attachments
+                    this.saveAttachments(state).then(state => {
+                        // Set the loading flag
+                        state.loadingFl = false;
+
+                        // Update the state
+                        this.setState(state, () => {
+                            // Resolve the promise
+                            resolve();
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    /**
      * Method to save the attachments
      */
-    private saveAttachments = (): PromiseLike<Array<Types.IAttachment>> => {
+    private saveAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let files: Array<Types.Helper.ListForm.IListFormAttachmentInfo> = [];
 
-            // Parse the files to delete
-            for (let i = 0; i < this.state.files.length; i++) {
-                let file = this.state.files[i];
-
-                // See if we are deleting this file
-                if (file.deleteFl) { continue; }
+            // Parse the new files
+            for (let i = 0; i < state.files.New.length; i++) {
+                let file = state.files.New[i];
 
                 // See if data exists
                 if (file.data) {
@@ -411,32 +425,50 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 }
             }
 
+            // Clear the new items
+            state.files.New = [];
+
             // Ensure files exist
             if (files.length > 0) {
                 // Save the attachments
-                Helper.ListForm.saveAttachments(this.state.listInfo, files).then(attachments => {
+                Helper.ListForm.saveAttachments({
+                    itemId: this.props.itemId,
+                    listName: this.props.listName,
+                    webUrl: this.props.webUrl
+                }, files).then(attachments => {
+                    // Update the attachments
+                    state.listInfo.attachments = attachments;
+
                     // Resolve the promise
-                    resolve(attachments);
+                    resolve(state);
                 });
             } else {
                 // Resolve the promise
-                resolve([]);
+                resolve(state);
             }
         });
+    }
+
+    /**
+     * Method to show the file dialog
+     */
+    showFileDialog = () => {
+        // Show the file dialog
+        this._file.click();
     }
 
     /**
      * Method to convert the item value to the attachment file array
      * @param attachments - The file attachments.
      */
-    private toArray = (attachments: Types.IAttachmentFiles) => {
+    private toArray = (attachments: Array<Types.IAttachment>) => {
         let files: Array<IAttachmentFile> = [];
 
         // Ensure attachments exist
-        if (attachments && attachments.results) {
+        if (attachments) {
             // Parse the attachments
-            for (let i = 0; i < attachments.results.length; i++) {
-                let attachment = attachments.results[i];
+            for (let i = 0; i < attachments.length; i++) {
+                let attachment = attachments[i];
 
                 // Set the file extension
                 let ext: any = attachment.FileName.split(".");
@@ -445,8 +477,6 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 // Add the file
                 files.push({
                     data: null,
-                    deleteFl: false,
-                    existsFl: true,
                     ext,
                     name: attachment.FileName,
                     url: attachment.ServerRelativeUrl

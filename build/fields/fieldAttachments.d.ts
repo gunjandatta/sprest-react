@@ -12,22 +12,7 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      * @param props - The attachment field properties.
      */
     constructor(props: IFieldAttachmentsProps);
-    /**
-     * Method to render the component
-     */
     render(): JSX.Element;
-    /**
-     * Method to refresh the attachments.
-     */
-    refresh: () => PromiseLike<void>;
-    /**
-     * Method to save the attachments to the item
-     */
-    save: () => PromiseLike<any>;
-    /**
-     * Method to show the file dialog
-     */
-    showFileDialog: () => void;
     /**
      * Methods
      */
@@ -48,6 +33,7 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      * The click event for the link.
      */
     private linkClick;
+    refresh: () => PromiseLike<void>;
     /**
      * Event triggered by clicking on the attachment delete icon
      * @param ev - The button click event.
@@ -58,9 +44,17 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      */
     private renderAttachments;
     /**
+     * Method to save the attachments to the item
+     */
+    save: () => PromiseLike<void>;
+    /**
      * Method to save the attachments
      */
     private saveAttachments;
+    /**
+     * Method to show the file dialog
+     */
+    showFileDialog: () => void;
     /**
      * Method to convert the item value to the attachment file array
      * @param attachments - The file attachments.

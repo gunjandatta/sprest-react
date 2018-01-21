@@ -200,6 +200,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      */
     private toOptions = (terms: Array<Types.Helper.Taxonomy.ITermInfo> = []) => {
         let options: Array<IDropdownOption> = [];
+        let rootNodeText: string = null;
 
         // See if this is not a required multi-lookup field
         if (!this.state.fieldInfo.required && !this.state.fieldInfo.multi) {
@@ -214,11 +215,21 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         for (let i = 0; i < terms.length; i++) {
             let item = terms[i];
 
+            // See if this is the root node
+            let text = item.pathAsString.replace(/\;/g, "/");
+            if (i == 0) {
+                // Set the text
+                rootNodeText = text + "/";
+            } else {
+                // Trim the root node text
+                text = text.replace(rootNodeText, "");
+            }
+
             // Add the option
             options.push({
                 data: item.name,
                 key: item.id,
-                text: item.pathAsString.replace(/\;/g, "/")
+                text
             });
         }
 

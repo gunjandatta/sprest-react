@@ -198,6 +198,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
         _this.toOptions = function (terms) {
             if (terms === void 0) { terms = []; }
             var options = [];
+            var rootNodeText = null;
             // See if this is not a required multi-lookup field
             if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.multi) {
                 // Add a blank option
@@ -209,11 +210,21 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var item = terms[i];
+                // See if this is the root node
+                var text = item.pathAsString.replace(/\;/g, "/");
+                if (i == 0) {
+                    // Set the text
+                    rootNodeText = text + "/";
+                }
+                else {
+                    // Trim the root node text
+                    text = text.replace(rootNodeText, "");
+                }
                 // Add the option
                 options.push({
                     data: item.name,
                     key: item.id,
-                    text: item.pathAsString.replace(/\;/g, "/")
+                    text: text
                 });
             }
             // Return the options

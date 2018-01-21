@@ -1,5 +1,5 @@
 import { Types } from "gd-sprest";
-import { Panel } from "..";
+import { Panel } from "../components";
 
 /**
  * WebPart Configuration Panel

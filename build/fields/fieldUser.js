@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-var __1 = require("..");
+var components_1 = require("../components");
 var _1 = require(".");
 /**
  * User Field
@@ -48,7 +48,7 @@ var FieldUser = /** @class */ (function (_super) {
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
                 React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.fieldInfo.title),
-                React.createElement(__1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.multi, fieldValue: _this.state.value ? _this.state.value.results || [_this.state.value] : null, props: props })));
+                React.createElement(components_1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.multi, fieldValue: _this.state.value ? _this.state.value.results || [_this.state.value] : null, props: props })));
         };
         /**
          * Methods
@@ -83,7 +83,7 @@ var FieldUser = /** @class */ (function (_super) {
          */
         _this.onChange = function (personas) {
             // Update the field value
-            _this.updateValue(__1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.multi));
+            _this.updateValue(components_1.SPPeoplePicker.convertToFieldValue(personas, _this.state.fieldInfo.multi));
         };
         /**
          * The field loaded event

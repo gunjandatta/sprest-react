@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../common");
-var __1 = require("..");
+var components_1 = require("../components");
 /**
  * Web Part Configuration Panel
  */
@@ -193,7 +193,7 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
         var _this = this;
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
-            React.createElement(__1.Panel, { headerText: "Configuration", ref: function (panel) { _this._panel = panel; } },
+            React.createElement(components_1.Panel, { headerText: "Configuration", ref: function (panel) { _this._panel = panel; } },
                 React.createElement("div", { ref: function (errorMessage) { _this._errorMessage = errorMessage; } }),
                 this.onRenderHeader(),
                 this.onRenderContents(this.state.cfg),

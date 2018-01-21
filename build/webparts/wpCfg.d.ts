@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { Panel } from '..';
+import { Panel } from '../components';
 import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from ".";
 /**
  * Web Part Configuration Panel

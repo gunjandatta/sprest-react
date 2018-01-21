@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { PrimaryButton } from "office-ui-fabric-react";
-import { ItemForm, Panel, WebPartSearch, IWebPartSearchProps, IWebPartSearchState } from "../src";
+import { Components, WebParts } from "../src";
 declare var SP;
 
 /**
@@ -32,7 +32,7 @@ export interface IListItem extends Types.IListItemQueryResult {
 /**
  * State
  */
-export interface IListWebPartState extends IWebPartSearchState {
+export interface IListWebPartState extends WebParts.IWebPartSearchState {
     controlMode?: number;
     errorMessage?: string;
     item?: IListItem;
@@ -41,9 +41,9 @@ export interface IListWebPartState extends IWebPartSearchState {
 /**
  * List WebPart
  */
-export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPartState> {
-    private _itemForm: ItemForm = null;
-    private _panel: Panel = null;
+export class ListWebpart extends WebParts.WebPartSearch<WebParts.IWebPartSearchProps, IListWebPartState> {
+    private _itemForm: Components.ItemForm = null;
+    private _panel: Components.Panel = null;
 
     /**
      * Constructor
@@ -77,12 +77,12 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
                 <div className="list">
                     {elItems}
                     <div className="list-row" key="item_form">
-                        <Panel
+                        <Components.Panel
                             headerText="Item Form"
                             onRenderFooterContent={this.renderFooter}
                             ref={panel => { this._panel = panel; }}>
                             <div className="">{this.state.errorMessage || ""}</div>
-                            <ItemForm
+                            <Components.ItemForm
                                 cacheKey="SPReactDemoListForm"
                                 controlMode={this.state.controlMode}
                                 item={this.state.item}
@@ -90,7 +90,7 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
                                 ref={form => { this._itemForm = form; }}
                                 showAttachments={true}
                             />
-                        </Panel>
+                        </Components.Panel>
                     </div>
                 </div>
             );
@@ -186,6 +186,7 @@ export class ListWebpart extends WebPartSearch<IWebPartSearchProps, IListWebPart
         SP.SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.showWaitScreenWithNoClose", "Saving the Item", "This dialog will close after the request completes.");
 
         // Save the item
+        let a
         this._itemForm.save<IListItem>().then(item => {
             // Close the dialog
             SP.SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.commonModalDialogClose");

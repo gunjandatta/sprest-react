@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types } from "gd-sprest";
 import { Label, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
-import { SPPeoplePicker } from "..";
+import { SPPeoplePicker } from "../components";
 import {
     BaseField,
     IFieldUserProps, IFieldUserState

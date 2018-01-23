@@ -80,6 +80,7 @@ var WebPartList = /** @class */ (function (_super) {
                 if (cache) {
                     // Convert the items back to an object
                     var items = cache ? gd_sprest_1.Helper.parse(cache) : null;
+                    items = items ? items.results : null;
                     if (items) {
                         // Check the last refresh
                         var diff = Math.abs(((new Date(Date.now())).getTime() - _this.state.lastRefresh.getTime()) / 1000);

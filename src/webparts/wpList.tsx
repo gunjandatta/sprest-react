@@ -143,7 +143,8 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             let cache = sessionStorage.getItem(this._key);
             if (cache) {
                 // Convert the items back to an object
-                let items = cache ? Helper.parse(cache) : null;
+                let items = cache ? (Helper.parse(cache) as any) : null;
+                items = items ? items.results : null;
                 if (items) {
                     // Check the last refresh
                     let diff = Math.abs(((new Date(Date.now())).getTime() - this.state.lastRefresh.getTime()) / 1000);

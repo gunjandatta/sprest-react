@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { Fields } from "..";
+import * as Fields from "../fields";
 
 /**
  * Field

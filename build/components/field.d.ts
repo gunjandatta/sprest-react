@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { Types } from "gd-sprest";
-import { Fields } from "..";
+import * as Fields from "../fields";
 /**
  * Field
  * This is a generic field component.

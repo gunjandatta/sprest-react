@@ -278,7 +278,7 @@ var ItemForm = /** @class */ (function (_super) {
                 var valueField = field.getField().state.valueField;
                 // Update the hidden form field
                 fieldName = valueField.InternalName;
-                fieldValue = fieldValue.results.join(";#");
+                fieldValue = fieldValue ? fieldValue.results.join(";#") : fieldValue;
             }
             // Update the form field value
             formValues[fieldName] = fieldValue;

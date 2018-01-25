@@ -168,7 +168,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
                 // Update the hidden form field
                 fieldName = valueField.InternalName;
-                fieldValue = fieldValue.results.join(";#");
+                fieldValue = fieldValue ? fieldValue.results.join(";#") : fieldValue;
             }
 
             // Update the form field value

@@ -172,22 +172,21 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
                 }
             }
 
-            // See if results exist
-            if (results.length > 0) {
-                // See if this is a multi value
-                if (fldInfo.multi) {
-                    // Set the value
-                    state.value = {
-                        __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
-                        results
-                    };
-                } else {
-                    // Set the value
-                    state.value = results[0];
+            // See if this is a multi value
+            if (fldInfo.multi) {
+                // Set the value
+                state.value = {
+                    __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                    results
+                };
+            }
+            // Ensure a value exists
+            else if (results.length > 0) {
+                // Set the value
+                state.value = results[0];
 
-                    // Add the metadata
-                    state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
-                }
+                // Add the metadata
+                state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
             }
         }
 

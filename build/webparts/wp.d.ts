@@ -1,4 +1,4 @@
-import { IFabricWebPartProps } from ".";
+import { IFabricWebPartProps } from "./types";
 /**
  * Fabric Web Part
  */

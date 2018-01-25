@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
 import { NormalPeoplePicker, IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
-import { ISPPeoplePickerProps, ISPPeoplePickerState } from "."
+import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types"
 
 /**
  * SharePoint People Picker

@@ -1,10 +1,8 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { Label, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
-import {
-    WebPartListCfg,
-    IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState
-} from ".";
+import { IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState } from "./types";
+import { WebPartListCfg } from ".";
 
 /**
  * WebPart Field Configuration Panel

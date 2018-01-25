@@ -14,4 +14,6 @@ __export(require("./fieldNumber"));
 __export(require("./fieldText"));
 __export(require("./fieldUrl"));
 __export(require("./fieldUser"));
+var Types = require("./types");
+exports.Types = Types;
 //# sourceMappingURL=index.js.map

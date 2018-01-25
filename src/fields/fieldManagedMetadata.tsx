@@ -1,10 +1,8 @@
 import * as React from "react";
 import { ContextInfo, Helper, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps, Spinner } from "office-ui-fabric-react";
-import {
-    BaseField,
-    IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState, IManagedMetadataTermInfo
-} from ".";
+import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState, IManagedMetadataTermInfo } from "./types";
+import { BaseField } from ".";
 declare var SP;
 
 /**

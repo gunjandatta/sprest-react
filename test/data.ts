@@ -35,7 +35,7 @@ export class DataSource {
      */
 
     // Configuration
-    private _cfg: WebParts.IWebPartListCfg = null;
+    private _cfg: WebParts.Types.IWebPartListCfg = null;
 
     // List Item Entity Type Name (Required for complex field item add operation)
     private _listItemEntityTypeFullName = "";
@@ -43,7 +43,7 @@ export class DataSource {
     /**
      * Constructor
      */
-    constructor(cfg: WebParts.IWebPartListCfg) {
+    constructor(cfg: WebParts.Types.IWebPartListCfg) {
         // Save the configuration
         this._cfg = cfg;
 

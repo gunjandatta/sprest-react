@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { ITag } from "office-ui-fabric-react";
-import { WebPartFieldCfg, IWebPartSearchCfgProps, IWebPartSearchCfgState } from ".";
+import { IWebPartSearchCfgProps, IWebPartSearchCfgState } from "./types";
+import { WebPartFieldCfg } from ".";
 /**
  * WebPart Search Configuration Panel
  */

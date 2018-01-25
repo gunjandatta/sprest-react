@@ -6,10 +6,8 @@ import {
     Label
 } from "office-ui-fabric-react";
 import { DatePickerStrings } from "../common";
-import {
-    BaseField,
-    IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState
-} from ".";
+import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "./types";
+import { BaseField } from ".";
 
 /**
  * Date Time field

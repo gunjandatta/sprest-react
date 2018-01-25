@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { Panel } from '../components';
-import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from ".";
+import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "./types";
 /**
  * Web Part Configuration Panel
  */

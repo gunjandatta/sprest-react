@@ -1,5 +1,6 @@
 import { IDropdownOption } from "office-ui-fabric-react";
-import { BaseField, IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState } from ".";
+import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState } from "./types";
+import { BaseField } from ".";
 /**
  * Managed Metadata Field
  */

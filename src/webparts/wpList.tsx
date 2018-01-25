@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ContextInfo, Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner } from "office-ui-fabric-react";
-import { IWebPartListItem, IWebPartListProps, IWebPartListState } from ".";
+import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "./types";
 
 /**
  * WebPart List

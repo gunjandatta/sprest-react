@@ -3,7 +3,7 @@ import { Types } from "gd-sprest";
 import { Dropdown, PrimaryButton, TextField } from "office-ui-fabric-react";
 import { Page } from "../common";
 import { Panel } from '../components';
-import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from ".";
+import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "./types";
 declare var SP;
 
 /**

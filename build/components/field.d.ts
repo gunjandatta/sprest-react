@@ -11,7 +11,7 @@ export declare class Field extends Fields.BaseField {
      * Constructor
      * @param props - The field properties.
      */
-    constructor(props: Fields.IBaseFieldProps);
+    constructor(props: Fields.Types.IBaseFieldProps);
     /**
      * Get the field information
      */

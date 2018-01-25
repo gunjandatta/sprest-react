@@ -7,7 +7,7 @@ import {
 import {
     IAttachmentFile,
     IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState
-} from ".";
+} from "./types";
 import "../../sass/fieldAttachments.scss";
 
 /**

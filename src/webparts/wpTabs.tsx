@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Pivot, PivotItem, PivotLinkFormat } from "office-ui-fabric-react";
-import { IWebPartTabsProps, IWebPartTabsState } from ".";
+import { IWebPartTabsProps, IWebPartTabsState } from "./types";
 
 /**
  * WebPart Tabs

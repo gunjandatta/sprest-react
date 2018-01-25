@@ -32,7 +32,7 @@ export interface IListItem extends Types.SP.IListItemQueryResult {
 /**
  * State
  */
-export interface IListWebPartState extends WebParts.IWebPartSearchState {
+export interface IListWebPartState extends WebParts.Types.IWebPartSearchState {
     controlMode?: number;
     errorMessage?: string;
     item?: IListItem;
@@ -41,7 +41,7 @@ export interface IListWebPartState extends WebParts.IWebPartSearchState {
 /**
  * List WebPart
  */
-export class ListWebpart extends WebParts.WebPartSearch<WebParts.IWebPartSearchProps, IListWebPartState> {
+export class ListWebpart extends WebParts.WebPartSearch<WebParts.Types.IWebPartSearchProps, IListWebPartState> {
     private _itemForm: Components.ItemForm = null;
     private _panel: Components.Panel = null;
 

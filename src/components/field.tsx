@@ -13,11 +13,11 @@ export class Field extends Fields.BaseField {
      * Constructor
      * @param props - The field properties.
      */
-    constructor(props: Fields.IBaseFieldProps) {
+    constructor(props: Fields.Types.IBaseFieldProps) {
         super(props);
 
         // Set the state
-        let state = this.state as Fields.IBaseFieldState;
+        let state = this.state as Fields.Types.IBaseFieldState;
         state.value = props.defaultValue;
     }
 
@@ -40,7 +40,7 @@ export class Field extends Fields.BaseField {
      * Method to render the field
      */
     renderField = () => {
-        let props: Fields.IBaseFieldProps = this.props || {} as any;
+        let props: Fields.Types.IBaseFieldProps = this.props || {} as any;
         let defaultValue = props.defaultValue;
         let fieldInfo = this.state.fieldInfo;
 

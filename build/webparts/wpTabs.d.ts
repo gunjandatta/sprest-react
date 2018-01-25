@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import * as React from "react";
-import { IWebPartTabsProps, IWebPartTabsState } from ".";
+import { IWebPartTabsProps, IWebPartTabsState } from "./types";
 /**
  * WebPart Tabs
  */

@@ -1,4 +1,5 @@
-import { BaseField, IFieldUrlProps, IFieldUrlState } from ".";
+import { IFieldUrlProps, IFieldUrlState } from "./types";
+import { BaseField } from ".";
 /**
  * URL Field
  */

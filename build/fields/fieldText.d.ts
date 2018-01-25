@@ -1,4 +1,5 @@
-import { BaseField, IFieldTextProps, IFieldTextState } from ".";
+import { IFieldTextProps, IFieldTextState } from "./types";
+import { BaseField } from ".";
 /**
  * Text Field
  */

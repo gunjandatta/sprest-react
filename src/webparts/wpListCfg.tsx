@@ -1,10 +1,8 @@
 import * as React from "react";
 import { Web, SPTypes, Types } from "gd-sprest";
 import { Dropdown, IDropdownOption, PrimaryButton, TextField, Spinner } from "office-ui-fabric-react";
-import {
-    WebPartCfgPanel,
-    IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState
-} from ".";
+import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "./types";
+import { WebPartCfgPanel } from ".";
 
 /**
  * WebPart List Configuration Panel
@@ -176,7 +174,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                     let list = lists.results[i];
 
                     // See if this is the selected list
-                    if(list.Title == cfg.ListName) {
+                    if (list.Title == cfg.ListName) {
                         // Set the list
                         selectedList = list;
                     }

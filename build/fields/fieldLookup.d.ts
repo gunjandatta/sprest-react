@@ -1,5 +1,6 @@
 import { IDropdownOption } from "office-ui-fabric-react";
-import { BaseField, IFieldLookup, IFieldLookupProps, IFieldLookupState } from ".";
+import { IFieldLookup, IFieldLookupProps, IFieldLookupState } from "./types";
+import { BaseField } from ".";
 /**
  * Lookup Field
  */

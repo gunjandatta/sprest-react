@@ -1,10 +1,8 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
-import {
-    WebPartList,
-    IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState
-} from ".";
+import {IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState} from "./types";
+import {WebPartList} from ".";
 
 /**
  * WebPart Search

@@ -1,4 +1,5 @@
-import { BaseField, IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from ".";
+import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "./types";
+import { BaseField } from ".";
 /**
  * Date Time field
  */

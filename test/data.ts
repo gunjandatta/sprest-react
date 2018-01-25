@@ -4,13 +4,13 @@ import { WebParts } from "../src";
 /**
  * Test Item Information
  */
-export interface ITestItem extends Types.IListItemQueryResult {
+export interface ITestItem extends Types.SP.IListItemQueryResult {
     Attachments?: boolean;
     TestBoolean?: boolean;
     TestChoice?: string;
     TestDate?: string;
     TestDateTime?: string;
-    TestLookup?: Types.ComplexTypes.FieldLookupValue;
+    TestLookup?: Types.SP.ComplexTypes.FieldLookupValue;
     TestLookupId?: string | number;
     TestMultiChoice?: string;
     TestMultiLookup?: string;
@@ -21,7 +21,7 @@ export interface ITestItem extends Types.IListItemQueryResult {
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
     TestUrl?: string;
-    TestUser?: Types.ComplexTypes.FieldUserValue;
+    TestUser?: Types.SP.ComplexTypes.FieldUserValue;
     TestUserId?: string | number;
     Title?: string;
 }

@@ -40,7 +40,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: Types.Helper.WebPart.IWebPartCfg) => any;
+    abstract onRenderContents: (cfg: Types.Helper.IWebPartCfg) => any;
 
     /**
      * Events

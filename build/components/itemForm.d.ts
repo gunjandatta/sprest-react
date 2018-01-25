@@ -30,7 +30,7 @@ export declare class ItemForm extends React.Component<IItemFormProps, IItemFormS
     /**
      * Get the form information
      */
-    readonly FormInfo: Types.Helper.ListForm.IListFormResult;
+    readonly FormInfo: Types.Helper.IListFormResult;
     /**
      * Render the component
      */

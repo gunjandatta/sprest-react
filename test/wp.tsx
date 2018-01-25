@@ -7,13 +7,13 @@ declare var SP;
 /**
  * List Item Information
  */
-export interface IListItem extends Types.IListItemQueryResult {
+export interface IListItem extends Types.SP.IListItemQueryResult {
     Attachments?: boolean;
     TestBoolean?: boolean;
     TestChoice?: string;
     TestDate?: string;
     TestDateTime?: string;
-    TestLookup?: Types.ComplexTypes.FieldLookupValue;
+    TestLookup?: Types.SP.ComplexTypes.FieldLookupValue;
     TestLookupId?: string | number;
     TestMultiChoice?: string;
     TestMultiLookup?: string;
@@ -23,8 +23,8 @@ export interface IListItem extends Types.IListItemQueryResult {
     TestNote?: string;
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
-    TestUrl?: Types.ComplexTypes.FieldUrlValue;
-    TestUser?: Types.ComplexTypes.FieldUserValue;
+    TestUrl?: Types.SP.ComplexTypes.FieldUrlValue;
+    TestUser?: Types.SP.ComplexTypes.FieldUserValue;
     TestUserId?: string | number;
     Title?: string;
 }

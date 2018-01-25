@@ -17,7 +17,7 @@ export interface IFieldUserProps extends IBaseFieldProps {
  */
 export interface IFieldUserState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.ListForm.IListFormUserFieldInfo;
+    fieldInfo: Types.Helper.IListFormUserFieldInfo;
 }
 /**
  * User Field

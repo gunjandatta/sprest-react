@@ -64,7 +64,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Get the form information
      */
-    get FormInfo(): Types.Helper.ListForm.IListFormResult { return this.state.formInfo; }
+    get FormInfo(): Types.Helper.IListFormResult { return this.state.formInfo; }
 
     /**
      * Render the component

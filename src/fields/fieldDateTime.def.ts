@@ -21,7 +21,7 @@ export interface IFieldDateTimeProps extends IBaseFieldProps {
  */
 export interface IFieldDateTimeState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.ListForm.IListFormDateFieldInfo;
+    fieldInfo: Types.Helper.IListFormDateFieldInfo;
 }
 
 /**

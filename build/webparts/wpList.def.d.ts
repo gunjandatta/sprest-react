@@ -3,7 +3,7 @@ import { IWebPartListCfg } from ".";
 /**
  * List Item
  */
-export interface IWebPartListItem extends Types.IListItemQueryResult {
+export interface IWebPartListItem extends Types.SP.IListItemQueryResult {
 }
 /**
  * List Properties

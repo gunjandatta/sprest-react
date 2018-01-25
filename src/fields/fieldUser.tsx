@@ -91,7 +91,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldUserState) => {
-        let fldInfo = info as Types.Helper.ListForm.IListFormUserFieldInfo;
+        let fldInfo = info as Types.Helper.IListFormUserFieldInfo;
 
         // Default the value
         state.value = this.props.defaultValue || fldInfo.defaultValue;

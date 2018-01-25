@@ -15,7 +15,7 @@ export interface IFieldLookupProps extends IBaseFieldProps {
  */
 export interface IFieldLookupState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.ListForm.IListFormLookupFieldInfo;
+    fieldInfo: Types.Helper.IListFormLookupFieldInfo;
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
 }

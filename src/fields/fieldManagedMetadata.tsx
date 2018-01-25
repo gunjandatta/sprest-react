@@ -80,7 +80,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
 
                 // Parse the results
                 for (let i = 0; i < fieldValue.results.length; i++) {
-                    let result = fieldValue.results[i] as Types.ComplexTypes.FieldManagedMetadataValue;
+                    let result = fieldValue.results[i] as Types.SP.ComplexTypes.FieldManagedMetadataValue;
 
                     // Add the term
                     results.push((result.WssId || "") + ";#" + result.Label + "|" + result.TermGuid);
@@ -149,7 +149,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldManagedMetadataState) => {
-        let fldInfo = info as Types.Helper.ListForm.IListFormMMSFieldInfo;
+        let fldInfo = info as Types.Helper.IListFormMMSFieldInfo;
 
         // See if the default value exists
         if (this.props.defaultValue) {
@@ -208,7 +208,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * Method to convert the field value to options
      * @param terms - The managed metadata terms.
      */
-    private toOptions = (terms: Array<Types.Helper.Taxonomy.ITermInfo> = []) => {
+    private toOptions = (terms: Array<Types.Helper.ITermInfo> = []) => {
         let options: Array<IDropdownOption> = [];
         let rootNodeText: string = null;
 

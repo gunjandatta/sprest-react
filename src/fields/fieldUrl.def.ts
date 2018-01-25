@@ -10,7 +10,7 @@ export interface IFieldUrlProps extends IBaseFieldProps {
     descProps?: ITextFieldProps;
 
     /** Event triggered when the field value changes. */
-    onChange?: (value: Types.ComplexTypes.FieldUrlValue) => void;
+    onChange?: (value: Types.SP.ComplexTypes.FieldUrlValue) => void;
 
     /** The url textfield properties. */
     urlProps?: ITextFieldProps;
@@ -21,7 +21,7 @@ export interface IFieldUrlProps extends IBaseFieldProps {
  */
 export interface IFieldUrlState extends IBaseFieldState {
     /** The field value */
-    value: Types.ComplexTypes.FieldUrlValue;
+    value: Types.SP.ComplexTypes.FieldUrlValue;
 }
 
 /**

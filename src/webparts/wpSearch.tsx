@@ -82,7 +82,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     /**
      * Method to generate the mapper
      */
-    private generateMapper = (items: Types.IResults<Types.IListItemQueryResult>) => {
+    private generateMapper = (items: Types.SP.IResults<Types.SP.IListItemQueryResult>) => {
         let searchTerms: Array<ITag> = [];
         let tagMapper = {};
 
@@ -103,8 +103,8 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     // Parse the field values
                     let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                     for (let k = 0; k < fieldValues.length; k++) {
-                        let fldLookup: Types.IFieldLookup = null;
-                        let fldUser: Types.IFieldUser = null;
+                        let fldLookup: Types.SP.IFieldLookup = null;
+                        let fldUser: Types.SP.IFieldUser = null;
                         fieldValue = fieldValues[k];
 
                         // Update the field value based on the type
@@ -115,15 +115,15 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                                     break;
                                 case SPTypes.FieldType.Lookup:
                                     // Set the field
-                                    fldLookup = field as Types.IFieldLookup;
+                                    fldLookup = field as Types.SP.IFieldLookup;
                                     break;
                                 case SPTypes.FieldType.URL:
                                     // Update the field value
-                                    fieldValue = (item[field.InternalName] as Types.ComplexTypes.FieldUrlValue).Description;
+                                    fieldValue = (item[field.InternalName] as Types.SP.ComplexTypes.FieldUrlValue).Description;
                                     break;
                                 case SPTypes.FieldType.User:
                                     // Set the field
-                                    fldUser = field as Types.IFieldUser;
+                                    fldUser = field as Types.SP.IFieldUser;
                                     break;
                                 default:
                                     // This is a managed metadata field
@@ -330,7 +330,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     case SPTypes.FieldType.Lookup:
                         // Expand the lookup information
                         this._query.Expand.push(field.InternalName);
-                        this._query.Select.push(field.InternalName + "/" + (field as Types.IFieldLookup).LookupField);
+                        this._query.Select.push(field.InternalName + "/" + (field as Types.SP.IFieldLookup).LookupField);
                         break;
                     case SPTypes.FieldType.User:
                         // Expand the user information

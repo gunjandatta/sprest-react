@@ -4,7 +4,7 @@ import { Types } from "gd-sprest";
  * Fabric Web Part Information
  */
 export interface IFabricWebPartInfo {
-    cfg?: Types.Helper.WebPart.IWebPartCfg;
+    cfg?: Types.Helper.IWebPartCfg;
 }
 
 /**
@@ -16,8 +16,8 @@ export interface IFabricWebPartProps {
     editElement?: React.ComponentClass<any>;
     helpTitle?: string;
     helpUrl?: string;
-    onPostRender?: (targetInfo?: Types.Helper.WebPart.IWebPartInfo) => void;
-    onRenderDisplayElement?: (targetInfo: Types.Helper.WebPart.IWebPartInfo) => any;
-    onRenderEditElement?: (targetInfo: Types.Helper.WebPart.IWebPartInfo) => any;
+    onPostRender?: (targetInfo?: Types.Helper.IWebPartInfo) => void;
+    onRenderDisplayElement?: (targetInfo: Types.Helper.IWebPartInfo) => any;
+    onRenderEditElement?: (targetInfo: Types.Helper.IWebPartInfo) => any;
     targetElementId: string;
 }

@@ -9,7 +9,7 @@ import {
  * Field Configuration
  */
 export interface IWebPartFieldCfg extends IWebPartListCfg {
-    Fields?: Array<Types.IFieldResult>;
+    Fields?: Array<Types.SP.IFieldResult>;
 }
 
 /**

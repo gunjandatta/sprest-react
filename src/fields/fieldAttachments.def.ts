@@ -34,7 +34,7 @@ export interface IFieldAttachmentsProps {
     listName: string;
 
     /** The existing attachment files. */
-    files?: any | Types.IAttachmentFiles;
+    files?: any | Types.SP.IAttachmentFiles;
 
     /** The attachments render event. */
     onAttachmentsRender?: (attachments: JSX.Element) => any;
@@ -75,7 +75,7 @@ export interface IFieldAttachmentsState {
     };
 
     /** The list information */
-    listInfo: Types.Helper.ListForm.IListFormResult;
+    listInfo: Types.Helper.IListFormResult;
 
     /** Loading Flag */
     loadingFl?: boolean;

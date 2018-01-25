@@ -34,7 +34,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     /**
      * The OData query (Default)
      */
-    protected _query: Types.ODataQuery = null;
+    protected _query: Types.SP.ODataQuery = null;
 
     /**
      * Constructor
@@ -242,7 +242,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     /**
      * Method to update the state
      */
-    private onLoadData = (items: Types.IListItemResults | Types.IResults<Types.IListItemQueryResult>) => {
+    private onLoadData = (items: Types.SP.IListItemResults | Types.SP.IResults<Types.SP.IListItemQueryResult>) => {
         // Ensure the items exist
         if (items.results) {
             // Update the state
@@ -267,7 +267,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         // Return a promise
         return new Promise((resolve, reject) => {
             // Copy the odata query
-            let query: Types.ODataQuery = Object.create(this._query);
+            let query: Types.SP.ODataQuery = Object.create(this._query);
 
             // Update the filter to query the item
             query.Filter = "ID eq " + itemId;

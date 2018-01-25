@@ -208,7 +208,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private deleteAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let files: Array<Types.IAttachment> = [];
+            let files: Array<Types.SP.IAttachment> = [];
 
             // Parse the files to delete
             for (let i = 0; i < this.state.files.Delete.length; i++) {
@@ -409,7 +409,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private saveAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let files: Array<Types.Helper.ListForm.IListFormAttachmentInfo> = [];
+            let files: Array<Types.Helper.IListFormAttachmentInfo> = [];
 
             // Parse the new files
             for (let i = 0; i < state.files.New.length; i++) {
@@ -461,7 +461,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Method to convert the item value to the attachment file array
      * @param attachments - The file attachments.
      */
-    private toArray = (attachments: Array<Types.IAttachment>) => {
+    private toArray = (attachments: Array<Types.SP.IAttachment>) => {
         let files: Array<IAttachmentFile> = [];
 
         // Ensure attachments exist

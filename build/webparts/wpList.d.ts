@@ -28,7 +28,7 @@ export declare class WebPartList<Props extends IWebPartListProps = IWebPartListP
     /**
      * The OData query (Default)
      */
-    protected _query: Types.ODataQuery;
+    protected _query: Types.SP.ODataQuery;
     /**
      * Constructor
      * @param props - The webpart list properties.

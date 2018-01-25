@@ -22,7 +22,7 @@ export interface IFieldAttachmentsProps {
     /** The list name. */
     listName: string;
     /** The existing attachment files. */
-    files?: any | Types.IAttachmentFiles;
+    files?: any | Types.SP.IAttachmentFiles;
     /** The attachments render event. */
     onAttachmentsRender?: (attachments: JSX.Element) => any;
     /** The attachment file added event. */
@@ -49,7 +49,7 @@ export interface IFieldAttachmentsState {
         Existing: Array<IAttachmentFile>;
     };
     /** The list information */
-    listInfo: Types.Helper.ListForm.IListFormResult;
+    listInfo: Types.Helper.IListFormResult;
     /** Loading Flag */
     loadingFl?: boolean;
 }

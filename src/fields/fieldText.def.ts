@@ -18,7 +18,7 @@ export interface IFieldTextProps extends IBaseFieldProps {
  */
 export interface IFieldTextState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.ListForm.IListFormTextFieldInfo;
+    fieldInfo: Types.Helper.IListFormTextFieldInfo;
 }
 
 /**

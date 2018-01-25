@@ -98,7 +98,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Method to convert the user to persona value
      * @param users - An array of field user values.
      */
-    private convertToPersonas = (users: Array<Types.ComplexTypes.FieldUserValue | number> = []): Array<IPersonaProps> => {
+    private convertToPersonas = (users: Array<Types.SP.ComplexTypes.FieldUserValue | number> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist
@@ -108,7 +108,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             // See if this is an array of user ids
             if (typeof (user) === "number") {
                 let web = new Web();
-                let userInfo: Array<Types.ComplexTypes.FieldUserValue> = [];
+                let userInfo: Array<Types.SP.ComplexTypes.FieldUserValue> = [];
 
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
@@ -151,7 +151,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             } else {
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
-                    let user = users[i] as Types.ComplexTypes.FieldUserValue;
+                    let user = users[i] as Types.SP.ComplexTypes.FieldUserValue;
                     if (user.ID) {
                         // Add the persona
                         personas.push({
@@ -244,7 +244,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     /**
      * Method to convert the people picker results to an array
      */
-    private toArray = (results: Types.IPeoplePickerSearchUser) => {
+    private toArray = (results: Types.SP.IPeoplePickerSearchUser) => {
         let users: Array<IPersonaProps> = [];
 
         // Parse the users

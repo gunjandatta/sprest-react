@@ -18,7 +18,7 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
     /**
      * The OData query.
      */
-    _query: Types.ODataQuery;
+    _query: Types.SP.ODataQuery;
     /**
      * Reference to the list dropdown.
      */

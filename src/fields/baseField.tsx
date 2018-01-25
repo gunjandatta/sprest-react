@@ -91,7 +91,7 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
     /**
      * Event triggered after loading the field information
      */
-    onFieldLoaded?: (info: Types.Helper.ListForm.IListFormFieldInfo, state: State) => void;
+    onFieldLoaded?: (info: Types.Helper.IListFormFieldInfo, state: State) => void;
 
     /**
      * Method to render the field

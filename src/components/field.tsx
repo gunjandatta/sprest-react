@@ -24,7 +24,7 @@ export class Field extends Fields.BaseField {
     /**
      * Get the field information
      */
-    get Info(): Types.Helper.ListForm.IListFormFieldInfo { return this._field.state.fieldInfo; }
+    get Info(): Types.Helper.IListFormFieldInfo { return this._field.state.fieldInfo; }
 
     /**
      * Get the field value

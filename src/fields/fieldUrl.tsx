@@ -20,7 +20,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         }
 
         // Get the default value
-        let defaultValue = this.getFieldValue() as Types.ComplexTypes.FieldUrlValue;
+        let defaultValue = this.getFieldValue() as Types.SP.ComplexTypes.FieldUrlValue;
 
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};
@@ -72,7 +72,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      */
     private onDescChanged = (value: string) => {
         // Get the value
-        let fieldValue: Types.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.ComplexTypes.FieldUrlValue;
+        let fieldValue: Types.SP.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.SP.ComplexTypes.FieldUrlValue;
 
         // Set the description
         fieldValue.Description = value;
@@ -90,7 +90,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      */
     private onUrlChanged = (value: string) => {
         // Get the value
-        let fieldValue: Types.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.ComplexTypes.FieldUrlValue;
+        let fieldValue: Types.SP.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.SP.ComplexTypes.FieldUrlValue;
 
         // Set the url
         fieldValue.Url = value;

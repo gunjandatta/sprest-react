@@ -12,7 +12,7 @@ export interface IItemFormField {
     /** The on change event */
     onChange?: (value: any) => void;
     /** The on render method */
-    onRender?: (fieldInfo: Types.Helper.ListForm.IListFormFieldInfo) => JSX.Element;
+    onRender?: (fieldInfo: Types.Helper.IListFormFieldInfo) => JSX.Element;
 }
 /**
  * Properties
@@ -43,13 +43,13 @@ export interface IItemFormProps {
     /** The render event for the attachment. */
     onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => any;
     /** The field render event */
-    onFieldRender?: (fieldInfo: Types.Helper.ListForm.IListFormFieldInfo, field: JSX.Element) => any;
+    onFieldRender?: (fieldInfo: Types.Helper.IListFormFieldInfo, field: JSX.Element) => any;
     /** The on form render event. */
     onRender?: (controlMode: number) => any;
     /** The on form render attachments event. */
     onRenderAttachments?: (files: Array<IAttachmentFile>, controlMode: number) => any;
     /** The item query, used when refreshing the item after a save. */
-    query?: Types.ODataQuery;
+    query?: Types.SP.ODataQuery;
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;
     /** The form fields to make read-only in the form. */
@@ -64,7 +64,7 @@ export interface IItemFormProps {
  */
 export interface IItemFormState {
     /** The form information */
-    formInfo?: Types.Helper.ListForm.IListFormResult;
+    formInfo?: Types.Helper.IListFormResult;
     /** The item id. */
     itemId?: number;
     /** The form fields. */

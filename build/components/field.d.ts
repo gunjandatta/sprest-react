@@ -15,7 +15,7 @@ export declare class Field extends Fields.BaseField {
     /**
      * Get the field information
      */
-    readonly Info: Types.Helper.ListForm.IListFormFieldInfo;
+    readonly Info: Types.Helper.IListFormFieldInfo;
     /**
      * Get the field value
      */

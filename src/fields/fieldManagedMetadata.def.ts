@@ -27,13 +27,13 @@ export interface IFieldManagedMetadataProps extends IBaseFieldProps {
  */
 export interface IFieldManagedMetadataState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.ListForm.IListFormMMSFieldInfo;
+    fieldInfo: Types.Helper.IListFormMMSFieldInfo;
 
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
 
     /** The hidden value field. */
-    valueField?: Types.IFieldNote;
+    valueField?: Types.SP.IFieldNote;
 }
 
 /**

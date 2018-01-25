@@ -88,7 +88,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldChoiceState) => {
-        let fldInfo = info as Types.Helper.ListForm.IListFormChoiceFieldInfo;
+        let fldInfo = info as Types.Helper.IListFormChoiceFieldInfo;
 
         // Set the choices
         state.options = this.toOptions(fldInfo);
@@ -112,7 +112,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     /**
      * Method to convert the field value to options
      */
-    private toOptions = (fldInfo: Types.Helper.ListForm.IListFormChoiceFieldInfo) => {
+    private toOptions = (fldInfo: Types.Helper.IListFormChoiceFieldInfo) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-choice field

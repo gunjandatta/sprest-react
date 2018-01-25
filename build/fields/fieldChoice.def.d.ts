@@ -15,7 +15,7 @@ export interface IFieldChoiceProps extends IBaseFieldProps {
  */
 export interface IFieldChoiceState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.ListForm.IListFormChoiceFieldInfo;
+    fieldInfo: Types.Helper.IListFormChoiceFieldInfo;
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
 }
@@ -26,5 +26,5 @@ export interface IFieldChoice extends IBaseField<IFieldChoiceProps, IFieldChoice
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldLoaded: (fieldInfo: Types.Helper.ListForm.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
+    onFieldLoaded: (fieldInfo: Types.Helper.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
 }

@@ -12,97 +12,97 @@ export const Configuration = new Helper.SPConfig({
                     defaultValue: "0",
                     name: "TestBoolean",
                     title: "Boolean",
-                    type: Helper.Types.SPCfgFieldType.Boolean
+                    type: Helper.SPCfgFieldType.Boolean
                 },
                 {
                     defaultValue: "Choice 3",
                     name: "TestChoice",
                     title: "Choice",
-                    type: Helper.Types.SPCfgFieldType.Choice,
+                    type: Helper.SPCfgFieldType.Choice,
                     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                } as Types.Helper.SPConfig.IFieldInfoChoice,
+                } as Types.Helper.IFieldInfoChoice,
                 {
                     name: "TestComments",
                     title: "Comments",
-                    type: Helper.Types.SPCfgFieldType.Note
+                    type: Helper.SPCfgFieldType.Note
                 },
                 {
                     format: SPTypes.DateFormat.DateOnly,
                     name: "TestDate",
                     title: "Date Only",
-                    type: Helper.Types.SPCfgFieldType.Date
-                } as Types.Helper.SPConfig.IFieldInfoDate,
+                    type: Helper.SPCfgFieldType.Date
+                } as Types.Helper.IFieldInfoDate,
                 {
                     format: SPTypes.DateFormat.DateTime,
                     name: "TestDateTime",
                     title: "Date/Time",
-                    type: Helper.Types.SPCfgFieldType.Date
-                } as Types.Helper.SPConfig.IFieldInfoDate,
+                    type: Helper.SPCfgFieldType.Date
+                } as Types.Helper.IFieldInfoDate,
                 {
                     listName: "SPReact",
                     name: "TestLookup",
                     title: "Lookup",
                     showField: "Title",
-                    type: Helper.Types.SPCfgFieldType.Lookup
-                } as Types.Helper.SPConfig.IFieldInfoLookup,
+                    type: Helper.SPCfgFieldType.Lookup
+                } as Types.Helper.IFieldInfoLookup,
                 {
                     defaultValue: "Choice 3",
                     multi: true,
                     name: "TestMultiChoice",
                     title: "Multi-Choice",
-                    type: Helper.Types.SPCfgFieldType.Choice,
+                    type: Helper.SPCfgFieldType.Choice,
                     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                } as Types.Helper.SPConfig.IFieldInfoChoice,
+                } as Types.Helper.IFieldInfoChoice,
                 {
                     listName: "SPReact",
                     multi: true,
                     name: "TestMultiLookup",
                     title: "Multi-Lookup",
                     showField: "Title",
-                    type: Helper.Types.SPCfgFieldType.Lookup
-                } as Types.Helper.SPConfig.IFieldInfoLookup,
+                    type: Helper.SPCfgFieldType.Lookup
+                } as Types.Helper.IFieldInfoLookup,
                 {
                     multi: true,
                     name: "TestMultiUser",
                     title: "Multi-User",
-                    type: Helper.Types.SPCfgFieldType.User,
+                    type: Helper.SPCfgFieldType.User,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                } as Types.Helper.SPConfig.IFieldInfoUser,
+                } as Types.Helper.IFieldInfoUser,
                 {
                     name: "TestNote",
                     title: "Note",
-                    type: Helper.Types.SPCfgFieldType.Note
-                } as Types.Helper.SPConfig.IFieldInfoNote,
+                    type: Helper.SPCfgFieldType.Note
+                } as Types.Helper.IFieldInfoNote,
                 {
                     decimals: 2,
                     numberType: SPTypes.FieldNumberType.Decimal,
                     name: "TestNumberDecimal",
                     title: "Decimal",
-                    type: Helper.Types.SPCfgFieldType.Number
-                } as Types.Helper.SPConfig.IFieldInfoNumber,
+                    type: Helper.SPCfgFieldType.Number
+                } as Types.Helper.IFieldInfoNumber,
                 {
                     numberType: SPTypes.FieldNumberType.Integer,
                     name: "TestNumberInteger",
                     title: "Integer",
-                    type: Helper.Types.SPCfgFieldType.Number
-                } as Types.Helper.SPConfig.IFieldInfoNumber,
+                    type: Helper.SPCfgFieldType.Number
+                } as Types.Helper.IFieldInfoNumber,
                 {
                     numberType: SPTypes.FieldNumberType.Percentage,
                     name: "TestNumberPercentage",
                     title: "Percentage",
-                    type: Helper.Types.SPCfgFieldType.Number
-                } as Types.Helper.SPConfig.IFieldInfoNumber,
+                    type: Helper.SPCfgFieldType.Number
+                } as Types.Helper.IFieldInfoNumber,
                 {
                     name: "TestUrl",
                     title: "Url",
-                    type: Helper.Types.SPCfgFieldType.Url
+                    type: Helper.SPCfgFieldType.Url
                 },
                 {
                     name: "TestUser",
                     title: "User",
-                    type: Helper.Types.SPCfgFieldType.User,
+                    type: Helper.SPCfgFieldType.User,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                } as Types.Helper.SPConfig.IFieldInfoUser
+                } as Types.Helper.IFieldInfoUser
             ],
             ListInformation: {
                 BaseTemplate: SPTypes.ListTemplateType.GenericList,

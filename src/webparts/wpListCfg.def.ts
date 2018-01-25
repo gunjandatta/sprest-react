@@ -9,7 +9,7 @@ import { IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel } from ".";
 /**
  * List Configuration
  */
-export interface IWebPartListCfg extends Types.Helper.WebPart.IWebPartCfg {
+export interface IWebPartListCfg extends Types.Helper.IWebPartCfg {
     ListName?: string;
     WebUrl?: string;
 }
@@ -18,13 +18,13 @@ export interface IWebPartListCfg extends Types.Helper.WebPart.IWebPartCfg {
  * List Configuration Panel
  */
 export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
-    _query: Types.ODataQuery;
+    _query: Types.SP.ODataQuery;
     _listDropdown: Dropdown;
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
     _webUrl: TextField;
 
-    getList: (option: IDropdownOption) => Types.IListQueryResult;
+    getList: (option: IDropdownOption) => Types.SP.IListQueryResult;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: IWebPartListCfgState) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -45,8 +45,8 @@ export interface IWebPartListCfgProps extends IWebPartCfgProps {
  */
 export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
-    lists?: Array<Types.IListQueryResult>;
+    lists?: Array<Types.SP.IListQueryResult>;
     loadFl?: boolean;
     options?: Array<IDropdownOption>;
-    selectedList?: Types.IListQueryResult;
+    selectedList?: Types.SP.IListQueryResult;
 }

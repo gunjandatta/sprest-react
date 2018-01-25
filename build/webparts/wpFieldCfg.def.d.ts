@@ -6,7 +6,7 @@ import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartLi
  * Field Configuration
  */
 export interface IWebPartFieldCfg extends IWebPartListCfg {
-    Fields?: Array<Types.IFieldResult>;
+    Fields?: Array<Types.SP.IFieldResult>;
 }
 /**
  * Field Configuration Panel

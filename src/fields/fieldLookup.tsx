@@ -132,7 +132,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldLookupState) => {
-        let fldInfo = info as Types.Helper.ListForm.IListFormLookupFieldInfo;
+        let fldInfo = info as Types.Helper.IListFormLookupFieldInfo;
 
         // Set the value
         state.value = this.props.defaultValue || fldInfo.defaultValue;
@@ -157,7 +157,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * @param items - The lookup items.
      * @param fieldName - The lookup field name.
      */
-    private toOptions = (items: Array<Types.IListItemQueryResult> = [], fieldName: string) => {
+    private toOptions = (items: Array<Types.SP.IListItemQueryResult> = [], fieldName: string) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-lookup field

@@ -71,8 +71,15 @@ var FieldUser = /** @class */ (function (_super) {
                 fieldValue.results = results;
             }
             else {
-                // Ensure the value is valid
-                fieldValue = fieldValue > 0 ? fieldValue : null;
+                // See if this is a multi value
+                if (_this.state.fieldInfo.multi) {
+                    // Ensure a value exists
+                    fieldValue = fieldValue || { results: [] };
+                }
+                else {
+                    // Ensure the value is valid
+                    fieldValue = fieldValue > 0 ? fieldValue : null;
+                }
             }
             // Return the field value
             return fieldValue;

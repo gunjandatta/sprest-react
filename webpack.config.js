@@ -16,7 +16,7 @@ module.exports = {
 
     // Resolve the file extensions
     resolve: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"]
+        extensions: [".js", ".jsx", ".scss", ".ts", ".tsx"]
     },
 
     // Module to define what libraries with the compiler

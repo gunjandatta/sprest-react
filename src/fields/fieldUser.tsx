@@ -68,8 +68,14 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
             // Update the field value
             fieldValue.results = results;
         } else {
-            // Ensure the value is valid
-            fieldValue = fieldValue > 0 ? fieldValue : null;
+            // See if this is a multi value
+            if (this.state.fieldInfo.multi) {
+                // Ensure a value exists
+                fieldValue = fieldValue || { results: [] };
+            } else {
+                // Ensure the value is valid
+                fieldValue = fieldValue > 0 ? fieldValue : null;
+            }
         }
 
         // Return the field value

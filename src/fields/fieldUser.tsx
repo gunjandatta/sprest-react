@@ -66,7 +66,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
             }
 
             // Update the field value
-            fieldValue.results = results;
+            fieldValue = { results: results };
         } else {
             // See if this is a multi value
             if (this.state.fieldInfo.multi) {

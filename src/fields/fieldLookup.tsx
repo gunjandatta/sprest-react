@@ -84,7 +84,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
             }
 
             // Update the field value
-            fieldValue.results = results;
+            fieldValue = { results: results };
         } else {
             // See if this is a multi value
             if (this.state.fieldInfo.multi) {

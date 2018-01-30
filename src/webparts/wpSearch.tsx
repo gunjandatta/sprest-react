@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
-import {IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState} from "./types";
-import {WebPartList} from ".";
+import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "./types";
+import { WebPartList } from ".";
 
 /**
  * WebPart Search
@@ -80,15 +80,15 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     /**
      * Method to generate the mapper
      */
-    private generateMapper = (items: Types.SP.IResults<Types.SP.IListItemQueryResult>) => {
+    private generateMapper = (items: Array<Types.SP.IListItemQueryResult>) => {
         let searchTerms: Array<ITag> = [];
         let tagMapper = {};
 
         // Ensure the items and fields exist
-        if (items.results && this.props.cfg.Fields) {
+        if (items && this.props.cfg.Fields) {
             // Parse the items
-            for (let i = 0; i < items.results.length; i++) {
-                let item = items.results[i];
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
 
                 // Parse the searchable fields
                 for (let j = 0; j < this.props.cfg.Fields.length; j++) {
@@ -179,7 +179,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
 
         // Update the state
         this.setState({
-            items: items.results || [],
+            items: items || [],
             lastRefresh: new Date(Date.now()),
             searchTerms,
             selectedTags: [],
@@ -356,14 +356,17 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 .query(this._query)
                 // Execute the request
                 .execute(items => {
-                    // See if we are caching the results
-                    if (this._cacheFl) {
-                        // Save the items to cache
-                        sessionStorage.setItem(this._key, items.stringify());
-                    }
+                    // Ensure the items exist
+                    if (items.existsFl) {
+                        // See if we are caching the results
+                        if (this._cacheFl) {
+                            // Save the items to cache
+                            sessionStorage.setItem(this._key, items.stringify());
+                        }
 
-                    // Generate the mapper
-                    this.generateMapper(items);
+                        // Generate the mapper
+                        this.generateMapper(items.results);
+                    }
                 });
         }
     }

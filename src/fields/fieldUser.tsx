@@ -113,7 +113,9 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
 
             // Set the value
             state.value = { results };
-        } else {
+        }
+        // Else, see if the value exists
+        else if (state.value) {
             // Set the value
             state.value = state.value || state.value.ID;
         }

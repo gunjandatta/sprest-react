@@ -36,10 +36,10 @@ var WebPartSearch = /** @class */ (function (_super) {
             var searchTerms = [];
             var tagMapper = {};
             // Ensure the items and fields exist
-            if (items.results && _this.props.cfg.Fields) {
+            if (items && _this.props.cfg.Fields) {
                 // Parse the items
-                for (var i = 0; i < items.results.length; i++) {
-                    var item = items.results[i];
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
                     // Parse the searchable fields
                     for (var j = 0; j < _this.props.cfg.Fields.length; j++) {
                         var field = _this.props.cfg.Fields[j];
@@ -127,7 +127,7 @@ var WebPartSearch = /** @class */ (function (_super) {
             });
             // Update the state
             _this.setState({
-                items: items.results || [],
+                items: items || [],
                 lastRefresh: new Date(Date.now()),
                 searchTerms: searchTerms,
                 selectedTags: [],
@@ -277,13 +277,16 @@ var WebPartSearch = /** @class */ (function (_super) {
                     .Items()
                     .query(_this._query)
                     .execute(function (items) {
-                    // See if we are caching the results
-                    if (_this._cacheFl) {
-                        // Save the items to cache
-                        sessionStorage.setItem(_this._key, items.stringify());
+                    // Ensure the items exist
+                    if (items.existsFl) {
+                        // See if we are caching the results
+                        if (_this._cacheFl) {
+                            // Save the items to cache
+                            sessionStorage.setItem(_this._key, items.stringify());
+                        }
+                        // Generate the mapper
+                        _this.generateMapper(items.results);
                     }
-                    // Generate the mapper
-                    _this.generateMapper(items);
                 });
             }
         };

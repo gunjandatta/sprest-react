@@ -113,7 +113,7 @@ var FieldUser = /** @class */ (function (_super) {
                 // Set the value
                 state.value = { results: results };
             }
-            else {
+            else if (state.value) {
                 // Set the value
                 state.value = state.value || state.value.ID;
             }

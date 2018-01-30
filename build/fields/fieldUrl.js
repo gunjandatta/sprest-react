@@ -58,7 +58,7 @@ var FieldUrl = /** @class */ (function (_super) {
             // See if this is the display mode
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
-                return (React.createElement(office_ui_fabric_react_1.Link, { className: (_this.props.className || ""), href: defaultValue.Url, label: urlProps.label }, descProps.defaultValue || urlProps.defaultValue));
+                return (React.createElement(office_ui_fabric_react_1.Link, { className: (_this.props.className || ""), href: defaultValue.Url, label: urlProps.label }, descProps || urlProps ? descProps.defaultValue || urlProps.defaultValue : ""));
             }
             // Return the component
             return (React.createElement("div", { className: (_this.props.className || "") },

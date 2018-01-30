@@ -46,7 +46,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
                     className={(this.props.className || "")}
                     href={defaultValue.Url}
                     label={urlProps.label}>
-                    {descProps.defaultValue || urlProps.defaultValue}
+                    {descProps || urlProps ? descProps.defaultValue || urlProps.defaultValue : ""}
                 </Link>
             );
         }

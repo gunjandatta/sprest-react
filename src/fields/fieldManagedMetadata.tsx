@@ -218,18 +218,22 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             });
         }
 
+        // Determine if the root node is a term set
+        let rootIsTermSet = terms[0] ? terms[0].pathAsString == "" : false;
+
         // Parse the terms
         for (let i = 0; i < terms.length; i++) {
             let item = terms[i];
+            let text = item.pathAsString.replace(/\;/g, "/");
 
             // See if this is the root node
-            let text = item.pathAsString.replace(/\;/g, "/");
             if (i == 0) {
-                // Set the text
+                // Set the root node text
+                text = rootIsTermSet ? item.name : text;
                 rootNodeText = text + "/";
             } else {
-                // Trim the root node text
-                text = text.replace(rootNodeText, "");
+                // Add or trim the root node, based on the type
+                text = rootIsTermSet ? rootNodeText + text : text.replace(rootNodeText, "");
             }
 
             // Add the option

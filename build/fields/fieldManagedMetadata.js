@@ -214,18 +214,21 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                     text: ""
                 });
             }
+            // Determine if the root node is a term set
+            var rootIsTermSet = terms[0] ? terms[0].pathAsString == "" : false;
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var item = terms[i];
-                // See if this is the root node
                 var text = item.pathAsString.replace(/\;/g, "/");
+                // See if this is the root node
                 if (i == 0) {
-                    // Set the text
+                    // Set the root node text
+                    text = rootIsTermSet ? item.name : text;
                     rootNodeText = text + "/";
                 }
                 else {
-                    // Trim the root node text
-                    text = text.replace(rootNodeText, "");
+                    // Add or trim the root node, based on the type
+                    text = rootIsTermSet ? rootNodeText + text : text.replace(rootNodeText, "");
                 }
                 // Add the option
                 options.push({

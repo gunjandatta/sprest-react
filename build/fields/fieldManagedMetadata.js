@@ -205,6 +205,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
         _this.toOptions = function (terms) {
             if (terms === void 0) { terms = []; }
             var options = [];
+            var rootIsTermSet = false;
             var rootNodeText = null;
             // See if this is not a required multi-lookup field
             if (!_this.state.fieldInfo.required && !_this.state.fieldInfo.multi) {
@@ -215,20 +216,24 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                 });
             }
             // Determine if the root node is a term set
-            var rootIsTermSet = terms[0] ? terms[0].pathAsString == "" : false;
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var item = terms[i];
                 var text = item.pathAsString.replace(/\;/g, "/");
-                // See if this is the root node
-                if (i == 0) {
+                // See if this is the term set
+                if (item.path.length == 0) {
+                    // Set the flag and skip this term
+                    rootIsTermSet = true;
+                    continue;
+                }
+                // See if this is a root term
+                if (item.path.length == 1) {
                     // Set the root node text
-                    text = rootIsTermSet ? item.name : text;
-                    rootNodeText = text + "/";
+                    rootNodeText = rootIsTermSet ? "" : text + "/";
                 }
                 else {
-                    // Add or trim the root node, based on the type
-                    text = rootIsTermSet ? rootNodeText + text : text.replace(rootNodeText, "");
+                    // Remove the root node text for this term
+                    text = text.replace(rootNodeText, "");
                 }
                 // Add the option
                 options.push({

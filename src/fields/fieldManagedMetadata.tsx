@@ -207,6 +207,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      */
     private toOptions = (terms: Array<Types.Helper.ITermInfo> = []) => {
         let options: Array<IDropdownOption> = [];
+        let rootIsTermSet = false;
         let rootNodeText: string = null;
 
         // See if this is not a required multi-lookup field
@@ -219,21 +220,26 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         }
 
         // Determine if the root node is a term set
-        let rootIsTermSet = terms[0] ? terms[0].pathAsString == "" : false;
 
         // Parse the terms
         for (let i = 0; i < terms.length; i++) {
             let item = terms[i];
             let text = item.pathAsString.replace(/\;/g, "/");
 
-            // See if this is the root node
-            if (i == 0) {
+            // See if this is the term set
+            if (item.path.length == 0) {
+                // Set the flag and skip this term
+                rootIsTermSet = true;
+                continue;
+            }
+
+            // See if this is a root term
+            if (item.path.length == 1) {
                 // Set the root node text
-                text = rootIsTermSet ? item.name : text;
-                rootNodeText = text + "/";
+                rootNodeText = rootIsTermSet ? "" : text + "/";
             } else {
-                // Add or trim the root node, based on the type
-                text = rootIsTermSet ? rootNodeText + text : text.replace(rootNodeText, "");
+                // Remove the root node text for this term
+                text = text.replace(rootNodeText, "");
             }
 
             // Add the option

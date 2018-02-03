@@ -46,6 +46,11 @@ export const Configuration = new Helper.SPConfig({
                     type: Helper.SPCfgFieldType.Lookup
                 } as Types.Helper.IFieldInfoLookup,
                 {
+                    name: "TestMMS",
+                    title: "MMS",
+                    type: Helper.SPCfgFieldType.MMS
+                },
+                {
                     defaultValue: "Choice 3",
                     multi: true,
                     name: "TestMultiChoice",

@@ -215,7 +215,6 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                     text: ""
                 });
             }
-            // Determine if the root node is a term set
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var item = terms[i];

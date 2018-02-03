@@ -219,8 +219,6 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             });
         }
 
-        // Determine if the root node is a term set
-
         // Parse the terms
         for (let i = 0; i < terms.length; i++) {
             let item = terms[i];

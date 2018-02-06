@@ -56,7 +56,10 @@ var WebPartTabs = /** @class */ (function (_super) {
                         continue;
                     }
                     // Skip hidden webparts
-                    if (webpart.querySelector(".ms-hide")) {
+                    var wpTitle = (webpart.querySelector(".ms-webpart-titleText") || {}).innerText || "";
+                    var isHidden = webpart.firstElementChild && webpart.firstElementChild.className.indexOf("ms-hide") >= 0;
+                    isHidden = isHidden || wpTitle.startsWith("(Hidden)");
+                    if (isHidden) {
                         continue;
                     }
                     // See if this is within a content zone

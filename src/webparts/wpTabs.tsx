@@ -94,13 +94,16 @@ export class WebPartTabs<Props extends IWebPartTabsProps = IWebPartTabsProps, St
             // Parse the webparts in this zone
             let webparts = elWebPartZone.querySelectorAll(".ms-webpartzone-cell[id^='MSOZoneCell_WebPart']");
             for (let i = 0; i < webparts.length; i++) {
-                let webpart = webparts[i];
+                let webpart = webparts[i] as HTMLElement;
 
                 // Skip this webpart
                 if (webpart.querySelector("div[webpartid='" + this.props.cfg.WebPartId + "']")) { continue; }
 
                 // Skip hidden webparts
-                if (webpart.querySelector(".ms-hide")) { continue; }
+                let wpTitle: string = ((webpart.querySelector(".ms-webpart-titleText") || {}) as HTMLDivElement).innerText || "";
+                let isHidden = webpart.firstElementChild && webpart.firstElementChild.className.indexOf("ms-hide") >= 0;
+                isHidden = isHidden || wpTitle.startsWith("(Hidden)");
+                if (isHidden) { continue; }
 
                 // See if this is within a content zone
                 if (this._isContentZone) {

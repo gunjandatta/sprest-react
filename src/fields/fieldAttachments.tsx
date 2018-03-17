@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Helper, SPTypes, Types } from "gd-sprest";
+import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import {
     Label, Link,
     Spinner
@@ -224,7 +224,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
             // Ensure files exist
             if (files.length > 0) {
                 // Remove the attachments
-                Helper.ListForm.removeAttachments({
+                this.removeAttachments({
                     itemId: this.props.itemId,
                     listName: this.props.listName,
                     webUrl: this.props.webUrl
@@ -247,12 +247,12 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      */
     private loadAttachments = () => {
         // Create the list information
-        (new Helper.ListForm({
+        Helper.ListForm.create({
             itemId: this.props.itemId,
             listName: this.props.listName,
             loadAttachments: true,
             webUrl: this.props.webUrl
-        })).then(listInfo => {
+        }).then(listInfo => {
             // Update the state
             this.setState({
                 files: {
@@ -338,6 +338,34 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
                 break;
             }
         }
+    }
+
+    /**
+     * Method to remove the attachments.
+     */
+    private removeAttachments = (info: Helper.Types.IListFormProps, attachments: Array<Types.SP.IAttachment>): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let web = new Web(info.webUrl);
+
+            // Parse the attachments
+            for (let i = 0; i < attachments.length; i++) {
+                let attachment = attachments[i];
+
+                // Get the file
+                web.getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                    // Delete the file
+                    .delete()
+                    // Execute the request
+                    .execute(true);
+            }
+
+            // Wait for the requests to complete
+            web.done(() => {
+                // Resolve the request
+                resolve();
+            });
+        });
     }
 
     /**

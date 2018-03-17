@@ -199,7 +199,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         }
 
         // Create an instance of the list form
-        new Helper.ListForm({
+        Helper.ListForm.create({
             cacheKey: this.props.cacheKey,
             fields: fields,
             item: this.props.item,

@@ -131,7 +131,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Ensure files exist
                 if (files.length > 0) {
                     // Remove the attachments
-                    gd_sprest_1.Helper.ListForm.removeAttachments({
+                    _this.removeAttachments({
                         itemId: _this.props.itemId,
                         listName: _this.props.listName,
                         webUrl: _this.props.webUrl
@@ -153,12 +153,12 @@ var FieldAttachments = /** @class */ (function (_super) {
          */
         _this.loadAttachments = function () {
             // Create the list information
-            (new gd_sprest_1.Helper.ListForm({
+            gd_sprest_1.Helper.ListForm.create({
                 itemId: _this.props.itemId,
                 listName: _this.props.listName,
                 loadAttachments: true,
                 webUrl: _this.props.webUrl
-            })).then(function (listInfo) {
+            }).then(function (listInfo) {
                 // Update the state
                 _this.setState({
                     files: {
@@ -230,6 +230,28 @@ var FieldAttachments = /** @class */ (function (_super) {
                     break;
                 }
             }
+        };
+        /**
+         * Method to remove the attachments.
+         */
+        _this.removeAttachments = function (info, attachments) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                var web = new gd_sprest_1.Web(info.webUrl);
+                // Parse the attachments
+                for (var i = 0; i < attachments.length; i++) {
+                    var attachment = attachments[i];
+                    // Get the file
+                    web.getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                        .delete()
+                        .execute(true);
+                }
+                // Wait for the requests to complete
+                web.done(function () {
+                    // Resolve the request
+                    resolve();
+                });
+            });
         };
         /**
          * Method to render the attachments

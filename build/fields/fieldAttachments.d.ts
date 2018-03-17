@@ -40,6 +40,10 @@ export declare class FieldAttachments extends React.Component<IFieldAttachmentsP
      */
     private removeAttachment;
     /**
+     * Method to remove the attachments.
+     */
+    private removeAttachments;
+    /**
      * Method to render the attachments
      */
     private renderAttachments;

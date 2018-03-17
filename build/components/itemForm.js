@@ -49,7 +49,7 @@ var ItemForm = /** @class */ (function (_super) {
                 }
             }
             // Create an instance of the list form
-            new gd_sprest_1.Helper.ListForm({
+            gd_sprest_1.Helper.ListForm.create({
                 cacheKey: _this.props.cacheKey,
                 fields: fields,
                 item: _this.props.item,

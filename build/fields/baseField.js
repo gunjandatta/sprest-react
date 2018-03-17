@@ -90,12 +90,12 @@ var BaseField = /** @class */ (function (_super) {
             return elField;
         }
         // Load the field
-        (new gd_sprest_1.Helper.ListFormField({
+        gd_sprest_1.Helper.ListFormField.create({
             field: this.props.field,
             listName: this.props.listName,
             name: this.props.name,
             webUrl: this.props.webUrl
-        })).then(function (fieldInfo) {
+        }).then(function (fieldInfo) {
             // Call the field loaded event
             _this.onFieldLoaded ? _this.onFieldLoaded(fieldInfo, _this.state) : null;
             // Update the state

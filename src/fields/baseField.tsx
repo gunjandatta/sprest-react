@@ -50,18 +50,18 @@ export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps,
         }
 
         // Load the field
-        (new Helper.ListFormField({
+        Helper.ListFormField.create({
             field: this.props.field,
             listName: this.props.listName,
             name: this.props.name,
             webUrl: this.props.webUrl
-        })).then(fieldInfo => {
+        }).then(fieldInfo => {
             // Call the field loaded event
             this.onFieldLoaded ? this.onFieldLoaded(fieldInfo, this.state) : null;
 
             // Update the state
             this.setState({ fieldInfo });
-        })
+        });
 
         // Determine if we are showing a spinner
         let showFl = typeof (this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;

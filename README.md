@@ -1,6 +1,8 @@
 [![Current Version](https://badge.fury.io/js/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 [![Downloads](https://img.shields.io/npm/dm/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 [![Total Downloads](https://img.shields.io/npm/dt/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
+[![bitHound Overall Score](https://www.bithound.io/github/gunjandatta/sprest-react/badges/score.svg)](https://www.bithound.io/github/gunjandatta/sprest-react)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/Dattabase)
 
 # SharePoint React Library
 This library is an extension of the [gd-sprest](https://gunjandatta.github.io/sprest) framework. This library provides react components designed to work in SharePoint 2013. The Office Fabric-UI React framework is being used to keep a consistent OTB look and feel, similar to Office 365.

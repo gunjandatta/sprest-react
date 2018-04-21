@@ -28,5 +28,5 @@ export interface IWebPartSearchState extends IWebPartListState {
     searchFilter?: string;
     searchTerms?: Array<ITag>;
     selectedTags?: Array<ITag>;
-    tagMapper?: object;
+    tagMapper?: { [key: string]: Array<IWebPartSearchItem> };
 }

@@ -105,4 +105,3 @@ var FieldNumber = /** @class */ (function (_super) {
     return FieldNumber;
 }(_1.BaseField));
 exports.FieldNumber = FieldNumber;
-//# sourceMappingURL=fieldNumber.js.map

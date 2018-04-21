@@ -190,4 +190,3 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
     return WebPartFieldCfg;
 }(_1.WebPartListCfg));
 exports.WebPartFieldCfg = WebPartFieldCfg;
-//# sourceMappingURL=wpFieldCfg.js.map

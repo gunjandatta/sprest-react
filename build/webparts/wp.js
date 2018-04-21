@@ -48,4 +48,3 @@ exports.FabricWebPart = function (props) {
         onRenderEdit: renderEdit
     });
 };
-//# sourceMappingURL=wp.js.map

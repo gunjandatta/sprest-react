@@ -3,7 +3,7 @@ import { Helper, SPTypes, Types } from "gd-sprest";
 /**
  * Test Configuration
  */
-export const Configuration = new Helper.SPConfig({
+export const Configuration = Helper.SPConfig({
     ListCfg: [
         /** Test List */
         {

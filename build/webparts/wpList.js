@@ -256,4 +256,3 @@ var WebPartList = /** @class */ (function (_super) {
     return WebPartList;
 }(React.Component));
 exports.WebPartList = WebPartList;
-//# sourceMappingURL=wpList.js.map

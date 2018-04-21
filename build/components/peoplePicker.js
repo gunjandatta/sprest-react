@@ -254,4 +254,3 @@ var SPPeoplePicker = /** @class */ (function (_super) {
     return SPPeoplePicker;
 }(React.Component));
 exports.SPPeoplePicker = SPPeoplePicker;
-//# sourceMappingURL=peoplePicker.js.map

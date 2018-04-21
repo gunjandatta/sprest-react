@@ -220,4 +220,3 @@ var WebPartListCfg = /** @class */ (function (_super) {
     return WebPartListCfg;
 }(_1.WebPartCfgPanel));
 exports.WebPartListCfg = WebPartListCfg;
-//# sourceMappingURL=wpListCfg.js.map

@@ -439,4 +439,3 @@ var FieldAttachments = /** @class */ (function (_super) {
     return FieldAttachments;
 }(React.Component));
 exports.FieldAttachments = FieldAttachments;
-//# sourceMappingURL=fieldAttachments.js.map

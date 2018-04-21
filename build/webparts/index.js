@@ -15,4 +15,3 @@ __export(require("./wpFieldCfg"));
 __export(require("./wpSearchCfg"));
 var Types = require("./types");
 exports.Types = Types;
-//# sourceMappingURL=index.js.map

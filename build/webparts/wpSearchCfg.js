@@ -109,4 +109,3 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
     return WebPartSearchCfg;
 }(_1.WebPartFieldCfg));
 exports.WebPartSearchCfg = WebPartSearchCfg;
-//# sourceMappingURL=wpSearchCfg.js.map

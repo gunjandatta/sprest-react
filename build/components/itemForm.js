@@ -344,4 +344,3 @@ var ItemForm = /** @class */ (function (_super) {
     return ItemForm;
 }(React.Component));
 exports.ItemForm = ItemForm;
-//# sourceMappingURL=itemForm.js.map

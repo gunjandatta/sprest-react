@@ -16,4 +16,3 @@ __export(require("./fieldUrl"));
 __export(require("./fieldUser"));
 var Types = require("./types");
 exports.Types = Types;
-//# sourceMappingURL=index.js.map

@@ -63,4 +63,3 @@ var BasePanel = /** @class */ (function (_super) {
     return BasePanel;
 }(React.Component));
 exports.BasePanel = BasePanel;
-//# sourceMappingURL=basePanel.js.map

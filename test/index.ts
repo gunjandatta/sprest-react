@@ -1,11 +1,11 @@
-import { initializeIcons } from "@uifabric/icons";
+import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
 import { WebParts } from "../src";
 import { Configuration } from "./cfg";
 import { ListWebpart } from "./wp";
 import "./list.scss";
 declare var SP;
 
-// Load the icons
+// Register the icons and pull the fonts from the default SharePoint CDN
 initializeIcons();
 
 /**

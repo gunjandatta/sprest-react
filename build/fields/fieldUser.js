@@ -123,4 +123,3 @@ var FieldUser = /** @class */ (function (_super) {
     return FieldUser;
 }(_1.BaseField));
 exports.FieldUser = FieldUser;
-//# sourceMappingURL=fieldUser.js.map

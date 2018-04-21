@@ -77,4 +77,3 @@ var FieldBoolean = /** @class */ (function (_super) {
     return FieldBoolean;
 }(_1.BaseField));
 exports.FieldBoolean = FieldBoolean;
-//# sourceMappingURL=fieldBoolean.js.map

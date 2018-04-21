@@ -202,4 +202,3 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
     return WebPartCfgPanel;
 }(React.Component));
 exports.WebPartCfgPanel = WebPartCfgPanel;
-//# sourceMappingURL=wpCfg.js.map

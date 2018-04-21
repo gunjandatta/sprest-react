@@ -202,4 +202,3 @@ var WebPartTabs = /** @class */ (function (_super) {
     return WebPartTabs;
 }(React.Component));
 exports.WebPartTabs = WebPartTabs;
-//# sourceMappingURL=wpTabs.js.map

@@ -393,4 +393,3 @@ var WebPartSearch = /** @class */ (function (_super) {
     return WebPartSearch;
 }(_1.WebPartList));
 exports.WebPartSearch = WebPartSearch;
-//# sourceMappingURL=wpSearch.js.map

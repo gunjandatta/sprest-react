@@ -11,4 +11,3 @@ var WebParts = require("./webparts");
 exports.WebParts = WebParts;
 var Types = require("./types");
 exports.Types = Types;
-//# sourceMappingURL=index.js.map

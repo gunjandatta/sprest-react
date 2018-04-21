@@ -6,4 +6,3 @@ var fields_1 = require("./fields");
 exports.Fields = fields_1.Types;
 var webparts_1 = require("./webparts");
 exports.WebParts = webparts_1.Types;
-//# sourceMappingURL=types.js.map

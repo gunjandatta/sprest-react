@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
-require("../../sass/fieldAttachments.scss");
+require("../../sass/fieldAttachments.css");
 /**
  * Attachments field
  */

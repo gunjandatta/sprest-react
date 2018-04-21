@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest-react",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "description": "SharePoint 2013/Online react components.",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
@@ -30,7 +30,8 @@
   },
   "homepage": "https://github.com/gunjandatta/sprest-react#readme",
   "peerDependencies": {
-    "gd-sprest": "3.8.8"
+    "gd-sprest": "3.8.8",
+    "office-ui-fabric-react": "^5.86.0"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.46",

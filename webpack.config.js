@@ -16,7 +16,7 @@ module.exports = {
 
     // Resolve the file extensions
     resolve: {
-        extensions: [".js", ".jsx", ".scss", ".ts", ".tsx"]
+        extensions: [".js", ".jsx", ".scss", ".css", ".ts", ".tsx"]
     },
 
     // Module to define what libraries with the compiler
@@ -25,7 +25,7 @@ module.exports = {
         loaders: [
             {
                 // Target the sass files
-                test: /\.scss?$/,
+                test: /\.s?css$/,
                 // Define the compiler to use
                 use: [
                     // Create style nodes from the CommonJS code

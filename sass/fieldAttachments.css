@@ -1,10 +1,10 @@
-// Render each link on it's own line
+/** Render each link on it's own line */
 .ms-AttachmentLink {
     display: block;
     width: 100%;
 }
 
-// Add spacing to the delete icon
+/** Add spacing to the delete icon */
 .ms-AttachmentLink > .ms-Icon {
     padding-left: 5px;
 }

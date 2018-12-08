@@ -116,7 +116,7 @@ var WebPartList = /** @class */ (function (_super) {
                 // Note - Since we are using a POST request, this would be required for cross-site collection requests
                 gd_sprest_1.ContextInfo.getWeb(_this.props.cfg.WebUrl).execute(function (contextInfo) {
                     // Get the web
-                    (new gd_sprest_1.Web(_this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue }))
+                    gd_sprest_1.Web(_this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
                         // Get the list
                         .Lists(_this.props.cfg.ListName)
                         // Query the items
@@ -135,7 +135,7 @@ var WebPartList = /** @class */ (function (_super) {
             }
             else {
                 // Get the web
-                (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                gd_sprest_1.Web(_this.props.cfg.WebUrl)
                     // Get the list
                     .Lists(_this.props.cfg.ListName)
                     // Query the items
@@ -157,7 +157,7 @@ var WebPartList = /** @class */ (function (_super) {
          */
         _this.loadODATA = function () {
             // Get the web
-            (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+            gd_sprest_1.Web(_this.props.cfg.WebUrl)
                 // Get the list
                 .Lists(_this.props.cfg.ListName)
                 // Get the items
@@ -206,7 +206,7 @@ var WebPartList = /** @class */ (function (_super) {
                 // Update the filter to query the item
                 query.Filter = "ID eq " + itemId;
                 // Get the web
-                (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                gd_sprest_1.Web(_this.props.cfg.WebUrl)
                     // Get the list
                     .Lists(_this.props.cfg.ListName)
                     // Get the items

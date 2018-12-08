@@ -84,7 +84,7 @@ var FieldUrl = /** @class */ (function (_super) {
             // Set the description
             fieldValue.Description = value;
             // Ensure the metadata type exists
-            fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+            fieldValue["__metadata"] = fieldValue["__metadata"] || { type: "SP.FieldUrlValue" };
             // Update the value
             _this.updateValue(fieldValue);
         };
@@ -98,7 +98,7 @@ var FieldUrl = /** @class */ (function (_super) {
             // Set the url
             fieldValue.Url = value;
             // Ensure the metadata type exists
-            fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+            fieldValue["__metadata"] = fieldValue["__metadata"] || { type: "SP.FieldUrlValue" };
             // Update the value
             _this.updateValue(fieldValue);
         };

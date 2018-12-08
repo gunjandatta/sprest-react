@@ -176,7 +176,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             // Note - Since we are using a POST request, this would be required for cross-site collection requests
             ContextInfo.getWeb(this.props.cfg.WebUrl).execute((contextInfo) => {
                 // Get the web
-                (new Web(this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue }))
+                Web(this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue })
                     // Get the list
                     .Lists(this.props.cfg.ListName)
                     // Query the items
@@ -195,7 +195,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             });
         } else {
             // Get the web
-            (new Web(this.props.cfg.WebUrl))
+            Web(this.props.cfg.WebUrl)
                 // Get the list
                 .Lists(this.props.cfg.ListName)
                 // Query the items
@@ -219,7 +219,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      */
     private loadODATA = () => {
         // Get the web
-        (new Web(this.props.cfg.WebUrl))
+        Web(this.props.cfg.WebUrl)
             // Get the list
             .Lists(this.props.cfg.ListName)
             // Get the items
@@ -242,7 +242,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     /**
      * Method to update the state
      */
-    private onLoadData = (items: Types.SP.IListItemResults | Types.SP.IResults<Types.SP.IListItemQueryResult>) => {
+    private onLoadData = (items: Types.SP.IListItemResults | { results: Array<Types.SP.IListItemQueryResult> }) => {
         // Ensure the items exist
         if (items.results) {
             // Update the state
@@ -273,7 +273,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             query.Filter = "ID eq " + itemId;
 
             // Get the web
-            (new Web(this.props.cfg.WebUrl))
+            Web(this.props.cfg.WebUrl)
                 // Get the list
                 .Lists(this.props.cfg.ListName)
                 // Get the items

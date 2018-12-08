@@ -1,9 +1,7 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
-import {
-    Label, Link,
-    Spinner
-} from "office-ui-fabric-react";
+import {SP} from "gd-sprest-def";
+import { Link, Spinner } from "office-ui-fabric-react";
 import {
     IAttachmentFile,
     IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState
@@ -208,7 +206,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private deleteAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let files: Array<Types.SP.IAttachment> = [];
+            let files: Array<SP.Attachment> = [];
 
             // Parse the files to delete
             for (let i = 0; i < this.state.files.Delete.length; i++) {
@@ -343,10 +341,10 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     /**
      * Method to remove the attachments.
      */
-    private removeAttachments = (info: Helper.Types.IListFormProps, attachments: Array<Types.SP.IAttachment>): PromiseLike<void> => {
+    private removeAttachments = (info: Types.Helper.IListFormProps, attachments: Array<SP.Attachment>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let web = new Web(info.webUrl);
+            let web = Web(info.webUrl);
 
             // Parse the attachments
             for (let i = 0; i < attachments.length; i++) {
@@ -489,7 +487,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Method to convert the item value to the attachment file array
      * @param attachments - The file attachments.
      */
-    private toArray = (attachments: Array<Types.SP.IAttachment>) => {
+    private toArray = (attachments: Array<SP.Attachment>) => {
         let files: Array<IAttachmentFile> = [];
 
         // Ensure attachments exist

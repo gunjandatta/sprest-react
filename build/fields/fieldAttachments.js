@@ -240,7 +240,7 @@ var FieldAttachments = /** @class */ (function (_super) {
         _this.removeAttachments = function (info, attachments) {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                var web = new gd_sprest_1.Web(info.webUrl);
+                var web = gd_sprest_1.Web(info.webUrl);
                 // Parse the attachments
                 for (var i = 0; i < attachments.length; i++) {
                     var attachment = attachments[i];

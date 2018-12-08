@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { SP } from "gd-sprest-def";
 import { ITextFieldProps } from "office-ui-fabric-react";
 import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 /**
@@ -8,7 +8,7 @@ export interface IFieldUrlProps extends IBaseFieldProps {
     /** The description textfield properties. */
     descProps?: ITextFieldProps;
     /** Event triggered when the field value changes. */
-    onChange?: (value: Types.SP.ComplexTypes.FieldUrlValue) => void;
+    onChange?: (value: SP.FieldUrlValue) => void;
     /** The url textfield properties. */
     urlProps?: ITextFieldProps;
 }
@@ -17,7 +17,7 @@ export interface IFieldUrlProps extends IBaseFieldProps {
  */
 export interface IFieldUrlState extends IBaseFieldState {
     /** The field value */
-    value: Types.SP.ComplexTypes.FieldUrlValue;
+    value: SP.FieldUrlValue;
 }
 /**
  * Url Field

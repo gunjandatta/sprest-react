@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
+import { SP } from "gd-sprest-def";
 import { PrimaryButton } from "office-ui-fabric-react";
 import { Components, WebParts } from "../build";
-declare var SP;
 
 /**
  * List Item Information
@@ -13,7 +13,7 @@ export interface IListItem extends Types.SP.IListItemQueryResult {
     TestChoice?: string;
     TestDate?: string;
     TestDateTime?: string;
-    TestLookup?: Types.SP.ComplexTypes.FieldLookupValue;
+    TestLookup?: SP.FieldLookupValue;
     TestLookupId?: string | number;
     TestMultiChoice?: string;
     TestMultiLookup?: string;
@@ -23,8 +23,8 @@ export interface IListItem extends Types.SP.IListItemQueryResult {
     TestNote?: string;
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
-    TestUrl?: Types.SP.ComplexTypes.FieldUrlValue;
-    TestUser?: Types.SP.ComplexTypes.FieldUserValue;
+    TestUrl?: SP.FieldUrlValue;
+    TestUser?: SP.Data.UserInfoItem;
     TestUserId?: string | number;
     Title?: string;
 }
@@ -183,13 +183,13 @@ export class ListWebpart extends WebParts.WebPartSearch<WebParts.Types.IWebPartS
     // Method to save the item
     private save = () => {
         // Show a save dialog
-        SP.SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.showWaitScreenWithNoClose", "Saving the Item", "This dialog will close after the request completes.");
+        window["SP"].SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.showWaitScreenWithNoClose", "Saving the Item", "This dialog will close after the request completes.");
 
         // Save the item
         let a
         this._itemForm.save<IListItem>().then(item => {
             // Close the dialog
-            SP.SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.commonModalDialogClose");
+            window["SP"].SOD.execute("sp.ui.dialog.js", "SP.UI.ModalDialog.commonModalDialogClose");
         });
     }
 

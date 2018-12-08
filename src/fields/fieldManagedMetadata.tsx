@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ContextInfo, Helper, SPTypes, Types } from "gd-sprest";
+import { Helper, SPTypes, Types } from "gd-sprest";
+import { SP } from "gd-sprest-def";
 import { Dropdown, IDropdownOption, IDropdownProps, Spinner } from "office-ui-fabric-react";
 import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState, IManagedMetadataTermInfo } from "./types";
 import { BaseField } from ".";
-declare var SP;
 
 /**
  * Managed Metadata Field
@@ -78,7 +78,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
 
                 // Parse the results
                 for (let i = 0; i < fieldValue.results.length; i++) {
-                    let result = fieldValue.results[i] as Types.SP.ComplexTypes.FieldManagedMetadataValue;
+                    let result = fieldValue.results[i] as SP.Taxonomy.TaxonomyFieldValue;
 
                     // Add the term
                     results.push((result.WssId || "") + ";#" + result.Label + "|" + result.TermGuid);

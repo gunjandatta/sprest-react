@@ -1,6 +1,7 @@
 import * as React from "react";
 import { PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
-import { NormalPeoplePicker, IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
+import { SP } from "gd-sprest-def";
+import { NormalPeoplePicker, IPeoplePickerProps, IPersonaProps, IPersona } from "office-ui-fabric-react";
 import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types"
 
 /**
@@ -98,7 +99,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Method to convert the user to persona value
      * @param users - An array of field user values.
      */
-    private convertToPersonas = (users: Array<Types.SP.ComplexTypes.FieldUserValue | number> = []): Array<IPersonaProps> => {
+    private convertToPersonas = (users: Array<SP.Data.UserInfoItem | number> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist
@@ -107,8 +108,8 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
             // See if this is an array of user ids
             if (typeof (user) === "number") {
-                let web = new Web();
-                let userInfo: Array<Types.SP.ComplexTypes.FieldUserValue> = [];
+                let web = Web();
+                let userInfo: Array<SP.Data.UserInfoItem> = [];
 
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
@@ -118,7 +119,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                         if (user.existsFl) {
                             // Add the user information
                             userInfo.push({
-                                ID: parseInt(user.Id),
+                                ID: user.Id,
                                 UserName: user.LoginName,
                                 Title: user.Title
                             });
@@ -131,7 +132,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                                 if (group.existsFl) {
                                     // Add the group information
                                     userInfo.push({
-                                        ID: parseInt(group.Id),
+                                        ID: parseInt(group.Id + ""),
                                         UserName: group.LoginName,
                                         Title: group.Title
                                     });
@@ -151,7 +152,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             } else {
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
-                    let user = users[i] as Types.SP.ComplexTypes.FieldUserValue;
+                    let user = users[i] as SP.Data.UserInfoItem;
                     if (user.ID) {
                         // Add the persona
                         personas.push({
@@ -223,19 +224,16 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
                 // See if the filter exists
                 if (this._filterText) {
-                    (new PeoplePicker())
-                        // Search for the user
-                        .clientPeoplePickerSearchUser({
-                            MaximumEntitySuggestions: 15,
-                            PrincipalSource: typeof (source) === "number" ? source : SPTypes.PrincipalSources.UserInfoList,
-                            PrincipalType: this.state.allowGroups ? SPTypes.PrincipalTypes.All : SPTypes.PrincipalTypes.User,
-                            QueryString: this._filterText
-                        })
-                        // Execute the request
-                        .execute((results) => {
-                            // Resolve the promise
-                            resolve(this.toArray(results));
-                        });
+                    // Search for the user
+                    PeoplePicker().clientPeoplePickerSearchUser({
+                        MaximumEntitySuggestions: 15,
+                        PrincipalSource: typeof (source) === "number" ? source : SPTypes.PrincipalSources.UserInfoList,
+                        PrincipalType: this.state.allowGroups ? SPTypes.PrincipalTypes.All : SPTypes.PrincipalTypes.User,
+                        QueryString: this._filterText
+                    }).execute((results) => {
+                        // Resolve the promise
+                        resolve(this.toArray(results));
+                    });
                 }
             }, 500);
         });

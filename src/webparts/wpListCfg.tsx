@@ -159,7 +159,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
      */
     private loadLists = (cfg: IWebPartListCfg) => {
         // Get the web
-        (new Web(cfg.WebUrl))
+        Web(cfg.WebUrl)
             // Get the lists
             .Lists()
             // Set the query

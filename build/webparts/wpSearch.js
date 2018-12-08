@@ -275,7 +275,7 @@ var WebPartSearch = /** @class */ (function (_super) {
             // Ensure the list name exists
             if (_this.props.cfg.ListName) {
                 // Load the documents
-                (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                gd_sprest_1.Web(_this.props.cfg.WebUrl)
                     // Get the list
                     .Lists(_this.props.cfg.ListName)
                     // Get the items

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
+import { SP } from "gd-sprest-def";
 import { Link, TextField, ITextFieldProps } from "office-ui-fabric-react";
 import { IFieldUrlProps, IFieldUrlState } from "./types";
 import { BaseField } from ".";
@@ -18,7 +19,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         }
 
         // Get the default value
-        let defaultValue = this.getFieldValue() as Types.SP.ComplexTypes.FieldUrlValue;
+        let defaultValue = this.getFieldValue() as SP.FieldUrlValue;
 
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};
@@ -70,13 +71,13 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      */
     private onDescChanged = (value: string) => {
         // Get the value
-        let fieldValue: Types.SP.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.SP.ComplexTypes.FieldUrlValue;
+        let fieldValue: SP.FieldUrlValue = this.state.value || {} as SP.FieldUrlValue;
 
         // Set the description
         fieldValue.Description = value;
 
         // Ensure the metadata type exists
-        fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+        fieldValue["__metadata"] = fieldValue["__metadata"] || { type: "SP.FieldUrlValue" };
 
         // Update the value
         this.updateValue(fieldValue);
@@ -88,13 +89,13 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      */
     private onUrlChanged = (value: string) => {
         // Get the value
-        let fieldValue: Types.SP.ComplexTypes.FieldUrlValue = this.state.value || {} as Types.SP.ComplexTypes.FieldUrlValue;
+        let fieldValue: SP.FieldUrlValue = this.state.value || {} as SP.FieldUrlValue;
 
         // Set the url
         fieldValue.Url = value;
 
         // Ensure the metadata type exists
-        fieldValue.__metadata = fieldValue.__metadata || { type: "SP.FieldUrlValue" };
+        fieldValue["__metadata"] = fieldValue["__metadata"] || { type: "SP.FieldUrlValue" };
 
         // Update the value
         this.updateValue(fieldValue);

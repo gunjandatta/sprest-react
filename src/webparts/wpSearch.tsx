@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
-import { Link, SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
+import { SP } from "gd-sprest-def";
+import { SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "./types";
 import { WebPartList } from ".";
 
@@ -117,7 +118,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                                     break;
                                 case SPTypes.FieldType.URL:
                                     // Update the field value
-                                    fieldValue = (item[field.InternalName] as Types.SP.ComplexTypes.FieldUrlValue).Description;
+                                    fieldValue = (item[field.InternalName] as SP.FieldUrlValue).Description;
                                     break;
                                 case SPTypes.FieldType.User:
                                     // Set the field
@@ -347,7 +348,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Ensure the list name exists
         if (this.props.cfg.ListName) {
             // Load the documents
-            (new Web(this.props.cfg.WebUrl))
+            Web(this.props.cfg.WebUrl)
                 // Get the list
                 .Lists(this.props.cfg.ListName)
                 // Get the items

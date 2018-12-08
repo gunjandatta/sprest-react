@@ -59,17 +59,16 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                 var user = users[0];
                 // See if this is an array of user ids
                 if (typeof (user) === "number") {
-                    var web_1 = new gd_sprest_1.Web();
+                    var web_1 = gd_sprest_1.Web();
                     var userInfo_1 = [];
                     var _loop_1 = function (i) {
                         // Get the user
-                        debugger;
                         web_1.SiteUsers(users[i] + "").execute(function (user) {
                             // Ensure the user exists
                             if (user.existsFl) {
                                 // Add the user information
                                 userInfo_1.push({
-                                    ID: parseInt(user.Id),
+                                    ID: user.Id,
                                     UserName: user.LoginName,
                                     Title: user.Title
                                 });
@@ -82,7 +81,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                                     if (group.existsFl) {
                                         // Add the group information
                                         userInfo_1.push({
-                                            ID: parseInt(group.Id),
+                                            ID: parseInt(group.Id + ""),
                                             UserName: group.LoginName,
                                             Title: group.Title
                                         });
@@ -174,16 +173,13 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                     }
                     // See if the filter exists
                     if (_this._filterText) {
-                        (new gd_sprest_1.PeoplePicker())
-                            // Search for the user
-                            .clientPeoplePickerSearchUser({
+                        // Search for the user
+                        gd_sprest_1.PeoplePicker().clientPeoplePickerSearchUser({
                             MaximumEntitySuggestions: 15,
                             PrincipalSource: typeof (source) === "number" ? source : gd_sprest_1.SPTypes.PrincipalSources.UserInfoList,
                             PrincipalType: _this.state.allowGroups ? gd_sprest_1.SPTypes.PrincipalTypes.All : gd_sprest_1.SPTypes.PrincipalTypes.User,
                             QueryString: _this._filterText
-                        })
-                            // Execute the request
-                            .execute(function (results) {
+                        }).execute(function (results) {
                             // Resolve the promise
                             resolve(_this.toArray(results));
                         });

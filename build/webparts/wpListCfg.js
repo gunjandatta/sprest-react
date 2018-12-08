@@ -136,7 +136,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
          */
         _this.loadLists = function (cfg) {
             // Get the web
-            (new gd_sprest_1.Web(cfg.WebUrl))
+            gd_sprest_1.Web(cfg.WebUrl)
                 // Get the lists
                 .Lists()
                 // Set the query

@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { SP } from "gd-sprest-def";
 import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 /**
  * Properties
@@ -6,7 +6,7 @@ import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 export interface ISPPeoplePickerProps {
     allowMultiple?: boolean;
     allowGroups?: boolean;
-    fieldValue?: Array<Types.SP.ComplexTypes.FieldUserValue | number>;
+    fieldValue?: Array<SP.Data.UserInfoItem | number>;
     props?: IPeoplePickerProps;
 }
 /**

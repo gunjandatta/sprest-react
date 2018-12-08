@@ -1,4 +1,5 @@
 import { Types, Web } from "gd-sprest";
+import { SP } from "gd-sprest-def";
 import { WebParts } from "../src";
 
 /**
@@ -10,7 +11,7 @@ export interface ITestItem extends Types.SP.IListItemQueryResult {
     TestChoice?: string;
     TestDate?: string;
     TestDateTime?: string;
-    TestLookup?: Types.SP.ComplexTypes.FieldLookupValue;
+    TestLookup?: SP.Data.UserInfoItem;
     TestLookupId?: string | number;
     TestMultiChoice?: string;
     TestMultiLookup?: string;
@@ -21,7 +22,7 @@ export interface ITestItem extends Types.SP.IListItemQueryResult {
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
     TestUrl?: string;
-    TestUser?: Types.SP.ComplexTypes.FieldUserValue;
+    TestUser?: SP.Data.UserInfoItem;
     TestUserId?: string | number;
     Title?: string;
 }
@@ -48,7 +49,7 @@ export class DataSource {
         this._cfg = cfg;
 
         // Get the web
-        (new Web(cfg.WebUrl))
+        Web(cfg.WebUrl)
             // Get the list
             .Lists(cfg.ListName)
             // Execute the request
@@ -67,7 +68,7 @@ export class DataSource {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the web
-            (new Web(this._cfg.WebUrl))
+            Web(this._cfg.WebUrl)
                 // Get the list
                 .Lists(this._cfg.ListName)
                 // Get the items

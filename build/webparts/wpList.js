@@ -1,8 +1,11 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -98,6 +101,7 @@ var WebPartList = /** @class */ (function (_super) {
             if (_this._caml) {
                 _this.loadCAML();
             }
+            // Else, load using the ODATA query
             else {
                 _this.loadODATA();
             }
@@ -113,8 +117,11 @@ var WebPartList = /** @class */ (function (_super) {
                 gd_sprest_1.ContextInfo.getWeb(_this.props.cfg.WebUrl).execute(function (contextInfo) {
                     // Get the web
                     (new gd_sprest_1.Web(_this.props.cfg.WebUrl, { requestDigest: contextInfo.GetContextWebInformation.FormDigestValue }))
+                        // Get the list
                         .Lists(_this.props.cfg.ListName)
+                        // Query the items
                         .getItemsByQuery(_this._caml)
+                        // Execute the request
                         .execute(function (items) {
                         // See if we are storing the items in cache
                         if (_this._cacheFl) {
@@ -129,8 +136,11 @@ var WebPartList = /** @class */ (function (_super) {
             else {
                 // Get the web
                 (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                    // Get the list
                     .Lists(_this.props.cfg.ListName)
+                    // Query the items
                     .getItemsByQuery(_this._caml)
+                    // Execute the request
                     .execute(function (items) {
                     // See if we are storing the items in cache
                     if (_this._cacheFl) {
@@ -148,9 +158,13 @@ var WebPartList = /** @class */ (function (_super) {
         _this.loadODATA = function () {
             // Get the web
             (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                // Get the list
                 .Lists(_this.props.cfg.ListName)
+                // Get the items
                 .Items()
+                // Query the list
                 .query(_this._query)
+                // Execute the request
                 .execute(function (items) {
                 // See if we are storing the items in cache
                 if (_this._cacheFl) {
@@ -193,9 +207,13 @@ var WebPartList = /** @class */ (function (_super) {
                 query.Filter = "ID eq " + itemId;
                 // Get the web
                 (new gd_sprest_1.Web(_this.props.cfg.WebUrl))
+                    // Get the list
                     .Lists(_this.props.cfg.ListName)
+                    // Get the items
                     .Items()
+                    // Query the list
                     .query(query)
+                    // Execute the request
                     .execute(function (items) {
                     // Ensure the item exists
                     if (items.results && items.results[0]) {

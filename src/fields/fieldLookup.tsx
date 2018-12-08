@@ -33,7 +33,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
         }
 
         // Update the properties
-        let props: IDropdownProps = this.props.props || {};
+        let props: IDropdownProps = this.props.props || {} as any;
         props.className = (this.props.className || "");
         props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.errorMessage;

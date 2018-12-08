@@ -1,8 +1,8 @@
 import { Types } from "gd-sprest";
 import {
-    Dropdown, IDropdownOption,
+    IDropdown, IDropdownOption,
     PrimaryButton,
-    TextField
+    ITextField
 } from "office-ui-fabric-react";
 import { IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel } from ".";
 
@@ -19,10 +19,10 @@ export interface IWebPartListCfg extends Types.Helper.IWebPartCfg {
  */
 export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
     _query: Types.SP.ODataQuery;
-    _listDropdown: Dropdown;
+    _listDropdown: IDropdown;
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
-    _webUrl: TextField;
+    _webUrl: ITextField;
 
     getList: (option: IDropdownOption) => Types.SP.IListQueryResult;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;

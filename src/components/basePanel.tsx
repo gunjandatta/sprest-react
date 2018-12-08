@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Panel, PanelType } from "office-ui-fabric-react";
+import { Panel } from "office-ui-fabric-react";
 import { IBasePanelProps, IBasePanelState } from "./types";
 
 /**

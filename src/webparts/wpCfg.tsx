@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { Dropdown, PrimaryButton, TextField } from "office-ui-fabric-react";
+import { PrimaryButton } from "office-ui-fabric-react";
 import { Page } from "../common";
 import { Panel } from '../components';
 import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "./types";

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import * as React from "react";
 import { IPersonaProps } from "office-ui-fabric-react";
 import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types";

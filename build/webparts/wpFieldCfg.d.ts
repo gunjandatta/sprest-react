@@ -1,12 +1,12 @@
 /// <reference types="react" />
-import { Label, TagPicker, ITag } from "office-ui-fabric-react";
+import { ILabel, TagPicker, ITag } from "office-ui-fabric-react";
 import { IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState } from "./types";
 import { WebPartListCfg } from ".";
 /**
  * WebPart Field Configuration Panel
  */
 export declare class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartFieldCfgProps, State extends IWebPartFieldCfgState = IWebPartFieldCfgState> extends WebPartListCfg<Props, State> implements IWebPartFieldCfgPanel {
-    _fieldLabel: Label;
+    _fieldLabel: ILabel;
     _fieldPicker: TagPicker;
     /**
      * Constructor

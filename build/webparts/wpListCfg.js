@@ -1,8 +1,11 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -74,7 +77,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
             _this.setState({ loadFl: true });
             // Update the configuration
             var cfg = _this.props.cfg;
-            cfg.WebUrl = _this._webUrl.state.value;
+            cfg.WebUrl = _this._webUrl.value;
             // Load the lists
             _this.loadLists(cfg);
         };
@@ -134,8 +137,11 @@ var WebPartListCfg = /** @class */ (function (_super) {
         _this.loadLists = function (cfg) {
             // Get the web
             (new gd_sprest_1.Web(cfg.WebUrl))
+                // Get the lists
                 .Lists()
+                // Set the query
                 .query(_this._query)
+                // Execute the request
                 .execute(function (lists) {
                 var options = [];
                 var selectedList = null;
@@ -180,7 +186,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
          * Method to render the list property
          */
         _this.renderList = function () {
-            return (React.createElement(office_ui_fabric_react_1.Dropdown, { key: "listDropdown", label: "List:", onChanged: _this.updateListName, ref: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: _this.state.cfg.ListName || "" }));
+            return (React.createElement(office_ui_fabric_react_1.Dropdown, { key: "listDropdown", label: "List:", onChanged: _this.updateListName, componentRef: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: _this.state.cfg.ListName || "" }));
         };
         /**
          * Method to render the save button
@@ -193,7 +199,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
          */
         _this.renderWebUrl = function () {
             return [
-                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", key: "webUrlTextField", ref: function (webUrl) { _this._webUrl = webUrl; }, value: _this.state.cfg.WebUrl || "" }),
+                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", key: "webUrlTextField", componentRef: function (webUrl) { _this._webUrl = webUrl; }, value: _this.state.cfg.WebUrl || "" }),
                 React.createElement(office_ui_fabric_react_1.PrimaryButton, { key: "webUrlRefreshButton", onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" })
             ];
         };

@@ -6,7 +6,7 @@ import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 export interface ISPPeoplePickerProps {
     allowMultiple?: boolean;
     allowGroups?: boolean;
-    fieldValue?: Array<Types.SP.ComplexTypes.FieldUserValue>;
+    fieldValue?: Array<Types.SP.ComplexTypes.FieldUserValue | number>;
     props?: IPeoplePickerProps;
 }
 /**

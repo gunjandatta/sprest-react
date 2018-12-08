@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
 import { IItemFormProps, IItemFormState } from "./types";

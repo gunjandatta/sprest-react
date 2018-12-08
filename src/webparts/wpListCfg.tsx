@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Web, SPTypes, Types } from "gd-sprest";
-import { Dropdown, IDropdownOption, PrimaryButton, TextField, Spinner } from "office-ui-fabric-react";
+import { Web, Types } from "gd-sprest";
+import { Dropdown, IDropdown, IDropdownOption, PrimaryButton, TextField, ITextField, Spinner } from "office-ui-fabric-react";
 import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "./types";
 import { WebPartCfgPanel } from ".";
 
@@ -34,7 +34,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     /**
      * Reference to the list dropdown.
      */
-    _listDropdown: Dropdown = null;
+    _listDropdown: IDropdown = null;
 
     /**
      * Reference to the refresh button.
@@ -49,7 +49,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     /**
      * Reference to the web url text field.
      */
-    _webUrl: TextField = null;
+    _webUrl: ITextField = null;
 
     /**
      * Events
@@ -82,7 +82,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
 
         // Update the configuration
         let cfg = this.props.cfg;
-        cfg.WebUrl = this._webUrl.state.value;
+        cfg.WebUrl = this._webUrl.value;
 
         // Load the lists
         this.loadLists(cfg);
@@ -223,7 +223,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
                 key="listDropdown"
                 label="List:"
                 onChanged={this.updateListName}
-                ref={ddl => { this._listDropdown = ddl; }}
+                componentRef={ddl => { this._listDropdown = ddl; }}
                 options={this.state.options}
                 selectedKey={this.state.cfg.ListName || ""}
             />
@@ -252,7 +252,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
             <TextField
                 label="Relative Web Url:"
                 key="webUrlTextField"
-                ref={webUrl => { this._webUrl = webUrl; }}
+                componentRef={webUrl => { this._webUrl = webUrl; }}
                 value={this.state.cfg.WebUrl || ""}
             />,
             <PrimaryButton

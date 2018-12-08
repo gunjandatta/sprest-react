@@ -5,4 +5,4 @@ import * as Components from "./components";
 import * as Fields from "./fields";
 import * as WebParts from "./webparts";
 import * as Types from "./types";
-export { Components, Fields, Types, WebParts };
+export { Components, Fields, Types, WebParts, };

@@ -6,7 +6,7 @@ import { BaseField } from ".";
 export declare enum FieldNumberTypes {
     Decimal = 0,
     Integer = 1,
-    Percentage = 2,
+    Percentage = 2
 }
 /**
  * Number Field

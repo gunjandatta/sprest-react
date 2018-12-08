@@ -1,5 +1,5 @@
 import { Types } from "gd-sprest";
-import { Label, ILabelProps, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
+import { ILabel, ILabelProps, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
 import {
     IWebPartListCfgPanel,
     IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState
@@ -16,7 +16,7 @@ export interface IWebPartFieldCfg extends IWebPartListCfg {
  * Field Configuration Panel
  */
 export interface IWebPartFieldCfgPanel extends IWebPartListCfgPanel {
-    _fieldLabel: Label;
+    _fieldLabel: ILabel;
     _fieldPicker: TagPicker;
 
     onFieldPickerDisplay: (tags: Array<ITag>) => void;

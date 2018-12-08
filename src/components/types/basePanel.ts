@@ -4,6 +4,7 @@ import { IPanelProps } from "office-ui-fabric-react";
  * Base Panel Properties
  */
 export interface IBasePanelProps extends IPanelProps {
+    ref?: (panel: any) => void;
 }
 
 /**

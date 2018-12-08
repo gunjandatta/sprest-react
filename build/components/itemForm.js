@@ -1,8 +1,11 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -227,10 +230,12 @@ var ItemForm = /** @class */ (function (_super) {
             // Set the spinner
             spinner = (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Refreshing the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
         }
+        // Else, see if we are saving the item
         else if (this.state.saveFl) {
             // Set the spinner
             spinner = (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Saving the item", size: office_ui_fabric_react_1.SpinnerSize.large }));
         }
+        // Else, see if we are updating the item
         else if (this.state.updateFl) {
             // Set the spinner
             spinner = (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Updating the Item", size: office_ui_fabric_react_1.SpinnerSize.large }));
@@ -304,6 +309,7 @@ var ItemForm = /** @class */ (function (_super) {
             _this.setState({ saveFl: true }, function () {
                 // Save the item
                 gd_sprest_1.Helper.ListForm.saveItem(_this.state.formInfo, _this.getFormValues())
+                    // Wait for the item to be saved
                     .then(function (formInfo) {
                     // Save the attachments
                     _this.saveAttachments().then(function () {

@@ -1,7 +1,6 @@
-/// <reference types="react" />
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { Dropdown, IDropdownOption, PrimaryButton, TextField } from "office-ui-fabric-react";
+import { IDropdown, IDropdownOption, PrimaryButton, ITextField } from "office-ui-fabric-react";
 import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "./types";
 import { WebPartCfgPanel } from ".";
 /**
@@ -23,7 +22,7 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
     /**
      * Reference to the list dropdown.
      */
-    _listDropdown: Dropdown;
+    _listDropdown: IDropdown;
     /**
      * Reference to the refresh button.
      */
@@ -35,7 +34,7 @@ export declare class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPar
     /**
      * Reference to the web url text field.
      */
-    _webUrl: TextField;
+    _webUrl: ITextField;
     /**
      * Events
      */

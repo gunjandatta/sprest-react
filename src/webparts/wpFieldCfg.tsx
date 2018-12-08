@@ -1,6 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
-import { Label, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
+import { Label, ILabel, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
 import { IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState } from "./types";
 import { WebPartListCfg } from ".";
 
@@ -8,7 +7,7 @@ import { WebPartListCfg } from ".";
  * WebPart Field Configuration Panel
  */
 export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartFieldCfgProps, State extends IWebPartFieldCfgState = IWebPartFieldCfgState> extends WebPartListCfg<Props, State> implements IWebPartFieldCfgPanel {
-    _fieldLabel: Label = null;
+    _fieldLabel: ILabel = null;
     _fieldPicker: TagPicker = null;
 
     /**
@@ -133,7 +132,7 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
 
         // Return the footer
         return [
-            <Label {...lblProps} ref={lbl => { this._fieldLabel = lbl; }} key="fieldLabel">{this.props.fieldLabel || "Fields"}:</Label>,
+            <Label {...lblProps} componentRef={lbl => { this._fieldLabel = lbl; }} key="fieldLabel">{this.props.fieldLabel || "Fields"}:</Label>,
             <TagPicker {...pickerProps} ref={picker => { this._fieldPicker = picker; }} key="fieldPicker" />
         ];
     }

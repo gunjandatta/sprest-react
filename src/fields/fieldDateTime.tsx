@@ -1,9 +1,8 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import {
-    DatePicker, DayOfWeek, IDatePickerProps,
-    Dropdown, IDropdownOption, IDropdownProps,
-    Label
+    DatePicker, IDatePicker, DayOfWeek, IDatePickerProps,
+    Dropdown, IDropdownOption, IDropdownProps
 } from "office-ui-fabric-react";
 import { DatePickerStrings } from "../common";
 import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "./types";
@@ -16,7 +15,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
     /**
      * Reference to the date picker.
      */
-    private _datePicker: DatePicker = null;
+    private _datePicker: IDatePicker = null;
 
     /**
      * Render the field
@@ -41,7 +40,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         // Render the component
         return (
             <div className={(this.props.className || "")}>
-                <DatePicker {...props} ref={datePicker => { this._datePicker = datePicker; }} />
+                <DatePicker {...props} componentRef={datePicker => { this._datePicker = datePicker; }} />
                 {this.renderTime(props.value)}
             </div>
         );
@@ -98,7 +97,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
         let minutes = parseInt(time[1]);
 
         // Update the selected date
-        let date = this._datePicker.state.selectedDate;
+        let date = this._datePicker["state"].selectedDate;
         date.setHours(hours);
         date.setMinutes(minutes);
 
@@ -116,7 +115,7 @@ export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTime
 
         // See if we are showing the time component
         if (this.state.fieldInfo.showTime) {
-            let props: IDropdownProps = this.props.timeProps || {};
+            let props: IDropdownProps = this.props.timeProps || {} as any;
             let selectedHour = date ? date.getHours() : null;
             let selectedMin = date ? date.getMinutes() : null;
 

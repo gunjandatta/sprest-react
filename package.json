@@ -5,8 +5,9 @@
   "main": "build/index.js",
   "typings": "build/index.d.ts",
   "scripts": {
+    "all": "npm run build && npm run test",
     "build": "tsc",
-    "test": "npm run build && webpack --mode development"
+    "test": "webpack --mode development"
   },
   "repository": {
     "type": "git",

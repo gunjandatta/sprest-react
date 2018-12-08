@@ -113,7 +113,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
                     // Get the user
-                    web.SiteUsers(users[i]).execute(user => {
+                    web.SiteUsers(users[i] + "").execute(user => {
                         // Ensure the user exists
                         if (user.existsFl) {
                             // Add the user information

@@ -63,7 +63,8 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                     var userInfo_1 = [];
                     var _loop_1 = function (i) {
                         // Get the user
-                        web_1.SiteUsers(users[i]).execute(function (user) {
+                        debugger;
+                        web_1.SiteUsers(users[i] + "").execute(function (user) {
                             // Ensure the user exists
                             if (user.existsFl) {
                                 // Add the user information

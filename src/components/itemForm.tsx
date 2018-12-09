@@ -156,6 +156,9 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
             // Ensure the field information exists
             if (fieldInfo == null) { continue; }
 
+            // Skip read-only fields
+            if (fieldInfo.readOnly) { continue; }
+
             // See if this is a lookup or user field
             if (fieldInfo.type == SPTypes.FieldType.Lookup ||
                 fieldInfo.type == SPTypes.FieldType.User) {
@@ -351,22 +354,20 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
         return new Promise((resolve, reject) => {
             // Set the state
             this.setState({ saveFl: true }, () => {
-                // Save the item
-                Helper.ListForm.saveItem(this.state.formInfo, this.getFormValues())
-                    // Wait for the item to be saved
-                    .then((formInfo) => {
-                        // Save the attachments
-                        this.saveAttachments().then(() => {
-                            // Refresh the item
-                            Helper.ListForm.refreshItem(formInfo).then(formInfo => {
-                                // Update the state
-                                this.setState({ formInfo, saveFl: false }, () => {
-                                    // Resolve the promise
-                                    resolve(formInfo.item as any);
-                                });
+                // Update the item
+                Helper.ListForm.saveItem(this.state.formInfo, this.getFormValues()).then(formInfo => {
+                    // Save the attachments
+                    this.saveAttachments().then(() => {
+                        // Refresh the item
+                        Helper.ListForm.refreshItem(formInfo).then(formInfo => {
+                            // Update the state
+                            this.setState({ formInfo, saveFl: false }, () => {
+                                // Resolve the promise
+                                resolve(formInfo.item as any);
                             });
                         });
                     });
+                }, reject);
             });
         });
     }

@@ -71,7 +71,7 @@ var FieldUser = /** @class */ (function (_super) {
                 for (var i = 0; i < fieldValue.results.length; i++) {
                     var lookupValue = fieldValue.results[i];
                     // Add the lookup id
-                    results.push(lookupValue.Id || lookupValue);
+                    results.push(lookupValue.ID || lookupValue);
                 }
                 // Update the field value
                 fieldValue = { results: results };
@@ -84,7 +84,8 @@ var FieldUser = /** @class */ (function (_super) {
                 }
                 else {
                     // Ensure the value is valid
-                    fieldValue = fieldValue > 0 ? fieldValue : null;
+                    var userId = fieldValue.ID || fieldValue;
+                    fieldValue = userId > 0 ? userId : null;
                 }
             }
             // Return the field value

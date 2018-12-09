@@ -272,6 +272,10 @@ var ItemForm = /** @class */ (function (_super) {
             if (fieldInfo == null) {
                 continue;
             }
+            // Skip read-only fields
+            if (fieldInfo.readOnly) {
+                continue;
+            }
             // See if this is a lookup or user field
             if (fieldInfo.type == gd_sprest_1.SPTypes.FieldType.Lookup ||
                 fieldInfo.type == gd_sprest_1.SPTypes.FieldType.User) {
@@ -307,10 +311,8 @@ var ItemForm = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             // Set the state
             _this.setState({ saveFl: true }, function () {
-                // Save the item
-                gd_sprest_1.Helper.ListForm.saveItem(_this.state.formInfo, _this.getFormValues())
-                    // Wait for the item to be saved
-                    .then(function (formInfo) {
+                // Update the item
+                gd_sprest_1.Helper.ListForm.saveItem(_this.state.formInfo, _this.getFormValues()).then(function (formInfo) {
                     // Save the attachments
                     _this.saveAttachments().then(function () {
                         // Refresh the item
@@ -322,7 +324,7 @@ var ItemForm = /** @class */ (function (_super) {
                             });
                         });
                     });
-                });
+                }, reject);
             });
         });
     };

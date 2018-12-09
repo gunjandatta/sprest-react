@@ -78,7 +78,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
                 let lookupValue = fieldValue.results[i];
 
                 // Add the lookup id
-                results.push(lookupValue.Id || lookupValue);
+                results.push(lookupValue.ID || lookupValue);
             }
 
             // Update the field value
@@ -90,7 +90,8 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
                 fieldValue = fieldValue || { results: [] };
             } else {
                 // Ensure the value is valid
-                fieldValue = fieldValue > 0 ? fieldValue : null;
+                let itemId = fieldValue.ID || fieldValue;
+                fieldValue = itemId > 0 ? itemId : null;
             }
         }
 

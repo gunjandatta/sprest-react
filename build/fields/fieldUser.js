@@ -54,7 +54,7 @@ var FieldUser = /** @class */ (function (_super) {
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
                 React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.fieldInfo.title),
-                React.createElement(components_1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.multi, fieldValue: _this.state.value ? _this.state.value.results || [_this.state.value] : null, props: props })));
+                React.createElement(components_1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.multi, fieldValue: _this.state.value ? _this.state.value.results || [_this.state.value] : null, props: props, webUrl: _this.props.webUrl })));
         };
         /**
          * Methods

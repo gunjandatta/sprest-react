@@ -59,46 +59,48 @@ var SPPeoplePicker = /** @class */ (function (_super) {
                 var user = users[0];
                 // See if this is an array of user ids
                 if (typeof (user) === "number") {
-                    var web_1 = gd_sprest_1.Web();
                     var userInfo_1 = [];
-                    var _loop_1 = function (i) {
-                        // Get the user
-                        web_1.SiteUsers(users[i] + "").execute(function (user) {
-                            // Ensure the user exists
-                            if (user.existsFl) {
-                                // Add the user information
-                                userInfo_1.push({
-                                    ID: user.Id,
-                                    UserName: user.LoginName,
-                                    Title: user.Title
-                                });
-                            }
-                            // Else, see if groups are enabled
-                            else if (_this.state.allowGroups) {
-                                // Get the group
-                                web_1.SiteGroups().getById(users[i]).execute(function (group) {
-                                    // Ensure the group exists
-                                    if (group.existsFl) {
-                                        // Add the group information
-                                        userInfo_1.push({
-                                            ID: parseInt(group.Id + ""),
-                                            UserName: group.LoginName,
-                                            Title: group.Title
-                                        });
-                                    }
-                                });
-                            }
-                        }, true);
-                    };
-                    // Parse the users
-                    for (var i = 0; i < users.length; i++) {
-                        _loop_1(i);
-                    }
-                    // Wait for the requests to complete
-                    web_1.done(function () {
-                        // Update the state
-                        _this.setState({
-                            personas: _this.convertToPersonas(userInfo_1)
+                    // Get the web
+                    _this.getWeb().then(function (web) {
+                        var _loop_1 = function (i) {
+                            // Get the user
+                            web.SiteUsers(users[i] + "").execute(function (user) {
+                                // Ensure the user exists
+                                if (user.existsFl) {
+                                    // Add the user information
+                                    userInfo_1.push({
+                                        ID: user.Id,
+                                        UserName: user.LoginName,
+                                        Title: user.Title
+                                    });
+                                }
+                                // Else, see if groups are enabled
+                                else if (_this.state.allowGroups) {
+                                    // Get the group
+                                    web.SiteGroups().getById(users[i]).execute(function (group) {
+                                        // Ensure the group exists
+                                        if (group.existsFl) {
+                                            // Add the group information
+                                            userInfo_1.push({
+                                                ID: parseInt(group.Id + ""),
+                                                UserName: group.LoginName,
+                                                Title: group.Title
+                                            });
+                                        }
+                                    });
+                                }
+                            }, true);
+                        };
+                        // Parse the users
+                        for (var i = 0; i < users.length; i++) {
+                            _loop_1(i);
+                        }
+                        // Wait for the requests to complete
+                        web.done(function () {
+                            // Update the state
+                            _this.setState({
+                                personas: _this.convertToPersonas(userInfo_1)
+                            });
                         });
                     });
                 }
@@ -121,6 +123,26 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             }
             // Return the personas
             return personas;
+        };
+        /**
+         * Gets the web.
+         */
+        _this.getWeb = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the url exists
+                if (_this.props.webUrl) {
+                    // Get the context for the web
+                    gd_sprest_1.ContextInfo.getWeb(_this.props.webUrl).execute(function (info) {
+                        // Resolve the web
+                        resolve(gd_sprest_1.Web(_this.props.webUrl, { requestDigest: info.GetContextWebInformation.FormDigestValue }));
+                    });
+                }
+                else {
+                    // Resolve the web
+                    resolve(gd_sprest_1.Web());
+                }
+            });
         };
         /**
          * Method executed when the value changes

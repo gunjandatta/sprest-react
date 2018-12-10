@@ -1,7 +1,7 @@
 import * as React from "react";
-import { PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
+import { ContextInfo, PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
 import { SP } from "gd-sprest-def";
-import { NormalPeoplePicker, IPeoplePickerProps, IPersonaProps, IPersona } from "office-ui-fabric-react";
+import { NormalPeoplePicker, IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types"
 
 /**
@@ -108,45 +108,47 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
             // See if this is an array of user ids
             if (typeof (user) === "number") {
-                let web = Web();
                 let userInfo: Array<SP.Data.UserInfoItem> = [];
 
-                // Parse the users
-                for (let i = 0; i < users.length; i++) {
-                    // Get the user
-                    web.SiteUsers(users[i] + "").execute(user => {
-                        // Ensure the user exists
-                        if (user.existsFl) {
-                            // Add the user information
-                            userInfo.push({
-                                ID: user.Id,
-                                UserName: user.LoginName,
-                                Title: user.Title
-                            });
-                        }
-                        // Else, see if groups are enabled
-                        else if (this.state.allowGroups) {
-                            // Get the group
-                            web.SiteGroups().getById(users[i]).execute(group => {
-                                // Ensure the group exists
-                                if (group.existsFl) {
-                                    // Add the group information
-                                    userInfo.push({
-                                        ID: parseInt(group.Id + ""),
-                                        UserName: group.LoginName,
-                                        Title: group.Title
-                                    });
-                                }
-                            });
-                        }
-                    }, true);
-                }
+                // Get the web
+                this.getWeb().then(web => {
+                    // Parse the users
+                    for (let i = 0; i < users.length; i++) {
+                        // Get the user
+                        web.SiteUsers(users[i] + "").execute(user => {
+                            // Ensure the user exists
+                            if (user.existsFl) {
+                                // Add the user information
+                                userInfo.push({
+                                    ID: user.Id,
+                                    UserName: user.LoginName,
+                                    Title: user.Title
+                                });
+                            }
+                            // Else, see if groups are enabled
+                            else if (this.state.allowGroups) {
+                                // Get the group
+                                web.SiteGroups().getById(users[i]).execute(group => {
+                                    // Ensure the group exists
+                                    if (group.existsFl) {
+                                        // Add the group information
+                                        userInfo.push({
+                                            ID: parseInt(group.Id + ""),
+                                            UserName: group.LoginName,
+                                            Title: group.Title
+                                        });
+                                    }
+                                });
+                            }
+                        }, true);
+                    }
 
-                // Wait for the requests to complete
-                web.done(() => {
-                    // Update the state
-                    this.setState({
-                        personas: this.convertToPersonas(userInfo)
+                    // Wait for the requests to complete
+                    web.done(() => {
+                        // Update the state
+                        this.setState({
+                            personas: this.convertToPersonas(userInfo)
+                        });
                     });
                 });
             } else {
@@ -169,6 +171,26 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
         // Return the personas
         return personas;
+    }
+
+    /**
+     * Gets the web.
+     */
+    private getWeb = (): PromiseLike<Types.SP.IWeb> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // See if the url exists
+            if (this.props.webUrl) {
+                // Get the context for the web
+                ContextInfo.getWeb(this.props.webUrl).execute(info => {
+                    // Resolve the web
+                    resolve(Web(this.props.webUrl, { requestDigest: info.GetContextWebInformation.FormDigestValue }));
+                });
+            } else {
+                // Resolve the web
+                resolve(Web());
+            }
+        });
     }
 
     /**

@@ -32,6 +32,10 @@ export declare class SPPeoplePicker extends React.Component<ISPPeoplePickerProps
      */
     private convertToPersonas;
     /**
+     * Gets the web.
+     */
+    private getWeb;
+    /**
      * Method executed when the value changes
      * @param personas - The persona values.
      */

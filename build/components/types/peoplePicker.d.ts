@@ -8,6 +8,7 @@ export interface ISPPeoplePickerProps {
     allowGroups?: boolean;
     fieldValue?: Array<SP.Data.UserInfoItem> | Array<number>;
     props?: IPeoplePickerProps;
+    webUrl?: string;
 }
 /**
  * State

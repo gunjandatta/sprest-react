@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PeoplePicker, SPTypes, Types } from "gd-sprest";
+import { SPTypes, Types } from "gd-sprest";
 import { Label, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
 import { SPPeoplePicker } from "../components";
 import { IFieldUserProps, IFieldUserState } from "./types";
@@ -36,6 +36,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
                     allowMultiple={this.state.fieldInfo.multi}
                     fieldValue={this.state.value ? this.state.value.results || [this.state.value] : null}
                     props={props}
+                    webUrl={this.props.webUrl}
                 />
             </div>
         );

@@ -9,5 +9,3 @@ export * from "./fieldNumber"
 export * from "./fieldText";
 export * from "./fieldUrl";
 export * from "./fieldUser";
-import * as Types from "./types";
-export { Types }

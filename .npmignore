@@ -4,5 +4,6 @@ src
 test
 *.log
 *-lock.json
+*.yaml
 tsconfig.json
 webpack.config.js

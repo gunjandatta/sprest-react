@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Panel } from "office-ui-fabric-react";
-import { IBasePanelProps, IBasePanelState } from "./types";
+import { IBasePanel, IBasePanelProps, IBasePanelState } from "./types";
 
 /**
  * Base Panel
  */
-export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends React.Component<Props, State> {
+export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends React.Component<Props, State> implements IBasePanel<Props, State> {
     /**
      * Constructor
      * @param props - The base panel properties.
@@ -27,7 +27,7 @@ export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State ex
     hide = () => {
         // Call the on dismiss event
         this.props.onDismiss ? this.props.onDismiss() : null;
-        
+
         // Update the state
         this.setState({ visible: false });
     }

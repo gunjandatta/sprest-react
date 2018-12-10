@@ -9,6 +9,3 @@ export * from "./wpCfg";
 export * from "./wpListCfg";
 export * from "./wpFieldCfg";
 export * from "./wpSearchCfg";
-
-import * as Types from "./types";
-export { Types }

@@ -14,3 +14,7 @@ export interface IBasePanelState {
     visible?: boolean;
 }
 
+/**
+ * Base Panel
+ */
+export interface IBasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> { }

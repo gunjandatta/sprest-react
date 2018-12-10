@@ -8,5 +8,3 @@ exports.Panel = basePanel_1.BasePanel;
 __export(require("./field"));
 __export(require("./itemForm"));
 __export(require("./peoplePicker"));
-var Types = require("./types");
-exports.Types = Types;

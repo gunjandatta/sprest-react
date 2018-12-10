@@ -9,5 +9,3 @@ var Fields = require("./fields");
 exports.Fields = Fields;
 var WebParts = require("./webparts");
 exports.WebParts = WebParts;
-var Types = require("./types");
-exports.Types = Types;

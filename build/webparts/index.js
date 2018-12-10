@@ -13,5 +13,3 @@ __export(require("./wpCfg"));
 __export(require("./wpListCfg"));
 __export(require("./wpFieldCfg"));
 __export(require("./wpSearchCfg"));
-var Types = require("./types");
-exports.Types = Types;

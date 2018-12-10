@@ -1,6 +1,7 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import * as Fields from "../fields";
+import { IBaseFieldProps, IBaseFieldState } from "../fields/types";
 
 /**
  * Field
@@ -13,11 +14,11 @@ export class Field extends Fields.BaseField {
      * Constructor
      * @param props - The field properties.
      */
-    constructor(props: Fields.Types.IBaseFieldProps) {
+    constructor(props: IBaseFieldProps) {
         super(props);
 
         // Set the state
-        let state = this.state as Fields.Types.IBaseFieldState;
+        let state = this.state as IBaseFieldState;
         state.value = props.defaultValue;
     }
 
@@ -40,7 +41,7 @@ export class Field extends Fields.BaseField {
      * Method to render the field
      */
     renderField = () => {
-        let props: Fields.Types.IBaseFieldProps = this.props || {} as any;
+        let props: IBaseFieldProps = this.props || {} as any;
         let defaultValue = props.defaultValue;
         let fieldInfo = this.state.fieldInfo;
 

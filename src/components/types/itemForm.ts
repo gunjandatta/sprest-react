@@ -1,5 +1,5 @@
-import { Helper, Types } from "gd-sprest";
-import { IAttachmentFile, IFieldAttachment } from "../../fields/types";
+import { Types } from "gd-sprest";
+import { IAttachmentFile } from "../../fields/types";
 
 /**
  * Field Information

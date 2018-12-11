@@ -1,6 +1,5 @@
 dist
 node_modules
-src
 test
 *.log
 *-lock.json

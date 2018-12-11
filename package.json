@@ -1,14 +1,13 @@
 {
   "name": "gd-sprest-react",
-  "version": "2.9.7",
+  "version": "2.9.8",
   "description": "SharePoint 2013/Online react components.",
   "main": "build/index.js",
-  "typings": "build/index.d.ts",
+  "typings": "src/typings.d.ts",
   "scripts": {
-    "all": "npm run build && npm run typings",
+    "all": "npm run build && npm run test",
     "build": "tsc",
-    "test": "npm run build && webpack --mode development",
-    "typings": "dts-bundle --out ../build/index.d.ts --name gd-sprest-react --main ./src/typings.d.ts"
+    "test": "webpack --mode development"
   },
   "repository": {
     "type": "git",
@@ -55,8 +54,5 @@
     "ts-loader": "^5.2.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
-  },
-  "dependencies": {
-    "dts-bundle": "^0.7.3"
   }
 }

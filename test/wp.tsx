@@ -2,7 +2,8 @@ import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { SP } from "gd-sprest-def";
 import { PrimaryButton } from "office-ui-fabric-react";
-import { Components, WebParts } from "../build";
+import { Components, WebParts } from "../src";
+import { WebParts as WPTypes } from "../src/typings";
 
 /**
  * List Item Information
@@ -32,7 +33,7 @@ export interface IListItem extends Types.SP.IListItemQueryResult {
 /**
  * State
  */
-export interface IListWebPartState extends WebParts.Types.IWebPartSearchState {
+export interface IListWebPartState extends WPTypes.IWebPartSearchState {
     controlMode?: number;
     errorMessage?: string;
     item?: IListItem;
@@ -41,7 +42,7 @@ export interface IListWebPartState extends WebParts.Types.IWebPartSearchState {
 /**
  * List WebPart
  */
-export class ListWebpart extends WebParts.WebPartSearch<WebParts.Types.IWebPartSearchProps, IListWebPartState> {
+export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchProps, IListWebPartState> {
     private _itemForm: Components.ItemForm = null;
     private _panel: Components.Panel = null;
 

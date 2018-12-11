@@ -1,5 +1,11 @@
 import { Types } from "gd-sprest";
+import { Component } from "react";
 import { IWebPartListCfg } from ".";
+
+/**
+ * WebPart List
+ */
+export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, State extends IWebPartListState = IWebPartListState> extends Component<Props, State> { }
 
 /**
  * List Item

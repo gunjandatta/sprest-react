@@ -1,5 +1,11 @@
 import { SP } from "gd-sprest-def";
 import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
+import { Component } from "react";
+
+/**
+ * SharePoint People Picker
+ */
+export class SPPeoplePicker extends Component<ISPPeoplePickerProps, ISPPeoplePickerState> { }
 
 /**
  * Properties

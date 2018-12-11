@@ -1,4 +1,25 @@
 import { Types } from "gd-sprest";
+import { Component } from "react";
+
+/**
+ * Attachments field
+ */
+export class FieldAttachments extends Component<IFieldAttachmentsProps, IFieldAttachmentsState> implements IFieldAttachment {
+    /**
+     * Refreshes the item attachments.
+     */
+    refresh: () => PromiseLike<void>;
+
+    /**
+     * Saves the item attachments.
+    */
+    save: () => PromiseLike<void>;
+
+    /**
+     * Displays the file upload dialog.
+     */
+    showFileDialog: () => void;
+}
 
 /**
  * Attachment File

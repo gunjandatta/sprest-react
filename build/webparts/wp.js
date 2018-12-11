@@ -8,7 +8,6 @@ var office_ui_fabric_react_1 = require("office-ui-fabric-react");
  * Fabric Web Part
  */
 exports.FabricWebPart = function (props) {
-    var element = null;
     // The render display component
     var renderDisplay = function (wp) {
         var element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;

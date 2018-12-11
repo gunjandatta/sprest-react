@@ -8,8 +8,6 @@ import { IFabricWebPartProps } from "./types";
  * Fabric Web Part
  */
 export const FabricWebPart = (props: IFabricWebPartProps) => {
-    let element = null;
-
     // The render display component
     let renderDisplay = (wp: Types.Helper.IWebPartInfo) => {
         let element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;

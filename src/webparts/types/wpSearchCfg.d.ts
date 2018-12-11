@@ -1,6 +1,11 @@
 import {
-    IWebPartFieldCfg, IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState
+    WebPartFieldCfg, IWebPartFieldCfg, IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState
 } from ".";
+
+/**
+ * WebPart Search Configuration Panel
+ */
+export class WebPartSearchCfg<Props extends IWebPartSearchCfgProps = IWebPartSearchCfgProps, State extends IWebPartSearchCfgState = IWebPartSearchCfgState> extends WebPartFieldCfg<Props, State> { }
 
 /**
  * Search Configuration

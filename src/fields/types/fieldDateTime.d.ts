@@ -1,6 +1,11 @@
 import { Types } from "gd-sprest";
 import { IDatePickerProps, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * Date Time field
+ */
+export class FieldDateTime extends BaseField<IFieldDateTimeProps, IFieldDateTimeState> implements IFieldDateTime { }
 
 /**
  * Date/Time Field Properties

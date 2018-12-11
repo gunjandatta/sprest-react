@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest-react",
-  "version": "2.9.8",
+  "version": "2.9.9",
   "description": "SharePoint 2013/Online react components.",
   "main": "build/index.js",
   "typings": "src/typings.d.ts",

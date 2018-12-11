@@ -1,8 +1,13 @@
 import { ITag } from "office-ui-fabric-react";
 import {
-    IWebPartListItem, IWebPartListProps, IWebPartListState,
+    WebPartList, IWebPartListItem, IWebPartListProps, IWebPartListState,
     IWebPartSearchCfg
 } from ".";
+
+/**
+ * WebPart Search
+ */
+export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchProps, State extends IWebPartSearchState = IWebPartSearchState> extends WebPartList<Props, State> { }
 
 /**
  * Search Item

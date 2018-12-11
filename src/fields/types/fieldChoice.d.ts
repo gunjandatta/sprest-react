@@ -1,6 +1,16 @@
 import { Types } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * Choice field
+ */
+export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState> implements IFieldChoice {
+    /**
+     * Event triggered after the field information is retrieved from SharePoint.
+     */
+    onFieldLoaded: (fieldInfo: Types.Helper.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
+}
 
 /**
  * Choice Field Properties

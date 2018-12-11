@@ -4,14 +4,25 @@ import {
     PrimaryButton,
     ITextField
 } from "office-ui-fabric-react";
-import { IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel } from ".";
+import { WebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel } from ".";
 
 /**
- * List Configuration
+ * WebPart List Configuration Panel
  */
-export interface IWebPartListCfg extends Types.Helper.IWebPartCfg {
-    ListName?: string;
-    WebUrl?: string;
+export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartCfgPanel<Props, State> implements IWebPartListCfgPanel {
+    _query: Types.SP.ODataQuery;
+    _listDropdown: IDropdown;
+    _refreshButton: PrimaryButton;
+    _saveButton: PrimaryButton;
+    _webUrl: ITextField;
+
+    getList: (option: IDropdownOption) => Types.SP.IListQueryResult;
+    onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
+    onListsLoaded: (newState: IWebPartListCfgState) => void;
+    onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+    renderList: () => JSX.Element;
+    renderSaveButton: () => JSX.Element;
+    renderWebUrl: () => Array<JSX.Element>;
 }
 
 /**
@@ -31,6 +42,14 @@ export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
     renderList: () => JSX.Element;
     renderSaveButton: () => JSX.Element;
     renderWebUrl: () => Array<JSX.Element>;
+}
+
+/**
+ * List Configuration
+ */
+export interface IWebPartListCfg extends Types.Helper.IWebPartCfg {
+    ListName?: string;
+    WebUrl?: string;
 }
 
 /**

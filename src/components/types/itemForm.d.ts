@@ -1,4 +1,5 @@
 import { Types } from "gd-sprest";
+import { Component } from "react";
 import { IAttachmentFile } from "../../fields/types";
 
 /**
@@ -17,6 +18,11 @@ export interface IItemFormField {
     /** The on render method */
     onRender?: (fieldInfo: Types.Helper.IListFormFieldInfo) => JSX.Element;
 }
+
+/**
+ * Item Form
+ */
+export class ItemForm extends Component<IItemFormProps, IItemFormState> { }
 
 /**
  * Properties

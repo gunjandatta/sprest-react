@@ -1,6 +1,11 @@
 import { SP } from "gd-sprest-def";
 import { ITextFieldProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * URL Field
+ */
+export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> { }
 
 /**
  * Url Field Properties

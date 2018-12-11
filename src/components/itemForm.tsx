@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react";
-import { IItemFormField, IItemFormProps, IItemFormState } from "./types";
+import { IItemFormProps, IItemFormState } from "./types";
 import { Fields } from "..";
 import { Field } from ".";
 

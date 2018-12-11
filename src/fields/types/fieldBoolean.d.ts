@@ -1,5 +1,10 @@
 import { ICheckboxProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * Boolean field
+ */
+export class FieldBoolean extends BaseField<IFieldBooleanProps, IFieldBooleanState> implements IFieldBoolean { }
 
 /**
  * Boolean Field Properties
@@ -20,4 +25,4 @@ export interface IFieldBooleanState extends IBaseFieldState { }
 /**
  * Boolean Field
  */
-export interface IFieldBoolean extends IBaseField<IFieldBooleanProps, IFieldBooleanState> {}
+export interface IFieldBoolean extends IBaseField<IFieldBooleanProps, IFieldBooleanState> { }

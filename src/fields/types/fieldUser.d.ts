@@ -1,6 +1,11 @@
 import { Types } from "gd-sprest";
 import { IPersonaProps, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * User Field
+ */
+export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> { }
 
 /**
  * User Field Properties

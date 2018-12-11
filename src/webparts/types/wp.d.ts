@@ -1,6 +1,11 @@
 import { Types } from "gd-sprest";
 
 /**
+ * Fabric Web Part
+ */
+export const FabricWebPart: (props: IFabricWebPartProps) => {};
+
+/**
  * Fabric Web Part Information
  */
 export interface IFabricWebPartInfo {

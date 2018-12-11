@@ -1,6 +1,11 @@
 import { Types } from "gd-sprest";
 import { ITextFieldProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * Number Field
+ */
+export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState> { }
 
 /**
  * Number Field Properties

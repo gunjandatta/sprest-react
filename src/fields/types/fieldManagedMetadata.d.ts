@@ -1,6 +1,11 @@
 import { Types } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * Managed Metadata Field
+ */
+export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, IFieldManagedMetadataState> implements IFieldManagedMetadata { }
 
 /**
  * Managed Metadata Term Information

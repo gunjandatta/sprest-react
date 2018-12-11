@@ -1,6 +1,11 @@
 import { Types } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
-import { IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
+
+/**
+ * Lookup Field
+ */
+export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState> implements IFieldLookup { }
 
 /**
  * Lookup Field Properties

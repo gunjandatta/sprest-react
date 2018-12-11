@@ -1,15 +1,19 @@
 import { Types } from "gd-sprest";
 import { ILabel, ILabelProps, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
 import {
-    IWebPartListCfgPanel,
+    WebPartListCfg, IWebPartListCfgPanel,
     IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState
 } from ".";
 
 /**
- * Field Configuration
+ * WebPart Field Configuration Panel
  */
-export interface IWebPartFieldCfg extends IWebPartListCfg {
-    Fields?: Array<Types.SP.IFieldResult>;
+export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartFieldCfgProps, State extends IWebPartFieldCfgState = IWebPartFieldCfgState> extends WebPartListCfg<Props, State> implements IWebPartFieldCfgPanel {
+    _fieldLabel: ILabel;
+    _fieldPicker: TagPicker;
+
+    onFieldPickerDisplay: (tags: Array<ITag>) => void;
+    renderField: () => Array<JSX.Element>;
 }
 
 /**
@@ -21,6 +25,13 @@ export interface IWebPartFieldCfgPanel extends IWebPartListCfgPanel {
 
     onFieldPickerDisplay: (tags: Array<ITag>) => void;
     renderField: () => Array<JSX.Element>;
+}
+
+/**
+ * Field Configuration
+ */
+export interface IWebPartFieldCfg extends IWebPartListCfg {
+    Fields?: Array<Types.SP.IFieldResult>;
 }
 
 /**

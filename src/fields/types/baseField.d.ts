@@ -1,4 +1,5 @@
 import { Types } from "gd-sprest";
+import { Component } from "react";
 
 /**
  * Base Field Properties
@@ -70,7 +71,35 @@ export interface IBaseFieldState {
     showErrorMessage?: boolean;
 }
 
+/**
+ * Base Field
+ */
 export interface IBaseField<Props extends IBaseFieldProps, State extends IBaseFieldState> {
+    /**
+     * The render field event.
+     */
+    renderField: () => JSX.Element;
+
+    /**
+     * Method to get the field value.
+     */
+    getFieldValue: () => any;
+
+    /**
+     * Event triggered after loading the field information.
+     */
+    onFieldLoaded?: (info: any, state: IBaseFieldState) => void;
+
+    /**
+     * Method to update the value
+     */
+    updateValue: (value: any) => void;
+}
+
+/**
+ * Base Field
+ */
+export abstract class BaseField<Props extends IBaseFieldProps = IBaseFieldProps, State extends IBaseFieldState = IBaseFieldState> extends Component<Props, State> implements IBaseField<Props, State> {
     /**
      * The render field event.
      */

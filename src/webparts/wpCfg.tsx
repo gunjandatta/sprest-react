@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Types } from "gd-sprest";
-import { PrimaryButton } from "office-ui-fabric-react";
+import { Panel, IPanel, PrimaryButton } from "office-ui-fabric-react";
 import { Page } from "../common";
-import { Panel } from '../components';
 import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "./types";
 declare var SP;
 
@@ -34,7 +33,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
     /**
      * Reference to the panel.
      */
-    _panel: Panel = null;
+    _panel: IPanel = null;
 
 
     /**
@@ -63,7 +62,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
         return (
             <div>
                 <PrimaryButton text="Edit Configuration" onClick={this.show} />
-                <Panel headerText="Configuration" ref={panel => { this._panel = panel; }}>
+                <Panel headerText="Configuration" componentRef={panel => { this._panel = panel; }}>
                     <div ref={errorMessage => { this._errorMessage = errorMessage; }} />
                     {this.onRenderHeader()}
                     {this.onRenderContents(this.state.cfg)}
@@ -88,7 +87,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
         // Update the webpart content elements
         if (this.updateWebPartContentElements(this.props.cfg.WebPartId, wpCfg)) {
             // Close the panel
-            this._panel.hide();
+            this._panel.dismiss();
             return;
         }
 
@@ -141,7 +140,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
         ev.preventDefault();
 
         // Show the panel
-        this._panel.show();
+        this._panel.open();
     }
 
     /**

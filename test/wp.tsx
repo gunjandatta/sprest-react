@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { SP } from "gd-sprest-def";
-import { PrimaryButton } from "office-ui-fabric-react";
+import { Panel, IPanel, PrimaryButton } from "office-ui-fabric-react";
 import { Components, WebParts } from "../src";
 import { WebParts as WPTypes } from "../src/typings";
 
@@ -44,7 +44,7 @@ export interface IListWebPartState extends WPTypes.IWebPartSearchState {
  */
 export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchProps, IListWebPartState> {
     private _itemForm: Components.ItemForm = null;
-    private _panel: Components.Panel = null;
+    private _panel: IPanel = null;
 
     /**
      * Constructor
@@ -78,10 +78,10 @@ export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchPr
                 <div className="list">
                     {elItems}
                     <div className="list-row" key="item_form">
-                        <Components.Panel
+                        <Panel
                             headerText="Item Form"
                             onRenderFooterContent={this.renderFooter}
-                            ref={panel => { this._panel = panel; }}>
+                            componentRef={panel => { this._panel = panel; }}>
                             <div className="">{this.state.errorMessage || ""}</div>
                             <Components.ItemForm
                                 cacheKey="SPReactDemoListForm"
@@ -91,7 +91,7 @@ export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchPr
                                 ref={form => { this._itemForm = form; }}
                                 showAttachments={true}
                             />
-                        </Components.Panel>
+                        </Panel>
                     </div>
                 </div>
             );
@@ -148,7 +148,7 @@ export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchPr
             item: this.getItem(parseInt(el.currentTarget.getAttribute("data-itemid")))
         }, () => {
             // Show the panel
-            this._panel.show();
+            this._panel.open();
         });
     }
 
@@ -205,7 +205,7 @@ export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchPr
             item: this.getItem(parseInt(el.currentTarget.getAttribute("data-itemid")))
         }, () => {
             // Show the panel
-            this._panel.show();
+            this._panel.open();
         });
     }
 }

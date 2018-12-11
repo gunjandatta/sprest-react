@@ -16,7 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 var common_1 = require("../common");
-var components_1 = require("../components");
 /**
  * Web Part Configuration Panel
  */
@@ -62,7 +61,7 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
             // Update the webpart content elements
             if (_this.updateWebPartContentElements(_this.props.cfg.WebPartId, wpCfg)) {
                 // Close the panel
-                _this._panel.hide();
+                _this._panel.dismiss();
                 return;
             }
             // Get the target webpart
@@ -111,7 +110,7 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
             // Prevent postback
             ev.preventDefault();
             // Show the panel
-            _this._panel.show();
+            _this._panel.open();
         };
         /**
          * Method to update the webpart content elements
@@ -196,7 +195,7 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
         var _this = this;
         return (React.createElement("div", null,
             React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
-            React.createElement(components_1.Panel, { headerText: "Configuration", ref: function (panel) { _this._panel = panel; } },
+            React.createElement(office_ui_fabric_react_1.Panel, { headerText: "Configuration", componentRef: function (panel) { _this._panel = panel; } },
                 React.createElement("div", { ref: function (errorMessage) { _this._errorMessage = errorMessage; } }),
                 this.onRenderHeader(),
                 this.onRenderContents(this.state.cfg),

@@ -21,6 +21,6 @@ export interface IBasePanelState {
 export interface IBasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> { }
 
 /**
- * Base Panel
+ * Panel
  */
-export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends Component<Props, State> implements IBasePanel<Props, State> { }
+export class Panel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends Component<Props, State> implements IBasePanel<Props, State> { }

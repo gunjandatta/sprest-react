@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Panel } from "office-ui-fabric-react";
+import { Panel as FabricPanel } from "office-ui-fabric-react";
 import { IBasePanel, IBasePanelProps, IBasePanelState } from "./types";
 
 /**
- * Base Panel
+ * Panel
  */
-export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends React.Component<Props, State> implements IBasePanel<Props, State> {
+export class Panel<Props extends IBasePanelProps = IBasePanelProps, State extends IBasePanelState = IBasePanelState> extends React.Component<Props, State> implements IBasePanel<Props, State> {
     /**
      * Constructor
      * @param props - The base panel properties.
@@ -37,9 +37,9 @@ export class BasePanel<Props extends IBasePanelProps = IBasePanelProps, State ex
      */
     render() {
         return (
-            <Panel {...this.props} isOpen={typeof (this.props.isOpen) === "boolean" ? this.props.isOpen : this.state.visible} onDismiss={this.hide}>
+            <FabricPanel {...this.props} isOpen={typeof (this.props.isOpen) === "boolean" ? this.props.isOpen : this.state.visible} onDismiss={this.hide}>
                 {this.props.children}
-            </Panel>
+            </FabricPanel>
         );
     }
 

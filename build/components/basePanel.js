@@ -27,15 +27,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var office_ui_fabric_react_1 = require("office-ui-fabric-react");
 /**
- * Base Panel
+ * Panel
  */
-var BasePanel = /** @class */ (function (_super) {
-    __extends(BasePanel, _super);
+var Panel = /** @class */ (function (_super) {
+    __extends(Panel, _super);
     /**
      * Constructor
      * @param props - The base panel properties.
      */
-    function BasePanel(props) {
+    function Panel(props) {
         var _this = _super.call(this, props) || this;
         /**
          * Public Interface
@@ -63,9 +63,9 @@ var BasePanel = /** @class */ (function (_super) {
     /**
      * Method to render the component
      */
-    BasePanel.prototype.render = function () {
+    Panel.prototype.render = function () {
         return (React.createElement(office_ui_fabric_react_1.Panel, __assign({}, this.props, { isOpen: typeof (this.props.isOpen) === "boolean" ? this.props.isOpen : this.state.visible, onDismiss: this.hide }), this.props.children));
     };
-    return BasePanel;
+    return Panel;
 }(React.Component));
-exports.BasePanel = BasePanel;
+exports.Panel = Panel;

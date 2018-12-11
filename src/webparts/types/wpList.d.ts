@@ -5,7 +5,33 @@ import { IWebPartListCfg } from ".";
 /**
  * WebPart List
  */
-export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, State extends IWebPartListState = IWebPartListState> extends Component<Props, State> { }
+export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, State extends IWebPartListState = IWebPartListState> extends Component<Props, State> {
+
+    /**
+     * The CAML query
+     */
+    protected _caml: string;
+
+    /**
+     * Flag to cache the items
+     */
+    protected _cacheFl: boolean;
+
+    /**
+     * The number of seconds to refresh the data
+     */
+    protected _cacheTimeout: number;
+
+    /**
+     * The key used for storing the data in cache.
+     */
+    protected _key: string;
+
+    /**
+     * The OData query (Default)
+     */
+    protected _query: Types.SP.ODataQuery;
+}
 
 /**
  * List Item

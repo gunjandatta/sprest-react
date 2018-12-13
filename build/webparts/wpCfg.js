@@ -14,7 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Button_1 = require("office-ui-fabric-react/lib/Button");
+var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var common_1 = require("../common");
 /**
  * Web Part Configuration Panel
@@ -194,8 +195,8 @@ var WebPartCfgPanel = /** @class */ (function (_super) {
     WebPartCfgPanel.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,
-            React.createElement(office_ui_fabric_react_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
-            React.createElement(office_ui_fabric_react_1.Panel, { headerText: "Configuration", componentRef: function (panel) { _this._panel = panel; } },
+            React.createElement(Button_1.PrimaryButton, { text: "Edit Configuration", onClick: this.show }),
+            React.createElement(Panel_1.Panel, { headerText: "Configuration", componentRef: function (panel) { _this._panel = panel; } },
                 React.createElement("div", { ref: function (errorMessage) { _this._errorMessage = errorMessage; } }),
                 this.onRenderHeader(),
                 this.onRenderContents(this.state.cfg),

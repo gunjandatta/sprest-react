@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
 var _1 = require(".");
 /**
  * Choice field
@@ -64,7 +64,7 @@ var FieldChoice = /** @class */ (function (_super) {
                 props.defaultSelectedKey = _this.state.value;
             }
             // Return the dropdown
-            return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+            return (React.createElement(Dropdown_1.Dropdown, __assign({}, props)));
         };
         /**
          * Methods

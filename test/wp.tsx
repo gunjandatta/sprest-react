@@ -1,7 +1,8 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
 import { SP } from "gd-sprest-def";
-import { Panel, IPanel, PrimaryButton } from "office-ui-fabric-react";
+import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
+import { Panel, IPanel } from "office-ui-fabric-react/lib/Panel";
 import { Components, WebParts } from "../src";
 import { WebParts as WPTypes } from "../src/typings";
 

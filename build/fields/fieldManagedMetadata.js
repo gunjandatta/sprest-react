@@ -26,7 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
+var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
 var _1 = require(".");
 /**
  * Managed Metadata Field
@@ -42,7 +43,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             // Ensure the options exist
             if (_this.state.options == null) {
                 // Render a loading indicator
-                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the managed metadata data..." }));
+                return (React.createElement(Spinner_1.Spinner, { label: "Loading the managed metadata data..." }));
             }
             // See if a custom render method exists
             if (_this.props.onRender) {
@@ -76,7 +77,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                 props.defaultSelectedKey = _this.state.value ? _this.state.value.TermGuid : null;
             }
             // Return the component
-            return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+            return (React.createElement(Dropdown_1.Dropdown, __assign({}, props)));
         };
         /**
          * Methods

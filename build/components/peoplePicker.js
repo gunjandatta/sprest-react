@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Pickers_1 = require("office-ui-fabric-react/lib/Pickers");
 /**
  * SharePoint People Picker
  */
@@ -251,7 +251,7 @@ var SPPeoplePicker = /** @class */ (function (_super) {
             suggestionsHeaderText: "Suggested Users" + (this.state.allowGroups ? "/Groups" : "")
         };
         // Return the people picker
-        return (React.createElement(office_ui_fabric_react_1.NormalPeoplePicker, __assign({}, props, { getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onGetMoreResults: this.searchAll, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps, selectedItems: this.state.personas })));
+        return (React.createElement(Pickers_1.NormalPeoplePicker, __assign({}, props, { getTextFromItem: function (persona) { return persona.primaryText; }, onChange: this.onChange, onGetMoreResults: this.searchAll, onResolveSuggestions: this.search, pickerSuggestionsProps: pickerSuggestionsProps, selectedItems: this.state.personas })));
     };
     /**
      * Method to convert the personas to a field value

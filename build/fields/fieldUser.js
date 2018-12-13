@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Label_1 = require("office-ui-fabric-react/lib/Label");
 var components_1 = require("../components");
 var _1 = require(".");
 /**
@@ -53,7 +53,7 @@ var FieldUser = /** @class */ (function (_super) {
             props.onChange = _this.onChange;
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
-                React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.fieldInfo.title),
+                React.createElement(Label_1.Label, __assign({}, lblProps), lblProps.defaultValue || _this.state.fieldInfo.title),
                 React.createElement(components_1.SPPeoplePicker, { allowGroups: _this.state.fieldInfo.allowGroups, allowMultiple: _this.state.fieldInfo.multi, fieldValue: _this.state.value ? _this.state.value.results || [_this.state.value] : null, props: props, webUrl: _this.props.webUrl })));
         };
         /**

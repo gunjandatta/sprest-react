@@ -15,7 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Link_1 = require("office-ui-fabric-react/lib/Link");
+var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
 require("../../sass/fieldAttachments.css");
 /**
  * Attachments field
@@ -278,7 +279,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                 }
                 else {
                     // Add the attachment
-                    attachments.push(React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-filename": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
+                    attachments.push(React.createElement(Link_1.Link, { className: "ms-AttachmentLink", key: file.name, href: file.url, "data-filename": file.name.toLowerCase(), download: true, onClick: _this.linkClick },
                         React.createElement("span", { className: "ms-fontSize-m" }, file.name),
                         _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display ? null :
                             React.createElement("i", { className: "ms-Icon ms-Icon--Delete", "data-filename": file.name.toLowerCase(), onClick: _this.removeAttachment })));
@@ -413,7 +414,7 @@ var FieldAttachments = /** @class */ (function (_super) {
         // See if we are loading the attachments
         if (loadingFl) {
             // Render a loading dialog
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading..." }));
+            return (React.createElement(Spinner_1.Spinner, { label: "Loading..." }));
         }
         // See if the render method exists
         if (this.props.onRender) {
@@ -429,7 +430,7 @@ var FieldAttachments = /** @class */ (function (_super) {
                 // Render the attachments in edit mode
                 elAttachments = (React.createElement("div", { className: (this.props.className || "") },
                     this.renderAttachments(),
-                    React.createElement(office_ui_fabric_react_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
+                    React.createElement(Link_1.Link, { className: "ms-AttachmentLink", onClick: this.showFileDialog }, "Add an attachment"),
                     this.state.errorMessage == "" ? null :
                         React.createElement("span", { className: "ms-fontSize-m ms-fontColor-redDark" }, this.state.errorMessage)));
             }

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_dom_1 = require("react-dom");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
 /**
  * Fabric Web Part
  */
@@ -18,7 +18,7 @@ exports.FabricWebPart = function (props) {
         // See if the element exists
         if (element) {
             // Render the element
-            react_dom_1.render(React.createElement(office_ui_fabric_react_1.Fabric, null, element), wp.el);
+            react_dom_1.render(React.createElement(Fabric_1.Fabric, null, element), wp.el);
         }
     };
     // The render edit component
@@ -31,7 +31,7 @@ exports.FabricWebPart = function (props) {
         // See if the element exists
         if (element) {
             // Render the element
-            react_dom_1.render(React.createElement(office_ui_fabric_react_1.Fabric, null, element), wp.el);
+            react_dom_1.render(React.createElement(Fabric_1.Fabric, null, element), wp.el);
         }
     };
     // Create an instance of the webpart

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Checkbox_1 = require("office-ui-fabric-react/lib/Checkbox");
 var _1 = require(".");
 /**
  * WebPart Search Configuration Panel
@@ -93,7 +93,7 @@ var WebPartSearchCfg = /** @class */ (function (_super) {
          * Method to render the picker checkbox
          */
         _this.renderSearchPicker = function () {
-            return (React.createElement(office_ui_fabric_react_1.Checkbox, { defaultChecked: _this.state.cfg.TagPickerFl ? true : false, key: "searchPicker", label: "Use Tag Picker", onChange: _this.updatePickerFlag }));
+            return (React.createElement(Checkbox_1.Checkbox, { defaultChecked: _this.state.cfg.TagPickerFl ? true : false, key: "searchPicker", label: "Use Tag Picker", onChange: _this.updatePickerFlag }));
         };
         /**
          * Method to update the

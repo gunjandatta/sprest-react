@@ -1,7 +1,8 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
-import { Checkbox, ITag } from "office-ui-fabric-react";
-import { IWebPartSearchCfgPanel, IWebPartSearchCfgProps, IWebPartSearchCfgState } from "./types";
+import { SPTypes } from "gd-sprest";
+import { Checkbox } from "office-ui-fabric-react/lib/Checkbox";
+import { ITag } from "office-ui-fabric-react/lib/Pickers";
+import { IWebPartSearchCfgProps, IWebPartSearchCfgState } from "./types";
 import { WebPartFieldCfg } from ".";
 
 /**

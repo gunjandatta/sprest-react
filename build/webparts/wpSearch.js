@@ -15,7 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Pickers_1 = require("office-ui-fabric-react/lib/Pickers");
+var SearchBox_1 = require("office-ui-fabric-react/lib/SearchBox");
+var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
 var _1 = require(".");
 /**
  * WebPart Search
@@ -384,17 +386,17 @@ var WebPartSearch = /** @class */ (function (_super) {
         // Ensure the component has been initialized
         if (this.state.items == null) {
             // Return a spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
+            return (React.createElement(Spinner_1.Spinner, { label: "Loading the items..." }));
         }
         // Return the items
         return (React.createElement("div", { className: (this.props.className || "") },
             this.props.cfg.TagPickerFl ?
-                React.createElement(office_ui_fabric_react_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions, pickerSuggestionsProps: {
+                React.createElement(Pickers_1.TagPicker, { onChange: this.updateSelectedTags, onResolveSuggestions: this.onResolveSuggestions, pickerSuggestionsProps: {
                         loadingText: "Loading the results",
                         noResultsFoundText: "No results were found"
                     } })
                 :
-                    React.createElement(office_ui_fabric_react_1.SearchBox, { onChange: this.updateSearchFilter, onSearch: this.updateSearchFilter }),
+                    React.createElement(SearchBox_1.SearchBox, { onChange: this.updateSearchFilter, onSearch: this.updateSearchFilter }),
             this.onRenderContainer(this.getItems())));
     };
     return WebPartSearch;

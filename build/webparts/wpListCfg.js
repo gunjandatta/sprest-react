@@ -15,7 +15,10 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Button_1 = require("office-ui-fabric-react/lib/Button");
+var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
+var TextField_1 = require("office-ui-fabric-react/lib/TextField");
+var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
 var _1 = require(".");
 /**
  * WebPart List Configuration Panel
@@ -94,7 +97,7 @@ var WebPartListCfg = /** @class */ (function (_super) {
                 // Load the lists
                 _this.loadLists(cfg);
                 // Return a loading indicator
-                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the lists..." }));
+                return (React.createElement(Spinner_1.Spinner, { label: "Loading the lists..." }));
             }
             // Render the component
             return (React.createElement("div", null,
@@ -186,21 +189,21 @@ var WebPartListCfg = /** @class */ (function (_super) {
          * Method to render the list property
          */
         _this.renderList = function () {
-            return (React.createElement(office_ui_fabric_react_1.Dropdown, { key: "listDropdown", label: "List:", onChanged: _this.updateListName, componentRef: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: _this.state.cfg.ListName || "" }));
+            return (React.createElement(Dropdown_1.Dropdown, { key: "listDropdown", label: "List:", onChanged: _this.updateListName, componentRef: function (ddl) { _this._listDropdown = ddl; }, options: _this.state.options, selectedKey: _this.state.cfg.ListName || "" }));
         };
         /**
          * Method to render the save button
          */
         _this.renderSaveButton = function () {
-            return (React.createElement(office_ui_fabric_react_1.PrimaryButton, { key: "saveButton", onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
+            return (React.createElement(Button_1.PrimaryButton, { key: "saveButton", onClick: _this.onSave, ref: function (btn) { _this._refreshButton = btn; }, text: "Save" }));
         };
         /**
          * Method to render the web url property
          */
         _this.renderWebUrl = function () {
             return [
-                React.createElement(office_ui_fabric_react_1.TextField, { label: "Relative Web Url:", key: "webUrlTextField", componentRef: function (webUrl) { _this._webUrl = webUrl; }, value: _this.state.cfg.WebUrl || "" }),
-                React.createElement(office_ui_fabric_react_1.PrimaryButton, { key: "webUrlRefreshButton", onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" })
+                React.createElement(TextField_1.TextField, { label: "Relative Web Url:", key: "webUrlTextField", componentRef: function (webUrl) { _this._webUrl = webUrl; }, value: _this.state.cfg.WebUrl || "" }),
+                React.createElement(Button_1.PrimaryButton, { key: "webUrlRefreshButton", onClick: _this.onRefresh, ref: function (btn) { _this._refreshButton = btn; }, text: "Refresh" })
             ];
         };
         /**

@@ -26,7 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var DatePicker_1 = require("office-ui-fabric-react/lib/DatePicker");
+var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
 var common_1 = require("../common");
 var _1 = require(".");
 /**
@@ -51,7 +52,7 @@ var FieldDateTime = /** @class */ (function (_super) {
             // Update the date picker properties
             var props = _this.props.dtProps || {};
             props.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
-            props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : office_ui_fabric_react_1.DayOfWeek.Sunday;
+            props.firstDayOfWeek = props.firstDayOfWeek ? props.firstDayOfWeek : DatePicker_1.DayOfWeek.Sunday;
             props.isRequired = typeof (props.isRequired) === "boolean" ? props.isRequired : _this.state.fieldInfo.required;
             props.label = _this.state.fieldInfo.title;
             props.onSelectDate = _this.state.fieldInfo.showTime ? _this.onDateChanged : _this.updateValue;
@@ -60,7 +61,7 @@ var FieldDateTime = /** @class */ (function (_super) {
             props.value = _this.getValue();
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
-                React.createElement(office_ui_fabric_react_1.DatePicker, __assign({}, props, { componentRef: function (datePicker) { _this._datePicker = datePicker; } })),
+                React.createElement(DatePicker_1.DatePicker, __assign({}, props, { componentRef: function (datePicker) { _this._datePicker = datePicker; } })),
                 _this.renderTime(props.value)));
         };
         /**
@@ -150,7 +151,7 @@ var FieldDateTime = /** @class */ (function (_super) {
                 props.placeHolder = props.placeHolder || "Time";
                 props.selectedKey = selectedHour + "|" + selectedMin;
                 // Return the time
-                return (React.createElement(office_ui_fabric_react_1.Dropdown, __assign({}, props)));
+                return (React.createElement(Dropdown_1.Dropdown, __assign({}, props)));
             }
             // Render nothing
             return null;

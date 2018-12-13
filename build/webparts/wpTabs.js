@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Pivot_1 = require("office-ui-fabric-react/lib/Pivot");
 /**
  * WebPart Tabs
  */
@@ -125,7 +125,7 @@ var WebPartTabs = /** @class */ (function (_super) {
                 wpTitle = wpTitle ? wpTitle.innerText : null;
                 if (wpTitle) {
                     // Add the tab
-                    tabs.push(React.createElement(office_ui_fabric_react_1.PivotItem, { itemID: i.toString(), linkText: wpTitle, key: i, onRenderItemLink: _this.props.onRenderTab }));
+                    tabs.push(React.createElement(Pivot_1.PivotItem, { itemID: i.toString(), linkText: wpTitle, key: i, onRenderItemLink: _this.props.onRenderTab }));
                     // Get the webpart title element
                     var elWebPartTitle = webpart.querySelector(".ms-webpart-chrome-title");
                     if (elWebPartTitle) {
@@ -199,7 +199,7 @@ var WebPartTabs = /** @class */ (function (_super) {
     WebPartTabs.prototype.render = function () {
         return (React.createElement("div", { className: (this.props.className || "") },
             this.onRenderHeader(),
-            React.createElement(office_ui_fabric_react_1.Pivot, { onLinkClick: this.updateSelectedTab, linkFormat: this.props.linkFormat, linkSize: this.props.linkSize }, this.renderTabs()),
+            React.createElement(Pivot_1.Pivot, { onLinkClick: this.updateSelectedTab, linkFormat: this.props.linkFormat, linkSize: this.props.linkSize }, this.renderTabs()),
             this.onRenderFooter()));
     };
     return WebPartTabs;

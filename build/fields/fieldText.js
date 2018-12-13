@@ -26,7 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Label_1 = require("office-ui-fabric-react/lib/Label");
+var TextField_1 = require("office-ui-fabric-react/lib/TextField");
 var _1 = require(".");
 /**
  * Text Field
@@ -61,11 +62,11 @@ var FieldText = /** @class */ (function (_super) {
                 __html = _this.state.fieldInfo.richText ? __html : __html.replace(/\r?\n/g, "<br/>");
                 // Render the value
                 return (React.createElement("div", null,
-                    React.createElement(office_ui_fabric_react_1.Label, null, props.label),
+                    React.createElement(Label_1.Label, null, props.label),
                     React.createElement("div", { dangerouslySetInnerHTML: { __html: __html } })));
             }
             // Return the component
-            return (React.createElement(office_ui_fabric_react_1.TextField, __assign({}, props)));
+            return (React.createElement(TextField_1.TextField, __assign({}, props)));
         };
         /**
          * Methods

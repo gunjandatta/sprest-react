@@ -25,7 +25,8 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Label_1 = require("office-ui-fabric-react/lib/Label");
+var Pickers_1 = require("office-ui-fabric-react/lib/Pickers");
 var _1 = require(".");
 /**
  * WebPart Field Configuration Panel
@@ -133,10 +134,10 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
             };
             // Return the footer
             return [
-                React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps, { componentRef: function (lbl) { _this._fieldLabel = lbl; }, key: "fieldLabel" }),
+                React.createElement(Label_1.Label, __assign({}, lblProps, { componentRef: function (lbl) { _this._fieldLabel = lbl; }, key: "fieldLabel" }),
                     _this.props.fieldLabel || "Fields",
                     ":"),
-                React.createElement(office_ui_fabric_react_1.TagPicker, __assign({}, pickerProps, { componentRef: function (picker) { _this._fieldPicker = picker; }, key: "fieldPicker" }))
+                React.createElement(Pickers_1.TagPicker, __assign({}, pickerProps, { componentRef: function (picker) { _this._fieldPicker = picker; }, key: "fieldPicker" }))
             ];
         };
         /**

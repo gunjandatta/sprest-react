@@ -15,7 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Label_1 = require("office-ui-fabric-react/lib/Label");
+var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
 /**
  * Base Field
  * This is the base field class, inherited by all field types.
@@ -42,7 +43,7 @@ var BaseField = /** @class */ (function (_super) {
             // See if we are displaying the field
             if (_this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Render the field name and value
-                return (React.createElement(office_ui_fabric_react_1.Label, null, _this.state.fieldInfo.title + ": " + (_this.state.value || "")));
+                return (React.createElement(Label_1.Label, null, _this.state.fieldInfo.title + ": " + (_this.state.value || "")));
             }
             // Render nothing
             return null;
@@ -108,7 +109,7 @@ var BaseField = /** @class */ (function (_super) {
         var showFl = typeof (this.props.showLoadingFl) === "boolean" ? this.props.showLoadingFl : true;
         if (showFl) {
             // Return a loading spinner
-            return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the '" + this.props.name + "' field.", size: office_ui_fabric_react_1.SpinnerSize.small }));
+            return (React.createElement(Spinner_1.Spinner, { label: "Loading the '" + this.props.name + "' field.", size: Spinner_1.SpinnerSize.small }));
         }
         // Show nothing by default
         return null;

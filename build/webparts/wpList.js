@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
 /**
  * WebPart List
  */
@@ -263,7 +263,7 @@ var WebPartList = /** @class */ (function (_super) {
             // Ensure the list name exists
             if (this.props.cfg && this.props.cfg.ListName) {
                 // Return a spinner
-                return (React.createElement(office_ui_fabric_react_1.Spinner, { label: "Loading the items..." }));
+                return (React.createElement(Spinner_1.Spinner, { label: "Loading the items..." }));
             }
             // Render a message
             return (React.createElement("div", null, "Please edit the page and configure this webpart."));

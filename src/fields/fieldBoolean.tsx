@@ -1,6 +1,7 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
-import { Checkbox, ICheckboxProps, Label } from "office-ui-fabric-react";
+import { Checkbox, ICheckboxProps } from "office-ui-fabric-react/lib/Checkbox";
+import { Label } from "office-ui-fabric-react/lib/Label";
 import { IFieldBoolean, IFieldBooleanProps, IFieldBooleanState } from "./types";
 import { BaseField } from ".";
 

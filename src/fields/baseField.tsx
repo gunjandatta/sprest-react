@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
-import { Label, Spinner, SpinnerSize } from "office-ui-fabric-react";
+import { Label } from "office-ui-fabric-react/lib/Label";
+import { Spinner, SpinnerSize } from "office-ui-fabric-react/lib/Spinner";
 import { IBaseField, IBaseFieldProps, IBaseFieldState } from "./types";
 
 /**

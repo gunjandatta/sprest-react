@@ -26,7 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Link_1 = require("office-ui-fabric-react/lib/Link");
+var TextField_1 = require("office-ui-fabric-react/lib/TextField");
 var _1 = require(".");
 /**
  * URL Field
@@ -64,12 +65,12 @@ var FieldUrl = /** @class */ (function (_super) {
             // See if this is the display mode
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
-                return (React.createElement(office_ui_fabric_react_1.Link, { className: (_this.props.className || ""), href: defaultValue.Url, label: urlProps.label }, descProps || urlProps ? descProps.defaultValue || urlProps.defaultValue : ""));
+                return (React.createElement(Link_1.Link, { className: (_this.props.className || ""), href: defaultValue.Url, label: urlProps.label }, descProps || urlProps ? descProps.defaultValue || urlProps.defaultValue : ""));
             }
             // Return the component
             return (React.createElement("div", { className: (_this.props.className || "") },
-                React.createElement(office_ui_fabric_react_1.TextField, __assign({}, urlProps)),
-                React.createElement(office_ui_fabric_react_1.TextField, __assign({}, descProps))));
+                React.createElement(TextField_1.TextField, __assign({}, urlProps)),
+                React.createElement(TextField_1.TextField, __assign({}, descProps))));
         };
         /**
          * Methods

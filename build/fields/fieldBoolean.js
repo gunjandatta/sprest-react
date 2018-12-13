@@ -26,7 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var office_ui_fabric_react_1 = require("office-ui-fabric-react");
+var Checkbox_1 = require("office-ui-fabric-react/lib/Checkbox");
+var Label_1 = require("office-ui-fabric-react/lib/Label");
 var _1 = require(".");
 /**
  * Boolean field
@@ -51,13 +52,13 @@ var FieldBoolean = /** @class */ (function (_super) {
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {
                 // Return the value
                 return (React.createElement("div", { className: (_this.props.className || "") },
-                    React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.fieldInfo.title),
+                    React.createElement(Label_1.Label, null, props.label || _this.state.fieldInfo.title),
                     React.createElement("div", null, _this.getValue() ? "Yes" : "No")));
             }
             // Render the component
             return (React.createElement("div", { className: (_this.props.className || "") },
-                React.createElement(office_ui_fabric_react_1.Label, null, props.label || _this.state.fieldInfo.title),
-                React.createElement(office_ui_fabric_react_1.Checkbox, __assign({}, props))));
+                React.createElement(Label_1.Label, null, props.label || _this.state.fieldInfo.title),
+                React.createElement(Checkbox_1.Checkbox, __assign({}, props))));
         };
         /**
          * Methods

@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { SP } from "gd-sprest-def";
-import { SearchBox, Spinner, TagPicker, ITag } from "office-ui-fabric-react";
+import { TagPicker, ITag } from "office-ui-fabric-react/lib/Pickers";
+import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
+import { Spinner } from "office-ui-fabric-react/lib/Spinner";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "./types";
 import { WebPartList } from ".";
 

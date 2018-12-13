@@ -136,7 +136,7 @@ var WebPartFieldCfg = /** @class */ (function (_super) {
                 React.createElement(office_ui_fabric_react_1.Label, __assign({}, lblProps, { componentRef: function (lbl) { _this._fieldLabel = lbl; }, key: "fieldLabel" }),
                     _this.props.fieldLabel || "Fields",
                     ":"),
-                React.createElement(office_ui_fabric_react_1.TagPicker, __assign({}, pickerProps, { ref: function (picker) { _this._fieldPicker = picker; }, key: "fieldPicker" }))
+                React.createElement(office_ui_fabric_react_1.TagPicker, __assign({}, pickerProps, { componentRef: function (picker) { _this._fieldPicker = picker; }, key: "fieldPicker" }))
             ];
         };
         /**

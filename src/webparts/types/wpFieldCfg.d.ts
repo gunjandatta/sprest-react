@@ -1,5 +1,5 @@
 import { Types } from "gd-sprest";
-import { ILabel, ILabelProps, TagPicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
+import { ILabel, ILabelProps, TagPicker, IBasePicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
 import {
     WebPartListCfg, IWebPartListCfgPanel,
     IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState
@@ -10,7 +10,7 @@ import {
  */
 export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartFieldCfgProps, State extends IWebPartFieldCfgState = IWebPartFieldCfgState> extends WebPartListCfg<Props, State> implements IWebPartFieldCfgPanel {
     _fieldLabel: ILabel;
-    _fieldPicker: TagPicker;
+    _fieldPicker: IBasePicker<ITag>;
 
     onFieldPickerDisplay: (tags: Array<ITag>) => void;
     renderField: () => Array<JSX.Element>;
@@ -21,7 +21,7 @@ export class WebPartFieldCfg<Props extends IWebPartFieldCfgProps = IWebPartField
  */
 export interface IWebPartFieldCfgPanel extends IWebPartListCfgPanel {
     _fieldLabel: ILabel;
-    _fieldPicker: TagPicker;
+    _fieldPicker: IBasePicker<ITag>;
 
     onFieldPickerDisplay: (tags: Array<ITag>) => void;
     renderField: () => Array<JSX.Element>;

@@ -1,6 +1,6 @@
 dependencies:
   core-js: 2.6.0
-  gd-sprest: 4.4.4
+  gd-sprest: 4.4.5
   gd-sprest-def: 0.1.0
   office-ui-fabric-react: 6.113.0
 devDependencies:
@@ -2073,13 +2073,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Z/Bxg3wRC1ILIx/r0LcDfNSA/YJY/My8rYoq2NAfvLIVj/19VUsx3h1bHl/gCO7AdB2VxtD+RXvWFobkzrxCpg==
-  /gd-sprest/4.4.4:
+  /gd-sprest/4.4.5:
     dependencies:
       core-js: 2.6.0
       gd-sprest-def: 0.1.0
     dev: false
     resolution:
-      integrity: sha512-eEZxVx/+Mx2hQvPng48AnOtPPGF5cX0gdLrVW6GuW+zV+0mfvJwjwMojcmtqz8K+e9pCvO+Ab/MN2WMDa9eS2w==
+      integrity: sha512-Y5K4WAD1EKUrB/rJTzq9yadUNdY368sVg3sa0oFlK2AGB8uJAf7pnvoubfGx/gbXJZKKhufjbtJCZ+RCdCevSw==
   /get-caller-file/1.0.3:
     dev: true
     resolution:
@@ -4806,7 +4806,7 @@ specifiers:
   babel-loader: ^8.0.4
   core-js: ^2.6.0
   css-loader: ^2.0.0
-  gd-sprest: ^4.4.4
+  gd-sprest: ^4.4.5
   gd-sprest-def: ^0.1.0
   node-sass: ^4.11.0
   office-ui-fabric-react: ^6.113.0

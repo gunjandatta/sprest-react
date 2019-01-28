@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Helper, SPTypes, Types } from "gd-sprest";
+import { Helper, SP, SPTypes } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react/lib/Dropdown";
 import { Spinner } from "office-ui-fabric-react/lib/Spinner";
 import { IFieldLookup, IFieldLookupProps, IFieldLookupState } from "./types";
@@ -138,7 +138,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldLookupState) => {
-        let fldInfo = info as Types.Helper.IListFormLookupFieldInfo;
+        let fldInfo = info as Helper.IListFormLookupFieldInfo;
 
         // Set the value
         state.value = this.props.defaultValue || fldInfo.defaultValue;
@@ -163,7 +163,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * @param items - The lookup items.
      * @param fieldName - The lookup field name.
      */
-    private toOptions = (items: Array<Types.SP.IListItemQueryResult> = [], fieldName: string) => {
+    private toOptions = (items: Array<SP.IListItemQueryResult> = [], fieldName: string) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-lookup field

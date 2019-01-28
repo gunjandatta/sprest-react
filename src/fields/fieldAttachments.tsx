@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Helper, SPTypes, Types, Web } from "gd-sprest";
-import {SP} from "gd-sprest-def";
+import { Helper, SPTypes, Web } from "gd-sprest";
+import { Attachment } from "gd-sprest-def/lib/SP";
 import { Link } from "office-ui-fabric-react/lib/Link";
 import { Spinner } from "office-ui-fabric-react/lib/Spinner";
 import {
@@ -207,7 +207,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private deleteAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let files: Array<SP.Attachment> = [];
+            let files: Array<Attachment> = [];
 
             // Parse the files to delete
             for (let i = 0; i < this.state.files.Delete.length; i++) {
@@ -342,7 +342,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     /**
      * Method to remove the attachments.
      */
-    private removeAttachments = (info: Types.Helper.IListFormProps, attachments: Array<SP.Attachment>): PromiseLike<void> => {
+    private removeAttachments = (info: Helper.IListFormProps, attachments: Array<Attachment>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let web = Web(info.webUrl);
@@ -436,7 +436,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
     private saveAttachments = (state: IFieldAttachmentsState): PromiseLike<IFieldAttachmentsState> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let files: Array<Types.Helper.IListFormAttachmentInfo> = [];
+            let files: Array<Helper.IListFormAttachmentInfo> = [];
 
             // Parse the new files
             for (let i = 0; i < state.files.New.length; i++) {
@@ -488,7 +488,7 @@ export class FieldAttachments extends React.Component<IFieldAttachmentsProps, IF
      * Method to convert the item value to the attachment file array
      * @param attachments - The file attachments.
      */
-    private toArray = (attachments: Array<SP.Attachment>) => {
+    private toArray = (attachments: Array<Attachment>) => {
         let files: Array<IAttachmentFile> = [];
 
         // Ensure attachments exist

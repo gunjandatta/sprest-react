@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
+import { Helper, SPTypes } from "gd-sprest";
 import { Label, ILabelProps } from "office-ui-fabric-react/lib/Label";
 import { IPeoplePickerProps } from "office-ui-fabric-react/lib/Pickers";
 import { SPPeoplePicker } from "../components";
@@ -98,7 +98,7 @@ export class FieldUser extends BaseField<IFieldUserProps, IFieldUserState> {
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldUserState) => {
-        let fldInfo = info as Types.Helper.IListFormUserFieldInfo;
+        let fldInfo = info as Helper.IListFormUserFieldInfo;
 
         // Default the value
         state.value = this.props.defaultValue || fldInfo.defaultValue;

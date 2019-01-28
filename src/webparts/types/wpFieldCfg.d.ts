@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { SP } from "gd-sprest";
 import { ILabel, ILabelProps, TagPicker, IBasePicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
 import {
     WebPartListCfg, IWebPartListCfgPanel,
@@ -31,7 +31,7 @@ export interface IWebPartFieldCfgPanel extends IWebPartListCfgPanel {
  * Field Configuration
  */
 export interface IWebPartFieldCfg extends IWebPartListCfg {
-    Fields?: Array<Types.SP.IFieldResult>;
+    Fields?: Array<SP.IFieldResult>;
 }
 
 /**

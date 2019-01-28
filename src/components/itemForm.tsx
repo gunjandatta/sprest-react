@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Helper, SPTypes, Types, Web } from "gd-sprest";
+import { Helper, SPTypes } from "gd-sprest";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react/lib/Spinner";
 import { IItemFormProps, IItemFormState } from "./types";
 import { Fields } from "..";
@@ -65,7 +65,7 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
     /**
      * Get the form information
      */
-    get FormInfo(): Types.Helper.IListFormResult { return this.state.formInfo; }
+    get FormInfo(): Helper.IListFormResult { return this.state.formInfo; }
 
     /**
      * Render the component

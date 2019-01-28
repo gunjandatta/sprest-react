@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
+import { SPTypes } from "gd-sprest";
 import { Label } from "office-ui-fabric-react/lib/Label";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react/lib/TextField";
 import { IFieldTextProps, IFieldTextState } from "./types";

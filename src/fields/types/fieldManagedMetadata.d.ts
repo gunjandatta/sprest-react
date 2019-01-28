@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper, SP } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
@@ -32,13 +32,13 @@ export interface IFieldManagedMetadataProps extends IBaseFieldProps {
  */
 export interface IFieldManagedMetadataState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.IListFormMMSFieldInfo;
+    fieldInfo: Helper.IListFormMMSFieldInfo;
 
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
 
     /** The hidden value field. */
-    valueField?: Types.SP.IFieldNote;
+    valueField?: SP.IFieldNote;
 }
 
 /**

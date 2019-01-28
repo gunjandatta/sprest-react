@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { ITextFieldProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
@@ -26,7 +26,7 @@ export interface IFieldNumberProps extends IBaseFieldProps {
  */
 export interface IFieldNumberState extends IBaseFieldState {
     /** The field information. */
-    fieldInfo: Types.Helper.IListFormNumberFieldInfo;
+    fieldInfo: Helper.IListFormNumberFieldInfo;
 }
 
 /**

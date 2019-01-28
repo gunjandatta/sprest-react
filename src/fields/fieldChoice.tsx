@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
+import { Helper, SPTypes } from "gd-sprest";
 import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react/lib/Dropdown";
 import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "./types";
 import { BaseField } from ".";
@@ -86,7 +86,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldChoiceState) => {
-        let fldInfo = info as Types.Helper.IListFormChoiceFieldInfo;
+        let fldInfo = info as Helper.IListFormChoiceFieldInfo;
 
         // Set the choices
         state.options = this.toOptions(fldInfo);
@@ -110,7 +110,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     /**
      * Method to convert the field value to options
      */
-    private toOptions = (fldInfo: Types.Helper.IListFormChoiceFieldInfo) => {
+    private toOptions = (fldInfo: Helper.IListFormChoiceFieldInfo) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-choice field

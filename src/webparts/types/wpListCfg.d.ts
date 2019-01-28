@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper, SP } from "gd-sprest";
 import {
     IDropdown, IDropdownOption,
     PrimaryButton,
@@ -10,13 +10,13 @@ import { WebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel }
  * WebPart List Configuration Panel
  */
 export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartCfgPanel<Props, State> implements IWebPartListCfgPanel {
-    _query: Types.SP.ODataQuery;
+    _query: SP.ODataQuery;
     _listDropdown: IDropdown;
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
     _webUrl: ITextField;
 
-    getList: (option: IDropdownOption) => Types.SP.IListQueryResult;
+    getList: (option: IDropdownOption) => SP.IListQueryResult;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: IWebPartListCfgState) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -29,13 +29,13 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
  * List Configuration Panel
  */
 export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
-    _query: Types.SP.ODataQuery;
+    _query: SP.ODataQuery;
     _listDropdown: IDropdown;
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
     _webUrl: ITextField;
 
-    getList: (option: IDropdownOption) => Types.SP.IListQueryResult;
+    getList: (option: IDropdownOption) => SP.IListQueryResult;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: IWebPartListCfgState) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -47,7 +47,7 @@ export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
 /**
  * List Configuration
  */
-export interface IWebPartListCfg extends Types.Helper.IWebPartCfg {
+export interface IWebPartListCfg extends Helper.IWebPartCfg {
     ListName?: string;
     WebUrl?: string;
 }
@@ -64,8 +64,8 @@ export interface IWebPartListCfgProps extends IWebPartCfgProps {
  */
 export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
-    lists?: Array<Types.SP.IListQueryResult>;
+    lists?: Array<SP.IListQueryResult>;
     loadFl?: boolean;
     options?: Array<IDropdownOption>;
-    selectedList?: Types.SP.IListQueryResult;
+    selectedList?: SP.IListQueryResult;
 }

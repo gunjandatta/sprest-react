@@ -1,8 +1,8 @@
 dependencies:
-  core-js: 2.6.2
-  gd-sprest: 4.4.6
+  core-js: 2.6.3
+  gd-sprest: 4.5.3
   gd-sprest-def: 0.1.0
-  office-ui-fabric-react: 6.128.0
+  office-ui-fabric-react: 6.130.0
 devDependencies:
   '@babel/core': 7.2.2
   '@babel/preset-env': 7.2.3
@@ -647,13 +647,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-jMCa/liL7YCvu0xJRudQsU3oR1O7NuCwkFe392y4ZEXFlTsPpe1LeE4iZr6UbhJLHiEWKw5Uep8pMCuAcCXQdg==
-  /@uifabric/merge-styles/6.15.0:
+  /@uifabric/merge-styles/6.15.1:
     dependencies:
       '@uifabric/set-version': 1.1.3
       tslib: 1.9.3
     dev: false
     resolution:
-      integrity: sha512-VtwdCPhEkfNk8l9qSw2Ix/R7a3/GguvQ2avR5RxLs7jSMmW2Oc3B0CwROB6h4zajwZK7OBR+a6UsiT7H6VN4vg==
+      integrity: sha512-8Wgw+tOExd8j0j6ShtICZY6lZlvXamJgtgk8t2jGFHGS1VJ6KNG1D9zPQw0+p6xkn8PLGbMPKtQyor9Y0gddXQ==
   /@uifabric/set-version/1.1.3:
     dependencies:
       tslib: 1.9.3
@@ -663,16 +663,16 @@ packages:
   /@uifabric/styling/6.41.0:
     dependencies:
       '@microsoft/load-themed-styles': 1.8.55
-      '@uifabric/merge-styles': 6.15.0
+      '@uifabric/merge-styles': 6.15.1
       '@uifabric/set-version': 1.1.3
-      '@uifabric/utilities': 6.28.0
+      '@uifabric/utilities': 6.28.1
       tslib: 1.9.3
     dev: false
     resolution:
       integrity: sha512-BDYpErXhMFEeQ3Unqyh+euRsjllqIHsGPOJQv7VB8lsAEUUoWkWp3l9HMZbphLaxcS56mOoI0Ouxik3aWGyjeg==
-  /@uifabric/utilities/6.28.0:
+  /@uifabric/utilities/6.28.1:
     dependencies:
-      '@uifabric/merge-styles': 6.15.0
+      '@uifabric/merge-styles': 6.15.1
       '@uifabric/set-version': 1.1.3
       prop-types: 15.6.2
       tslib: 1.9.3
@@ -681,7 +681,7 @@ packages:
       react: '>=16.3.2-0 <17.0.0'
       react-dom: '>=16.3.2-0 <17.0.0'
     resolution:
-      integrity: sha512-HHC4J7L9UQcV5rNe0YlmW8mCswLTTPvO/SdfCU4alMrkkmrOAB/Z1OSryvIcXnLLPlqmnyoW2PwXyQrO5nBl0Q==
+      integrity: sha512-33THWLBWwQW24lZQXE4VgdKNi/EEDe05dUlmRxvgZyD9p/e7RiRY9Bc0jhMAv70uU+Fsx5WBUwg8wX6WjCzwTQ==
   /@webassemblyjs/ast/1.7.11:
     dependencies:
       '@webassemblyjs/helper-module-context': 1.7.11
@@ -1447,10 +1447,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
-  /core-js/2.6.2:
+  /core-js/2.6.3:
     dev: false
     resolution:
-      integrity: sha512-NdBPF/RVwPW6jr0NCILuyN9RiqLo2b1mddWHkUL+VnvcB7dzlnBJ1bXYntjpTGOgkZiiLWj2JxmOr7eGE3qK6g==
+      integrity: sha512-l00tmFFZOBHtYhN4Cz7k32VM7vTn3rE2ANjQDxdEN6zmXZ/xq1jQuutnmHvMG1ZJ7xd72+TA5YpUK8wz3rWsfQ==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -2081,13 +2081,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Z/Bxg3wRC1ILIx/r0LcDfNSA/YJY/My8rYoq2NAfvLIVj/19VUsx3h1bHl/gCO7AdB2VxtD+RXvWFobkzrxCpg==
-  /gd-sprest/4.4.6:
+  /gd-sprest/4.5.3:
     dependencies:
-      core-js: 2.6.2
+      core-js: 2.6.3
       gd-sprest-def: 0.1.0
     dev: false
     resolution:
-      integrity: sha512-9IRxiSB5X50HQr4b6YB0w84xYwh9TOy8G2af+VqpOLOBVSs8OCNVNmR/TohMWU4fK4y5of6etYbNgScgsNvqzA==
+      integrity: sha512-mVsv545ZsUVqiWu/zKBsqyPnzp/9enSqLH+9busU2IGPWe4L4fdgbtYbxca1WUWmw22NDfhooF0fxoecVnk33w==
   /get-caller-file/1.0.3:
     dev: true
     resolution:
@@ -3263,14 +3263,14 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-h6EKxMFpS9Lhy/U1kaZhQftd10c=
-  /office-ui-fabric-react/6.128.0:
+  /office-ui-fabric-react/6.130.0:
     dependencies:
       '@microsoft/load-themed-styles': 1.8.55
       '@uifabric/icons': 6.3.0
-      '@uifabric/merge-styles': 6.15.0
+      '@uifabric/merge-styles': 6.15.1
       '@uifabric/set-version': 1.1.3
       '@uifabric/styling': 6.41.0
-      '@uifabric/utilities': 6.28.0
+      '@uifabric/utilities': 6.28.1
       prop-types: 15.6.2
       tslib: 1.9.3
     dev: false
@@ -3278,7 +3278,7 @@ packages:
       react: '>=16.3.2-0 <17.0.0'
       react-dom: '>=16.3.2-0 <17.0.0'
     resolution:
-      integrity: sha512-IRZ1tmX91K9EAyPX5jQAo80O0GUhEAz65+v0v1xf6d2LYB7PFW4MQJvt8MpLGSUJJghUZe0Lnmt4F77oLTt+JQ==
+      integrity: sha512-zhsKtc7pUHLoa1djnShMQn/3ChrnlKEk3WUxRfbyWQKPbsmvOcpWU29ADBdRd4o72pd+BLnrc+IpWKabR3vZYQ==
   /once/1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -4855,12 +4855,12 @@ specifiers:
   '@types/react': ^16.7.17
   '@types/react-dom': ^16.0.11
   babel-loader: ^8.0.4
-  core-js: ^2.6.0
+  core-js: ^2.6.3
   css-loader: ^2.0.0
-  gd-sprest: ^4.4.6
+  gd-sprest: ^4.5.3
   gd-sprest-def: ^0.1.0
   node-sass: ^4.11.0
-  office-ui-fabric-react: ^6.113.0
+  office-ui-fabric-react: ^6.130.0
   react: ^16.6.3
   react-dom: ^16.6.3
   sass-loader: ^7.1.0

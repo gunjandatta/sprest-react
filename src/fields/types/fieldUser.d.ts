@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { IPersonaProps, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
@@ -26,7 +26,7 @@ export interface IFieldUserProps extends IBaseFieldProps {
  */
 export interface IFieldUserState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.IListFormUserFieldInfo;
+    fieldInfo: Helper.IListFormUserFieldInfo;
 }
 
 /**

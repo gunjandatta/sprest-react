@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { IPanel } from "office-ui-fabric-react";
 import { Component } from "react";
 
@@ -9,10 +9,10 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
     _errorMessage: HTMLDivElement;
     _panel: IPanel;
 
-    onRenderContents: (cfg: Types.Helper.IWebPartCfg) => JSX.Element | Array<JSX.Element>;
+    onRenderContents: (cfg: Helper.IWebPartCfg) => JSX.Element | Array<JSX.Element>;
     onRenderFooter: () => JSX.Element | Array<JSX.Element>;
     onRenderHeader: () => JSX.Element | Array<JSX.Element>;
-    saveConfiguration: (wpCfg: Types.Helper.IWebPartCfg) => void;
+    saveConfiguration: (wpCfg: Helper.IWebPartCfg) => void;
 }
 
 /**
@@ -22,17 +22,17 @@ export interface IWebPartCfgPanel {
     _errorMessage: HTMLDivElement;
     _panel: IPanel;
 
-    onRenderContents: (cfg: Types.Helper.IWebPartCfg) => JSX.Element | Array<JSX.Element>;
+    onRenderContents: (cfg: Helper.IWebPartCfg) => JSX.Element | Array<JSX.Element>;
     onRenderFooter: () => JSX.Element | Array<JSX.Element>;
     onRenderHeader: () => JSX.Element | Array<JSX.Element>;
-    saveConfiguration: (wpCfg: Types.Helper.IWebPartCfg) => void;
+    saveConfiguration: (wpCfg: Helper.IWebPartCfg) => void;
 }
 
 /**
  * WebPart Configuration Properties
  */
 export interface IWebPartCfgProps {
-    cfg?: Types.Helper.IWebPartCfg;
+    cfg?: Helper.IWebPartCfg;
     cfgElementId?: string;
 }
 
@@ -40,5 +40,5 @@ export interface IWebPartCfgProps {
  * WebPart Configuration State
  */
 export interface IWebPartCfgState {
-    cfg?: Types.Helper.IWebPartCfg;
+    cfg?: Helper.IWebPartCfg;
 }

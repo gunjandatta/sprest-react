@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
+import { Helper, SPTypes } from "gd-sprest";
 import * as Fields from "../fields";
 import { IBaseFieldProps, IBaseFieldState } from "../fields/types";
 
@@ -25,7 +25,7 @@ export class Field extends Fields.BaseField {
     /**
      * Get the field information
      */
-    get Info(): Types.Helper.IListFormFieldInfo { return this._field.state.fieldInfo; }
+    get Info(): Helper.IListFormFieldInfo { return this._field.state.fieldInfo; }
 
     /**
      * Get the field value

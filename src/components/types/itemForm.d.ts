@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper, SP } from "gd-sprest";
 import { Component } from "react";
 import { IAttachmentFile } from "../../fields/types";
 
@@ -16,7 +16,7 @@ export interface IItemFormField {
     onChange?: (value: any) => void;
 
     /** The on render method */
-    onRender?: (fieldInfo: Types.Helper.IListFormFieldInfo) => JSX.Element;
+    onRender?: (fieldInfo: Helper.IListFormFieldInfo) => JSX.Element;
 }
 
 /**
@@ -65,7 +65,7 @@ export interface IItemFormProps {
     onAttachmentRender?: (file: IAttachmentFile, controlMode: number) => any;
 
     /** The field render event */
-    onFieldRender?: (fieldInfo: Types.Helper.IListFormFieldInfo, field: JSX.Element) => any;
+    onFieldRender?: (fieldInfo: Helper.IListFormFieldInfo, field: JSX.Element) => any;
 
     /** The on form render event. */
     onRender?: (controlMode: number) => any;
@@ -74,7 +74,7 @@ export interface IItemFormProps {
     onRenderAttachments?: (files: Array<IAttachmentFile>, controlMode: number) => any;
 
     /** The item query, used when refreshing the item after a save. */
-    query?: Types.SP.ODataQuery;
+    query?: SP.ODataQuery;
 
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;
@@ -94,7 +94,7 @@ export interface IItemFormProps {
  */
 export interface IItemFormState {
     /** The form information */
-    formInfo?: Types.Helper.IListFormResult;
+    formInfo?: Helper.IListFormResult;
 
     /** The item id. */
     itemId?: number;

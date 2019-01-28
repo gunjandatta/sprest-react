@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { Helper, Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { Fabric } from "office-ui-fabric-react/lib/Fabric";
 import { IFabricWebPartProps } from "./types";
 
@@ -9,7 +9,7 @@ import { IFabricWebPartProps } from "./types";
  */
 export const FabricWebPart = (props: IFabricWebPartProps) => {
     // The render display component
-    let renderDisplay = (wp: Types.Helper.IWebPartInfo) => {
+    let renderDisplay = (wp: Helper.IWebPartInfo) => {
         let element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;
         if (element == null) {
             // Default the element
@@ -24,7 +24,7 @@ export const FabricWebPart = (props: IFabricWebPartProps) => {
     };
 
     // The render edit component
-    let renderEdit = (wp: Types.Helper.IWebPartInfo) => {
+    let renderEdit = (wp: Helper.IWebPartInfo) => {
         let element = props.onRenderEditElement ? props.onRenderEditElement(wp) : null;
         if (element == null) {
             // Default the element

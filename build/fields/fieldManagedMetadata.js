@@ -118,7 +118,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             if (_this.state.fieldInfo.multi) {
                 // Default the value if it doesn't exist
                 var fieldValue = _this.state.value || {
-                    __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                    __metadata: { type: "Collection(TaxonomyFieldValue)" },
                     results: []
                 };
                 // Append the option if it was selected
@@ -145,7 +145,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
             else {
                 // Update the field value
                 _this.updateValue(option && option.key ? {
-                    __metadata: { type: "SP.Taxonomy.TaxonomyFieldValue" },
+                    __metadata: { type: "TaxonomyFieldValue" },
                     Label: option.data,
                     TermGuid: option.key,
                     WssId: -1
@@ -183,7 +183,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                 if (fldInfo.multi) {
                     // Set the value
                     state.value = {
-                        __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                        __metadata: { type: "Collection(TaxonomyFieldValue)" },
                         results: results
                     };
                 }
@@ -192,7 +192,7 @@ var FieldManagedMetadata = /** @class */ (function (_super) {
                     // Set the value
                     state.value = results[0];
                     // Add the metadata
-                    state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
+                    state.value.__metadata = { type: "TaxonomyFieldValue" };
                 }
             }
             // Load the value field

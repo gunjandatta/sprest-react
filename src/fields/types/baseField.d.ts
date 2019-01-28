@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper, SP } from "gd-sprest";
 import { Component } from "react";
 
 /**
@@ -12,13 +12,13 @@ export interface IBaseFieldProps {
     controlMode?: number;
 
     /** The field information. */
-    fieldInfo?: Types.Helper.IListFormFieldInfo;
+    fieldInfo?: Helper.IListFormFieldInfo;
 
     /** The default field value. */
     defaultValue?: any;
 
     /** The field. */
-    field: Types.SP.IFieldResult | Types.SP.IFieldQueryResult;
+    field: SP.IFieldResult | SP.IFieldQueryResult;
 
     /** The list name containing the field. */
     listName: string;
@@ -30,10 +30,10 @@ export interface IBaseFieldProps {
     onChange?: (value: any) => void;
 
     /** The field render event. */
-    onFieldRender?: (fieldInfo: Types.Helper.IListFormFieldInfo, field: JSX.Element) => any;
+    onFieldRender?: (fieldInfo: Helper.IListFormFieldInfo, field: JSX.Element) => any;
 
     /** The render event of the field component */
-    onRender?: (fieldInfo: Types.Helper.IListFormFieldInfo) => any;
+    onRender?: (fieldInfo: Helper.IListFormFieldInfo) => any;
 
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;
@@ -56,7 +56,7 @@ export interface IBaseFieldState {
     errorMessage?: string;
 
     /** The field information. */
-    fieldInfo: Types.Helper.IListFormFieldInfo;
+    fieldInfo: Helper.IListFormFieldInfo;
 
     /** Flag to determine if the field is initialized. */
     initFl?: boolean;

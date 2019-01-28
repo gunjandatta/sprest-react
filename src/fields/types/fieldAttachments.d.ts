@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper, SP } from "gd-sprest";
 import { Component } from "react";
 
 /**
@@ -55,7 +55,7 @@ export interface IFieldAttachmentsProps {
     listName: string;
 
     /** The existing attachment files. */
-    files?: any | Types.SP.IAttachmentFiles;
+    files?: any | SP.IAttachmentFiles;
 
     /** The attachments render event. */
     onAttachmentsRender?: (attachments: JSX.Element) => any;
@@ -96,7 +96,7 @@ export interface IFieldAttachmentsState {
     };
 
     /** The list information */
-    listInfo: Types.Helper.IListFormResult;
+    listInfo: Helper.IListFormResult;
 
     /** Loading Flag */
     loadingFl?: boolean;

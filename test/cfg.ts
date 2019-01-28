@@ -1,4 +1,4 @@
-import { Helper, SPTypes, Types } from "gd-sprest";
+import { Helper, SPTypes } from "gd-sprest";
 
 /**
  * Test Configuration
@@ -20,7 +20,7 @@ export const Configuration = Helper.SPConfig({
                     title: "Choice",
                     type: Helper.SPCfgFieldType.Choice,
                     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                } as Types.Helper.IFieldInfoChoice,
+                } as Helper.IFieldInfoChoice,
                 {
                     name: "TestComments",
                     title: "Comments",
@@ -31,20 +31,20 @@ export const Configuration = Helper.SPConfig({
                     name: "TestDate",
                     title: "Date Only",
                     type: Helper.SPCfgFieldType.Date
-                } as Types.Helper.IFieldInfoDate,
+                } as Helper.IFieldInfoDate,
                 {
                     format: SPTypes.DateFormat.DateTime,
                     name: "TestDateTime",
                     title: "Date/Time",
                     type: Helper.SPCfgFieldType.Date
-                } as Types.Helper.IFieldInfoDate,
+                } as Helper.IFieldInfoDate,
                 {
                     listName: "SPReact",
                     name: "TestLookup",
                     title: "Lookup",
                     showField: "Title",
                     type: Helper.SPCfgFieldType.Lookup
-                } as Types.Helper.IFieldInfoLookup,
+                } as Helper.IFieldInfoLookup,
                 {
                     name: "TestMMS",
                     title: "MMS",
@@ -57,7 +57,7 @@ export const Configuration = Helper.SPConfig({
                     title: "Multi-Choice",
                     type: Helper.SPCfgFieldType.Choice,
                     choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5"]
-                } as Types.Helper.IFieldInfoChoice,
+                } as Helper.IFieldInfoChoice,
                 {
                     listName: "SPReact",
                     multi: true,
@@ -65,38 +65,38 @@ export const Configuration = Helper.SPConfig({
                     title: "Multi-Lookup",
                     showField: "Title",
                     type: Helper.SPCfgFieldType.Lookup
-                } as Types.Helper.IFieldInfoLookup,
+                } as Helper.IFieldInfoLookup,
                 {
                     multi: true,
                     name: "TestMultiUser",
                     title: "Multi-User",
                     type: Helper.SPCfgFieldType.User,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                } as Types.Helper.IFieldInfoUser,
+                } as Helper.IFieldInfoUser,
                 {
                     name: "TestNote",
                     title: "Note",
                     type: Helper.SPCfgFieldType.Note
-                } as Types.Helper.IFieldInfoNote,
+                } as Helper.IFieldInfoNote,
                 {
                     decimals: 2,
                     numberType: SPTypes.FieldNumberType.Decimal,
                     name: "TestNumberDecimal",
                     title: "Decimal",
                     type: Helper.SPCfgFieldType.Number
-                } as Types.Helper.IFieldInfoNumber,
+                } as Helper.IFieldInfoNumber,
                 {
                     numberType: SPTypes.FieldNumberType.Integer,
                     name: "TestNumberInteger",
                     title: "Integer",
                     type: Helper.SPCfgFieldType.Number
-                } as Types.Helper.IFieldInfoNumber,
+                } as Helper.IFieldInfoNumber,
                 {
                     numberType: SPTypes.FieldNumberType.Percentage,
                     name: "TestNumberPercentage",
                     title: "Percentage",
                     type: Helper.SPCfgFieldType.Number
-                } as Types.Helper.IFieldInfoNumber,
+                } as Helper.IFieldInfoNumber,
                 {
                     name: "TestUrl",
                     title: "Url",
@@ -107,7 +107,7 @@ export const Configuration = Helper.SPConfig({
                     title: "User",
                     type: Helper.SPCfgFieldType.User,
                     selectionMode: SPTypes.FieldUserSelectionType.PeopleAndGroups
-                } as Types.Helper.IFieldInfoUser
+                } as Helper.IFieldInfoUser
             ],
             ListInformation: {
                 BaseTemplate: SPTypes.ListTemplateType.GenericList,

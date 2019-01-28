@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { IDatePickerProps, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
@@ -26,7 +26,7 @@ export interface IFieldDateTimeProps extends IBaseFieldProps {
  */
 export interface IFieldDateTimeState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.IListFormDateFieldInfo;
+    fieldInfo: Helper.IListFormDateFieldInfo;
 }
 
 /**

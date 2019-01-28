@@ -1,6 +1,6 @@
 import * as React from "react";
-import { SPTypes, Types } from "gd-sprest";
-import { SP } from "gd-sprest-def";
+import { SP, SPTypes } from "gd-sprest";
+import { Data, FieldLookupValue, FieldUrlValue } from "gd-sprest-def/lib/SP";
 import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
 import { Panel, IPanel } from "office-ui-fabric-react/lib/Panel";
 import { Components, WebParts } from "../src";
@@ -9,13 +9,13 @@ import { WebParts as WPTypes } from "../src/typings";
 /**
  * List Item Information
  */
-export interface IListItem extends Types.SP.IListItemQueryResult {
+export interface IListItem extends SP.IListItemQueryResult {
     Attachments?: boolean;
     TestBoolean?: boolean;
     TestChoice?: string;
     TestDate?: string;
     TestDateTime?: string;
-    TestLookup?: SP.FieldLookupValue;
+    TestLookup?: FieldLookupValue;
     TestLookupId?: string | number;
     TestMultiChoice?: string;
     TestMultiLookup?: string;
@@ -25,8 +25,8 @@ export interface IListItem extends Types.SP.IListItemQueryResult {
     TestNote?: string;
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
-    TestUrl?: SP.FieldUrlValue;
-    TestUser?: SP.Data.UserInfoItem;
+    TestUrl?: FieldUrlValue;
+    TestUser?: Data.UserInfoItem;
     TestUserId?: string | number;
     Title?: string;
 }

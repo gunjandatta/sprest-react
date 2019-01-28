@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
 import { Panel, IPanel } from "office-ui-fabric-react/lib/Panel";
 import { Page } from "../common";
@@ -40,7 +40,7 @@ export abstract class WebPartCfgPanel<Props extends IWebPartCfgProps = IWebPartC
     /**
      * Required Methods
      */
-    abstract onRenderContents: (cfg: Types.Helper.IWebPartCfg) => any;
+    abstract onRenderContents: (cfg: Helper.IWebPartCfg) => any;
 
     /**
      * Events

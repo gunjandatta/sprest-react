@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Helper, SPTypes, Types } from "gd-sprest";
-import { SP } from "gd-sprest-def";
+import { Helper, SPTypes, SP } from "gd-sprest";
+import { TaxonomyFieldValue } from "gd-sprest-def/lib/SP/Taxonomy";
 import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react/lib/Dropdown";
 import { Spinner } from "office-ui-fabric-react/lib/Spinner";
 import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState } from "./types";
@@ -79,7 +79,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
 
                 // Parse the results
                 for (let i = 0; i < fieldValue.results.length; i++) {
-                    let result = fieldValue.results[i] as SP.Taxonomy.TaxonomyFieldValue;
+                    let result = fieldValue.results[i] as TaxonomyFieldValue;
 
                     // Add the term
                     results.push((result.WssId || "") + ";#" + result.Label + "|" + result.TermGuid);
@@ -107,7 +107,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         if (this.state.fieldInfo.multi) {
             // Default the value if it doesn't exist
             let fieldValue = this.state.value || {
-                __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                __metadata: { type: "Collection(TaxonomyFieldValue)" },
                 results: []
             };
 
@@ -134,7 +134,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
         } else {
             // Update the field value
             this.updateValue(option && option.key ? {
-                __metadata: { type: "SP.Taxonomy.TaxonomyFieldValue" },
+                __metadata: { type: "TaxonomyFieldValue" },
                 Label: option.data,
                 TermGuid: option.key,
                 WssId: -1
@@ -148,7 +148,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * @param state - The current state.
      */
     onFieldLoaded = (info, state: IFieldManagedMetadataState) => {
-        let fldInfo = info as Types.Helper.IListFormMMSFieldInfo;
+        let fldInfo = info as Helper.IListFormMMSFieldInfo;
 
         // See if the default value exists
         if (this.props.defaultValue) {
@@ -175,7 +175,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
             if (fldInfo.multi) {
                 // Set the value
                 state.value = {
-                    __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                    __metadata: { type: "Collection(TaxonomyFieldValue)" },
                     results
                 };
             }
@@ -185,7 +185,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
                 state.value = results[0];
 
                 // Add the metadata
-                state.value.__metadata = { type: "SP.Taxonomy.TaxonomyFieldValue" };
+                state.value.__metadata = { type: "TaxonomyFieldValue" };
             }
         }
 
@@ -206,7 +206,7 @@ export class FieldManagedMetadata extends BaseField<IFieldManagedMetadataProps, 
      * Method to convert the field value to options
      * @param terms - The managed metadata terms.
      */
-    private toOptions = (terms: Array<Types.Helper.ITermInfo> = []) => {
+    private toOptions = (terms: Array<Helper.ITermInfo> = []) => {
         let options: Array<IDropdownOption> = [];
         let rootIsTermSet = false;
         let rootNodeText: string = null;

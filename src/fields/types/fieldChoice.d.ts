@@ -1,4 +1,4 @@
-import { Types } from "gd-sprest";
+import { Helper } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
@@ -9,7 +9,7 @@ export class FieldChoice extends BaseField<IFieldChoiceProps, IFieldChoiceState>
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldLoaded: (fieldInfo: Types.Helper.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
+    onFieldLoaded: (fieldInfo: Helper.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
 }
 
 /**
@@ -28,7 +28,7 @@ export interface IFieldChoiceProps extends IBaseFieldProps {
  */
 export interface IFieldChoiceState extends IBaseFieldState {
     /** The field information */
-    fieldInfo: Types.Helper.IListFormChoiceFieldInfo;
+    fieldInfo: Helper.IListFormChoiceFieldInfo;
 
     /** The dropdown options. */
     options?: Array<IDropdownOption>;
@@ -41,5 +41,5 @@ export interface IFieldChoice extends IBaseField<IFieldChoiceProps, IFieldChoice
     /**
      * Event triggered after the field information is retrieved from SharePoint.
      */
-    onFieldLoaded: (fieldInfo: Types.Helper.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
+    onFieldLoaded: (fieldInfo: Helper.IListFormChoiceFieldInfo, state: IFieldChoiceState) => void;
 }

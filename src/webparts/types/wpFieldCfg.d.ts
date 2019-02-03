@@ -31,7 +31,7 @@ export interface IWebPartFieldCfgPanel extends IWebPartListCfgPanel {
  * Field Configuration
  */
 export interface IWebPartFieldCfg extends IWebPartListCfg {
-    Fields?: Array<SP.IFieldResult>;
+    Fields?: Array<SP.Field>;
 }
 
 /**

@@ -163,7 +163,7 @@ export class FieldLookup extends BaseField<IFieldLookupProps, IFieldLookupState>
      * @param items - The lookup items.
      * @param fieldName - The lookup field name.
      */
-    private toOptions = (items: Array<SP.IListItemQueryResult> = [], fieldName: string) => {
+    private toOptions = (items: Array<SP.IListItemQuery> = [], fieldName: string) => {
         let options: Array<IDropdownOption> = [];
 
         // See if this is not a required multi-lookup field

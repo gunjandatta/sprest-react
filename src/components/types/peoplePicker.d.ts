@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { SP } from "gd-sprest";
 import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 import { Component } from "react";
 

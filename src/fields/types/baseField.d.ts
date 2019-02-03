@@ -18,7 +18,7 @@ export interface IBaseFieldProps {
     defaultValue?: any;
 
     /** The field. */
-    field: SP.IFieldResult | SP.IFieldQueryResult;
+    field: SP.Field | SP.IFieldQuery;
 
     /** The list name containing the field. */
     listName: string;

@@ -55,7 +55,7 @@ export interface IFieldAttachmentsProps {
     listName: string;
 
     /** The existing attachment files. */
-    files?: any | SP.IAttachmentFiles;
+    files?: any | SP.IAttachmentCollection;
 
     /** The attachments render event. */
     onAttachmentsRender?: (attachments: JSX.Element) => any;

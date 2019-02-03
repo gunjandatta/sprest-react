@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SP, Web } from "gd-sprest";
+import { IODataQuery, Web } from "gd-sprest";
 import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
 import { Dropdown, IDropdown, IDropdownOption } from "office-ui-fabric-react/lib/Dropdown";
 import { TextField, ITextField } from "office-ui-fabric-react/lib/TextField";
@@ -32,7 +32,7 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
     /**
      * The OData query.
      */
-    _query: SP.ODataQuery = null;
+    _query: IODataQuery = null;
 
     /**
      * Reference to the list dropdown.

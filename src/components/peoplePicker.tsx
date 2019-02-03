@@ -1,6 +1,5 @@
 import * as React from "react";
-import { ContextInfo, PeoplePicker, SP, SPTypes, Web } from "gd-sprest";
-import { Data } from "gd-sprest-def/lib/SP";
+import { ContextInfo, PeoplePicker, SP, SPTypes, Types, Web } from "gd-sprest";
 import { NormalPeoplePicker, IPeoplePickerProps } from "office-ui-fabric-react/lib/Pickers";
 import { IPersonaProps } from "office-ui-fabric-react/lib/Persona";
 import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types"
@@ -100,7 +99,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Method to convert the user to persona value
      * @param users - An array of field user values.
      */
-    private convertToPersonas = (users: Array<Data.UserInfoItem | number> = []): Array<IPersonaProps> => {
+    private convertToPersonas = (users: Array<SP.Data.UserInfoItem | number> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist
@@ -109,7 +108,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
             // See if this is an array of user ids
             if (typeof (user) === "number") {
-                let userInfo: Array<Data.UserInfoItem> = [];
+                let userInfo: Array<SP.Data.UserInfoItem> = [];
 
                 // Get the web
                 this.getWeb().then(web => {
@@ -129,7 +128,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
                             // Else, see if groups are enabled
                             else if (this.state.allowGroups) {
                                 // Get the group
-                                web.SiteGroups().getById(users[i]).execute(group => {
+                                web.SiteGroups().getById(users[i] as any).execute(group => {
                                     // Ensure the group exists
                                     if (group.existsFl) {
                                         // Add the group information
@@ -155,7 +154,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             } else {
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
-                    let user = users[i] as Data.UserInfoItem;
+                    let user = users[i] as SP.Data.UserInfoItem;
                     if (user.ID) {
                         // Add the persona
                         personas.push({
@@ -265,7 +264,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     /**
      * Method to convert the people picker results to an array
      */
-    private toArray = (results: SP.IPeoplePickerSearchUser) => {
+    private toArray = (results: Types.IPeoplePickerSearchUser) => {
         let users: Array<IPersonaProps> = [];
 
         // Parse the users

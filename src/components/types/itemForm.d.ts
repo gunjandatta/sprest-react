@@ -1,4 +1,4 @@
-import { Helper, SP } from "gd-sprest";
+import { Helper, IODataQuery } from "gd-sprest";
 import { Component } from "react";
 import { IAttachmentFile } from "../../fields/types";
 
@@ -74,7 +74,7 @@ export interface IItemFormProps {
     onRenderAttachments?: (files: Array<IAttachmentFile>, controlMode: number) => any;
 
     /** The item query, used when refreshing the item after a save. */
-    query?: SP.ODataQuery;
+    query?: IODataQuery;
 
     /** The max number of items to return for the lookup data queries. (Default: 500) */
     queryTop?: number;

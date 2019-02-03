@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest-def";
+import { SP } from "gd-sprest";
 import { ITextFieldProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ContextInfo, Helper, SP, Web } from "gd-sprest";
+import { ContextInfo, Helper, IODataQuery, SP, Web } from "gd-sprest";
 import { Spinner } from "office-ui-fabric-react/lib/Spinner";
 import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "./types";
 
@@ -34,7 +34,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     /**
      * The OData query (Default)
      */
-    protected _query: SP.ODataQuery = null;
+    protected _query: IODataQuery = null;
 
     /**
      * Constructor
@@ -235,19 +235,19 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                 }
 
                 // Load the data
-                this.onLoadData(items);
+                this.onLoadData(items as any);
             });
     }
 
     /**
      * Method to update the state
      */
-    private onLoadData = (items: SP.IListItemResults | { results: Array<SP.IListItemQueryResult> }) => {
+    private onLoadData = (items: SP.IListItemCollection | { results: Array<SP.IListItemQueryCollection> }) => {
         // Ensure the items exist
         if (items.results) {
             // Update the state
             this.setState({
-                items: items.results as Array<IWebPartListItem>,
+                items: items.results as any,
                 lastRefresh: new Date(Date.now())
             });
         } else {
@@ -267,7 +267,7 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         // Return a promise
         return new Promise((resolve, reject) => {
             // Copy the odata query
-            let query: SP.ODataQuery = Object.create(this._query);
+            let query: IODataQuery = Object.create(this._query);
 
             // Update the filter to query the item
             query.Filter = "ID eq " + itemId;

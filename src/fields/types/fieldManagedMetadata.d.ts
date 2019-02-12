@@ -1,4 +1,4 @@
-import { Helper, SP } from "gd-sprest";
+import { Helper, Types } from "gd-sprest";
 import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
@@ -38,7 +38,7 @@ export interface IFieldManagedMetadataState extends IBaseFieldState {
     options?: Array<IDropdownOption>;
 
     /** The hidden value field. */
-    valueField?: SP.FieldMultiLineText;
+    valueField?: Types.SP.FieldMultiLineText;
 }
 
 /**

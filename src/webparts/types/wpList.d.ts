@@ -1,4 +1,4 @@
-import { IODataQuery, SP } from "gd-sprest";
+import { Types } from "gd-sprest";
 import { Component } from "react";
 import { IWebPartListCfg } from ".";
 
@@ -30,13 +30,13 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     /**
      * The OData query (Default)
      */
-    protected _query: IODataQuery;
+    protected _query: Types.IODataQuery;
 }
 
 /**
  * List Item
  */
-export interface IWebPartListItem extends SP.IListItemQuery { }
+export interface IWebPartListItem extends Types.SP.IListItemQuery { }
 
 /**
  * List Properties

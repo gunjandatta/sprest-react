@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ContextInfo, PeoplePicker, SP, SPTypes, Types, Web } from "gd-sprest";
+import { ContextInfo, PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
 import { NormalPeoplePicker, IPeoplePickerProps } from "office-ui-fabric-react/lib/Pickers";
 import { IPersonaProps } from "office-ui-fabric-react/lib/Persona";
 import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types"
@@ -99,7 +99,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
      * Method to convert the user to persona value
      * @param users - An array of field user values.
      */
-    private convertToPersonas = (users: Array<SP.Data.UserInfoItem | number> = []): Array<IPersonaProps> => {
+    private convertToPersonas = (users: Array<Types.SP.Data.UserInfoItem | number> = []): Array<IPersonaProps> => {
         let personas: Array<IPersonaProps> = [];
 
         // Ensure users exist
@@ -108,7 +108,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
 
             // See if this is an array of user ids
             if (typeof (user) === "number") {
-                let userInfo: Array<SP.Data.UserInfoItem> = [];
+                let userInfo: Array<Types.SP.Data.UserInfoItem> = [];
 
                 // Get the web
                 this.getWeb().then(web => {
@@ -154,7 +154,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
             } else {
                 // Parse the users
                 for (let i = 0; i < users.length; i++) {
-                    let user = users[i] as SP.Data.UserInfoItem;
+                    let user = users[i] as Types.SP.Data.UserInfoItem;
                     if (user.ID) {
                         // Add the persona
                         personas.push({
@@ -176,7 +176,7 @@ export class SPPeoplePicker extends React.Component<ISPPeoplePickerProps, ISPPeo
     /**
      * Gets the web.
      */
-    private getWeb = (): PromiseLike<SP.IWeb> => {
+    private getWeb = (): PromiseLike<Types.SP.IWeb> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the url exists

@@ -1,16 +1,16 @@
-import { SP, Web } from "gd-sprest";
+import { Types, Web } from "gd-sprest";
 import { WebParts } from "../src/typings";
 
 /**
  * Test Item Information
  */
-export interface ITestItem extends SP.IListItemQuery {
+export interface ITestItem extends Types.SP.IListItemQuery {
     Attachments?: boolean;
     TestBoolean?: boolean;
     TestChoice?: string;
     TestDate?: string;
     TestDateTime?: string;
-    TestLookup?: SP.Data.UserInfoItem;
+    TestLookup?: Types.SP.Data.UserInfoItem;
     TestLookupId?: string | number;
     TestMultiChoice?: string;
     TestMultiLookup?: string;
@@ -21,7 +21,7 @@ export interface ITestItem extends SP.IListItemQuery {
     TestNumberDecimal?: number;
     TestNumberInteger?: number;
     TestUrl?: string;
-    TestUser?: SP.Data.UserInfoItem;
+    TestUser?: Types.SP.Data.UserInfoItem;
     TestUserId?: string | number;
     Title?: string;
 }

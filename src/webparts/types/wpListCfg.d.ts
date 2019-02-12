@@ -1,4 +1,4 @@
-import { Helper, IODataQuery, SP } from "gd-sprest";
+import { Helper, Types } from "gd-sprest";
 import {
     IDropdown, IDropdownOption,
     PrimaryButton,
@@ -10,13 +10,13 @@ import { WebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel }
  * WebPart List Configuration Panel
  */
 export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfgProps, State extends IWebPartListCfgState = IWebPartListCfgState> extends WebPartCfgPanel<Props, State> implements IWebPartListCfgPanel {
-    _query: IODataQuery;
+    _query: Types.IODataQuery;
     _listDropdown: IDropdown;
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
     _webUrl: ITextField;
 
-    getList: (option: IDropdownOption) => SP.IListQuery;
+    getList: (option: IDropdownOption) => Types.SP.IListQuery;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: IWebPartListCfgState) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -29,13 +29,13 @@ export class WebPartListCfg<Props extends IWebPartListCfgProps = IWebPartListCfg
  * List Configuration Panel
  */
 export interface IWebPartListCfgPanel extends IWebPartCfgPanel {
-    _query: IODataQuery;
+    _query: Types.IODataQuery;
     _listDropdown: IDropdown;
     _refreshButton: PrimaryButton;
     _saveButton: PrimaryButton;
     _webUrl: ITextField;
 
-    getList: (option: IDropdownOption) => SP.IListQuery;
+    getList: (option: IDropdownOption) => Types.SP.IListQuery;
     onListChanged: (state: IWebPartListCfgState, option?: IDropdownOption, idx?: number) => void;
     onListsLoaded: (newState: IWebPartListCfgState) => void;
     onRefresh: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -64,8 +64,8 @@ export interface IWebPartListCfgProps extends IWebPartCfgProps {
  */
 export interface IWebPartListCfgState extends IWebPartCfgState {
     cfg: IWebPartListCfg;
-    lists?: Array<SP.IListQuery>;
+    lists?: Array<Types.SP.IListQuery>;
     loadFl?: boolean;
     options?: Array<IDropdownOption>;
-    selectedList?: SP.IListQuery;
+    selectedList?: Types.SP.IListQuery;
 }

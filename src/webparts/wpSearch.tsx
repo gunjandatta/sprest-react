@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Helper, SP, SPTypes, Web } from "gd-sprest";
+import { Helper, SPTypes, Types, Web } from "gd-sprest";
 import { TagPicker, ITag } from "office-ui-fabric-react/lib/Pickers";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { Spinner } from "office-ui-fabric-react/lib/Spinner";
@@ -82,7 +82,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
     /**
      * Method to generate the mapper
      */
-    private generateMapper = (items: Array<SP.IListItemQuery>) => {
+    private generateMapper = (items: Array<Types.SP.IListItemQuery>) => {
         let searchTerms: Array<ITag> = [];
         let tagMapper = {};
 
@@ -103,8 +103,8 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     // Parse the field values
                     let fieldValues = fieldValue.results ? fieldValue.results : [fieldValue];
                     for (let k = 0; k < fieldValues.length; k++) {
-                        let fldLookup: SP.FieldLookup = null;
-                        let fldUser: SP.FieldUser = null;
+                        let fldLookup: Types.SP.FieldLookup = null;
+                        let fldUser: Types.SP.FieldUser = null;
                         fieldValue = fieldValues[k];
 
                         // Update the field value based on the type
@@ -115,15 +115,15 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                                     break;
                                 case SPTypes.FieldType.Lookup:
                                     // Set the field
-                                    fldLookup = field as SP.FieldLookup;
+                                    fldLookup = field as Types.SP.FieldLookup;
                                     break;
                                 case SPTypes.FieldType.URL:
                                     // Update the field value
-                                    fieldValue = (item[field.InternalName] as SP.FieldUrlValue).Description;
+                                    fieldValue = (item[field.InternalName] as Types.SP.FieldUrlValue).Description;
                                     break;
                                 case SPTypes.FieldType.User:
                                     // Set the field
-                                    fldUser = field as SP.FieldUser;
+                                    fldUser = field as Types.SP.FieldUser;
                                     break;
                                 default:
                                     // This is a managed metadata field
@@ -330,7 +330,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                     case SPTypes.FieldType.Lookup:
                         // Expand the lookup information
                         this._query.Expand.push(field.InternalName);
-                        this._query.Select.push(field.InternalName + "/" + (field as SP.FieldLookup).LookupField);
+                        this._query.Select.push(field.InternalName + "/" + (field as Types.SP.FieldLookup).LookupField);
                         break;
                     case SPTypes.FieldType.User:
                         // Expand the user information

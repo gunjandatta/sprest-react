@@ -1,6 +1,6 @@
 dependencies:
   core-js: 2.6.3
-  gd-sprest: 4.5.9
+  gd-sprest: 4.6.7
   office-ui-fabric-react: 6.132.0
 devDependencies:
   '@babel/core': 7.2.2
@@ -1480,6 +1480,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-l00tmFFZOBHtYhN4Cz7k32VM7vTn3rE2ANjQDxdEN6zmXZ/xq1jQuutnmHvMG1ZJ7xd72+TA5YpUK8wz3rWsfQ==
+  /core-js/2.6.4:
+    dev: false
+    resolution:
+      integrity: sha512-05qQ5hXShcqGkPZpXEFLIpxayZscVD2kuMBZewxiIPPEagukO4mqgPA9CWhUvFBJfy3ODdK2p9xyHh7FTU9/7A==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -2106,17 +2110,17 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-BRdNm8hbWzFzWHERTrejLqwHDfS4GibPoq5wjTPIoJHoBtKGPg3xAFfxmM+9ztbXelxcf2hwQcaz1PtmFeue8g==
-  /gd-sprest-def/0.4.5:
+  /gd-sprest-def/0.6.1:
     dev: false
     resolution:
-      integrity: sha512-OomUQmghHPeKGmkG4DPnfTvsNA8JzdC5EQcYhE/88cymGRSAOAo9tHZfhbznGumD5eeI7hSTqiT7dYLDR58NBA==
-  /gd-sprest/4.5.9:
+      integrity: sha512-Pt/39bLpUScKqawWc7W6jvdSuWHIetAvQ9Lqcu1Zll2zLPR73/7aDvlKeABU3pzx5hlliY72DutIlqMv4IG0RA==
+  /gd-sprest/4.6.7:
     dependencies:
-      core-js: 2.6.3
-      gd-sprest-def: 0.4.5
+      core-js: 2.6.4
+      gd-sprest-def: 0.6.1
     dev: false
     resolution:
-      integrity: sha512-FjAwVdsEytI57Sbaf7lNA2qOiGuGOiRGDAJjlP7m1KuZ10Jn2atUZ9rIQMlm9vVvDT1t+OCugUVB7lIk7XxZgQ==
+      integrity: sha512-/N9wbBHLLbf3q4T5gRyL9DFnNYwj/zU4RBZ1HrabljysaEe1CBv/y4Mo5JyApmSVu9eLFq92VFvBGSemAagWPw==
   /get-caller-file/1.0.3:
     dev: true
     resolution:
@@ -4895,7 +4899,7 @@ specifiers:
   babel-loader: ^8.0.4
   core-js: ^2.6.3
   css-loader: ^2.0.0
-  gd-sprest: ^4.5.9
+  gd-sprest: ^4.6.7
   node-sass: ^4.11.0
   office-ui-fabric-react: ^6.132.0
   react: ^16.6.3

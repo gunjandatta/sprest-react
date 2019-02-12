@@ -1,4 +1,4 @@
-import { Helper, SP } from "gd-sprest";
+import { Helper, Types } from "gd-sprest";
 import { Component } from "react";
 
 /**
@@ -18,7 +18,7 @@ export interface IBaseFieldProps {
     defaultValue?: any;
 
     /** The field. */
-    field: SP.Field | SP.IFieldQuery;
+    field: Types.SP.Field | Types.SP.IFieldQuery;
 
     /** The list name containing the field. */
     listName: string;

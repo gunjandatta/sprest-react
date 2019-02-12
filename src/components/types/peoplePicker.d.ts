@@ -1,4 +1,4 @@
-import { SP } from "gd-sprest";
+import { Types } from "gd-sprest";
 import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
 import { Component } from "react";
 
@@ -13,7 +13,7 @@ export class SPPeoplePicker extends Component<ISPPeoplePickerProps, ISPPeoplePic
 export interface ISPPeoplePickerProps {
     allowMultiple?: boolean;
     allowGroups?: boolean;
-    fieldValue?: Array<SP.Data.UserInfoItem> | Array<number>;
+    fieldValue?: Array<Types.SP.Data.UserInfoItem> | Array<number>;
     props?: IPeoplePickerProps;
     webUrl?: string;
 }

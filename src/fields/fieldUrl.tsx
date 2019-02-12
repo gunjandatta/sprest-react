@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SP, SPTypes } from "gd-sprest";
+import { SPTypes, Types } from "gd-sprest";
 import { Link } from "office-ui-fabric-react/lib/Link";
 import { TextField, ITextFieldProps } from "office-ui-fabric-react/lib/TextField";
 import { IFieldUrlProps, IFieldUrlState } from "./types";
@@ -19,7 +19,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         }
 
         // Get the default value
-        let defaultValue = this.getFieldValue() as SP.FieldUrlValue;
+        let defaultValue = this.getFieldValue() as Types.SP.FieldUrlValue;
 
         // Update the url properties
         let urlProps: ITextFieldProps = this.props.urlProps || {};
@@ -71,7 +71,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      */
     private onDescChanged = (value: string) => {
         // Get the value
-        let fieldValue: SP.FieldUrlValue = this.state.value || {} as SP.FieldUrlValue;
+        let fieldValue: Types.SP.FieldUrlValue = this.state.value || {} as any;
 
         // Set the description
         fieldValue.Description = value;
@@ -89,7 +89,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
      */
     private onUrlChanged = (value: string) => {
         // Get the value
-        let fieldValue: SP.FieldUrlValue = this.state.value || {} as SP.FieldUrlValue;
+        let fieldValue: Types.SP.FieldUrlValue = this.state.value || {} as any;
 
         // Set the url
         fieldValue.Url = value;

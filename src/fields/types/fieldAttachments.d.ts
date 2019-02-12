@@ -1,4 +1,4 @@
-import { Helper, SP } from "gd-sprest";
+import { Helper, Types } from "gd-sprest";
 import { Component } from "react";
 
 /**
@@ -55,7 +55,7 @@ export interface IFieldAttachmentsProps {
     listName: string;
 
     /** The existing attachment files. */
-    files?: any | SP.IAttachmentCollection;
+    files?: any | Types.SP.IAttachmentCollection;
 
     /** The attachments render event. */
     onAttachmentsRender?: (attachments: JSX.Element) => any;

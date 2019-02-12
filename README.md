@@ -2,7 +2,6 @@
 [![Downloads](https://img.shields.io/npm/dm/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 [![Total Downloads](https://img.shields.io/npm/dt/gd-sprest-react.svg)](https://www.npmjs.com/package/gd-sprest-react)
 [![Gitter Chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/gd-sprest/Lobby)
-[![bitHound Overall Score](https://www.bithound.io/github/gunjandatta/sprest-react/badges/score.svg)](https://www.bithound.io/github/gunjandatta/sprest-react)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/Dattabase)
 
 ## SharePoint React Library

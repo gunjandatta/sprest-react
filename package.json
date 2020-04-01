@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/gunjandatta/sprest-react#readme",
   "dependencies": {
-    "core-js": "^2.6.3",
-    "gd-sprest": "^4.6.7",
+    "core-js": "^3.6.4",
+    "gd-sprest": "^5.3.7",
     "office-ui-fabric-react": "^6.132.0"
   },
   "devDependencies": {

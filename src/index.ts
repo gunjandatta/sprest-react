@@ -1,10 +1,11 @@
-import "core-js/es6/map";
-import "core-js/es6/promise";
-import "core-js/es6/set";
+import "core-js/es/map";
+import "core-js/es/promise";
+import "core-js/es/set";
 import * as Components from "./components";
 import * as Fields from "./fields";
 import * as WebParts from "./webparts";
-export {
+export
+{
     Components,
     Fields,
     WebParts

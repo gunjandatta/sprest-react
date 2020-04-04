@@ -50,7 +50,7 @@ var FieldText = /** @class */ (function (_super) {
             props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.errorMessage;
             props.label = props.label || _this.state.fieldInfo.title;
             props.multiline = typeof (props.label) === "boolean" ? props.label : _this.state.fieldInfo.multiline;
-            props.onChanged = _this.onChange;
+            props.onChange = function (ev, value) { _this.onChange(value); };
             props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
             props.rows = props.rows ? props.rows : _this.state.fieldInfo.rows;
             props.value = _this.getFieldValue() || "";

@@ -59,7 +59,7 @@ var FieldNumber = /** @class */ (function (_super) {
             props.disabled = _this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             props.errorMessage = props.errorMessage ? props.errorMessage : _this.state.errorMessage;
             props.label = props.label ? props.label : _this.state.fieldInfo.title;
-            props.onChanged = _this.updateValue;
+            props.onChange = function (ev, value) { _this.updateValue(value); };
             props.required = typeof (props.required) === "boolean" ? props.required : _this.state.fieldInfo.required;
             props.value = _this.getValue() || "";
             props.errorMessage = _this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";

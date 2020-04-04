@@ -66,7 +66,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                         />
                         :
                         <SearchBox
-                            onChange={this.updateSearchFilter}
+                            onChange={(ev, value) => { this.updateSearchFilter(value); }}
                             onSearch={this.updateSearchFilter}
                         />
                 }
@@ -395,7 +395,7 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 if (this._filterText) {
                     // Filter the search terms
                     tags = this.state.searchTerms.filter((term: ITag) => {
-                        return term.key.indexOf(this._filterText) >= 0;
+                        return (term.key as string).indexOf(this._filterText) >= 0;
                     });
 
                     // Parse the tag list

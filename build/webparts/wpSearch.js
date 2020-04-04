@@ -383,6 +383,7 @@ var WebPartSearch = /** @class */ (function (_super) {
      * Render the component
      */
     WebPartSearch.prototype.render = function () {
+        var _this = this;
         // Ensure the component has been initialized
         if (this.state.items == null) {
             // Return a spinner
@@ -396,7 +397,7 @@ var WebPartSearch = /** @class */ (function (_super) {
                         noResultsFoundText: "No results were found"
                     } })
                 :
-                    React.createElement(SearchBox_1.SearchBox, { onChange: this.updateSearchFilter, onSearch: this.updateSearchFilter }),
+                    React.createElement(SearchBox_1.SearchBox, { onChange: function (ev, value) { _this.updateSearchFilter(value); }, onSearch: this.updateSearchFilter }),
             this.onRenderContainer(this.getItems())));
     };
     return WebPartSearch;

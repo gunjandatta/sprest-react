@@ -27,7 +27,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         urlProps.disabled = this.props.controlMode == SPTypes.ControlMode.Display;
         urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
         urlProps.label = urlProps.label || this.state.fieldInfo.title;
-        urlProps.onChanged = this.onUrlChanged;
+        urlProps.onChange = (ev, value) => { this.onUrlChanged(value); }
         urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : this.state.fieldInfo.required;
 
         // Update the description properties
@@ -36,7 +36,7 @@ export class FieldUrl extends BaseField<IFieldUrlProps, IFieldUrlState> {
         descProps.disabled = this.props.controlMode == SPTypes.ControlMode.Display;
         descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : this.state.errorMessage;
         descProps.errorMessage = this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
-        descProps.onChanged = this.onDescChanged;
+        descProps.onChange = (ev, value) => { this.onDescChanged(value); }
         descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
 
         // See if this is the display mode

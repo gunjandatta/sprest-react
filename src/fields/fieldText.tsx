@@ -24,7 +24,7 @@ export class FieldText extends BaseField<IFieldTextProps, IFieldTextState> {
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.errorMessage;
         props.label = props.label || this.state.fieldInfo.title;
         props.multiline = typeof (props.label) === "boolean" ? props.label : this.state.fieldInfo.multiline;
-        props.onChanged = this.onChange;
+        props.onChange = (ev, value) => { this.onChange(value); }
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.rows = props.rows ? props.rows : this.state.fieldInfo.rows;
         props.value = this.getFieldValue() || "";

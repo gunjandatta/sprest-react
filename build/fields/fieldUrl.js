@@ -52,7 +52,7 @@ var FieldUrl = /** @class */ (function (_super) {
             urlProps.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             urlProps.placeholder = urlProps.placeholder ? urlProps.placeholder : "Url";
             urlProps.label = urlProps.label || _this.state.fieldInfo.title;
-            urlProps.onChanged = _this.onUrlChanged;
+            urlProps.onChange = function (ev, value) { _this.onUrlChanged(value); };
             urlProps.required = typeof (urlProps.required) === "boolean" ? urlProps.required : _this.state.fieldInfo.required;
             // Update the description properties
             var descProps = _this.props.descProps || {};
@@ -60,7 +60,7 @@ var FieldUrl = /** @class */ (function (_super) {
             descProps.disabled = _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display;
             descProps.errorMessage = descProps.errorMessage ? descProps.errorMessage : _this.state.errorMessage;
             descProps.errorMessage = _this.state.showErrorMessage ? (urlProps.defaultValue ? "" : descProps.errorMessage) : "";
-            descProps.onChanged = _this.onDescChanged;
+            descProps.onChange = function (ev, value) { _this.onDescChanged(value); };
             descProps.placeholder = descProps.placeholder ? descProps.placeholder : "Description";
             // See if this is the display mode
             if (_this.state.fieldInfo.readOnly || _this.props.controlMode == gd_sprest_1.SPTypes.ControlMode.Display) {

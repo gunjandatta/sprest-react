@@ -33,7 +33,7 @@ export class FieldNumber extends BaseField<IFieldNumberProps, IFieldNumberState>
         props.disabled = this.state.fieldInfo.readOnly || this.props.controlMode == SPTypes.ControlMode.Display;
         props.errorMessage = props.errorMessage ? props.errorMessage : this.state.errorMessage;
         props.label = props.label ? props.label : this.state.fieldInfo.title;
-        props.onChanged = this.updateValue;
+        props.onChange = (ev, value) => { this.updateValue(value); }
         props.required = typeof (props.required) === "boolean" ? props.required : this.state.fieldInfo.required;
         props.value = this.getValue() || "";
         props.errorMessage = this.state.showErrorMessage ? (props.value ? "" : props.errorMessage) : "";

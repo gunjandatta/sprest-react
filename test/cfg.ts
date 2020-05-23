@@ -144,10 +144,10 @@ export const Configuration = Helper.SPConfig({
                 <property name="Description" type="string">A test for the gd-sprest-react library.</property>
                 <property name="ChromeType" type="chrometype">TitleOnly</property>
                 <property name="Content" type="string">
-                    &lt;script type="text/javascript" src="/sites/dev/siteassets/sprest-react/webparts.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="/sites/dev/siteassets/sprest-react/demo.js"&gt;&lt;/script&gt;
                     &lt;div id="wp-list"&gt;&lt;/div&gt;
                     &lt;div id="wp-listCfg" style="display:none"&gt;&lt;/div&gt;
-                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new DemoWebParts.List(); }, 'webparts.js');&lt;/script&gt;
+                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo(); }, 'demo.js');&lt;/script&gt;
                 </property>
             </properties>
         </data>

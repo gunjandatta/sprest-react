@@ -1,12 +1,13 @@
 {
   "name": "gd-sprest-react",
-  "version": "3.1.0",
+  "version": "3.1.2",
   "description": "SharePoint 2013/Online react components.",
   "main": "build/index.js",
   "typings": "src/typings.d.ts",
   "scripts": {
-    "all": "npm run build && npm run test",
+    "all": "npm run clean && npm run build && npm run test",
     "build": "tsc",
+    "clean": "node clean.js",
     "test": "webpack --mode development"
   },
   "repository": {

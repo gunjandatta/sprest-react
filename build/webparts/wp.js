@@ -7,7 +7,7 @@ var Fabric_1 = require("@fluentui/react/lib/Fabric");
 /**
  * Fabric Web Part
  */
-exports.FabricWebPart = function (props) {
+exports.FluidWebPart = function (props) {
     // The render display component
     var renderDisplay = function (wp) {
         var element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;

@@ -3,19 +3,19 @@ import { Helper } from "gd-sprest";
 /**
  * Fabric Web Part
  */
-export const FabricWebPart: (props: IFabricWebPartProps) => {};
+export const FluidWebPart: (props: IFluidWebPartProps) => {};
 
 /**
  * Fabric Web Part Information
  */
-export interface IFabricWebPartInfo {
+export interface IFluidWebPartInfo {
     cfg?: Helper.IWebPartCfg;
 }
 
 /**
  * Fabric Web Part Properties
  */
-export interface IFabricWebPartProps {
+export interface IFluidWebPartProps {
     cfgElementId?: string;
     displayElement?: React.ComponentClass<any>;
     editElement?: React.ComponentClass<any>;

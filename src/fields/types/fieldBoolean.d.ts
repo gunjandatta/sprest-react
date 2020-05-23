@@ -1,4 +1,4 @@
-import { ICheckboxProps } from "office-ui-fabric-react";
+import { ICheckboxProps } from "@fluentui/react/lib/Checkbox";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
 /**

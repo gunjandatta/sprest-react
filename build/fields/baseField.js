@@ -15,8 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Label_1 = require("office-ui-fabric-react/lib/Label");
-var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
+var Label_1 = require("@fluentui/react/lib/Label");
+var Spinner_1 = require("@fluentui/react/lib/Spinner");
 /**
  * Base Field
  * This is the base field class, inherited by all field types.

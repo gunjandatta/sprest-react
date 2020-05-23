@@ -13,16 +13,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
     protected _caml: string;
 
     /**
-     * Flag to cache the items
-     */
-    protected _cacheFl: boolean;
-
-    /**
-     * The number of seconds to refresh the data
-     */
-    protected _cacheTimeout: number;
-
-    /**
      * The key used for storing the data in cache.
      */
     protected _key: string;

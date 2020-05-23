@@ -1,5 +1,6 @@
 import { Types } from "gd-sprest";
-import { IPeoplePickerProps, IPersonaProps } from "office-ui-fabric-react";
+import { IPersonaProps } from "@fluentui/react/lib/Persona";
+import { IPeoplePickerProps } from "@fluentui/react/lib/Pickers";
 import { Component } from "react";
 
 /**

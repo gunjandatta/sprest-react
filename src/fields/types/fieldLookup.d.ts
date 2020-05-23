@@ -1,5 +1,5 @@
 import { Helper } from "gd-sprest";
-import { IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
+import { IDropdownOption, IDropdownProps } from "@fluentui/react/lib/Dropdown";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
 /**

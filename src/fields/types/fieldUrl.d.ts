@@ -1,5 +1,5 @@
 import { Types } from "gd-sprest";
-import { ITextFieldProps } from "office-ui-fabric-react";
+import { ITextFieldProps } from "@fluentui/react/lib/TextField";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
 /**

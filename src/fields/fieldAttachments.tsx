@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
-import { Link } from "office-ui-fabric-react/lib/Link";
-import { Spinner } from "office-ui-fabric-react/lib/Spinner";
+import { Link } from "@fluentui/react/lib/Link";
+import { Spinner } from "@fluentui/react/lib/Spinner";
 import {
     IAttachmentFile,
     IFieldAttachment, IFieldAttachmentsProps, IFieldAttachmentsState

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
+var Spinner_1 = require("@fluentui/react/lib/Spinner");
 /**
  * WebPart List
  */
@@ -34,10 +34,6 @@ var WebPartList = /** @class */ (function (_super) {
          * The CAML query
          */
         _this._caml = null;
-        /**
-         * Flag to cache the items
-         */
-        _this._cacheFl = false;
         /**
          * The key used for storing the data in cache.
          */
@@ -76,27 +72,6 @@ var WebPartList = /** @class */ (function (_super) {
          * Method to load the list data
          */
         _this.load = function () {
-            // See if we are loading the items from cache
-            if (_this._cacheFl) {
-                // See data from cache
-                var cache = sessionStorage.getItem(_this._key);
-                if (cache) {
-                    // Convert the items back to an object
-                    var items = cache ? gd_sprest_1.Helper.parse(cache) : null;
-                    items = items ? items.results : null;
-                    if (items) {
-                        // Check the last refresh
-                        var diff = Math.abs(((new Date(Date.now())).getTime() - _this.state.lastRefresh.getTime()) / 1000);
-                        if (diff < _this._cacheTimeout) {
-                            // Update the state and return
-                            _this.setState({ items: items });
-                            return;
-                        }
-                    }
-                    // Clear the storage
-                    sessionStorage.removeItem(_this._key);
-                }
-            }
             // See if we are using the CAML query
             if (_this._caml) {
                 _this.loadCAML();
@@ -123,11 +98,6 @@ var WebPartList = /** @class */ (function (_super) {
                         .getItemsByQuery(_this._caml)
                         // Execute the request
                         .execute(function (items) {
-                        // See if we are storing the items in cache
-                        if (_this._cacheFl) {
-                            // Save the items to cache
-                            sessionStorage.setItem(_this._key, items.stringify());
-                        }
                         // Load the data
                         _this.onLoadData(items);
                     });
@@ -142,11 +112,6 @@ var WebPartList = /** @class */ (function (_super) {
                     .getItemsByQuery(_this._caml)
                     // Execute the request
                     .execute(function (items) {
-                    // See if we are storing the items in cache
-                    if (_this._cacheFl) {
-                        // Save the items to cache
-                        sessionStorage.setItem(_this._key, items.stringify());
-                    }
                     // Load the data
                     _this.onLoadData(items);
                 });
@@ -166,11 +131,6 @@ var WebPartList = /** @class */ (function (_super) {
                 .query(_this._query)
                 // Execute the request
                 .execute(function (items) {
-                // See if we are storing the items in cache
-                if (_this._cacheFl) {
-                    // Save the items to cache
-                    sessionStorage.setItem(_this._key, items.stringify());
-                }
                 // Load the data
                 _this.onLoadData(items);
             });
@@ -233,8 +193,6 @@ var WebPartList = /** @class */ (function (_super) {
             lastRefresh: new Date(Date.now())
         };
         // Update the cache properties
-        _this._cacheFl = _this.props.cacheItemsFl ? true : false;
-        _this._cacheTimeout = _this.props.cacheTimeout > 0 ? _this.props.cacheTimeout : 300;
         _this._key = _this.props.cfg.WebPartId || "gd-sprest-items";
         // Set the default query to use ODATA
         _this._query = {

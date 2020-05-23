@@ -1,5 +1,6 @@
 import { Types } from "gd-sprest";
-import { ILabel, ILabelProps, TagPicker, IBasePicker, ITag, ITagPickerProps } from "office-ui-fabric-react";
+import { ILabel, ILabelProps } from "@fluentui/react/lib/Label";
+import { TagPicker, IBasePicker, ITag, ITagPickerProps } from "@fluentui/react/lib/Pickers";
 import {
     WebPartListCfg, IWebPartListCfgPanel,
     IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState

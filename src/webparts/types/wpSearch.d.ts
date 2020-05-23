@@ -1,4 +1,4 @@
-import { ITag } from "office-ui-fabric-react";
+import { ITag } from "@fluentui/react/lib/Pickers";
 import {
     WebPartList, IWebPartListItem, IWebPartListProps, IWebPartListState,
     IWebPartSearchCfg

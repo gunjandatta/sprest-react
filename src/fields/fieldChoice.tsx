@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Helper, SPTypes } from "gd-sprest";
-import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react/lib/Dropdown";
+import { Dropdown, IDropdownOption, IDropdownProps } from "@fluentui/react/lib/Dropdown";
 import { IFieldChoice, IFieldChoiceProps, IFieldChoiceState } from "./types";
 import { BaseField } from ".";
 

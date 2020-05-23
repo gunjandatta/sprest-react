@@ -25,8 +25,8 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Label_1 = require("office-ui-fabric-react/lib/Label");
-var Pickers_1 = require("office-ui-fabric-react/lib/Pickers");
+var Label_1 = require("@fluentui/react/lib/Label");
+var Pickers_1 = require("@fluentui/react/lib/Pickers");
 var _1 = require(".");
 /**
  * WebPart Field Configuration Panel

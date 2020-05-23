@@ -15,9 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Pickers_1 = require("office-ui-fabric-react/lib/Pickers");
-var SearchBox_1 = require("office-ui-fabric-react/lib/SearchBox");
-var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
+var Pickers_1 = require("@fluentui/react/lib/Pickers");
+var SearchBox_1 = require("@fluentui/react/lib/SearchBox");
+var Spinner_1 = require("@fluentui/react/lib/Spinner");
 var _1 = require(".");
 /**
  * WebPart Search
@@ -228,27 +228,6 @@ var WebPartSearch = /** @class */ (function (_super) {
         _this.load = function () {
             // Include the id field
             _this._query.Select.push("ID");
-            // See if we are loading the items from cache
-            if (_this._cacheFl) {
-                // See data from cache
-                var cache = sessionStorage.getItem(_this._key);
-                if (cache) {
-                    // Convert the items back to an object
-                    var items = cache ? gd_sprest_1.Helper.parse(cache) : null;
-                    items = items ? items.results : null;
-                    if (items) {
-                        // Check the last refresh
-                        var diff = Math.abs(((new Date(Date.now())).getTime() - _this.state.lastRefresh.getTime()) / 1000);
-                        if (diff < _this._cacheTimeout) {
-                            // Generate the mapper
-                            _this.generateMapper(items);
-                            return;
-                        }
-                    }
-                    // Clear the storage
-                    sessionStorage.removeItem(_this._key);
-                }
-            }
             // Ensure fields exist
             if (_this.props.cfg.Fields) {
                 // Parse the search fields
@@ -288,11 +267,6 @@ var WebPartSearch = /** @class */ (function (_super) {
                     .execute(function (items) {
                     // Ensure the items exist
                     if (items.existsFl) {
-                        // See if we are caching the results
-                        if (_this._cacheFl) {
-                            // Save the items to cache
-                            sessionStorage.setItem(_this._key, items.stringify());
-                        }
                         // Generate the mapper
                         _this.generateMapper(items.results);
                     }

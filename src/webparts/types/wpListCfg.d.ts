@@ -1,9 +1,7 @@
 import { Helper, Types } from "gd-sprest";
-import {
-    IDropdown, IDropdownOption,
-    PrimaryButton,
-    ITextField
-} from "office-ui-fabric-react";
+import { IDropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
+import { PrimaryButton } from "@fluentui/react/lib/Button";
+import { ITextField } from "@fluentui/react/lib/TextField";
 import { WebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState, IWebPartCfgPanel } from ".";
 
 /**

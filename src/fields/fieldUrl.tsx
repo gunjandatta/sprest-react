@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { Link } from "office-ui-fabric-react/lib/Link";
-import { TextField, ITextFieldProps } from "office-ui-fabric-react/lib/TextField";
+import { Link } from "@fluentui/react/lib/Link";
+import { TextField, ITextFieldProps } from "@fluentui/react/lib/TextField";
 import { IFieldUrlProps, IFieldUrlState } from "./types";
 import { BaseField } from ".";
 

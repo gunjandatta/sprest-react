@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
-import { Slider } from "office-ui-fabric-react/lib/Slider";
-import { TextField, ITextFieldProps } from "office-ui-fabric-react/lib/TextField";
+import { Slider } from "@fluentui/react/lib/Slider";
+import { TextField, ITextFieldProps } from "@fluentui/react/lib/TextField";
 import { IFieldNumberProps, IFieldNumberState } from "./types";
 import { BaseField } from ".";
 

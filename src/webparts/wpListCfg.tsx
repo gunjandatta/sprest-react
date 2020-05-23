@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Types, Web } from "gd-sprest";
-import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
-import { Dropdown, IDropdown, IDropdownOption } from "office-ui-fabric-react/lib/Dropdown";
-import { TextField, ITextField } from "office-ui-fabric-react/lib/TextField";
-import { Spinner } from "office-ui-fabric-react/lib/Spinner";
+import { PrimaryButton } from "@fluentui/react/lib/Button";
+import { Dropdown, IDropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
+import { TextField, ITextField } from "@fluentui/react/lib/TextField";
+import { Spinner } from "@fluentui/react/lib/Spinner";
 import { IWebPartListCfgPanel, IWebPartListCfg, IWebPartListCfgProps, IWebPartListCfgState } from "./types";
 import { WebPartCfgPanel } from ".";
 

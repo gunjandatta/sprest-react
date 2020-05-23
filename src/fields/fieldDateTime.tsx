@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes } from "gd-sprest";
-import { DatePicker, IDatePicker, DayOfWeek, IDatePickerProps } from "office-ui-fabric-react/lib/DatePicker";
-import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react/lib/Dropdown";
+import { DatePicker, IDatePicker, DayOfWeek, IDatePickerProps } from "@fluentui/react/lib/DatePicker";
+import { Dropdown, IDropdownOption, IDropdownProps } from "@fluentui/react/lib/Dropdown";
 import { DatePickerStrings } from "../common";
 import { IFieldDateTime, IFieldDateTimeProps, IFieldDateTimeState } from "./types";
 import { BaseField } from ".";

@@ -26,8 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var DatePicker_1 = require("office-ui-fabric-react/lib/DatePicker");
-var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
+var DatePicker_1 = require("@fluentui/react/lib/DatePicker");
+var Dropdown_1 = require("@fluentui/react/lib/Dropdown");
 var common_1 = require("../common");
 var _1 = require(".");
 /**

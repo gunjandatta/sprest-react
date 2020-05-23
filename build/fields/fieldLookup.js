@@ -26,8 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
-var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
+var Dropdown_1 = require("@fluentui/react/lib/Dropdown");
+var Spinner_1 = require("@fluentui/react/lib/Spinner");
 var _1 = require(".");
 /**
  * Lookup Field

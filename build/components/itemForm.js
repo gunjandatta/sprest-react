@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
+var Spinner_1 = require("@fluentui/react/lib/Spinner");
 var __1 = require("..");
 var _1 = require(".");
 /**
@@ -53,7 +53,6 @@ var ItemForm = /** @class */ (function (_super) {
             }
             // Create an instance of the list form
             gd_sprest_1.Helper.ListForm.create({
-                cacheKey: _this.props.cacheKey,
                 fields: fields,
                 item: _this.props.item,
                 itemId: _this.props.itemId,

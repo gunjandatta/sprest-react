@@ -15,10 +15,10 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Button_1 = require("office-ui-fabric-react/lib/Button");
-var Dropdown_1 = require("office-ui-fabric-react/lib/Dropdown");
-var TextField_1 = require("office-ui-fabric-react/lib/TextField");
-var Spinner_1 = require("office-ui-fabric-react/lib/Spinner");
+var Button_1 = require("@fluentui/react/lib/Button");
+var Dropdown_1 = require("@fluentui/react/lib/Dropdown");
+var TextField_1 = require("@fluentui/react/lib/TextField");
+var Spinner_1 = require("@fluentui/react/lib/Spinner");
 var _1 = require(".");
 /**
  * WebPart List Configuration Panel

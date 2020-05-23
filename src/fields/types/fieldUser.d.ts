@@ -1,5 +1,7 @@
 import { Helper } from "gd-sprest";
-import { IPersonaProps, ILabelProps, IPeoplePickerProps } from "office-ui-fabric-react";
+import { ILabelProps } from "@fluentui/react/lib/Label";
+import { IPersonaProps } from "@fluentui/react/lib/Persona";
+import { IPeoplePickerProps } from "@fluentui/react/lib/Pickers";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
 /**

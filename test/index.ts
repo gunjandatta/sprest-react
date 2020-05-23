@@ -1,4 +1,4 @@
-import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
+import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { WebParts } from "../src";
 import { Configuration } from "./cfg";
 import { ListWebpart } from "./wp";

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Helper, SPTypes, Types, Web } from "gd-sprest";
-import { TagPicker, ITag } from "office-ui-fabric-react/lib/Pickers";
-import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
-import { Spinner } from "office-ui-fabric-react/lib/Spinner";
+import { TagPicker, ITag } from "@fluentui/react/lib/Pickers";
+import { SearchBox } from "@fluentui/react/lib/SearchBox";
+import { Spinner } from "@fluentui/react/lib/Spinner";
 import { IWebPartSearchItem, IWebPartSearchProps, IWebPartSearchState } from "./types";
 import { WebPartList } from ".";
 
@@ -296,29 +296,6 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
         // Include the id field
         this._query.Select.push("ID");
 
-        // See if we are loading the items from cache
-        if (this._cacheFl) {
-            // See data from cache
-            let cache = sessionStorage.getItem(this._key);
-            if (cache) {
-                // Convert the items back to an object
-                let items = cache ? (Helper.parse(cache) as any) : null;
-                items = items ? items.results : null;
-                if (items) {
-                    // Check the last refresh
-                    let diff = Math.abs(((new Date(Date.now())).getTime() - this.state.lastRefresh.getTime()) / 1000);
-                    if (diff < this._cacheTimeout) {
-                        // Generate the mapper
-                        this.generateMapper(items as any);
-                        return;
-                    }
-                }
-
-                // Clear the storage
-                sessionStorage.removeItem(this._key);
-            }
-        }
-
         // Ensure fields exist
         if (this.props.cfg.Fields) {
             // Parse the search fields
@@ -360,12 +337,6 @@ export class WebPartSearch<Props extends IWebPartSearchProps = IWebPartSearchPro
                 .execute(items => {
                     // Ensure the items exist
                     if (items.existsFl) {
-                        // See if we are caching the results
-                        if (this._cacheFl) {
-                            // Save the items to cache
-                            sessionStorage.setItem(this._key, items.stringify());
-                        }
-
                         // Generate the mapper
                         this.generateMapper(items.results);
                     }

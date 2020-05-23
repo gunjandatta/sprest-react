@@ -28,9 +28,6 @@ export class ItemForm extends Component<IItemFormProps, IItemFormState> { }
  * Properties
  */
 export interface IItemFormProps {
-    /** If defined, the form data will be cached to the session storage. */
-    cacheKey?: string;
-
     /** The class name to apply to the item form element. */
     className?: string;
 

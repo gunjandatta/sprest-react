@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Label, ILabel } from "office-ui-fabric-react/lib/Label";
-import { TagPicker, IBasePicker, ITag, ITagPickerProps } from "office-ui-fabric-react/lib/Pickers";
+import { Label, ILabel } from "@fluentui/react/lib/Label";
+import { TagPicker, IBasePicker, ITag, ITagPickerProps } from "@fluentui/react/lib/Pickers";
 import { IWebPartFieldCfgPanel, IWebPartFieldCfgProps, IWebPartFieldCfgState } from "./types";
 import { WebPartListCfg } from ".";
 

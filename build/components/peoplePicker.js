@@ -26,7 +26,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Pickers_1 = require("office-ui-fabric-react/lib/Pickers");
+var Pickers_1 = require("@fluentui/react/lib/Pickers");
 /**
  * SharePoint People Picker
  */

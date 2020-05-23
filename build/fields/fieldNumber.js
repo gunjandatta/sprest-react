@@ -26,8 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Slider_1 = require("office-ui-fabric-react/lib/Slider");
-var TextField_1 = require("office-ui-fabric-react/lib/TextField");
+var Slider_1 = require("@fluentui/react/lib/Slider");
+var TextField_1 = require("@fluentui/react/lib/TextField");
 var _1 = require(".");
 /**
  * Number Field Types

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SPTypes, Types } from "gd-sprest";
-import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
-import { Panel, IPanel } from "office-ui-fabric-react/lib/Panel";
+import { PrimaryButton } from "@fluentui/react/lib/Button";
+import { Panel, IPanel } from "@fluentui/react/lib/Panel";
 import { Components, WebParts } from "../src";
 import { WebParts as WPTypes } from "../src/typings";
 
@@ -52,9 +52,6 @@ export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchPr
     constructor(props) {
         super(props);
 
-        // Enable caching
-        this._cacheFl = true;
-
         // Update the query
         this._query.Expand = ["AttachmentFiles", "TestLookup", "TestMultiLookup", "TestMultiUser", "TestUser"];
         this._query.OrderBy = ["Title"];
@@ -84,7 +81,6 @@ export class ListWebpart extends WebParts.WebPartSearch<WPTypes.IWebPartSearchPr
                             componentRef={panel => { this._panel = panel; }}>
                             <div className="">{this.state.errorMessage || ""}</div>
                             <Components.ItemForm
-                                cacheKey="SPReactDemoListForm"
                                 controlMode={this.state.controlMode}
                                 item={this.state.item}
                                 listName={this.props.cfg.ListName}

@@ -1,4 +1,5 @@
-import { IPivotItemProps, IRenderFunction, PivotLinkFormat, PivotLinkSize } from "office-ui-fabric-react";
+import { IPivotItemProps, PivotLinkFormat, PivotLinkSize } from "@fluentui/react/lib/Pivot";
+import { IRenderFunction } from "@fluentui/react/lib/Utilities";
 import { Component } from "react";
 import { IWebPartCfgProps } from ".";
 

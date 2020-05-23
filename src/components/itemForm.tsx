@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Helper, SPTypes } from "gd-sprest";
-import { Spinner, SpinnerSize } from "office-ui-fabric-react/lib/Spinner";
+import { Spinner, SpinnerSize } from "@fluentui/react/lib/Spinner";
 import { IItemFormProps, IItemFormState } from "./types";
 import { Fields } from "..";
 import { Field } from ".";
@@ -203,7 +203,6 @@ export class ItemForm extends React.Component<IItemFormProps, IItemFormState> {
 
         // Create an instance of the list form
         Helper.ListForm.create({
-            cacheKey: this.props.cacheKey,
             fields: fields,
             item: this.props.item,
             itemId: this.props.itemId,

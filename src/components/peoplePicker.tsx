@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ContextInfo, PeoplePicker, SPTypes, Types, Web } from "gd-sprest";
-import { NormalPeoplePicker, IPeoplePickerProps } from "office-ui-fabric-react/lib/Pickers";
-import { IPersonaProps } from "office-ui-fabric-react/lib/Persona";
+import { NormalPeoplePicker, IPeoplePickerProps } from "@fluentui/react/lib/Pickers";
+import { IPersonaProps } from "@fluentui/react/lib/Persona";
 import { ISPPeoplePickerProps, ISPPeoplePickerState } from "./types"
 
 /**

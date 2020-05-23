@@ -1,5 +1,6 @@
 import { Helper } from "gd-sprest";
-import { IDatePickerProps, IDropdownOption, IDropdownProps } from "office-ui-fabric-react";
+import { IDatePickerProps } from "@fluentui/react/lib/DatePicker";
+import { IDropdownOption, IDropdownProps } from "@fluentui/react/lib/Dropdown";
 import { BaseField, IBaseField, IBaseFieldProps, IBaseFieldState } from ".";
 
 /**

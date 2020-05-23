@@ -1,5 +1,5 @@
 import { Helper } from "gd-sprest";
-import { IPanel } from "office-ui-fabric-react";
+import { IPanel } from "@fluentui/react/lib/Panel";
 import { Component } from "react";
 
 /**

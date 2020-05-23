@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_dom_1 = require("react-dom");
 var gd_sprest_1 = require("gd-sprest");
-var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
+var Fabric_1 = require("@fluentui/react/lib/Fabric");
 /**
  * Fabric Web Part
  */

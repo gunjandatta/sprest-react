@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Helper } from "gd-sprest";
-import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
-import { Panel, IPanel } from "office-ui-fabric-react/lib/Panel";
+import { PrimaryButton } from "@fluentui/react/lib/Button";
+import { Panel, IPanel } from "@fluentui/react/lib/Panel";
 import { Page } from "../common";
 import { IWebPartCfgPanel, IWebPartCfgProps, IWebPartCfgState } from "./types";
 declare var SP;

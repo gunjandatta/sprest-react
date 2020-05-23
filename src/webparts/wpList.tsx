@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ContextInfo, Helper, Types, Web } from "gd-sprest";
-import { Spinner } from "office-ui-fabric-react/lib/Spinner";
+import { Spinner } from "@fluentui/react/lib/Spinner";
 import { IWebPartListItem, IWebPartListProps, IWebPartListState } from "./types";
 
 /**
@@ -15,11 +15,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * The CAML query
      */
     protected _caml: string = null;
-
-    /**
-     * Flag to cache the items
-     */
-    protected _cacheFl: boolean = false;
 
     /**
      * The number of seconds to refresh the data
@@ -50,8 +45,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
         } as State;
 
         // Update the cache properties
-        this._cacheFl = this.props.cacheItemsFl ? true : false;
-        this._cacheTimeout = this.props.cacheTimeout > 0 ? this.props.cacheTimeout : 300;
         this._key = this.props.cfg.WebPartId || "gd-sprest-items";
 
         // Set the default query to use ODATA
@@ -137,29 +130,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
      * Method to load the list data
      */
     protected load = () => {
-        // See if we are loading the items from cache
-        if (this._cacheFl) {
-            // See data from cache
-            let cache = sessionStorage.getItem(this._key);
-            if (cache) {
-                // Convert the items back to an object
-                let items = cache ? (Helper.parse(cache) as any) : null;
-                items = items ? items.results : null;
-                if (items) {
-                    // Check the last refresh
-                    let diff = Math.abs(((new Date(Date.now())).getTime() - this.state.lastRefresh.getTime()) / 1000);
-                    if (diff < this._cacheTimeout) {
-                        // Update the state and return
-                        this.setState({ items: items as any });
-                        return;
-                    }
-                }
-
-                // Clear the storage
-                sessionStorage.removeItem(this._key);
-            }
-        }
-
         // See if we are using the CAML query
         if (this._caml) { this.loadCAML(); }
         // Else, load using the ODATA query
@@ -183,12 +153,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                     .getItemsByQuery(this._caml)
                     // Execute the request
                     .execute(items => {
-                        // See if we are storing the items in cache
-                        if (this._cacheFl) {
-                            // Save the items to cache
-                            sessionStorage.setItem(this._key, items.stringify());
-                        }
-
                         // Load the data
                         this.onLoadData(items);
                     });
@@ -202,12 +166,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
                 .getItemsByQuery(this._caml)
                 // Execute the request
                 .execute(items => {
-                    // See if we are storing the items in cache
-                    if (this._cacheFl) {
-                        // Save the items to cache
-                        sessionStorage.setItem(this._key, items.stringify());
-                    }
-
                     // Load the data
                     this.onLoadData(items);
                 });
@@ -228,12 +186,6 @@ export class WebPartList<Props extends IWebPartListProps = IWebPartListProps, St
             .query(this._query)
             // Execute the request
             .execute((items) => {
-                // See if we are storing the items in cache
-                if (this._cacheFl) {
-                    // Save the items to cache
-                    sessionStorage.setItem(this._key, items.stringify());
-                }
-
                 // Load the data
                 this.onLoadData(items as any);
             });

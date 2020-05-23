@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Helper, SPTypes, Types } from "gd-sprest";
-import { Dropdown, IDropdownOption, IDropdownProps } from "office-ui-fabric-react/lib/Dropdown";
-import { Spinner } from "office-ui-fabric-react/lib/Spinner";
+import { Dropdown, IDropdownOption, IDropdownProps } from "@fluentui/react/lib/Dropdown";
+import { Spinner } from "@fluentui/react/lib/Spinner";
 import { IFieldManagedMetadata, IFieldManagedMetadataProps, IFieldManagedMetadataState } from "./types";
 import { BaseField } from ".";
 

@@ -14,8 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Button_1 = require("office-ui-fabric-react/lib/Button");
-var Panel_1 = require("office-ui-fabric-react/lib/Panel");
+var Button_1 = require("@fluentui/react/lib/Button");
+var Panel_1 = require("@fluentui/react/lib/Panel");
 var common_1 = require("../common");
 /**
  * Web Part Configuration Panel

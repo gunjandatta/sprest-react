@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Checkbox_1 = require("office-ui-fabric-react/lib/Checkbox");
+var Checkbox_1 = require("@fluentui/react/lib/Checkbox");
 var _1 = require(".");
 /**
  * WebPart Search Configuration Panel

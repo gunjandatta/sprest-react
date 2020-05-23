@@ -26,8 +26,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var gd_sprest_1 = require("gd-sprest");
-var Link_1 = require("office-ui-fabric-react/lib/Link");
-var TextField_1 = require("office-ui-fabric-react/lib/TextField");
+var Link_1 = require("@fluentui/react/lib/Link");
+var TextField_1 = require("@fluentui/react/lib/TextField");
 var _1 = require(".");
 /**
  * URL Field

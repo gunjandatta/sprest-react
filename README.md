@@ -5,4 +5,4 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/Dattabase)
 
 ## SharePoint React Library
-This library extends the [Office Fabric-UI React library](https://dev.office.com/fabric), to help create Office 365 components in SharePoint 2013/Online (Classic) environments. Reference the [React library](https://gunjandatta.github.io/extras/react) for information on this library, or [SharePoint REST Framework](https://gunjandatta.github.io) for a full overview of the framework.
+This library extends the [Office Fluent-UI React library](https://dev.office.com/fabric), to help create Office 365 components in SharePoint 2013/Online (Classic) environments. Reference the [React library](https://gunjandatta.github.io/extras/react) for information on this library, or [SharePoint REST Framework](https://gunjandatta.github.io) for a full overview of the framework.

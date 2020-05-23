@@ -20,7 +20,7 @@ export class Demo {
      */
     constructor() {
         // Create an instance of the list webpart
-        new WebParts.FluidWebPart({
+        new WebParts.FabricWebPart({
             cfgElementId: "wp-listCfg",
             displayElement: ListWebpart,
             editElement: WebParts.WebPartSearchCfg,
@@ -28,7 +28,7 @@ export class Demo {
         });
 
         // Create an instance of the webpart tabs
-        new WebParts.FluidWebPart({
+        new WebParts.FabricWebPart({
             cfgElementId: "wp-tabsCfg",
             displayElement: WebParts.WebPartTabs,
             targetElementId: "wp-tabs"

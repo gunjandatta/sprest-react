@@ -2,12 +2,12 @@ import * as React from "react";
 import { render } from "react-dom";
 import { Helper } from "gd-sprest";
 import { Fabric } from "@fluentui/react/lib/Fabric";
-import { IFluidWebPartProps } from "./types";
+import { IFabricWebPartProps } from "./types";
 
 /**
  * Fabric Web Part
  */
-export const FluidWebPart = (props: IFluidWebPartProps) => {
+export const FabricWebPart = (props: IFabricWebPartProps) => {
     // The render display component
     let renderDisplay = (wp: Helper.IWebPartInfo) => {
         let element = props.onRenderDisplayElement ? props.onRenderDisplayElement(wp) : null;
